@@ -491,32 +491,32 @@
     w_class = 4
     color = "#5e0808"
 
-    attack_self(mob/user)
-        var/turf/target = get_step(get_turf(user), user.dir)
-        if(!isturf(target))
-            to_chat(user, span_warning("You can't place a Nerve Master there!"))
-            return
-        if(!isfloorturf(target))
-            to_chat(user, span_warning("You can't place a Nerve Master there!"))
-            return
-        if(locate(/obj/structure/roguemachine/steward) in target)
-            to_chat(user, span_warning("There is already a Nerve Master here!"))
-            return
-        user.visible_message(span_notice("[user] begins assembling a Nerve Master."))
-        if(do_after(user, 20 SECONDS, TRUE, src))
-            var/obj/structure/roguemachine/steward/S = new /obj/structure/roguemachine/steward(target)
-            S.created_by_kit = TRUE
-            to_chat(user, span_notice("You finish assembling the Nerve Master!"))
-            del(src)
+//     attack_self(mob/user)
+//         var/turf/target = get_step(get_turf(user), user.dir)
+//         if(!isturf(target))
+//             to_chat(user, span_warning("You can't place a Nerve Master there!"))
+//             return
+//         if(!isfloorturf(target))
+//             to_chat(user, span_warning("You can't place a Nerve Master there!"))
+//             return
+//         if(locate(/obj/structure/roguemachine/steward) in target)
+//             to_chat(user, span_warning("There is already a Nerve Master here!"))
+//             return
+//         user.visible_message(span_notice("[user] begins assembling a Nerve Master."))
+//         if(do_after(user, 20 SECONDS, TRUE, src))
+//             var/obj/structure/roguemachine/steward/S = new /obj/structure/roguemachine/steward(target)
+//             S.created_by_kit = TRUE
+//             to_chat(user, span_notice("You finish assembling the Nerve Master!"))
+//             del(src)
 
-/obj/structure/roguemachine/steward/attack_right(mob/user)
-    if(!created_by_kit)
-        return
-    user.visible_message("<span class='notice'>[user] begins packing up the Nerve Master into a kit.</span>")
-    if(do_after(user, 50 SECONDS, TRUE, src))
-        new /obj/item/steward/nervemaster_kit(get_turf(src))
-        to_chat(user, "<span class='notice'>You finish packing up the Nerve Master!</span>")
-        del(src)
+// /obj/structure/roguemachine/steward/attack_right(mob/user)
+//     if(!created_by_kit)
+//         return
+//     user.visible_message("<span class='notice'>[user] begins packing up the Nerve Master into a kit.</span>")
+//     if(do_after(user, 50 SECONDS, TRUE, src))
+//         new /obj/item/steward/nervemaster_kit(get_turf(src))
+//         to_chat(user, "<span class='notice'>You finish packing up the Nerve Master!</span>")
+//         del(src)
 
 /datum/crafting_recipe/roguetown/structure/scomm/byos
 	name = "SCOMM - (rat, iron ingot, cog; EXPERT)"

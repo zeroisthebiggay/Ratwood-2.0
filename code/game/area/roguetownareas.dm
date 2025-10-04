@@ -166,10 +166,6 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 	warden_area = TRUE
 	threat_region = THREAT_REGION_AZURE_BASIN
 
-/area/rogue/outdoors/rtfield/BYOSisland
-	first_time_text = "Somewhere Far Away"
-	threat_region = THREAT_REGION_ROCKHILL_BASIN
-
 /area/rogue/outdoors/rtfield/rockhill
 	first_time_text = "Rockhill Basin"
 	threat_region = THREAT_REGION_ROCKHILL_BASIN
@@ -750,6 +746,7 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 	droning_sound_night = 'sound/music/area/sleeping.ogg'
 	soundenv = 17
 	converted_type = /area/rogue/indoors/shelter/town/roofs
+	first_time_text = null
 
 /area/rogue/outdoors/town/roofs/keep
 	name = "Keep Rooftops"

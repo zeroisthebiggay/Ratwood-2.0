@@ -19,6 +19,10 @@
 #define THREAT_REGION_ROCKHILL_WOODS_NORTH "Rockhill Murderwood North"
 #define THREAT_REGION_ROCKHILL_WOODS_SOUTH "Rockhill Murderwood South"
 #define THREAT_REGION_ROCKHILL_OUTER_GROVE "Rockhill Outer Grove"
+//deserttown versions
+#define THREAT_REGION_DESERT_NEAR "Al-Ashur Desert"
+#define THREAT_REGION_DESERT_DEEP "Al-Ashur Deep Desert"
+//
 #define LOWPOP_THRESHOLD 30 // When do we give highpop tick?
 // Subsystem meant to handle regional threat level
 
@@ -27,7 +31,7 @@ SUBSYSTEM_DEF(regionthreat)
 	wait = 15 MINUTES
 	flags = SS_KEEP_TIMING | SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME
-	// The first four regions are meant to be "tameable" for towner purposes
+	// The first four (now 2 or 3 since some were merged) regions are meant to be "tameable" for towner purposes
 	var/list/threat_regions = list(
 		new /datum/threat_region(
 			_region_name = THREAT_REGION_AZURE_BASIN,
@@ -133,8 +137,24 @@ SUBSYSTEM_DEF(regionthreat)
 			_fixed_ambush = FALSE,
 			_lowpop_tick = 1,
 			_highpop_tick = 1),
+	//////AL ASHURR!!!
+		new /datum/threat_region(
+			_region_name = THREAT_REGION_DESERT_NEAR,
+			_latent_ambush = DANGER_MODERATE_LIMIT,
+			_min_ambush = DANGER_SAFE_FLOOR,
+			_max_ambush = DANGER_DANGEROUS_LIMIT,
+			_fixed_ambush = FALSE,
+			_lowpop_tick = 1,
+			_highpop_tick = 1),
 
-
+		new /datum/threat_region(
+			_region_name = THREAT_REGION_DESERT_DEEP,
+			_latent_ambush = DANGER_DANGEROUS_LIMIT,
+			_min_ambush = DANGER_SAFE_FLOOR,
+			_max_ambush = DANGER_DIRE_LIMIT,
+			_fixed_ambush = FALSE,
+			_lowpop_tick = 1,
+			_highpop_tick = 1),
 	)
 
 /datum/controller/subsystem/regionthreat/fire(resumed)

@@ -269,6 +269,39 @@
 	. = ..()
 	icon_state = "saigahorn[rand(1, 3)]"
 
+/obj/structure/flora/roguegrass/bush/desertshrub
+	name = "treelet"
+	desc = ""
+	icon = 'icons/desert_town/flora.dmi'
+	icon_state = "bushshrub"
+	max_integrity = 100
+	debris = list(/obj/item/natural/fibers = 1, /obj/item/grown/log/tree/stick = 1, /obj/item/grown/log/tree/small = 1)
+
+
+/obj/structure/flora/roguetree/palm
+	name = "palm tree"
+	desc = "Scant, precious shade."
+	icon = 'icons/desert_town/bigpalm.dmi'
+	icon_state = "palm"
+	stump_type = /obj/structure/flora/roguetree/stump/burnt
+	pixel_x = -32
+
+// /obj/structure/flora/roguetree/palm/Initialize() //no alt sprites done yet
+// 	. = ..()
+// 	icon_state = "t[rand(1,4)]"
+
+/obj/structure/flora/roguetree/stump/palm
+	name = "tree stump"
+	desc = "Shade no more."
+	icon_state = "palmstump"
+	icon = 'icons/desert_town/bigpalm.dmi'
+	stump_type = null
+	pixel_x = -32
+
+// /obj/structure/flora/roguetree/palm/burnt/Initialize()
+// 	. = ..()
+// 	icon_state = "st[rand(1,2)]"
+
 //Stairs
 
 /obj/structure/stairs/desert
@@ -276,3 +309,90 @@
 	icon = 'icons/desert_town/sandstairs.dmi'
 	icon_state = "sandstairs"
 	max_integrity = 600
+
+
+
+// custom map generation?
+
+// \code\modules\roguetown\mapgen
+
+/obj/effect/landmark/mapGenerator/rogue/desert
+	mapGeneratorType = /datum/mapGenerator/desert
+	endTurfX = 400
+	endTurfY = 300
+	startTurfX = 1
+	startTurfY = 1
+
+
+/datum/mapGenerator/desert
+	modules = list(/datum/mapGeneratorModule/desertsand, /datum/mapGeneratorModule/desertgrass,/datum/mapGeneratorModule/desertroad, /datum/mapGeneratorModule/desertwater)
+
+
+/datum/mapGeneratorModule/desertsand
+	clusterCheckFlags = CLUSTER_CHECK_ALL
+	allowed_turfs = list(/turf/open/floor/rogue/dunes)
+	// excluded_turfs = list(/turf/open/floor/rogue/dirt/road)
+	spawnableAtoms = list(/obj/structure/flora/roguetree/palm = 1,
+							/obj/structure/flora/roguegrass/bush/desertshrub = 0.5,
+							/obj/structure/flora/roguegrass = 0.5,
+							/obj/structure/flora/roguetree/stump/log = 0.5,
+							/obj/structure/flora/ausbushes/ppflowers = 0.1,
+							/obj/structure/flora/ausbushes/ywflowers = 0.1,
+							/obj/item/natural/stone = 1,
+							/obj/item/natural/rock = 1,
+							/obj/item/magic/artifact = 0.2,
+							/obj/structure/leyline = 0.1,
+							/obj/structure/voidstoneobelisk = 0.1,
+							/obj/structure/flora/roguegrass/herb/manabloom = 0.1,
+							/obj/item/magic/manacrystal = 0.1,
+							/obj/structure/closet/dirthole/closed/loot = 0.5,
+							/obj/structure/flora/roguegrass/herb/random = 1,
+							/obj/effect/decal/remains/bear = 0.2,
+							/obj/effect/decal/remains/human = 0.3,)
+	// spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
+	// 					/turf/open/water/swamp=2,)
+	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
+
+
+/datum/mapGeneratorModule/desertgrass
+	clusterCheckFlags = CLUSTER_CHECK_ALL
+	allowed_turfs = list(/turf/open/floor/rogue/dirt, /turf/open/floor/rogue/desert_grass)
+	excluded_turfs = list(/turf/open/floor/rogue/dirt/road)
+	spawnableAtoms = list(/obj/structure/flora/roguetree/palm = 2,
+							/obj/structure/flora/roguegrass/bush/desertshrub = 2,
+							/obj/structure/flora/roguegrass = 3,
+							/obj/structure/flora/roguetree/stump/log = 0.5,
+							/obj/structure/flora/ausbushes/ppflowers = 0.1,
+							/obj/structure/flora/ausbushes/ywflowers = 0.1,
+							/obj/structure/flora/roguegrass/maneater = 1,
+							/obj/structure/flora/roguegrass/maneater/real/juvenile = 0.5,
+							/obj/item/natural/stone = 1,
+							/obj/item/natural/rock = 1,
+							/obj/item/magic/artifact = 0.2,
+							/obj/structure/leyline = 0.1,
+							/obj/structure/voidstoneobelisk = 0.1,
+							/obj/structure/flora/roguegrass/herb/manabloom = 0.1,
+							/obj/item/magic/manacrystal = 0.1,
+							/obj/structure/closet/dirthole/closed/loot = 0.5,
+							/obj/structure/flora/roguegrass/swampweed = 0.5,
+							/obj/structure/flora/roguegrass/herb/random = 2,
+							/obj/effect/decal/remains/bear = 0.5,
+							/obj/effect/decal/remains/human = 0.3,
+							/obj/structure/zizo_bane = 0.5,)
+	// spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
+	// 					/turf/open/water/swamp=2,)
+	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
+
+/datum/mapGeneratorModule/desertroad
+	clusterCheckFlags = CLUSTER_CHECK_DIFFERENT_ATOMS
+	allowed_turfs = list(/turf/open/floor/rogue/dirt/road)
+	spawnableAtoms = list(/obj/item/natural/stone = 2,/obj/item/grown/log/tree/stick = 1)
+	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
+
+/datum/mapGeneratorModule/desertwater
+	clusterCheckFlags = CLUSTER_CHECK_ALL
+	allowed_turfs = list(/turf/open/water/cleanshallow)
+	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
+	spawnableAtoms = list(	/obj/structure/flora/roguetree/stump/log = 1,
+							/obj/structure/flora/ausbushes/reedbush = 1,
+							/obj/structure/flora/roguegrass/water/reeds = 1,)

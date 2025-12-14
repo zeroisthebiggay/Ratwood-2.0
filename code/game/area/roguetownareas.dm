@@ -803,6 +803,10 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 	name = "Inner Dunes"
 	icon_state = "desert"
 	soundenv = 19
+	ambientsounds = AMB_MOUNTAIN
+	ambientnight = AMB_MOUNTAIN
+	spookysounds = SPOOKY_GEN
+	spookynight = SPOOKY_GEN
 	ambush_times = list("night")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
@@ -817,7 +821,7 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 	droning_sound_night = 'sound/music/area/desert/Iberia2.ogg'
 	deathsight_message = "somewhere in the dunes, next to towering walls"
 	warden_area = TRUE
-	threat_region = THREAT_REGION_AZURE_BASIN
+	threat_region = THREAT_REGION_DESERT_NEAR
 	
 /area/rogue/outdoors/desert/river
 	name = "river"
@@ -831,9 +835,9 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 	name = "Deep Dunes"
 	icon_state = "desertdeep"
 	warden_area = TRUE
-	ambientsounds = AMB_BOGDAY
-	ambientnight = AMB_BOGNIGHT
-	spookysounds = SPOOKY_FROG
+	ambientsounds = AMB_MOUNTAIN
+	ambientnight = AMB_MOUNTAIN
+	spookysounds = SPOOKY_GEN
 	spookynight = SPOOKY_GEN
 	first_time_text = "Deep Dunes"
 	droning_sound = 'sound/music/area/desert/Iberia1.ogg'
@@ -852,11 +856,11 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf_undead = 10,)
 	converted_type = /area/rogue/indoors/shelter/desertdeep
 	deathsight_message = "an empty, parched desert"
-	threat_region = THREAT_REGION_ROCKHILL_BOG_NORTH
+	threat_region = THREAT_REGION_DESERT_DEEP
 
 /area/rogue/indoors/shelter/desertdeep
 	name = "Deep Desert (shelter)"
-	icon_state = "bog"
+	icon_state = "desertdeep"
 	droning_sound = 'sound/music/area/desert/Iberia1.ogg'
 	droning_sound_dusk = 'sound/music/area/septimus.ogg'
 	droning_sound_night = 'sound/music/area/desert/Iberia2.ogg'

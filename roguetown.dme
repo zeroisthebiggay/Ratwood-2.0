@@ -2801,6 +2801,7 @@
 #include "modular\Creechers\code\trufflepig.dm"
 #include "modular\DesertTown\desertdummies.dm"
 #include "modular\DesertTown\desertfloor.dm"
+#include "modular\DesertTown\desertmapgen.dm"
 #include "modular\DesertTown\desertstuff.dm"
 #include "modular\DesertTown\desertwalls.dm"
 #include "modular\DesertTown\hyena.dm"

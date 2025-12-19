@@ -24,7 +24,7 @@
 		// /datum/job/roguetown/adventurer//Adventurers (Could rename which are 'foreigners but who cares)'
 		// /datum/job/roguetown/wretch,
 		// /datum/job/roguetown/bandit,
-		// /datum/job/roguetown/pilgrim, //well since they're foreigners... no need to change...
+		/datum/job/roguetown/pilgrim, //I have Nomads in the dtvillager.dm
 		// /datum/job/roguetown/trader,
 		// /datum/job/roguetown/assassin,
 

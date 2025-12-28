@@ -321,6 +321,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 
 // List of mono-class categories. Only here for standardisation sake, but can be added on if desired.
 #define CTAG_DUNGEONEER		"CAT_DUNGEONEER"
+#define CTAG_SLAVEMASTER	"CAT_SLAVEMASTER"
 
 #define CTAG_BISHOP			"CAT_BISHOP"
 #define CTAG_MARTYR			"CAT_MARTYR"

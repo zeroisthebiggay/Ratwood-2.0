@@ -63,7 +63,7 @@
 		// /datum/job/roguetown/merchant,
 		// /datum/job/roguetown/niteman,
 		// /datum/job/roguetown/tailor,
-		/datum/job/roguetown/elder,
+		// /datum/job/roguetown/elder,
 		
 		/datum/job/roguetown/villager,
 		// /datum/job/roguetown/farmer,

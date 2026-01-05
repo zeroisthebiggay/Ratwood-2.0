@@ -105,3 +105,13 @@
 
 	bandit_job.total_positions = slots
 	bandit_job.spawn_positions = slots
+
+	//uhhh i copied this from RW1 hopign it would work :(
+// /datum/antagonist/bandit/proc/move_to_spawnpoint()
+	// if(SSmapping && SSmapping.config && SSmapping.config.map_name == "Al-Ashur" && GLOB.bandit_starts_desert && GLOB.bandit_starts_desert.len)
+	// 	owner.current.forceMove(pick(GLOB.bandit_starts_desert))
+	// else
+	// if(SSmapping && SSmapping.config && SSmapping.config.map_name == "Build Your Settlement" && GLOB.bandit_starts_byos && GLOB.bandit_starts_byos.len)
+	// 	owner.current.forceMove(pick(GLOB.bandit_starts_byos))
+	// else
+	// 	owner.current.forceMove(pick(GLOB.bandit_starts))owner.current.forceMove(pick(GLOB.bandit_starts))

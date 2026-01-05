@@ -37,13 +37,12 @@
 	backr = /obj/item/storage/backpack/rogue/satchel
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	id = /obj/item/scomstone/bad/garrison
-	job_bitflag = BITFLAG_GARRISON
 
 /datum/advclass/tribalguard/ranger
 	name = "Ranger"
 	tutorial = "You are a ranger, a hunter who volunteered to become a part of the wardens. You have great experience using bows."
 	outfit = /datum/outfit/job/roguetown/tribalguard/ranger
-	category_tags = list(CTAG_WARDEN)
+	category_tags = list(CTAG_TRIBALGUARD)
 	traits_applied = list(TRAIT_DODGEEXPERT)
 	subclass_stats = list(
 		STATKEY_PER = 2,//7 points weighted, same as MAA. They get temp buffs in the woods instead of in the city.

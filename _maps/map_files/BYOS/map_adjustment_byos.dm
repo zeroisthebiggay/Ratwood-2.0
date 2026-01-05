@@ -16,15 +16,12 @@
 		// /datum/job/roguetown/bandit = "Pirate", //couldn't get these to work
 		// /datum/antagonist/bandit = "Pirate",
 		// /datum/job/roguetown/orphan = "Stowaway",
+		// /datum/job/roguetown/beggar = "Stowaway",
 	)
 	tutorial_adjust = list(
 		/datum/job/roguetown/lord = "You have been sent by the queen to oversee the colony of New Kingsfield. CHANGE THIS LATER.",
 		// /datum/job/roguetown/bandit = "CHANGE THIS LATER - Yarh har plunder!" ,
-	// 	"At some point in your lyfe, you'd fallen to the wrong side of the PIRATESHIP!. Whether by butchery or finesse, you're known throughout the SEVEN SEAS. \
-	// Yet one of many faces in a tavern, hung up on a wall. A tale told by the locals. Now, you lyve in a PIRATES COVE with your fellows, to avoid an unpleasant end."
-		// /datum/antagonist/bandit = "CHANGE THIS LATER - Yarh har plunder!" ,
-	// 	"At some point in your lyfe, you'd fallen to the wrong side of the PIRATESHIP!. Whether by butchery or finesse, you're known throughout the SEVEN SEAS. \
-	// Yet one of many faces in a tavern, hung up on a wall. A tale told by the locals. Now, you lyve in a PIRATES COVE with your fellows, to avoid an unpleasant end."
+	// 	"At some point in your lyfe, you'd fallen to the wrong side of the PIRATESHIP!. Whether by butchery or finesse, you're known throughout the SEVEN SEAS. Yet one of many faces in a SALTY PORT tavern, hung up on a wall. A tale told by the locals. Now, you lyve in a PIRATES COVE with your fellows, to avoid an unpleasant end."
 		// /datum/job/roguetown/orphan = "CHANGE THIS LATER!",
 
 	)

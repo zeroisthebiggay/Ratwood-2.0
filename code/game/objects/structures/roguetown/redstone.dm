@@ -752,6 +752,7 @@ GLOBAL_LIST_EMPTY(redstone_objs)
 
 /obj/structure/lever/cursed
     name = "Cursed Lever"
+	// color = "e8a3a0" //this breaks for some reason
     desc = "A lever radiating a sinister aura. Only those of a certain allegiance may touch it."
     icon = 'icons/roguetown/misc/structure.dmi'
     icon_state = "leverwall0"
@@ -766,7 +767,7 @@ GLOBAL_LIST_EMPTY(redstone_objs)
         playsound(src, 'sound/magic/magic_nulled.ogg', 50)
         return
     . = ..()
-    icon_state = "leverwallred[toggled]"
+    icon_state = "leverwall[toggled]"
 
 /obj/structure/lever/cursed/onkick(mob/user)
     if(!istype(user, /mob/living))
@@ -777,4 +778,4 @@ GLOBAL_LIST_EMPTY(redstone_objs)
         playsound(src, 'sound/magic/magic_nulled.ogg', 50)
         return
     . = ..()
-    icon_state = "leverwallred[toggled]"
+    icon_state = "leverwall[toggled]"

@@ -1,5 +1,5 @@
 {
-    "map_name": "Build your Own Settlement",
+    "map_name": "Build Your Own Settlement",
     "map_path": "map_files/byos",
     "map_file": "byos.dmm",
 	"traits": [{"Up": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Down": true}],

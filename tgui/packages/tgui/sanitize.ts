@@ -80,10 +80,3 @@ export function sanitizeText(
     FORBID_ATTR: forbidAttr,
   });
 }
-
-export const sanitizeHTML = (input: string) => {
-  return DOMPurify.sanitize(input, {
-    ALLOWED_TAGS: defTag,
-    FORBID_ATTR: defAttr,
-  });
-};

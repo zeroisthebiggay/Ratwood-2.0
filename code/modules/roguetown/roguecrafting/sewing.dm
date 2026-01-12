@@ -1247,14 +1247,6 @@
 				/obj/item/natural/fibers = 1)
 	craftdiff = 3
 
-/datum/crafting_recipe/roguetown/sewing/paperparasol
-	name = "paper parasol"
-	result = list(/obj/item/rogueweapon/mace/parasol)
-	reqs = list(/obj/item/natural/cloth = 1,
-				/obj/item/natural/fibers = 2,
-				/obj/item/paper/scroll = 3)
-	craftdiff = 3
-
 /datum/crafting_recipe/roguetown/sewing/spellsingerrobes
 	name = "spellsinger robes"
 	result = list(/obj/item/clothing/suit/roguetown/shirt/robe/spellcasterrobe)
@@ -1329,12 +1321,3 @@
 		/obj/item/natural/hide/cured = 1
 	)
 	craftdiff = 5
-
-/datum/crafting_recipe/roguetown/sewing/fineparasol
-	name = "fine parasol"
-	result = list(/obj/item/rogueweapon/mace/parasol/noble)
-	reqs = list(/obj/item/natural/cloth = 2,
-				/obj/item/natural/silk = 4,
-				/obj/item/paper/scroll = 2)
-	craftdiff = 5
-	sellprice = 45

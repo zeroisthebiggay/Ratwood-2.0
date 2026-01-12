@@ -2,15 +2,15 @@
 	race = /datum/species/anthromorphsmall
 
 /datum/species/anthromorphsmall
-	name = "Critterkin"
+	name = "Verminvolk"
 	id = "anthromorphsmall"
-	desc = "<b>Critterkin</b><br>\
+	desc = "<b>Verminvolk</b><br>\
 	A race akin to wild-kin, except afflicted with significantly smaller stature. \
-	Sometimes referred to with the derogatory term 'verminfolk' by those that disrespect the small.<br>\
+	A bit less respected than their kin due to their closer resemblance to vermin, like the dichotomy between Kobold and Sissean.<br>\
 	(+1 Speed, Keen Ears Trait)"
 
 	expanded_desc = "A race akin to wild-kin, except afflicted with significantly smaller stature. \
-	Sometimes referred to with the derogatory term 'verminfolk' by those that disrespect the small."
+	A bit less respected than their kin due to their closer resemblance to vermin, like the dichotomy between Kobold and Sissean."
 	default_color = "444"
 	species_traits = list(
 		MUTCOLORS,
@@ -110,6 +110,8 @@
 		/datum/body_marking/small/bangs,
 		/datum/body_marking/small/bun,
 	)
+	stress_examine = TRUE
+	stress_desc = span_red("Filthy vermin...")
 	descriptor_choices = list(
 		/datum/descriptor_choice/trait,
 		/datum/descriptor_choice/stature,

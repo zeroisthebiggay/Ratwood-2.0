@@ -1,13 +1,14 @@
 /datum/language/orcish
 	name = "Orcish"
-	desc = "The harsh and powerful language of the orcish tribes, spoken with strength and authority. A tongue of warriors and conquerors."
+	desc = ""
 	speech_verb = "grumbles"
 	ask_verb = "asks"
 	exclaim_verb = "shouts"
 	key = "o"
+	flags = LANGUAGE_HIDE_ICON_IF_UNDERSTOOD | LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD
 	space_chance = 66
 	default_priority = 80
-	icon_state = "orc"
+	icon_state = "asse"
 	spans = list(SPAN_ORC)
 	syllables = list(
 "AA",

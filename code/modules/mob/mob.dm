@@ -1299,8 +1299,8 @@ GLOBAL_VAR_INIT(mobids, 1)
 ///Show the language menu for this mob
 /mob/verb/open_language_menu()
 	set name = "Open Language Menu"
-	set category = "Memory"
-	set hidden = 0
+	set category = "IC"
+	set hidden = 1
 
 	var/datum/language_holder/H = get_language_holder()
 	H.open_language_menu(usr)

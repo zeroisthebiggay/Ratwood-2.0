@@ -8,7 +8,7 @@
 	flags = LANGUAGE_HIDE_ICON_IF_UNDERSTOOD | LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD
 	space_chance = 80
 	default_priority = 90
-	icon_state = "beastial"
+	icon_state = "asse"
 	spans = list(SPAN_CANILUNZT)
 	syllables = list(
 		"rah","mur","ru","ke","grok","wen","tot","sch",

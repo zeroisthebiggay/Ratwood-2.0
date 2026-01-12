@@ -1,13 +1,14 @@
 /datum/language/elvish
 	name = "Elvish"
-	desc = "The elegant and flowing language of the elven people, known for its melodic quality and ancient heritage. Spoken with grace and precision."
+	desc = ""
 	speech_verb = "states"
 	ask_verb = "questions"
 	exclaim_verb = "shouts"
 	key = "e"
+	flags = LANGUAGE_HIDE_ICON_IF_UNDERSTOOD | LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD
 	space_chance = 66
 	default_priority = 80
-	icon_state = "elf"
+	icon_state = "asse"
 	spans = list(SPAN_ELF)
 	syllables = list(
 "ac",

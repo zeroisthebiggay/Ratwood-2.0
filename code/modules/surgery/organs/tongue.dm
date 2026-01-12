@@ -27,8 +27,7 @@
 		/datum/language/gronnic,
 		/datum/language/aavnic,
 		/datum/language/abyssal,
-		/datum/language/merar,
-		/datum/language/undead
+		/datum/language/merar
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
@@ -36,9 +35,6 @@
 	languages_possible = languages_possible_base
 
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
-	var/mob/living/carbon/speaker = source
-	if(HAS_TRAIT(speaker, TRAIT_COMICSANS))
-		speech_args[SPEECH_SPANS] |= SPAN_SANS
 
 /obj/item/organ/tongue/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
 	. = ..()
@@ -66,7 +62,7 @@
 	icon_state = "tongue-con"
 	say_mod = "crackles"
 	taste_sensitivity = 30 //It's dead, jim.
-
+	
 /obj/item/organ/tongue/lizard
 	name = "forked tongue"
 	desc = ""
@@ -282,10 +278,3 @@
 		message = lizard_hiSS.Replace(message, "Sss")
 	speech_args[SPEECH_MESSAGE] = message
 
-/obj/item/organ/tongue/harpy
-	name = "bird tongue"
-	desc = "Chirp chirp chirp chirp chirp!!"
-	icon_state = "tongue-con"
-	say_mod = "chirps"
-	taste_sensitivity = 5
-	modifies_speech = FALSE

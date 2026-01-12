@@ -67,4 +67,3 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/raise_undead_guard)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/convert_heretic)
 		wretch_select_bounty(H)
-	H.grant_language(/datum/language/undead)

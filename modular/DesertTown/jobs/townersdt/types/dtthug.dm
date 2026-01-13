@@ -1,13 +1,13 @@
-/datum/advclass/thug
+/datum/advclass/dtthug
 	name = "Thug"
 	tutorial = "Maybe you've never been the smartest person in town, but you've gotten this far - whether by finding odd-jobs around town carting shit for the soilers, being the meathead that somebody needs to stand behind them and look scary, or simply shaking down the weak with the veiled-or-otherwise threat of a clobbering. You might've had some run-ins with the law for petty crimes here and there, but you're tolerated enough to have a home here."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
-	outfit = /datum/outfit/job/roguetown/adventurer/thug
+	outfit = /datum/outfit/job/roguetown/adventurer/dtthug
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	traits_applied = list(TRAIT_HOMESTEAD_EXPERT)
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
-	category_tags = list(CTAG_TOWNER)
+	category_tags = list(CTAG_DTTOWNER)
 	subclass_languages = list(/datum/language/thievescant)
 	subclass_stats = list(
 		STATKEY_CON = 3,
@@ -34,7 +34,7 @@
 		/datum/skill/misc/stealing = SKILL_LEVEL_JOURNEYMAN,
 	)
 
-/datum/outfit/job/roguetown/adventurer/thug/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/adventurer/dtthug/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(H.mind)
 		var/weapons = list("Knuckles","Cudgel")

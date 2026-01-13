@@ -1,7 +1,7 @@
 /datum/job/roguetown/cataphract
 	title = "Cataphract"
 	flag = KNIGHT
-	department_flag = NOBLEMEN
+	department_flag = GARRISON
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3

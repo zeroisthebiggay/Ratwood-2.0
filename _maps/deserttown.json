@@ -3,7 +3,7 @@
     "map_path": "map_files/deserttown",
     "map_file": "deserttown.dmm",
     "other_z": [
-        "_maps/map_files/otherz/DesertMapAlt.json"],
+        "_maps/map_files/deserttown/DesertTownAlt.json"],
 	"traits": [{"Up": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Down": true}],
 	"minetype": null,
 	"space_empty_levels": 0,

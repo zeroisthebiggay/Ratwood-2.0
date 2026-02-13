@@ -178,14 +178,16 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(saymode && !saymode.handle_message(src, message, language))
 		return
 
-	message = treat_message(message) // unfortunately we still need this
+	message = treat_message(message, language) // unfortunately we still need this
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
 	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
 		message = uppertext(message)
 	if(!message)
 		return
 
-	if(!can_speak_vocal(message))
+	// Allow sign languages and other tongueless speech to bypass the vocal speech check
+	var/using_tongueless_speech = language && (initial(language.flags) & TONGUELESS_SPEECH)
+	if(!can_speak_vocal(message) && !using_tongueless_speech)
 		emote("custom", message = "makes a muffled noise")
 		to_chat(src, span_warning("I can't talk."))
 		return
@@ -618,8 +620,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				return LD
 	return null
 
-/mob/living/proc/treat_message(message)
-	if(HAS_TRAIT(src, TRAIT_ZOMBIE_SPEECH))
+/mob/living/proc/treat_message(message, language)
+	if(HAS_TRAIT(src, TRAIT_ZOMBIE_SPEECH) && !ispath(language, /datum/language/undead))
 		message = "[repeat_string(rand(1, 3), "U")][repeat_string(rand(1, 6), "H")]..."
 	else if(HAS_TRAIT(src, TRAIT_GARGLE_SPEECH))
 		message = vocal_cord_torn(message)

@@ -13,10 +13,10 @@
 	)
 	title_adjust = list(
 		/datum/job/roguetown/lord = list(display_title = "Viceroy", f_title = "Vicereine"),
-		// /datum/job/roguetown/bandit = "Pirate", //couldn't get these to work
+		/datum/job/roguetown/bandit = "Pirate", //couldn't get these to work
 		// /datum/antagonist/bandit = "Pirate",
-		// /datum/job/roguetown/orphan = "Stowaway",
-		// /datum/job/roguetown/beggar = "Stowaway",
+		/datum/job/roguetown/orphan = "Stowaway",
+		/datum/job/roguetown/beggar = "Stowaway",
 	)
 	tutorial_adjust = list(
 		/datum/job/roguetown/lord = "You have been sent by the queen to oversee the colony of New Kingsfield. CHANGE THIS LATER.",
@@ -38,14 +38,14 @@
 		// /datum/job/roguetown/lord,
 		// /datum/job/roguetown/knight,
 		// /datum/job/roguetown/hand,
-		// /datum/job/roguetown/suitor,
+		// /datum/job/roguetown/suitor, //long walks on the beach?
 		/datum/job/roguetown/steward,
 		// /datum/job/roguetown/consort,
 		// /datum/job/roguetown/captain,
 		/datum/job/roguetown/marshal, //nyeah fuck you
 
 		//church. 
-		/datum/job/roguetown/keeper,
+		/datum/job/roguetown/keeper, //no beast
 		// /datum/job/roguetown/monk,
 		// /datum/job/roguetown/templar,
 		// /datum/job/roguetown/priest,
@@ -89,9 +89,9 @@
 		// /datum/job/roguetown/lunatic,
 
 
-		//inquisition. Fine as is
+		//inquisition. Fine as is?
 
-		//mercenaries. Fine as is
+		//mercenaries. Fine as is?
 		
 		// /datum/job/roguetown/servant,
 		// /datum/job/roguetown/apothecary,

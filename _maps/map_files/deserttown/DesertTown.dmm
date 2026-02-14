@@ -17491,7 +17491,9 @@
 	},
 /area/rogue/under/deserttown/basement/keep)
 "jTA" = (
-/obj/machinery/light/rogue/torchholder/l,
+/obj/machinery/light/rogue/torchholder/l{
+	dir = 1
+	},
 /turf/open/transparent/openspace,
 /area/rogue/under/cave)
 "jTF" = (

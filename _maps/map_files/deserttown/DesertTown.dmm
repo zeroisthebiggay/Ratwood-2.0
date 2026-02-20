@@ -1006,7 +1006,7 @@
 /area/rogue/under/cave/skeletoncrypt)
 "aEC" = (
 /obj/structure/closet/crate/chest{
-	lockid = inquisition
+	lockid = "inquisition"
 	},
 /obj/item/natural/cloth,
 /obj/item/natural/cloth,
@@ -4473,9 +4473,7 @@
 	name = "tavern basement"
 	})
 "cvE" = (
-/obj/structure/closet/crate/chest{
-	lockid = inquisition
-	},
+/obj/structure/closet/crate/chest,
 /obj/item/reagent_containers/food/snacks/rogue/crackerscooked,
 /obj/item/reagent_containers/food/snacks/rogue/crackerscooked,
 /obj/item/reagent_containers/food/snacks/rogue/crackerscooked,
@@ -5330,6 +5328,9 @@
 	},
 /obj/item/rope/chain,
 /obj/item/clothing/cloak/stabard/guardhood,
+/obj/structure/fluff/walldeco/customflag/deserttown{
+	pixel_y = 32
+	},
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},
@@ -12586,6 +12587,7 @@
 /area/rogue/indoors/deserttown)
 "gJU" = (
 /obj/structure/fermentation_keg/sandpot/water,
+/obj/machinery/light/rogue/wallfire/candle,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},
@@ -13805,7 +13807,6 @@
 /area/rogue/under/cave)
 "hrG" = (
 /obj/structure/chair/wood/zybantine,
-/obj/machinery/light/rogue/torchholder/c,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},
@@ -14576,9 +14577,7 @@
 /turf/open/floor/rogue/carpet/lord/center,
 /area/rogue/indoors/deserttown/manor)
 "hRy" = (
-/obj/structure/closet/crate/chest{
-	lockid = inquisition
-	},
+/obj/structure/closet/crate/chest,
 /obj/item/rope/chain,
 /obj/item/rope/chain,
 /obj/item/rope/chain,
@@ -15615,6 +15614,17 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/inq/basement)
+"iyt" = (
+/obj/structure/closet/crate/chest{
+	lockid = "garrison"
+	},
+/obj/item/rope/chain,
+/obj/item/clothing/cloak/stabard/guardhood,
+/obj/machinery/light/rogue/wallfire/candle,
+/turf/open/floor/rogue/tile/brownbrick{
+	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
+	},
+/area/rogue/indoors/deserttown/garrison)
 "iyu" = (
 /obj/structure/fluff/railing/border{
 	dir = 8
@@ -16357,9 +16367,7 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/deserttown/bath)
 "iUH" = (
-/obj/structure/closet/crate/chest{
-	lockid = inquisition
-	},
+/obj/structure/closet/crate/chest,
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak,
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak,
 /obj/machinery/light/rogue/wallfire/candle,
@@ -18765,9 +18773,7 @@
 /turf/open/transparent/openspace,
 /area/rogue/indoors/deserttown/tavern)
 "kfI" = (
-/obj/structure/closet/crate/chest{
-	lockid = inquisition
-	},
+/obj/structure/closet/crate/chest,
 /obj/effect/decal/cobbleedge{
 	icon_state = "borderfall";
 	dir = 1
@@ -28255,9 +28261,7 @@
 /turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/outdoors/deserttown)
 "puA" = (
-/obj/structure/closet/crate/chest{
-	lockid = inquisition
-	},
+/obj/structure/closet/crate/chest,
 /obj/item/needle/thorn,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/inq/basement)
@@ -30113,10 +30117,8 @@
 /turf/open/floor/rogue/blocks/stonered,
 /area/rogue/under/town/basement)
 "qth" = (
-/obj/structure/bed/rogue/inn/wool,
-/obj/item/bedsheet/rogue/wool,
-/obj/machinery/light/rogue/wallfire/candle,
-/obj/structure/curtain/drab,
+/obj/structure/fermentation_keg/sandpot/water,
+/obj/machinery/light/rogue/torchholder/c,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},
@@ -31005,6 +31007,14 @@
 "qPL" = (
 /turf/open/floor/rogue/wood/nosmooth,
 /area/rogue/under/town/basement)
+"qPP" = (
+/obj/structure/fluff/walldeco/customflag/deserttown{
+	pixel_y = 32
+	},
+/turf/open/floor/rogue/tile/brownbrick{
+	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
+	},
+/area/rogue/indoors/deserttown/garrison)
 "qPT" = (
 /turf/closed/wall/mineral/rogue/wooddark/vertical,
 /area/rogue/outdoors/desert)
@@ -40968,7 +40978,6 @@
 "wfa" = (
 /obj/structure/bed/rogue/inn/wool,
 /obj/item/bedsheet/rogue/pelt,
-/obj/machinery/light/rogue/wallfire/candle,
 /obj/structure/curtain/drab,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
@@ -359118,7 +359127,7 @@ eUX
 eUX
 wgb
 jlj
-kMO
+qPP
 kMO
 kMO
 kMO
@@ -360326,7 +360335,7 @@ eUX
 eUX
 wgb
 jlj
-rKP
+iyt
 rmD
 mzd
 edM
@@ -360628,7 +360637,7 @@ ewC
 eUX
 wgb
 jlj
-qth
+jLg
 rSt
 rSt
 kMO
@@ -360935,7 +360944,7 @@ rSt
 osg
 kMO
 jlj
-hrG
+rni
 pez
 pez
 jlj
@@ -361237,7 +361246,7 @@ rSt
 csg
 kMO
 jlj
-rni
+hrG
 pez
 pez
 jlj
@@ -361539,7 +361548,7 @@ rSt
 qnv
 kMO
 jlj
-gJU
+qth
 pez
 pez
 jlj

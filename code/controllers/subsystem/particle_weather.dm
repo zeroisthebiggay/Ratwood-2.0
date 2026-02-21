@@ -108,6 +108,8 @@ SUBSYSTEM_DEF(ParticleWeather)
 
 /datum/controller/subsystem/ParticleWeather/proc/stopWeather()
 	for(var/obj/act_on as anything in GLOB.weather_act_upon_list)
+		if(!act_on)	//guard against nulls from deletions
+			continue
 		act_on.weather = FALSE
 	weatherEffect.particles = null
 	QDEL_NULL(runningWeather)

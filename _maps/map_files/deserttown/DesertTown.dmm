@@ -1793,7 +1793,7 @@
 	dir = 8;
 	lockdiff = 1;
 	locked = 1;
-	lockid = "inquisition";
+	lockid = "church";
 	name = "Church Dungeon"
 	},
 /turf/open/floor/rogue/blocks/stonered,
@@ -4385,7 +4385,7 @@
 "ctP" = (
 /obj/structure/mineral_door/bars{
 	locked = 1;
-	lockid = "inquisition";
+	lockid = "church";
 	name = "Holding Cell"
 	},
 /turf/open/floor/rogue/blocks/stonered/tiny,
@@ -9054,7 +9054,7 @@
 /obj/structure/mineral_door/wood/donjon{
 	dir = 1;
 	locked = 1;
-	lockid = "inquisition";
+	lockid = "church";
 	name = "Interoggation Room"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
@@ -16080,8 +16080,7 @@
 /area/rogue/under/cave)
 "iMt" = (
 /obj/structure/closet/crate/roguecloset{
-	keylock = 1;
-	lockid = "inquisition"
+	keylock = 1
 	},
 /obj/item/rope/chain,
 /obj/item/rope/chain,
@@ -23566,7 +23565,7 @@
 "mTX" = (
 /obj/structure/mineral_door/bars{
 	locked = 1;
-	lockid = "inquisition;"
+	lockid = "church";
 	name = "The Confessum"
 	},
 /turf/open/floor/rogue/blocks/stonered/tiny,
@@ -30271,8 +30270,7 @@
 /area/rogue/under/town/basement)
 "qyq" = (
 /obj/structure/mineral_door/wood/fancywood{
-	lockid = "inquisition;"
-	locked = 1;
+	lockid = "inquisition;"locked=1;
 	name = "Inquisitorial Manor"
 	},
 /turf/open/floor/rogue/tile/harem2{
@@ -39422,8 +39420,7 @@
 "vrP" = (
 /obj/structure/mineral_door/wood/donjon{
 	dir = 4;
-	lockid = "inquisition;"
-	locked = 1;
+	lockid = "inquisition;"locked=1;
 	name = "storage"
 	},
 /turf/open/floor/rogue/darkpath,
@@ -327133,9 +327130,9 @@ jBO
 rQr
 aEe
 wgb
-wgb
-wgb
-wgb
+svg
+pJD
+nET
 wgb
 wgb
 qzQ
@@ -327436,7 +327433,7 @@ qLJ
 aEe
 wgb
 wgb
-wgb
+qGl
 wgb
 wgb
 wgb
@@ -327738,7 +327735,7 @@ rQr
 aEe
 wgb
 wgb
-wyT
+cpc
 wgb
 wgb
 wgb
@@ -328039,8 +328036,8 @@ nlM
 rQr
 aEe
 wgb
-wgb
-wgb
+wyT
+cpc
 wgb
 wgb
 wgb
@@ -328342,7 +328339,7 @@ xLA
 aEe
 wgb
 wgb
-wgb
+qGl
 wgb
 wgb
 wgb
@@ -328643,9 +328640,9 @@ ljF
 rQr
 aEe
 wgb
-wgb
-wgb
-wgb
+beg
+pJD
+aWw
 wgb
 qzQ
 hwF
@@ -330772,6 +330769,7 @@ uyM
 mty
 rLz
 hwF
+svg
 pJD
 pJD
 pJD
@@ -330779,8 +330777,7 @@ pJD
 pJD
 pJD
 pJD
-pJD
-pJD
+nET
 aoQ
 aoQ
 gUs
@@ -336522,9 +336519,9 @@ wgb
 wgb
 aoQ
 olY
-wgb
-wgb
-wgb
+svg
+pJD
+nET
 pmf
 aoQ
 aoQ
@@ -337126,9 +337123,9 @@ wgb
 wgb
 aoQ
 olY
-wgb
-wgb
-wgb
+beg
+pJD
+aWw
 pmf
 aoQ
 aoQ

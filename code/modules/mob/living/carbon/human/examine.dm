@@ -657,15 +657,15 @@
 	//body temp
 	switch(bodytemperature)
 		if(0 to BODYTEMP_COLD_LEVEL_ONE_MAX)
-			msg += span_biginfo("<font color='#023E8A'> [m1] very cold</font>")
+			msg += span_biginfo("<font color='#023E8A'> [m1] shivering greatly</font>")
 		if(BODYTEMP_COLD_LEVEL_ONE_MAX to BODYTEMP_NORMAL_MIN)
-			msg += span_biginfo("<font color='#99e6ff'> [m1] cold</font>")
+			msg += span_biginfo("<font color='#99e6ff'> [m1] shivering</font>")
 		if(BODYTEMP_NORMAL_MIN to BODYTEMP_NORMAL_MAX)
 			msg += span_biginfo("<B>[m1] average temperature.</B>")
 		if(BODYTEMP_NORMAL_MAX to BODYTEMP_HEAT_LEVEL_ONE_MAX)
-			msg += span_biginfo("<font color='#ffff00'> [m1] Hot</font>")
+			msg += span_biginfo("<font color='#ffff00'> [m1] sweating</font>")
 		if(BODYTEMP_HEAT_LEVEL_ONE_MAX to 600)
-			msg += span_biginfo("<font color='#DC143C?'> [m1] very hot</font>")
+			msg += span_biginfo("<font color='#DC143C?'> [m1] sweating greatly</font>")
 
 	// Blood volume
 	switch(blood_volume)

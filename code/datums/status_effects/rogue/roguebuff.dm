@@ -609,6 +609,10 @@
 	desc = "A break by the fire restores some of my energy."
 	icon_state = "campfire"
 
+/atom/movable/screen/alert/status_effect/buff/fireplace_stamina
+	name = "Warming Respite"
+	desc = "The warmth of a fire restores some of my energy."
+	icon_state = "fireplace"
 
 #define CAMPFIRE_BASE_FILTER "campfire_stamina"
 
@@ -634,11 +638,14 @@
 	if(!owner.cmode)
 		stamheal *= 2
 	owner.energy_add(stamheal)
-	if(owner.bodytemperature < BODYTEMP_NORMAL_MIN)	//Apply heat to player if below certain normal
-		owner.adjust_bodytemperature(10)
+	if(owner.bodytemperature < 300)	//Apply heat to player if below certain normal
+		owner.adjust_bodytemperature(5)
 
 /datum/status_effect/buff/campfire_stamina/on_remove()
 	owner.remove_filter(CAMPFIRE_BASE_FILTER)
+
+/datum/status_effect/buff/campfire_stamina/fireplace
+	alert_type = /atom/movable/screen/alert/status_effect/buff/fireplace_stamina
 
 /datum/status_effect/buff/campfire
 	id = "healing_campfire"

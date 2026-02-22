@@ -52,9 +52,9 @@
 /datum/particle_weather/heat_wave/weather_act(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.apply_weather_temperature(rand(5,10))
+		H.apply_weather_temperature(rand(3,5))
 	else
-		L.adjust_bodytemperature(rand(5,10))
+		L.adjust_bodytemperature(rand(3,5))
 /datum/particle_weather/heat_wave/tick()
 
 	if(!COOLDOWN_FINISHED(src, heat_ripple_spawn))

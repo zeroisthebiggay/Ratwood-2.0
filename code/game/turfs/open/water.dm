@@ -43,6 +43,7 @@
 	var/swim_skill = FALSE
 	nomouseover = FALSE
 	var/swimdir = FALSE
+	temperature = 200
 
 /turf/open/water/Initialize()
 	.  = ..()
@@ -216,7 +217,8 @@
 						if(AM.loc == src)
 							water_overlay.layer = ABOVE_MOB_LAYER
 							water_overlay.plane = GAME_PLANE_HIGHEST
-			if(L.bodytemperature > BODYTEMP_COLD_LEVEL_ONE_MAX + 10)	//swimming in water will cool you down and chill you.
+
+			if(temperature <= 250 && L.bodytemperature > BODYTEMP_COLD_LEVEL_ONE_MAX + 10)	//swimming in cold water will cool you down and chill you.
 				L.adjust_bodytemperature(-10)
 				L.update_health_hud()
 		if(!istype(L, /mob/living/carbon/human/species/skeleton))
@@ -302,7 +304,7 @@
 					C.update_inv_hands()
 				playsound(user, pick(wash), 100, FALSE)
 		if(L.bodytemperature > BODYTEMP_COLD_LEVEL_ONE_MAX + 50)	//washing yourself helps to cool you off.
-			L.adjust_bodytemperature(-50)
+			L.adjust_bodytemperature(-75)
 			L.update_health_hud()
 		return
 	..()
@@ -380,6 +382,7 @@
 	water_color = "#FFFFFF"
 	slowdown = 3
 	water_reagent = /datum/reagent/water/bathwater
+	temperature = 300
 
 /turf/open/water/bath/Initialize()
 	.  = ..()
@@ -395,6 +398,7 @@
 	slowdown = 3
 	wash_in = FALSE
 	water_reagent = /datum/reagent/water/gross/sewage
+	temperature = 300
 
 /turf/open/water/sewer/Initialize()
 	icon_state = "paving"
@@ -411,6 +415,7 @@
 	slowdown = 3
 	wash_in = TRUE
 	water_reagent = /datum/reagent/water/gross
+	temperature = 275
 
 /turf/open/water/bloody
 	name = "blood"
@@ -422,6 +427,7 @@
 	slowdown = 3
 	wash_in = FALSE
 	water_reagent = /datum/reagent/blood/shitty
+	temperature = 300
 
 /turf/open/water/swamp/Initialize()
 	icon_state = "dirt"
@@ -646,6 +652,7 @@
 	var/heal_interval = 5 SECONDS
 	var/heal_amount = 20
 	var/last_heal = 0
+	temperature = 300
 
 /turf/open/water/ocean/deep/thermalwater/Initialize()
 	. = ..()

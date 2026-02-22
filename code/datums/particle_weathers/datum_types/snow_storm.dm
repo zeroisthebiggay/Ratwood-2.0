@@ -64,9 +64,9 @@
 /datum/particle_weather/snow_storm/weather_act(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.apply_weather_temperature(-rand(5,10))
+		H.apply_weather_temperature(-rand(3,5))
 	else
-		L.adjust_bodytemperature(-rand(5,10))
+		L.adjust_bodytemperature(-rand(3,5))
 
 /turf
 	var/turf_flags = TURF_EFFECT_AFFECTABLE

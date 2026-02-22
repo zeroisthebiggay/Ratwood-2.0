@@ -42,7 +42,7 @@
 		if(istype(H))
 			H.visible_message("<span class='info'>[H] warms [user.p_their()] hand over the fire.</span>")
 
-			if(do_after(H, 15, target = src))
+			if(do_after(H, 15, target = src) && H.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT - 75)
 				H.adjust_bodytemperature(75)
 				H.update_health_hud()
 		return TRUE //fires that are on always have this interaction with lmb unless its a torch
@@ -153,6 +153,7 @@
 	no_refuel = TRUE
 	crossfire = FALSE
 	healing_range = 2
+	stamina_status_effect = /datum/status_effect/buff/campfire_stamina/fireplace
 
 /obj/machinery/light/rogue/campfire/fireplace/attack_right(mob/user)
 	if(isliving(user) && on)
@@ -171,9 +172,13 @@
 	if(istype(H))
 		H.visible_message("<span class='info'>[H] warms [user.p_their()] hand over the fire.</span>")
 
-		if(do_after(H, 15, target = src))
+		if(do_after(H, 15, target = src) && H.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT - 75)
 			H.adjust_bodytemperature(75)
 	return TRUE //fires that are on always have this interaction with lmb unless its a torch
+
+/obj/machinery/light/rogue/campfire/fireplace/inn
+	name = "grand fireplace"
+	healing_range = 6
 
 /obj/machinery/light/rogue/candle
 	name = "candles"
@@ -673,7 +678,7 @@
 			if(istype(H))
 				H.visible_message("<span class='info'>[H] warms [user.p_their()] hand over the fire.</span>")
 
-				if(do_after(H, 15, target = src))
+				if(do_after(H, 15, target = src) && H.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT - 75)
 					H.adjust_bodytemperature(75)
 					H.update_health_hud()
 			return TRUE //fires that are on always have this interaction with lmb unless its a torch
@@ -840,7 +845,7 @@
 	soundloop = /datum/looping_sound/fireloop
 	var/healing_range = 1
 	var/static/list/acceptable_beds = list(/obj/structure/bed, /obj/structure/flora/roguetree/stump, /obj/item/bedsheet)
-
+	var/datum/status_effect/buff/stamina_status_effect = /datum/status_effect/buff/campfire_stamina
 /obj/machinery/light/rogue/campfire/process()
 	..()
 	if(isopenturf(loc))
@@ -854,9 +859,9 @@
 			var/distance = get_dist(src, human)
 			if(distance > healing_range || human.construct)
 				continue
-			if(!human.has_status_effect(/datum/status_effect/buff/campfire_stamina))
+			if(!human.has_status_effect(stamina_status_effect))
 				to_chat(human, span_info("The warmth of the fire comforts me, affording me a short rest. I would need to lie down on a bed to get a better rest."))
-			human.apply_status_effect(/datum/status_effect/buff/campfire_stamina)
+			human.apply_status_effect(stamina_status_effect)
 			human.add_stress(/datum/stressevent/campfire)
 			if(human.resting && !human.cmode)
 				var/valid_bed = FALSE
@@ -888,8 +893,9 @@
 		var/mob/living/carbon/human/H = user
 		if(ishuman(H))
 			H.visible_message("<span class='info'>[H] warms [user.p_their()] hand near the fire.</span>")
-			H.adjust_bodytemperature(75)
-			H.update_health_hud()
+			if(H.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT - 75)
+				H.adjust_bodytemperature(75)
+				H.update_health_hud()
 			var/first_go = TRUE
 			while(do_after(H, 105, target = src) && on)
 				// Astrata followers get enhanced fire healing

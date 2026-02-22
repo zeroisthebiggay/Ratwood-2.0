@@ -10854,9 +10854,9 @@
 /area/rogue/indoors/deserttown)
 "fKN" = (
 /obj/structure/mineral_door/wood{
-	name = MorticianChamber;
 	lockid = "church";
-	locked = 1
+	locked = 1;
+	name = "Mortuary Chamber"
 	},
 /turf/open/floor/rogue/blocks/stonered,
 /area/rogue/indoors/town/church/basement)
@@ -23422,9 +23422,9 @@
 /area/rogue/indoors/deserttown/manor)
 "mQR" = (
 /obj/structure/mineral_door/wood{
-	name = MorticianChamber;
 	lockid = "church";
-	locked = 1
+	locked = 1;
+	name = "Mortuary Chamber"
 	},
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/town/church/basement)

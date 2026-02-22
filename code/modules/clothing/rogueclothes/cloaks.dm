@@ -1075,6 +1075,14 @@
 	heat_protection = null
 	max_heat_protection_temperature = BODYTEMP_NORMAL_MAX
 
+/obj/item/clothing/cloak/lepoardcloak
+	name = "Leopard Cloak"
+	desc = "This Regal Cloak is made from the fur of a Lepoard. Worn by those of only the most wealth and prestige."
+	icon_state = "lepoardcape"
+	inhand_mod = FALSE
+	salvage_result = /obj/item/natural/fur
+	allowed_race = NON_DWARVEN_RACE_TYPES
+
 /obj/item/clothing/cloak/cape
 	name = "cape"
 	desc = "A beautiful, flowing cape. Too bad it tangles too much on the vegetation."

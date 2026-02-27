@@ -993,7 +993,7 @@
 	return TRUE
 
 /datum/sex_controller/proc/find_occupying_furniture()
-	if(bed)
+	if(bed || table_or_pillory)
 		return
 	if(target && isturf(target.loc)) // find target's bed/table
 		if(!(target.mobility_flags & MOBILITY_STAND)) // if target is lying down

@@ -42,6 +42,8 @@
 			pleasure_target = 0
 	user.sexcon.show_progress = !do_subtle
 	user.visible_message(user.sexcon.spanify_force("[user] [do_subtle ? pick("subtly","sneakily","covertly","stealthily","quietly") : user.sexcon.get_generic_force_adjective()] grinds over [target]'s [zone_text]..."), vision_distance = (do_subtle ? 1 : DEFAULT_MESSAGE_RANGE))
+	user.sexcon.suppress_moan = do_subtle
+	target.sexcon.suppress_moan = do_subtle
 	if(!do_subtle)
 		if(user.sexcon.force > SEX_FORCE_HIGH)
 			user.sexcon.outercourse_noise(target)
@@ -55,6 +57,8 @@
 	if(pleasure_target)
 		user.sexcon.perform_sex_action(target, 1, 0.5, TRUE)
 	target.sexcon.handle_passive_ejaculation()
+	user.sexcon.suppress_moan = FALSE
+	target.sexcon.suppress_moan = FALSE
 
 /datum/sex_action/grind_body/on_finish(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.visible_message(span_warning("[user] stops grinding against [target] ..."), vision_distance = 1)

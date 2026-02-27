@@ -49,6 +49,8 @@
 	var/last_moan = 0
 	var/last_pain = 0
 	var/aphrodisiac = 1 //1 by default, acts as a multiplier on arousal gain. If this is different than 1, set/freeze arousal is disabled.
+	/// When TRUE, try_do_moan does nothing (e.g. stealth handjob so receiver doesn't moan)
+	var/suppress_moan = FALSE
 	/// Which zones we are using in the current action.
 	var/using_zones = list()
 	/// Cache body parts used for accessibility check
@@ -616,6 +618,8 @@
 	user.apply_damage(damage, BRUTE, part)
 
 /datum/sex_controller/proc/try_do_moan(arousal_amt, pain_amt, applied_force, giving)
+	if(suppress_moan)
+		return
 	if(arousal_amt < 1.5)
 		return
 	if(user.stat != CONSCIOUS)
@@ -934,6 +938,8 @@
 	// Set vars
 	desire_stop = FALSE
 	current_action = action_type
+	suppress_moan = FALSE
+	target?.sexcon?.suppress_moan = FALSE
 	bed = null
 	target_on_bed = FALSE
 	table_or_pillory = null

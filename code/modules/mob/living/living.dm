@@ -2339,9 +2339,9 @@
 	if(stealthy)
 		to_chat(src, span_notice("I secretly offer [offered_item] to [offered_to]."))
 		to_chat(offered_to, span_notice("[offered_to] secretly offers [offered_item] to me..."))
-	else if(!isnull(offered_item_other) && istype(offered_item_other) && offered_item_other?.reagents?.maximum_volume <= 50) // if cup or bottle
-		addtimer(CALLBACK(src, PROC_REF(stop_offering_item)), 0.6 SECONDS)
+	else if(!isnull(offered_item_other) && istype(offered_item_other) && offered_item_other?.reagents?.maximum_volume <= 50) // if cup or bottle, clink drinks
 		playsound(src,'sound/misc/clink_drink.ogg', 100, TRUE)
+		addtimer(CALLBACK(src, PROC_REF(stop_offering_item)), 0.6 SECONDS)
 		addtimer(CALLBACK(offered_to, PROC_REF(stop_offering_item)), 0.6 SECONDS)
 		visible_message(
 			span_notice("[src] clinks [offered_item] with [offered_to]."), \

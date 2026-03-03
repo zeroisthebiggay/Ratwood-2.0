@@ -1,3 +1,4 @@
+
 /datum/sex_action/vaginal_sex
 	name = "Fuck their cunt"
 	stamina_cost = 1.0
@@ -100,8 +101,7 @@
 		user.try_impregnate(target)
 		user.virginity = FALSE
 		target.virginity = FALSE
-	
-		
+
 	if(user.sexcon.considered_limp())
 		user.sexcon.perform_sex_action(target, 1.2, 3, FALSE)
 	else

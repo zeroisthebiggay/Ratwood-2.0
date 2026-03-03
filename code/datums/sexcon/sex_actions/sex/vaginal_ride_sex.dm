@@ -1,3 +1,4 @@
+
 /datum/sex_action/vaginal_ride_sex
 	name = "Ride them"
 	stamina_cost = 1.0
@@ -47,7 +48,6 @@
 		target.try_impregnate(user)
 		target.virginity = FALSE
 		user.virginity = FALSE
-
 
 	if(target.sexcon.considered_limp())
 		target.sexcon.perform_sex_action(user, 1.2, 3, FALSE)

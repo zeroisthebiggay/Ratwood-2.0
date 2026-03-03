@@ -1,3 +1,4 @@
+
 /datum/sex_action/double_penetration_sex
 	name = "Fuck both their holes"
 	stamina_cost = 1.0
@@ -54,7 +55,7 @@
 		user.try_impregnate(target)
 		user.virginity = FALSE
 		target.virginity = FALSE
-	
+
 	if(user.sexcon.considered_limp())
 		user.sexcon.perform_sex_action(target, 1.4, 4, FALSE)
 	else

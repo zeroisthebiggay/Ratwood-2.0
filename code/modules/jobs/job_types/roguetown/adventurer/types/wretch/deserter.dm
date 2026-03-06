@@ -321,7 +321,7 @@
 				cloak = /obj/item/clothing/cloak/poachercloak //Maybe you are a former Warden-Forester?
 				beltl = /obj/item/quiver/javelin/steel
 				l_hand = /obj/item/clothing/head/roguetown/roguehood/poacher
-				to_chat(H, span_warning("You trained to fight in loose formations, fighting"))
+				to_chat(H, span_warning("You trained to fight in loose formations, harassing your foes from afar with throwning weapons and swift attacks."))
 			if("Bogguard/Cavalryman") //TRAIT_EQUESTRIAN, Expert Riding, Leech & Kneestinger Immunity. BOGGUARD LIVES!
 				ADD_TRAIT(H, TRAIT_EQUESTRIAN, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/misc/riding, SKILL_LEVEL_EXPERT, TRUE)

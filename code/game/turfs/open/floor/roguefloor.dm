@@ -14,7 +14,7 @@
 /turf/open/floor/rogue/burn_tile()
 	return //unburnable
 
-/turf/open/floor/rogue/Initialize()
+/turf/open/floor/rogue/Initialize(mapload)
 	if(smooth_icon)
 		icon = smooth_icon
 	. = ..()
@@ -33,7 +33,7 @@
 //	canSmoothWith = list(/turf/closed/mineral/rogue, /turf/closed/mineral, /turf/closed/wall/mineral/rogue/stonebrick, /turf/closed/wall/mineral/rogue/wood, /turf/closed/wall/mineral/rogue/wooddark, /turf/closed/wall/mineral/rogue/decowood, /turf/closed/wall/mineral/rogue/decostone, /turf/closed/wall/mineral/rogue/stone, /turf/closed/wall/mineral/rogue/stone/moss, /turf/open/floor/rogue/cobble, /turf/open/floor/rogue/dirt, /turf/open/floor/rogue/grass)
 	neighborlay = "dirtedge"
 
-/turf/open/floor/rogue/ruinedwood/Initialize()
+/turf/open/floor/rogue/ruinedwood/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -82,7 +82,7 @@
 	landsound = 'sound/foley/jumpland/grassland.wav'
 	slowdown = 0
 
-/turf/open/floor/rogue/twig/Initialize()
+/turf/open/floor/rogue/twig/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -154,14 +154,14 @@
 	dir = 8
 
 
-/turf/open/floor/rogue/rooftop/Initialize()
+/turf/open/floor/rogue/rooftop/Initialize(mapload)
 	. = ..()
 	icon_state = "roof"
 
 /turf/open/floor/rogue/rooftop/green
 	icon_state = "roofg-arw"
 
-/turf/open/floor/rogue/rooftop/green/Initialize()
+/turf/open/floor/rogue/rooftop/green/Initialize(mapload)
 	. = ..()
 	icon_state = "roofg"
 
@@ -177,7 +177,7 @@
 /turf/open/floor/rogue/rooftop/green/corner1
 	icon_state = "roofgc1-arw"
 
-/turf/open/floor/rogue/rooftop/green/corner1/Initialize()
+/turf/open/floor/rogue/rooftop/green/corner1/Initialize(mapload)
 	. = ..()
 	icon_state = "roofgc1"
 
@@ -221,7 +221,7 @@
 	canSmoothWith = list(/turf/open/floor/rogue/AzureSand,)
 	neighborlay = "grimshartedge"
 
-/turf/open/floor/rogue/AzureSand/Initialize()
+/turf/open/floor/rogue/AzureSand/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -244,7 +244,7 @@
 	neighborlay = "snowedge"
 	spread_chance = 0
 	temperature = 100
-/turf/open/floor/rogue/snow/Initialize()
+/turf/open/floor/rogue/snow/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -304,7 +304,7 @@
 	spread_chance = 0
 	temperature = 100
 
-/turf/open/floor/rogue/snowrough/Initialize()
+/turf/open/floor/rogue/snowrough/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -349,7 +349,7 @@
 	neighborlay = "grass_coldedge"
 	temperature = 160
 
-/turf/open/floor/rogue/grasscold/Initialize()
+/turf/open/floor/rogue/grasscold/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -376,7 +376,7 @@
 						/turf/open/floor/rogue/snowrough,)
 	neighborlay = "grass_purpleedge"
 
-/turf/open/floor/rogue/grasspurple/Initialize()
+/turf/open/floor/rogue/grasspurple/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -403,7 +403,7 @@
 						/turf/open/floor/rogue/snowrough,)
 	neighborlay = "grass_greyedge"
 
-/turf/open/floor/rogue/grassgrey/Initialize()
+/turf/open/floor/rogue/grassgrey/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -430,7 +430,7 @@
 						/turf/open/floor/rogue/snowrough,)
 	neighborlay = "grass_rededge"
 
-/turf/open/floor/rogue/grassred/Initialize()
+/turf/open/floor/rogue/grassred/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -455,7 +455,7 @@
 						/turf/open/floor/rogue/snowrough,)
 	neighborlay = "grass_yeledge"
 
-/turf/open/floor/rogue/grassyel/Initialize()
+/turf/open/floor/rogue/grassyel/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -487,7 +487,7 @@
 	spread_chance = 15
 	burn_power = 6
 
-/turf/open/floor/rogue/grass/Initialize()
+/turf/open/floor/rogue/grass/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 //	GLOB.dirt_list += src
 	. = ..()
@@ -635,7 +635,7 @@
 /turf/open/floor/rogue/dirt/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/dirt/Initialize()
+/turf/open/floor/rogue/dirt/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 	update_water()
@@ -853,7 +853,7 @@
 	canSmoothWith = list(/turf/open/floor/rogue, /turf/closed/mineral, /turf/closed/wall/mineral)
 	slowdown = 0
 
-/turf/open/floor/rogue/underworld/road/Initialize()
+/turf/open/floor/rogue/underworld/road/Initialize(mapload)
 	. = ..()
 	dir = rand(0,8)
 
@@ -873,7 +873,7 @@
 	neighborlay = "lavedge"
 	temperature = 500
 
-/turf/open/floor/rogue/volcanic/Initialize()
+/turf/open/floor/rogue/volcanic/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	. = ..()
 
@@ -904,7 +904,7 @@
 						/turf/open/floor/rogue/snow,
 						/turf/open/floor/rogue/snowrough,)
 
-/turf/open/floor/rogue/blocks/Initialize()
+/turf/open/floor/rogue/blocks/Initialize(mapload)
 	. = ..()
 	dir = pick(GLOB.cardinals)
 
@@ -1008,7 +1008,7 @@
 /turf/open/floor/rogue/hexstone/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/hexstone/Initialize()
+/turf/open/floor/rogue/hexstone/Initialize(mapload)
 	. = ..()
 	dir = pick(GLOB.cardinals)
 
@@ -1045,7 +1045,7 @@
 /turf/open/floor/rogue/churchmarble/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/churchmarble/Initialize()
+/turf/open/floor/rogue/churchmarble/Initialize(mapload)
 	. = ..()
 	dir = pick(GLOB.cardinals)
 
@@ -1080,7 +1080,7 @@
 /turf/open/floor/rogue/church/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/church/Initialize()
+/turf/open/floor/rogue/church/Initialize(mapload)
 	. = ..()
 	dir = pick(GLOB.cardinals)
 
@@ -1113,7 +1113,7 @@
 /turf/open/floor/rogue/churchbrick/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/churchbrick/Initialize()
+/turf/open/floor/rogue/churchbrick/Initialize(mapload)
 	. = ..()
 	dir = pick(GLOB.cardinals)
 
@@ -1146,7 +1146,7 @@
 /turf/open/floor/rogue/churchrough/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/churchrough/Initialize()
+/turf/open/floor/rogue/churchrough/Initialize(mapload)
 	. = ..()
 	dir = pick(GLOB.cardinals)
 //
@@ -1175,7 +1175,7 @@
 /turf/open/floor/rogue/herringbone/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/herringbone/Initialize()
+/turf/open/floor/rogue/herringbone/Initialize(mapload)
 	. = ..()
 	dir = pick(GLOB.cardinals)
 
@@ -1255,7 +1255,7 @@
 /turf/open/floor/rogue/cobble/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/cobble/Initialize()
+/turf/open/floor/rogue/cobble/Initialize(mapload)
 	. = ..()
 	icon_state = "cobblestone[rand(1,3)]"
 
@@ -1282,7 +1282,7 @@
 /turf/open/floor/rogue/cobble/mossy/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
-/turf/open/floor/rogue/cobble/mossy/Initialize()
+/turf/open/floor/rogue/cobble/mossy/Initialize(mapload)
 	. = ..()
 	icon_state = "mossystone[rand(1,3)]"
 
@@ -1491,7 +1491,7 @@
 						/turf/open/floor/rogue/snow,
 						/turf/open/floor/rogue/snowrough,)
 
-/turf/open/floor/rogue/concrete/Initialize()
+/turf/open/floor/rogue/concrete/Initialize(mapload)
 	. = ..()
 	icon_state = "concretefloor[rand(1,2)]"
 	dir = pick(GLOB.cardinals)
@@ -1526,7 +1526,7 @@
 						/turf/open/floor/rogue/snow,
 						/turf/open/floor/rogue/snowrough,)
 
-/turf/open/floor/rogue/metal/Initialize()
+/turf/open/floor/rogue/metal/Initialize(mapload)
 	. = ..()
 	dir = pick(GLOB.cardinals)
 
@@ -1564,7 +1564,7 @@
 /turf/open/floor/rogue/carpet/lord
 	icon_state = ""
 
-/turf/open/floor/rogue/carpet/lord/Initialize()
+/turf/open/floor/rogue/carpet/lord/Initialize(mapload)
 	. = ..()
 	if(GLOB.lordprimary)
 		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
@@ -1584,7 +1584,7 @@
 /turf/open/floor/rogue/carpet/lord/center
 	icon_state = "carpet_c"
 
-/turf/open/floor/rogue/carpet/lord/center/Initialize()
+/turf/open/floor/rogue/carpet/lord/center/Initialize(mapload)
 	dir = pick(GLOB.cardinals)
 	..()
 
@@ -1610,7 +1610,7 @@
 		if(istype(oldLoc, type))
 			playsound(AM, "plantcross", 100, TRUE)
 
-/turf/open/floor/rogue/shroud/Initialize()
+/turf/open/floor/rogue/shroud/Initialize(mapload)
 	. = ..()
 	icon_state = "treetop[rand(1,2)]"
 	dir = pick(GLOB.cardinals)

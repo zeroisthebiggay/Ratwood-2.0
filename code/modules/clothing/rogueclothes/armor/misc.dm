@@ -57,7 +57,7 @@
 	heat_protection = CHEST | GROIN
 	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
-/obj/item/clothing/suit/roguetown/armor/workervest/Initialize()
+/obj/item/clothing/suit/roguetown/armor/workervest/Initialize(mapload)
 	color = pick("#94b4b6", "#ba8f9e", "#bd978c", "#92bd8c", "#c7c981")
 	..()
 
@@ -88,6 +88,6 @@
 	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 
-/obj/item/clothing/suit/roguetown/armor/silkcoat/Initialize()
+/obj/item/clothing/suit/roguetown/armor/silkcoat/Initialize(mapload)
 	. = ..()
 	color = pick(CLOTHING_PURPLE, null,CLOTHING_GREEN, CLOTHING_RED)

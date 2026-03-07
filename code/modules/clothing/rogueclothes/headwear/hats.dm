@@ -437,7 +437,7 @@
 	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 // azure addition - random wizard hats
 
-/obj/item/clothing/head/roguetown/wizhat/random/Initialize()
+/obj/item/clothing/head/roguetown/wizhat/random/Initialize(mapload)
 	icon_state = pick("wizardhatred", "wizardhatyellow", "wizardhatgreen", "wizardhat")
 	..()
 

@@ -41,7 +41,7 @@
 	detail_color = primary
 	update_icon()
 
-/obj/item/clothing/suit/roguetown/armor/leather/vest/winterjacket/Initialize()
+/obj/item/clothing/suit/roguetown/armor/leather/vest/winterjacket/Initialize(mapload)
 	. = ..()
 	if(GLOB.lordprimary)
 		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
@@ -214,7 +214,7 @@
 			pic.color = get_detail_color()
 		add_overlay(pic)
 
-/obj/item/clothing/suit/roguetown/armor/leather/heavy/freifechter/Initialize()
+/obj/item/clothing/suit/roguetown/armor/leather/heavy/freifechter/Initialize(mapload)
 	..()
 	update_icon()
 

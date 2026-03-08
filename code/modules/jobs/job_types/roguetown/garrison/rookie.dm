@@ -89,6 +89,7 @@
 		/obj/item/storage/belt/rogue/pouch,
 		/obj/item/rogueweapon/scabbard/sheath,
 		/obj/item/storage/keyring/guardcastle = 1,
+		/obj/item/rogueweapon/hammer/iron,
 		)
 	H.adjust_blindness(-3)
 	if(H.mind)
@@ -154,6 +155,7 @@
 		/obj/item/storage/belt/rogue/pouch,
 		/obj/item/rogueweapon/scabbard/sheath,
 		/obj/item/storage/keyring/guardcastle = 1,
+		/obj/item/rogueweapon/hammer/iron,
 		)
 	H.adjust_blindness(-3)
 	if(H.mind)

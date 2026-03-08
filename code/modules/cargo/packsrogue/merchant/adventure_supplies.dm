@@ -67,6 +67,13 @@
 					/obj/item/rogueweapon/scabbard/sword
 				)
 
+/datum/supply_pack/rogue/adventure_supplies/gwstrap
+	name = "Great Weapon Strap"
+	cost = 20
+	contains = list(
+					/obj/item/rogueweapon/scabbard/gwstrap
+				)
+
 /datum/supply_pack/rogue/adventure_supplies/ropes
 	name = "Ropes"
 	cost = 10

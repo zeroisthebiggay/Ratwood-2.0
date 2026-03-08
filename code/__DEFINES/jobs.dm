@@ -113,6 +113,7 @@
 #define GARRISON		(1<<1)
 
 #define GUARDSMAN	(1<<0)
+#define CITYGUARD	(1<<0)
 #define MANATARMS	(1<<1)
 #define DUNGEONEER	(1<<2)
 #define SQUIRE		(1<<3)

@@ -1,11 +1,11 @@
 /datum/job/roguetown/cityguard
 	title = "City Guard"
-	flag = GUARDSMAN
+	flag = CITYGUARD
 	department_flag = GARRISON
 	faction = "Station"
 	total_positions = 4
 	spawn_positions = 4
-
+	selection_color = JCOLOR_SOLDIER
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = ACCEPTED_RACES
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
@@ -18,7 +18,7 @@
 	whitelist_req = TRUE
 
 	outfit = /datum/outfit/job/roguetown/cityguard
-	advclass_cat_rolls = list(CTAG_WATCH = 20)
+	advclass_cat_rolls = list(CTAG_CITYGUARD = 20)
 
 	give_bank_account = 22
 	min_pq = 3
@@ -41,7 +41,7 @@
 /datum/outfit/job/roguetown/cityguard
 	neck = /obj/item/clothing/neck/roguetown/gorget
 	pants = /obj/item/clothing/under/roguetown/chainlegs
-	cloak = /obj/item/clothing/cloak/half/citywatch
+	cloak = /obj/item/clothing/cloak/citywatch
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/citywatch
 	head = /obj/item/clothing/head/roguetown/helmet/citywatch
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
@@ -65,14 +65,14 @@
 
 
 /datum/advclass/cityguard/watchman
-	name = "Cityguard"
+	name = "City Guard"
 	tutorial = "Responsible for the safety of the city and the enforcement of the law, \
 	you patrol the city streets, on the look out for crime and disorder. \
 	Armed with chains and a trusty beating stick, you are charged with catching \
 	thieves, vagrants and troublemakers, confiscating stolen times, and administering swift and orderly justice"
 	outfit = /datum/outfit/job/roguetown/cityguard/watchman
 
-	category_tags = list(CTAG_WATCH)
+	category_tags = list(CTAG_CITYGUARD)
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
 		STATKEY_CON = 1,

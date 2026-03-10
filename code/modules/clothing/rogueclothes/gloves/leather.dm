@@ -34,6 +34,7 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
+	nudist_approved = TRUE
 
 /obj/item/clothing/gloves/roguetown/fingerless/shadowgloves
 	name = "fingerless gloves"

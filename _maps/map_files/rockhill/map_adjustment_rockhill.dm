@@ -24,7 +24,8 @@
 		// /datum/job/roguetown/archivist = "CHANGE THIS!! - Teach people skills, whether DIRECTLY or by writing SKILLBOOKS. You and the Veteran next door teach people shit."
 		/datum/job/roguetown/warden = "Having proven yourself through years of scouting, skirmishing and survival, you have been initiated into the Wardens - a small fraternity of ranger types who keep a vigil over the untamed wilderness. \
 				Trusted to venture deep into the uncivilised darkness south of lowtown, you act as a scout, soldier, sentinel and guide, performing long-range reconnaissance, culling dangerous wildlife, and protecting lowtown. \
-				The Crown is counting on you. Serve their will and survive."
+				While typically under less supervision than the Men at Arms or Cityguard stationed in hightown, you will be called upon as members of the garrison by the Marshal or the Crown. \
+				Serve their will as the first line of defence from threats beyond the borders of civilisation, keep the roads safe, and hold the vanguard fortress. The Crown is counting on you."
 	)
 	// species_adjust = list()
 	// sexes_adjust = list()

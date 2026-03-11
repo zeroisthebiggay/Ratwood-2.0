@@ -1,51 +1,59 @@
-
 /obj/structure/roguetent
-	name = "tent door"
-	desc = "A door made of sturdy fabric stretched over wooden frames."
-	icon = 'icons/turf/roguewall.dmi'
-	icon_state = "tent_door1"
-	layer = TABLE_LAYER
-	density = TRUE
-	anchored = TRUE
-	opacity = TRUE
-	max_integrity = 100
-	var/base_state = "tent_door"
-	blade_dulling = DULLING_BASHCHOP
-	attacked_sound = list('sound/combat/hits/onwood/woodimpact (1).ogg','sound/combat/hits/onwood/woodimpact (2).ogg')
-	destroy_sound = 'sound/combat/hits/onwood/destroywalldoor.ogg'
+    name = "tent door"
+    desc = "A door made of sturdy fabric stretched over wooden frames. Shift-click to pack up the tent."
+    icon = 'icons/turf/roguewall.dmi'
+    icon_state = "tent_door1"
+    layer = TABLE_LAYER
+    density = TRUE
+    anchored = TRUE
+    opacity = TRUE
+    max_integrity = 100
+    var/base_state = "tent_door"
+    var/obj/item/tent_kit/parent_tent // NEW: Add this here to fix the "undefined field" error
+    blade_dulling = DULLING_BASHCHOP
+    attacked_sound = list('sound/combat/hits/onwood/woodimpact (1).ogg','sound/combat/hits/onwood/woodimpact (2).ogg')
+    destroy_sound = 'sound/combat/hits/onwood/destroywalldoor.ogg'
 
 /obj/structure/roguetent/Initialize(mapload)
-	update_icon()
-	..()
+    update_icon()
+    ..()
+
+// NEW: Add the Shift-Click interaction so you can dismantle from the door too
+/obj/structure/roguetent/ShiftClick(mob/user)
+    if(parent_tent && parent_tent.assembled)
+        if(user in range(1, src))
+            parent_tent.disassemble_tent(user)
+            return TRUE
+    return ..()
 
 /obj/structure/roguetent/update_icon()
-	if(density)
-		icon_state = "[base_state][pick(1,2)]"
-	else
-		icon_state = "[base_state]0"
+    if(density)
+        icon_state = "[base_state][pick(1,2)]"
+    else
+        icon_state = "[base_state]0"
 
 /obj/structure/roguetent/proc/open_up(mob/user)
-	visible_message(span_info("[user] opens [src]."))
-	playsound(src, 'sound/foley/equip/rummaging-02.ogg', 100, FALSE)
-	density = FALSE
-	opacity = FALSE
-	update_icon()
+    visible_message(span_info("[user] opens [src]."))
+    playsound(src, 'sound/foley/equip/rummaging-02.ogg', 100, FALSE)
+    density = FALSE
+    opacity = FALSE
+    update_icon()
 
 /obj/structure/roguetent/proc/close_up(mob/user)
-	visible_message(span_info("[user] closes [src]."))
-	playsound(src, 'sound/foley/equip/rummaging-02.ogg', 100, FALSE)
-	density = TRUE
-	opacity = TRUE
-	update_icon()
+    visible_message(span_info("[user] closes [src]."))
+    playsound(src, 'sound/foley/equip/rummaging-02.ogg', 100, FALSE)
+    density = TRUE
+    opacity = TRUE
+    update_icon()
 
 /obj/structure/roguetent/attack_paw(mob/living/user)
-	attack_hand(user)
+    attack_hand(user)
 
 /obj/structure/roguetent/attack_hand(mob/living/user)
-	. = ..()
-	if(.)
-		return
-	if(!density)
-		close_up(user)
-	else
-		open_up(user)
+    . = ..()
+    if(.)
+        return
+    if(!density)
+        close_up(user)
+    else
+        open_up(user)

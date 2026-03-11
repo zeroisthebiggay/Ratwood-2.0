@@ -3,8 +3,8 @@
 	flag = BOGGUARD
 	department_flag = GARRISON
 	faction = "Station"
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 5
+	spawn_positions = 5
 	selection_color = JCOLOR_SOLDIER
 
 	allowed_sexes = list(MALE, FEMALE)
@@ -95,10 +95,10 @@
 
 	if(H.mind)
 		var/helmets = list(
-			"Path of the Antelope" 	= /obj/item/clothing/head/roguetown/helmet/bascinet/antler,
-			"Path of the Volf"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/wolf,
-			"Path of the Ram"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/goat,
-			"Path of the Bear"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/bear,
+			"Antlers of the Antelope" 	= /obj/item/clothing/head/roguetown/helmet/bascinet/antler,
+			"Skull of the Volf"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/wolf,
+			"Skull of the Ram"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/goat,
+			"Skull of the Bear"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/bear,
 			"None"
 		)
 		var/helmchoice = input(H, "Choose your Path.", "HELMET SELECTION") as anything in helmets
@@ -116,7 +116,7 @@
 
 /datum/advclass/warden/forester
 	name = "Forester"
-	tutorial = "You are a forester, a woodsman who volunteered to become a part of the wardens. You have servicable training in melee weapons."
+	tutorial = "You are a forester, a woodsman who volunteered to become a part of the wardens. You have experience in the axe and the spear."
 	outfit = /datum/outfit/job/roguetown/warden/forester
 	category_tags = list(CTAG_WARDEN)
 	traits_applied = list(TRAIT_MEDIUMARMOR)
@@ -171,10 +171,10 @@
 
 	if(H.mind)
 		var/helmets = list(
-			"Path of the Antelope" 	= /obj/item/clothing/head/roguetown/helmet/bascinet/antler,
-			"Path of the Volf"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/wolf,
-			"Path of the Ram"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/goat,
-			"Path of the Bear"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/bear,
+			"Antlers of the Antelope" 	= /obj/item/clothing/head/roguetown/helmet/bascinet/antler,
+			"Skull of the Volf"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/wolf,
+			"Skull of the Ram"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/goat,
+			"Skull of the Bear"		= /obj/item/clothing/head/roguetown/helmet/sallet/warden/bear,
 			"None"
 		)
 		var/helmchoice = input(H, "Choose your Path.", "HELMET SELECTION") as anything in helmets

@@ -10,6 +10,7 @@
 	// blacklist = list()
 	slot_adjust = list(
 		/datum/job/roguetown/manorguard = 4,
+		/datum/job/roguetown/warden = 3,
 	)
 	title_adjust = list(
 		/datum/job/roguetown/physician = list(display_title = "Court Physician"),
@@ -21,6 +22,9 @@
 		its protectors and its subjects. While primarily a resident of the keep in the manors medical wing, you also have access \
 		 to the local hightown clinic, where lesser licensed apothecaries ply their trade under your occasional passing tutelage.",
 		// /datum/job/roguetown/archivist = "CHANGE THIS!! - Teach people skills, whether DIRECTLY or by writing SKILLBOOKS. You and the Veteran next door teach people shit."
+		/datum/job/roguetown/warden = "Having proven yourself through years of scouting, skirmishing and survival, you have been initiated into the Wardens - a small fraternity of ranger types who keep a vigil over the untamed wilderness. \
+				Trusted to venture deep into the uncivilised darkness south of lowtown, you act as a scout, soldier, sentinel and guide, performing long-range reconnaissance, culling dangerous wildlife, and protecting lowtown. \
+				The Crown is counting on you. Serve their will and survive."
 	)
 	// species_adjust = list()
 	// sexes_adjust = list()

@@ -19,6 +19,11 @@
 	cost = 20
 	contains = list(/obj/item/storage/pill_bottle/dice/bakers_dozen)
 
+/datum/supply_pack/rogue/games/dwarven_dice
+	name = "Dwarven Dice"
+	cost = 20
+	contains = list(/obj/item/storage/pill_bottle/dice/dwarven)
+
 /datum/supply_pack/rogue/games/farkle
 	name = "Farkle Game Dice"
 	cost = 20

@@ -1,0 +1,20 @@
+/datum/supply_pack/rogue/games
+	group = "Games"
+	crate_name = "merchant guild's crate"
+	crate_type = /obj/structure/closet/crate/chest/merchant
+
+/datum/supply_pack/rogue/games/deck_of_cards
+	name = "Deck of Cards"
+	cost = 10
+	contains = list(/obj/item/toy/cards/deck)
+
+/datum/supply_pack/rogue/games/gaming_dice
+	name = "Bag of Gaming Dice"
+	cost = 15
+	no_name_quantity = TRUE
+	contains = list(/obj/item/storage/pill_bottle/dice = 1)
+
+/datum/supply_pack/rogue/games/farkle
+	name = "Farkle Game Dice"
+	cost = 20
+	contains = list(/obj/item/storage/pill_bottle/dice/farkle)

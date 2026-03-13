@@ -455,6 +455,10 @@
 			cloak = /obj/item/clothing/cloak/templar/xylix
 		if (/datum/patron/divine/pestra)
 			cloak = /obj/item/clothing/cloak/templar/pestra
+		if(/datum/patron/inhumen/zizo)
+			cloak = /obj/item/clothing/cloak/cape/crusader
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
 		else
 			cloak = /obj/item/clothing/cloak/cape/crusader
 	if(H.mind)
@@ -682,8 +686,7 @@
 		TRAIT_PACIFISM,
 		TRAIT_EMPATH,
 		TRAIT_CRITICAL_RESISTANCE,
-		TRAIT_STEELHEARTED,
-		TRAIT_RITUALIST
+		TRAIT_STEELHEARTED
 	)
 	subclass_stats = list(
 		STATKEY_CON = 5,
@@ -723,11 +726,9 @@
 	belt = /obj/item/storage/belt/rogue/leather
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 	backpack_contents = list(
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 2,
-		/obj/item/storage/belt/rogue/pouch/medicine = 1,
-		/obj/item/ritechalk = 1
+		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
+		/obj/item/storage/belt/rogue/pouch/medicine = 1
 		)
 	
 	if (H.mind)

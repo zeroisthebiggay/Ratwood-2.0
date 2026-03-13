@@ -22,9 +22,13 @@
 		return FALSE
 	if(!user.sexcon.can_use_penis())
 		return FALSE
+<<<<<<< HEAD
 	if(user.sexcon.has_chastity_penis())
 		return FALSE
 	if(!user.Adjacent(target))
+=======
+	if(!user.sexcon.Adjacent_Or_Closet(target))
+>>>>>>> 3b4d1319b6864db7f0565f8173dfcfd332cf3bf8
 		return FALSE
 	return TRUE
 

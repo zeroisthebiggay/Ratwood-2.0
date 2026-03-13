@@ -175,9 +175,9 @@
 	var/list/menu = list()
 	for(var/face in 1 to 6)
 		if(roll_counts[face] > 0)
-			menu += "Keep one [face] ([roll_counts[face]] left)"
+			menu += "[face]"
 
-	var/choice = input(active, "Select exactly one die to set aside this roll.", "Three's Away") as null|anything in menu
+	var/choice = input(active, "Select exactly one die to keep & set aside this roll.", "Three's Away") as null|anything in menu
 	if(!choice)
 		for(var/f in 1 to 6)
 			if(roll_counts[f] > 0)
@@ -186,9 +186,10 @@
 		return current_roll[1]
 
 	for(var/f in 1 to 6)
-		if(findtext(choice, "Keep one [f] "))
-			if(roll_counts[f] > 0)
-				return f
+		if(roll_counts[f] <= 0)
+			continue
+		if(choice == "[f]")
+			return f
 
 	return current_roll[1]
 
@@ -198,7 +199,8 @@
 	var/remaining_dice = 5
 	var/list/kept_values = list()
 	var/total_threes_rolled = 0
-	var/score_zeroed = FALSE
+	var/next_three_wipe_threshold = 3
+	var/score_total = 0
 
 	while(remaining_dice > 0)
 		playsound(game_bag, 'sound/items/cup_dice_roll.ogg', 75, TRUE)
@@ -228,24 +230,19 @@
 				next_turn()
 			return
 
-		if(total_threes_rolled >= 3 && !score_zeroed)
-			score_zeroed = TRUE
-			game_bag.visible_message(span_notice("[active] has rolled three 3s during the turn! Their score will be wiped to 0."))
+		while(total_threes_rolled >= next_three_wipe_threshold)
+			score_total = 0
+			next_three_wipe_threshold += 3
+			game_bag.visible_message(span_notice("[active] has rolled three more 3s during the turn! Their score is wiped to 0 again."))
 
 		var/kept_now = choose_kept_die(active, current_roll)
 		kept_values += kept_now
+		if(kept_now != 3)
+			score_total += kept_now
 		remaining_dice--
 		if(remaining_dice < 0)
 			remaining_dice = 0
-
-	var/score_total = 0
-	if(score_zeroed)
-		score_total = 0
-	else
-		for(var/v in kept_values)
-			if(v == 3)
-				continue
-			score_total += v
+		to_chat(active, span_notice("You keep [kept_now]. [remaining_dice] roll(s) left."))
 
 	scores[active] = score_total
 	rolled[active] = TRUE
@@ -324,6 +321,44 @@
 	for(var/mob/living/M in contenders)
 		names += "[M]"
 	game_bag.visible_message(span_notice("Tie for lowest score ([best_score]) between [jointext(names, ", ")]."))
+	tie_break(contenders)
+
+/datum/threes_away_game/proc/tie_break(list/mob/living/contenders)
+	if(!contenders || !contenders.len)
+		announce_ante_doubles()
+		game_bag.active_game = null
+		qdel(src)
+		return
+
+	var/list/mob/living/current_contenders = contenders.Copy()
+	while(current_contenders.len > 1)
+		var/list/names = list()
+		for(var/mob/living/M in current_contenders)
+			names += "[M]"
+		game_bag.visible_message(span_warning("Tie-break! [jointext(names, ", ")] roll once more. Lowest total wins."))
+
+		var/best_total = 999999
+		var/list/mob/living/new_contenders = list()
+
+		for(var/mob/living/M in current_contenders)
+			var/list/rolls = list(rand(1, 6), rand(1, 6), rand(1, 6), rand(1, 6), rand(1, 6))
+			var/roll_total = 0
+			for(var/v in rolls)
+				roll_total += v
+			game_bag.visible_message(span_notice("[M] tie-break rolls: [jointext(rolls, " - ")] (total [roll_total])."))
+
+			if(roll_total < best_total)
+				best_total = roll_total
+				new_contenders = list(M)
+			else if(roll_total == best_total)
+				new_contenders += M
+
+		current_contenders = new_contenders
+		if(current_contenders.len > 1)
+			game_bag.visible_message(span_notice("Tie-break is still tied at [best_total]. Rolling again."))
+
+	var/mob/living/champion = current_contenders[1]
+	game_bag.visible_message(span_notice("[champion] wins the tie-break with the lowest total!"))
 	announce_ante_doubles()
 	game_bag.active_game = null
 	qdel(src)
@@ -363,6 +398,13 @@
 - 3s are worth 0, 1s are valuable low dice.<br>
 - If you roll three 3s during your turn, your score is wiped to 0.<br>
 - If you roll four or more 3s on a roll, you bust and are disqualified.<br>
+<br>
+<b>Tie-breaking:</b><br>
+If round-end has a tie for lowest score, the tied players are told to roll once more.<br>
+Each tied player rolls a fresh set of 5d6.<br>
+The total of that set is summed.<br>
+Lowest total wins the tie-break.<br>
+If tie-break itself ties, it repeats automatically until one winner remains.<br>
 </div>"}
 
 /obj/item/storage/pill_bottle/dice/threes_away/proc/show_rules(mob/living/user)

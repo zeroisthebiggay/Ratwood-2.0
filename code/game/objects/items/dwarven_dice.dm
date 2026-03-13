@@ -340,6 +340,39 @@
 	for(var/mob/living/M in contenders)
 		names += "[M]"
 	game_bag.visible_message(span_notice("Tie at [best_total] between [jointext(names, ", ")]."))
+	tie_break(contenders)
+
+/datum/dwarven_dice_game/proc/tie_break(list/mob/living/contenders)
+	if(!contenders || !contenders.len)
+		game_bag.active_game = null
+		qdel(src)
+		return
+
+	var/list/mob/living/current_contenders = contenders.Copy()
+	while(current_contenders.len > 1)
+		var/list/names = list()
+		for(var/mob/living/M in current_contenders)
+			names += "[M]"
+		game_bag.visible_message(span_warning("Tie-break! [jointext(names, ", ")] each roll 1d20; highest total wins."))
+
+		var/best_total = -1
+		var/list/mob/living/new_contenders = list()
+		for(var/mob/living/M in current_contenders)
+			var/roll = rand(1, 20)
+			scores[M] += roll
+			game_bag.visible_message(span_notice("[M] tie-break rolls [roll] -> [scores[M]] total."))
+			if(scores[M] > best_total)
+				best_total = scores[M]
+				new_contenders = list(M)
+			else if(scores[M] == best_total)
+				new_contenders += M
+
+		current_contenders = new_contenders
+		if(current_contenders.len > 1)
+			game_bag.visible_message(span_notice("Tie-break is still tied at [best_total]. Rolling again."))
+
+	var/mob/living/champion = current_contenders[1]
+	game_bag.visible_message(span_notice("[champion] wins the tie-break with [scores[champion]]!"))
 	game_bag.active_game = null
 	qdel(src)
 

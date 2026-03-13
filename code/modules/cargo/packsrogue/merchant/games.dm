@@ -38,3 +38,8 @@
 	name = "Farkle Game Dice Bag"
 	cost = 20
 	contains = list(/obj/item/storage/pill_bottle/dice/farkle)
+
+/datum/supply_pack/rogue/games/gambling_kit_bundle
+	name = "Gambling Kit Bundle"
+	cost = 120
+	contains = list(/obj/item/storage/roguebag/gambling_kit_bundle)

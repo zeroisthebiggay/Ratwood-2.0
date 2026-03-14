@@ -92,7 +92,7 @@
 	..()
 	// head = /obj/item/clothing/head/roguetown/helmet/janissary
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/zyb
-	mask = /obj/item/clothing/head/roguetown/roguehood/shalal
+	mask = /obj/item/clothing/head/roguetown/roguehood/shalal/nomad
 	// shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/zyb
 	// pants = /obj/item/clothing/under/roguetown/trou/leather
@@ -160,7 +160,7 @@
 /datum/outfit/job/roguetown/janissary/footman/pre_equip(mob/living/carbon/human/H)
 	..()
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/zyb
-	mask = /obj/item/clothing/head/roguetown/roguehood/shalal
+	mask = /obj/item/clothing/head/roguetown/roguehood/shalal/nomad
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/zyb
 	pants = /obj/item/clothing/under/roguetown/trou/leather/pontifex/zyb
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/half/iron

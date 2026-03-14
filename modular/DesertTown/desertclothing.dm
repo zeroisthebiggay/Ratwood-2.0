@@ -11,44 +11,44 @@
 	mob_overlay_icon = 'modular/DesertTown/icons/clothing/onmob/armor.dmi'
 	icon_state = "mamaluke"
 	item_state = "mamaluke"
-	armor = ARMOR_MAILLE
-	smeltresult = /obj/item/ingot/steel
-	armor_class = ARMOR_CLASS_MEDIUM
+	// armor = ARMOR_MAILLE
+	// smeltresult = /obj/item/ingot/steel
+	// armor_class = ARMOR_CLASS_MEDIUM
 	smelt_bar_num = 2
 
 //I remember cataphracts were supposed to be knights and that this is supposed to be heavy armour.
 //Judging by the sprite it feels like the torso should be more heavily armoured but idk how to do that
 //Some good clean -all-over protection again. Like scalemail but all-over. That'll do it right?
+//Actually nah plate heavy armour should be heavier than that...
 /obj/item/clothing/suit/roguetown/armor/plate/cataphract
 	slot_flags = ITEM_SLOT_ARMOR
-	name = "Cataphract Armor"
+	name = "cataphract armor"
 	desc = "Metal scales interwoven intricately to form flexible protection!"
-	body_parts_covered = COVERAGE_FULL
-	allowed_sex = list(MALE, FEMALE)
 	icon = 'modular/DesertTown/icons/clothing/armor.dmi'
 	mob_overlay_icon = 'modular/DesertTown/icons/clothing/onmob/armor.dmi'
 	icon_state = "cataphract"
 	icon_state = "cataphract"
-	max_integrity = ARMOR_INT_CHEST_MEDIUM_STEEL
-	anvilrepair = /datum/skill/craft/armorsmithing
-	smeltresult = /obj/item/ingot/steel
+	body_parts_covered = COVERAGE_FULL
+	max_integrity = ARMOR_INT_CHEST_PLATE_STEEL
+	// anvilrepair = /datum/skill/craft/armorsmithing
+	// smeltresult = /obj/item/ingot/steel
+	// armor_class = ARMOR_CLASS_HEAVY
 	equip_delay_self = 4 SECONDS
-	armor_class = ARMOR_CLASS_HEAVY
 	smelt_bar_num = 2
 
-/obj/item/clothing/suit/roguetown/armor/chainmail/janissary
-	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
-	name = "Janissary Mail"
-	desc = "A longer steel maille that protects the legs, still doesn't protect against arrows though."
-	body_parts_covered = COVERAGE_FULL
-	icon_state = "atgervi_raider_mail"
-	item_state = "atgervi_raider_mail"
-	max_integrity = 220
-	armor = list("blunt" = 60, "slash" = 100, "stab" = 80, "bullet" = 20, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	anvilrepair = /datum/skill/craft/blacksmithing
-	smeltresult = /obj/item/ingot/steel
-	armor_class = ARMOR_CLASS_MEDIUM
-	w_class = WEIGHT_CLASS_BULKY
+// /obj/item/clothing/suit/roguetown/armor/chainmail/janissary //SPRITE ALREADY USED BY ATGERVI STUFF!
+// 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
+// 	name = "Janissary Mail"
+// 	desc = "A longer steel maille that protects the legs, still doesn't protect against arrows though."
+// 	body_parts_covered = COVERAGE_FULL
+// 	icon_state = "atgervi_raider_mail"
+// 	item_state = "atgervi_raider_mail"
+// 	max_integrity = 220
+// 	armor = ARMOR_CUIRASS
+// 	anvilrepair = /datum/skill/craft/blacksmithing
+// 	smeltresult = /obj/item/ingot/steel
+// 	armor_class = ARMOR_CLASS_MEDIUM
+// 	w_class = WEIGHT_CLASS_BULKY
 
 //armorhelmets
 
@@ -66,7 +66,7 @@
 	smeltresult = /obj/item/ingot/steel
 
 /obj/item/clothing/head/roguetown/helmet/mamalukehelm
-	name = "Mamalukes Helm"
+	name = "mamaluke Helm"
 	desc = "A helmet with too much style."
 	icon = 'modular/DesertTown/icons/clothing/head.dmi'
 	mob_overlay_icon = 'modular/DesertTown/icons/clothing/onmob/head.dmi'
@@ -75,15 +75,15 @@
 	body_parts_covered = HEAD|HAIR|EARS
 	flags_inv = HIDEEARS|HIDEHAIR
 
-/obj/item/clothing/head/roguetown/helmet/janissary
-	name = "Janissaries Helm"
-	desc = "A helmet with too much style."
-	icon_state = "atgervi_raider"
-	item_state = "atgervi_raider"
-	mob_overlay_icon = 'modular/DesertTown/icons/clothing/onmob/head32x48.dmi'
-	max_integrity = 250
-	body_parts_covered = HEAD|HAIR|EARS|NOSE
-	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACE|HIDEFACIALHAIR
+// /obj/item/clothing/head/roguetown/helmet/janissary
+// 	name = "Janissaries Helm"
+// 	desc = "A helmet with too much style."
+// 	icon_state = "atgervi_raider"
+// 	item_state = "atgervi_raider"
+// 	mob_overlay_icon = 'modular/DesertTown/icons/clothing/onmob/head32x48.dmi'
+// 	max_integrity = 250
+// 	body_parts_covered = HEAD|HAIR|EARS|NOSE
+// 	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACE|HIDEFACIALHAIR
 	
 ///VEST
 

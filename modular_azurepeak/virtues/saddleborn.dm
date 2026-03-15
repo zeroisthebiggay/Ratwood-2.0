@@ -133,6 +133,7 @@ GLOBAL_LIST_INIT(virtue_mount_choices_noble, (list(
 	
 	//spawn in our creature and set it up
 	var/mob/living/simple_animal/the_real_honse = new our_chosen_honse(user.loc)
+	the_real_honse.owner = user
 	the_real_honse.AddComponent(/datum/component/precious_creature, user)
 	user.saddleborn_mount = WEAKREF(the_real_honse)
 

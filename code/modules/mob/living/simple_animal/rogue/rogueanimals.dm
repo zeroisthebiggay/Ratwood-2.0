@@ -189,6 +189,16 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/proc/is_apple_pacified_mount()
 	return can_saddle && has_status_effect(/datum/status_effect/buff/mount_apple_healing)
 
+/mob/living/simple_animal/hostile/retaliate/rogue/CanAttack(atom/the_target)
+	if(owner && the_target == owner)
+		return FALSE
+	return ..()
+
+/mob/living/simple_animal/hostile/retaliate/rogue/GiveTarget(new_target)
+	if(owner && new_target == owner)
+		return FALSE
+	return ..()
+
 /mob/living/simple_animal/hostile/retaliate/rogue/tamed()
 	del_on_deaggro = 0
 	aggressive = 0
@@ -253,6 +263,8 @@
 		return 0
 	mob_timers["aggro_time"] = world.time
 	..()
+	if(owner && (owner in enemies))
+		enemies -= owner
 
 /mob/living/simple_animal/hostile/retaliate/rogue/attackby(obj/item/O, mob/user, params)
 	if(!stat && istype(O, /obj/item/reagent_containers/glass))

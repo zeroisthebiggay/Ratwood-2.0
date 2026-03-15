@@ -141,3 +141,12 @@
 			)
 
 	H.verbs |= /mob/proc/haltyell
+
+
+#define CLOTHING_CITYWATCH		"#557d8f"
+
+/obj/item/clothing/head/roguetown/helmet/kettle/citywatch
+	color = CLOTHING_CITYWATCH
+
+/obj/item/clothing/wrists/roguetown/bracers/citywatch
+	color = CLOTHING_CITYWATCH

@@ -34,7 +34,7 @@
 	gloves = /obj/item/clothing/gloves/roguetown/leather
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	belt = /obj/item/storage/belt/rogue/leather
-	head = /obj/item/clothing/head/roguetown/helmet/kettle
+	head = /obj/item/clothing/head/roguetown/helmet/kettle/citywatch
 	cloak = /obj/item/clothing/cloak/citywatch
 	id = /obj/item/scomstone/bad/garrison
 	job_bitflag = BITFLAG_GARRISON

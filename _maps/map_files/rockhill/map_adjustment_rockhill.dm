@@ -32,7 +32,7 @@
 		// /datum/job/roguetown/archivist = "CHANGE THIS!! - Teach people skills, whether DIRECTLY or by writing SKILLBOOKS. You and the Veteran next door teach people shit."
 		/datum/job/roguetown/warden = "Having proven yourself through years of scouting, skirmishing and survival in the vanguard, you have been initiated into the Wardens - an elite fraternity of ranger types who keep a vigil over the untamed wilderness. \
 				Trusted to venture deep into the uncivilised darkness south of lowtown, you act as a scout, soldier, sentinel and guide, performing long-range reconnaissance, culling dangerous wildlife, and protecting lowtown alongside the vanguard. \
-				While typically under less supervision than the Men at Arms or Cityguard stationed in hightown, you will be called upon as members of the garrison by the Marshal or the Crown. \
+				You are subordinate to the Master Warden, and may be called upon as members of the garrison by the Marshal and Crown. \
 				Serve their will as the first line of defence from threats beyond the borders of civilisation, keep the roads safe, and hold the vanguard fortress. The Crown is counting on you.",
 		/datum/job/roguetown/manorguard = "Having proven yourself loyal and capable, you are entrusted to defend the keep and enforce its will throughout the city and duchy. \
 				Trained regularly in combat and siege warfare, you deal with threats - both within and without. \

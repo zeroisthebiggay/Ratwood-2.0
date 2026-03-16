@@ -189,11 +189,6 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 	///our current cell grid
 	var/datum/cell_tracker/our_cells
 
-	var/obj/item/caparison/ccaparison
-	var/obj/item/clothing/barding/bbarding
-	var/caparison_over_barding = FALSE
-	var/barding_speed_mult = 1
-
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -224,114 +219,12 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 		QDEL_NULL(ssaddle)
 		ssaddle = null
 
-	if(ccaparison)
-		QDEL_NULL(ccaparison)
-		ccaparison = null
-
-	if(bbarding)
-		QDEL_NULL(bbarding)
-		bbarding = null
-
 	var/turf/T = get_turf(src)
 	if (T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
 	. = ..()
 	our_cells = null
-
-/mob/living/simple_animal/examine(mob/user)
-	. = ..()
-	if(tame)
-		. += span_notice("This animal appears to be tamed.")
-	if(ssaddle)
-		. += span_notice("This animal is saddled: ([ssaddle.name]).")
-	if(ccaparison)
-		. += span_notice("This animal is wearing a caparison: ([ccaparison.name]).")
-	if(bbarding)
-		. += span_notice("This animal is wearing a bard: ([bbarding.name]).")
-
-/mob/living/simple_animal/attack_right(mob/user, params)
-	if(ccaparison)
-		user.visible_message(span_notice("[user] is removing the caparison from [src]..."), span_notice("I start removing the caparison from [src]..."))
-		if(!do_after(user, 10 SECONDS, TRUE, src))
-			return
-		playsound(loc, 'sound/foley/saddledismount.ogg', 100, FALSE)
-		user.visible_message(span_notice("[user] removes the caparison from [src]."), span_notice("I remove the caparison from [src]."))
-		var/obj/item/caparison/C = ccaparison
-		ccaparison = null
-		C.forceMove(get_turf(src))
-		user.put_in_hands(C)
-		update_icon()
-		return
-	else if(bbarding)
-		user.visible_message(span_notice("[user] is removing the bard from [src]..."), span_notice("I start removing the bard from [src]..."))
-		if(!do_after(user, 10 SECONDS, TRUE, src))
-			return
-		playsound(loc, 'sound/foley/saddledismount.ogg', 100, FALSE)
-		user.visible_message(span_notice("[user] removes the bard from [src]."), span_notice("I remove the bard from [src]."))
-		var/obj/item/clothing/barding/B = bbarding
-		bbarding = null
-		// Reset any movement slowdown from barding when it is removed
-		barding_speed_mult = 1
-		updatehealth()
-		B.forceMove(get_turf(src))
-		user.put_in_hands(B)
-		update_icon()
-		return
-	else if(ssaddle)
-		user.visible_message(span_notice("[user] is removing the saddle from [src]..."), span_notice("I start removing the saddle from [src]..."))
-		if(!do_after(user, 5 SECONDS, TRUE, src))
-			return
-		playsound(loc, 'sound/foley/saddledismount.ogg', 100, FALSE)
-		user.visible_message(span_notice("[user] removes the saddle from [src]."), span_notice("I remove the saddle from [src]."))
-		var/obj/item/natural/saddle/S = ssaddle
-		ssaddle = null
-		S.forceMove(get_turf(src))
-		user.put_in_hands(S)
-		update_icon()
-		return
-	return ..()
-
-/mob/living/simple_animal/update_icon()
-	cut_overlays()
-	. = ..()
-	var/barding_layer = 6
-	var/caparison_layer = 5
-	if(caparison_over_barding)
-		caparison_layer = 6
-		barding_layer = 5
-	if(stat == CONSCIOUS && !resting)
-		if(ccaparison)
-			var/caparison_overlay_string = ccaparison.female_caparison_state && gender == FEMALE ? ccaparison.female_caparison_state : ccaparison.caparison_state
-
-			var/mutable_appearance/caparison_overlay = mutable_appearance(ccaparison.caparison_icon, caparison_overlay_string, caparison_layer)
-			caparison_overlay.color = ccaparison.color
-			caparison_overlay.appearance_flags = RESET_ALPHA|RESET_COLOR
-			add_overlay(caparison_overlay)
-			if(ccaparison.detail_state)
-				var/mutable_appearance/detail_overlay = mutable_appearance(ccaparison.caparison_icon, caparison_overlay_string + "_" + ccaparison.detail_state, caparison_layer)
-				detail_overlay.color = ccaparison.detail_color
-				detail_overlay.appearance_flags = RESET_ALPHA|RESET_COLOR
-				add_overlay(detail_overlay)
-
-			var/mutable_appearance/caparison_above_overlay = mutable_appearance(ccaparison.caparison_icon, caparison_overlay_string + "-above", caparison_layer - 0.69)
-			caparison_above_overlay.color = ccaparison.color
-			caparison_above_overlay.appearance_flags = RESET_ALPHA|RESET_COLOR
-			add_overlay(caparison_above_overlay)
-			if(ccaparison.detail_state)
-				var/mutable_appearance/detail_above_overlay = mutable_appearance(ccaparison.caparison_icon, caparison_overlay_string + "_" + ccaparison.detail_state + "-above", caparison_layer - 0.69)
-				detail_above_overlay.color = ccaparison.detail_color
-				detail_above_overlay.appearance_flags = RESET_ALPHA|RESET_COLOR
-				add_overlay(detail_above_overlay)
-
-		if(bbarding)
-			var/barding_overlay = bbarding.female_barding_state && gender == FEMALE ? bbarding.female_barding_state : bbarding.barding_state
-			var/mutable_appearance/barding_base_overlay = mutable_appearance(bbarding.barding_icon, barding_overlay, barding_layer)
-			barding_base_overlay.appearance_flags = RESET_ALPHA|RESET_COLOR
-			var/mutable_appearance/barding_above_overlay = mutable_appearance(bbarding.barding_icon, barding_overlay + "-above", barding_layer - 0.69)
-			barding_above_overlay.appearance_flags = RESET_ALPHA|RESET_COLOR
-			add_overlay(barding_base_overlay)
-			add_overlay(barding_above_overlay)
 
 /mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
 	if(!is_type_in_list(O, food_type))
@@ -404,16 +297,13 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 	if(HAS_TRAIT(src, TRAIT_RIGIDMOVEMENT))
 		return
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
-		var/base_delay = initial(move_to_delay)
-		move_to_delay = base_delay * barding_speed_mult
+		move_to_delay = initial(move_to_delay)
 		return
 	var/health_deficiency = getBruteLoss() + getFireLoss()
 	if(health <= round(maxHealth * 0.5) || health_deficiency >= round(maxHealth * 0.5))
-		var/damaged_delay = initial(move_to_delay) + 2
-		move_to_delay = damaged_delay * barding_speed_mult
+		move_to_delay = initial(move_to_delay) + 2
 	else
-		var/normal_delay = initial(move_to_delay)
-		move_to_delay = normal_delay * barding_speed_mult
+		move_to_delay = initial(move_to_delay)
 
 /mob/living/simple_animal/hostile/forceMove(turf/T)
 	var/list/BM = list()
@@ -542,40 +432,6 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 				if(used_time <= 0 || do_after(user, used_time, target = src))
 					butcher(user, on_meathook)
 
-	else if (stat != DEAD && istype(ssaddle, /obj/item/natural/saddle) && bbarding && ccaparison)
-		var/list/modifiers = params2list(params)
-		var/is_shift_middle = modifiers["shift"] || user?.client?.keys_held["Shift"]
-		if(is_shift_middle)
-			if(has_buckled_mobs())
-				to_chat(user, span_warning("I can't remove [src]'s saddle while someone is mounted."))
-				return
-			user.visible_message(span_notice("[user] starts undoing [src]'s saddle."), span_notice("I start undoing [src]'s saddle."))
-			if(do_after(user, 30, target = src))
-				var/obj/item/natural/saddle/saddle_item = ssaddle
-				ssaddle = null
-				saddle_item.forceMove(get_turf(src))
-				user.put_in_hands(saddle_item)
-				playsound(src, 'sound/foley/saddledismount.ogg', 100, TRUE)
-				user.visible_message(span_notice("[user] removes [src]'s saddle."), span_notice("I remove [src]'s saddle."))
-				update_icon()
-		else
-			var/pick = alert(user, "What would you like to do?", "[src.name]", "Adjust caparison", "Look through the saddle bags")
-			if(!pick)
-				pick = "Look through the saddle bags"
-			switch(pick)
-				if("Adjust caparison")
-					caparison_over_barding = !caparison_over_barding
-					to_chat(user, span_info("I [caparison_over_barding ? "adjust [ccaparison] to cover [bbarding]" : "adjust [ccaparison] to be under [bbarding]"]."))
-					update_icon()
-				if("Look through the saddle bags")
-					var/datum/component/storage/saddle_storage = ssaddle.GetComponent(/datum/component/storage)
-					var/access_time = (user in buckled_mobs) ? 10 : 30
-					if (do_after(user, access_time, target = src))
-						saddle_storage.show_to(user)
-	else if(bbarding && ccaparison)
-		caparison_over_barding = !caparison_over_barding
-		to_chat(user, span_info("I [caparison_over_barding ? "adjust [ccaparison] to cover [bbarding]" : "adjust [ccaparison] to be under [bbarding]"]."))
-		update_icon()
 	else if (stat != DEAD && istype(ssaddle, /obj/item/natural/saddle))		//Fallback saftey for saddles
 		var/list/modifiers = params2list(params)
 		var/is_shift_middle = modifiers["shift"] || user?.client?.keys_held["Shift"]

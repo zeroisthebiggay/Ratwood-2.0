@@ -2153,6 +2153,7 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/rogue/instrument/vocals
 	triumph_cost = 1
 
+
 // Unique stuff that doesn't quite fit anywhere else.
 
 /datum/loadout_item/kazengunite_smithing_manual
@@ -2160,30 +2161,3 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	desc = "A Kazengunite smithing manual. Unlocks kazengunite armor and weapon recipes at the anvil when read — requires knowledge of Kazengunese. "
 	path = /obj/item/book/granter/trait/kazengunite_smith
 	triumph_cost = 3
-
-//CAPARISONS
-
-/datum/loadout_item/caparison
-	name = "Caparison"
-	path = /obj/item/caparison
-	sort_category = "Caparison"
-
-/datum/loadout_item/caparison/psy
-	name = "Psydonite Caparison"
-	path = /obj/item/caparison/psy
-	sort_category = "Caparison"
-
-/datum/loadout_item/caparison/astrata
-	name = "Astratan Caparison"
-	path = /obj/item/caparison/astrata
-	sort_category = "Caparison"
-
-/datum/loadout_item/caparison/eora
-	name = "Eoran Caparison"
-	path = /obj/item/caparison/eora
-	sort_category = "Caparison"
-
-/datum/loadout_item/caparison/fogbeast
-	name = "Fogbeast Caparison"
-	path = /obj/item/caparison/fogbeast
-	sort_category = "Caparison"

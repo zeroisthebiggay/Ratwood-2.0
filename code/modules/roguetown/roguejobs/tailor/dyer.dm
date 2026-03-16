@@ -71,8 +71,7 @@ GLOBAL_LIST_INIT(pridelist, list(
 			/obj/item/bedroll,
 			/obj/item/flowercrown,
 			/obj/item/legwears,
-			/obj/item/undies,
-			/obj/item/caparison
+			/obj/item/undies
 			)
 	var/list/used_colors
 

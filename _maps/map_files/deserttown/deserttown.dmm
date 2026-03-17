@@ -509,7 +509,7 @@
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/inq)
 "apC" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /turf/open/floor/rogue/wood,
@@ -2767,7 +2767,7 @@
 /turf/open/floor/rogue/dirt/road/desert,
 /area/rogue/outdoors/deserttown)
 "bxR" = (
-/obj/machinery/light/rogue/wallfire{
+/obj/machinery/light/rogue/campfire/fireplace{
 	pixel_x = 16;
 	pixel_y = 32
 	},
@@ -2791,7 +2791,7 @@
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/deserttown/tavern)
 "byE" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = -32
 	},
 /obj/item/cushion/desert1,
@@ -3686,7 +3686,7 @@
 	},
 /area/rogue/indoors/deserttown)
 "bVL" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /obj/effect/decal/cobbleedge{
@@ -3873,7 +3873,7 @@
 /turf/open/floor/rogue/lightpath,
 /area/rogue/under/cave)
 "caj" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /obj/structure/closet/crate/drawer/inn{
@@ -6464,7 +6464,7 @@
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/deserttown/bath)
 "doY" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /turf/open/floor/rogue/blocks/stonered/tiny,
@@ -6837,7 +6837,7 @@
 /turf/open/floor/rogue/underworld/space/sparkle_quiet,
 /area/rogue/indoors/deserttown/magician)
 "dxv" = (
-/obj/machinery/light/rogue/wallfire,
+/obj/machinery/light/rogue/campfire/fireplace,
 /turf/closed/wall/mineral/rogue/sandstone,
 /area/rogue/under/deserttown/basement/town{
 	tavern_area = 1
@@ -6981,14 +6981,9 @@
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/church/basement)
 "dBM" = (
-/obj/machinery/light/rogue/wallfire{
-	pixel_x = 32
-	},
-/obj/structure/chair/wood/zybantine{
-	dir = 1
-	},
-/turf/open/floor/carpet/royalblack,
-/area/rogue/indoors/town/church)
+/obj/effect/landmark/start/druid,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/town/grove)
 "dBS" = (
 /obj/structure/fluff/walldeco/painting{
 	pixel_x = 32
@@ -7555,7 +7550,7 @@
 /area/rogue/indoors/deserttown)
 "dQC" = (
 /obj/structure/table/wood,
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /turf/open/floor/rogue/blocks/stonered/tiny,
@@ -8316,6 +8311,10 @@
 	},
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/deserttown/basement/town)
+"ekA" = (
+/obj/machinery/light/rogue/campfire/fireplace/inn,
+/turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/indoors/deserttown/tavern)
 "ekQ" = (
 /obj/structure/stairs/desert,
 /turf/open/floor/rogue/naturalstone,
@@ -9387,7 +9386,7 @@
 	},
 /area/rogue/under/deserttown/basement/keep)
 "eJF" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = -32
 	},
 /obj/structure/table/wood{
@@ -10589,7 +10588,7 @@
 /obj/structure/fluff/railing/border{
 	dir = 4
 	},
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = -22
 	},
 /turf/open/floor/rogue/tile/harem2,
@@ -12482,7 +12481,7 @@
 /obj/item/cooking/platter,
 /obj/item/cooking/platter,
 /obj/item/cooking/platter,
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = -32;
 	pixel_y = 17
 	},
@@ -13773,7 +13772,7 @@
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cave)
 "gUq" = (
-/obj/machinery/light/rogue/wallfire{
+/obj/machinery/light/rogue/campfire/fireplace{
 	pixel_x = -32
 	},
 /obj/item/cushion/desert1,
@@ -14480,7 +14479,7 @@
 /turf/open/floor/rogue/carpet/lord/center,
 /area/rogue/indoors/deserttown/manor)
 "hlS" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /turf/open/floor/carpet/royalblack,
@@ -16532,7 +16531,7 @@
 	},
 /area/rogue/under/deserttown/basement/town)
 "itd" = (
-/obj/machinery/light/rogue/wallfire/desert,
+/obj/machinery/light/rogue/campfire/fireplace/desert,
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/deserttown/tavern)
 "itw" = (
@@ -17356,7 +17355,7 @@
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/deserttown/magician)
 "iPq" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = -32;
 	pixel_y = 19
 	},
@@ -17988,7 +17987,7 @@
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
 "jhj" = (
-/obj/machinery/light/rogue/wallfire,
+/obj/machinery/light/rogue/campfire/fireplace,
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/deserttown/manor)
 "jhu" = (
@@ -20374,7 +20373,7 @@
 	},
 /area/rogue/indoors/deserttown)
 "kpm" = (
-/obj/machinery/light/rogue/wallfire{
+/obj/machinery/light/rogue/campfire/fireplace{
 	pixel_x = -32
 	},
 /obj/item/cushion/desert2,
@@ -21264,7 +21263,7 @@
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
 "kKT" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /obj/structure/closet/crate/drawer/inn{
@@ -23485,6 +23484,10 @@
 /area/rogue/indoors/deserttown/manor)
 "lYO" = (
 /obj/machinery/light/rogue/torchholder/c,
+/obj/structure/fluff/walldeco/wantedposter{
+	pixel_x = 14;
+	pixel_y = 35
+	},
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/deserttown/tavern)
 "lZA" = (
@@ -27113,6 +27116,9 @@
 	},
 /obj/item/rogueweapon/woodstaff/aries,
 /obj/item/reagent_containers/glass/cup/golden/psydon,
+/obj/machinery/light/rogue/campfire/fireplace{
+	pixel_x = 32
+	},
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town/church)
 "nTJ" = (
@@ -27229,7 +27235,7 @@
 /turf/open/floor/rogue/wood/nosmooth,
 /area/rogue/under/deserttown/basement/town)
 "nXr" = (
-/obj/machinery/light/rogue/wallfire{
+/obj/machinery/light/rogue/campfire/fireplace{
 	pixel_y = 32
 	},
 /turf/open/floor/rogue/ruinedwood/spiral{
@@ -27433,7 +27439,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/deserttown/bath)
 "odO" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = -32;
 	pixel_y = 17
 	},
@@ -27912,7 +27918,7 @@
 /area/rogue/indoors/deserttown/tavern)
 "ote" = (
 /obj/structure/chair/wood/rogue/fancy,
-/obj/machinery/light/rogue/wallfire{
+/obj/machinery/light/rogue/campfire/fireplace{
 	pixel_x = -16;
 	pixel_y = -32
 	},
@@ -28951,7 +28957,7 @@
 	},
 /area/rogue/indoors/deserttown/warden)
 "oPK" = (
-/obj/machinery/light/rogue/wallfire/desert,
+/obj/machinery/light/rogue/campfire/fireplace/desert,
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/deserttown)
 "oQi" = (
@@ -30196,7 +30202,7 @@
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/deserttown)
 "pva" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = 32
 	},
 /turf/open/floor/rogue/tile/harem,
@@ -30344,7 +30350,7 @@
 /obj/structure/fluff/railing/border{
 	dir = 10
 	},
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
@@ -35408,9 +35414,16 @@
 	},
 /area/rogue/under/deserttown/basement/town)
 "rVV" = (
-/obj/structure/fluff/walldeco/wantedposter,
-/turf/open/floor/rogue/wood,
-/area/rogue/indoors/deserttown/tavern)
+/obj/effect/wisp/prestidigitation{
+	color = "#ffff00";
+	desc = "A small, fiery ball of light made up of mystical energy.";
+	light_color = "#33ff00";
+	name = "Will-o'-the-wisp";
+	pixel_x = 0
+	},
+/obj/effect/landmark/start/druid,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/town/grove)
 "rWx" = (
 /obj/item/listeningdevice,
 /obj/item/listeningdevice,
@@ -35456,7 +35469,7 @@
 /obj/structure/fluff/railing/border{
 	dir = 8
 	},
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = -22
 	},
 /turf/open/floor/rogue/tile/harem2,
@@ -36008,7 +36021,7 @@
 /obj/structure/fluff/railing/border{
 	dir = 6
 	},
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
@@ -36632,7 +36645,7 @@
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/deserttown/garrison)
 "syu" = (
-/obj/machinery/light/rogue/wallfire{
+/obj/machinery/light/rogue/campfire/fireplace{
 	pixel_x = -32
 	},
 /turf/open/floor/rogue/wood,
@@ -37631,7 +37644,7 @@
 	},
 /area/rogue/indoors/deserttown)
 "sXM" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = 32
 	},
 /turf/open/floor/rogue/carpet/lord/left,
@@ -38904,7 +38917,7 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/deserttown)
 "tFQ" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = 32
 	},
 /turf/open/floor/rogue/carpet/lord/center,
@@ -40273,7 +40286,7 @@
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/deserttown)
 "uon" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /obj/effect/decal/cobbleedge{
@@ -41339,7 +41352,7 @@
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/outdoors/desertdeep)
 "uTZ" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = -22
 	},
 /turf/open/floor/rogue/herringbone,
@@ -41834,7 +41847,7 @@
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/inq)
 "vft" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /obj/structure/fluff/statue/small,
@@ -42116,7 +42129,7 @@
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/church/chapel)
 "vpM" = (
-/obj/machinery/light/rogue/wallfire/desert,
+/obj/machinery/light/rogue/campfire/fireplace/desert,
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/deserttown/manor)
 "vpS" = (
@@ -43221,7 +43234,7 @@
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/indoors/town/grove)
 "vLD" = (
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_y = 30
 	},
 /obj/structure/fluff/statue/small,
@@ -46183,7 +46196,7 @@
 "xld" = (
 /obj/structure/bed/rogue/inn/double,
 /obj/item/bedsheet/rogue/double_pelt,
-/obj/machinery/light/rogue/wallfire/desert{
+/obj/machinery/light/rogue/campfire/fireplace/desert{
 	pixel_x = 32
 	},
 /obj/effect/decal/carpet/kover_purple,
@@ -263669,7 +263682,7 @@ arI
 arI
 cUp
 eqC
-arI
+dBM
 arI
 arI
 rYY
@@ -263968,7 +263981,7 @@ arI
 cUp
 arI
 arI
-arI
+dBM
 arI
 kNx
 arI
@@ -264877,7 +264890,7 @@ arI
 arI
 arI
 arI
-arI
+dBM
 oql
 arI
 arI
@@ -265177,7 +265190,7 @@ arI
 arI
 arI
 arI
-cUp
+rVV
 arI
 arI
 qNs
@@ -356907,8 +356920,8 @@ rkt
 rkt
 cXj
 hYi
-hYi
-rVV
+ekA
+jbh
 lEM
 lEM
 joT
@@ -458953,7 +458966,7 @@ jbB
 krD
 bPv
 nTt
-dBM
+ptj
 kUH
 jBO
 ayJ

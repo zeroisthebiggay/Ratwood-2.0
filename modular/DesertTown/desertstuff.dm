@@ -133,7 +133,7 @@
 	reagents.add_reagent(/datum/reagent/consumable/ethanol/wine,900)
 
 ///
-/obj/machinery/light/rogue/wallfire/desert
+/obj/machinery/light/rogue/campfire/fireplace/desert
 	name = "desert fireplace"
 	icon = 'modular/DesertTown/icons/fireplace.dmi'
 	icon_state = "fireplace1"

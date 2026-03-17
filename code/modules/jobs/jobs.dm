@@ -93,12 +93,14 @@ GLOBAL_LIST_INIT(courtier_positions, list(
 ))
 
 GLOBAL_LIST_INIT(garrison_positions, list(
-	"Watchman",
+	"City Guard",
+	"Rookie",
 	"Warden",
 	"Sergeant",
 	"Veteran",
 	"Man at Arms",
 	"Squire",
+	"Vanguard",
 	"Dungeoneer",
 	//desert
 	"Cataphract",

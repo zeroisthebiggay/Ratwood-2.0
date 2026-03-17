@@ -239,7 +239,7 @@
 
 /obj/item/book/rogue/bibble/psy
 	name = "Tome of Psydon"
-	desc = "'And HE WEEPS. Not for you, not for me, but for it all.' </br>A leatherbound tome, chronicling the beliefs held by the Orthodoxy; the largest Psydonic denomination in the world. The 'Harlaus Press', a recent invention by Otava's clergymen, has ensured that no corner of Psydonia would remain unlit by His teachings. Inside are three seperate testaments, each marked with a velvet strap.. </br>PSALMS - TESTAMENTS OF CLERICAL WISDOM, COMMANDING INTERPRETATION. </br>GENESIS - TESTAMENTS OF PSYDONIA'S CREATION, FOR WHAT ONCE WAS. </br>INVOCATIONS - TESTAMENTS OF WILL, TO EXORCISE AND CHANT."
+	desc = "'And HE WEEPS. Not for you, not for me, but for it all.' </br>A leatherbound tome, chronicling the beliefs held by the Orthodoxy; the largest Psydonic denomination in the world. The 'Harlaus Press', a recent invention by Otava's clergymen, has ensured that no corner of Psydonia would remain unlit by His teachings. Inside are three separate testaments, each marked with a velvet strap.. </br>PSALMS - TESTAMENTS OF CLERICAL WISDOM, COMMANDING INTERPRETATION. </br>GENESIS - TESTAMENTS OF PSYDONIA'S CREATION, FOR WHAT ONCE WAS. </br>INVOCATIONS - TESTAMENTS OF WILL, TO EXORCISE AND CHANT."
 	icon_state = "psyble_0"
 	base_icon_state = "psyble"
 	title = "psyble"
@@ -550,6 +550,7 @@
 	name = "book"
 	desc = "A bound book. Use in hand to edit name, description and sprite."
 	var/stage = 0
+	var/book_text = ""
 
 /obj/item/book/rogue/loadoutbook/attack_self(mob/user)
 	if(stage == 0)
@@ -588,10 +589,47 @@
 				base_icon_state = initial(base_icon_state)
 				return
 		stage++
+		unique = FALSE 
+		to_chat(user, span_notice("The book is now ready to be written in. Use a feather or quill to add content."))
 		return
 
 	if(stage > 2)
-		..()
+		if(!open)
+			slot_flags &= ~ITEM_SLOT_HIP
+			open = TRUE
+			playsound(loc, 'sound/items/book_open.ogg', 100, FALSE, -1)
+		else
+			slot_flags |= ITEM_SLOT_HIP
+			open = FALSE
+			playsound(loc, 'sound/items/book_close.ogg', 100, FALSE, -1)
+		curpage = 1
+		update_icon()
+		user.update_inv_hands()
+		if(open && book_text)
+			read(user)
+
+/obj/item/book/rogue/loadoutbook/attackby(obj/item/I, mob/user, params)
+	if(stage > 2)
+		if(istype(I, /obj/item/natural/feather) || istype(I, /obj/item/natural/thorn))
+			if(!open)
+				to_chat(user, span_info("Open the book first."))
+				return
+			if(!user.can_read(src))
+				to_chat(user, span_warning("I don't know how to write!"))
+				return
+			var/new_text = stripped_multiline_input(user, "Write in the book:", "Book Writing", max_length = 5000, no_trim = TRUE)
+			if(!new_text)
+				return
+			if(!user.canUseTopic(src, BE_CLOSE))
+				return
+			if(book_text)
+				book_text += "<br><br>[new_text]"
+			else
+				book_text = new_text
+			pages = list("<h3>[name]</h3><i>[desc]</i><br><br>[book_text]")
+			to_chat(user, span_notice("I write in [src]."))
+			return
+	return
 
 
 /obj/item/manuscript

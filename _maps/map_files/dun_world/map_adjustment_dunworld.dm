@@ -29,11 +29,14 @@
 		/datum/job/roguetown/dtvillager,
 		/datum/job/roguetown/dtshophand,
 		
-		/datum/job/roguetown/adventurer/courtslave,)
-	// slot_adjust = list(
-	// 	/datum/job/roguetown/villager = 42,
-	// // 	/datum/job/roguetown/adventurer = 69
-	// )
+		/datum/job/roguetown/adventurer/courtslave,
+		
+		/datum/job/roguetown/vanguard,
+		/datum/job/roguetown/guardsman,
+		/datum/job/roguetown/rookie)
+	slot_adjust = list(
+		/datum/job/roguetown/warden = 6,
+	)
 	title_adjust = list(
 	)
 	tutorial_adjust = list(

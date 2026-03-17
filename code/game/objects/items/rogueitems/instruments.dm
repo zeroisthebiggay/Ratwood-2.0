@@ -100,6 +100,25 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			return TRUE
 	return FALSE
 
+/datum/instrument_band_lobby/proc/stop_all_playing_members()
+	for(var/datum/instrument_band_slot/slot in get_active_slots())
+		var/obj/item/rogue/instrument/instrument = slot.instrument_ref?.resolve()
+		if(!instrument)
+			continue
+		if(!instrument.playing && !instrument.groupplaying)
+			continue
+		var/atom/stop_source = instrument
+		if(isliving(instrument.loc))
+			stop_source = instrument.loc
+		instrument.playing = FALSE
+		instrument.groupplaying = FALSE
+		instrument.soundloop.stop(stop_source)
+		if(isliving(stop_source))
+			var/mob/living/holder = stop_source
+			holder.remove_status_effect(/datum/status_effect/buff/playing_music)
+			if(instrument.not_held)
+				holder.remove_status_effect(/datum/status_effect/buff/harpy_sing)
+
 /datum/looping_sound/instrument/New(_parent, start_immediately=FALSE, _direct=FALSE, _channel = 0)
 	. = ..(_parent, FALSE, _direct, _channel)
 	// Instruments can be widespread on the map. Reserve channels only while actively playing.
@@ -109,7 +128,9 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	if(start_immediately)
 		start()
 
-/datum/looping_sound/instrument/start(atom/on_behalf_of)
+/datum/looping_sound/instrument/start(atom/on_behalf_of, sync_anchor)
+	if(sync_anchor)
+		starttime = sync_anchor
 	if(!channel)
 		channel = SSsounds.reserve_sound_channel(src)
 		if(!channel)
@@ -199,6 +220,12 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(playing)
+		var/member_id = instrument_band_member_id(user)
+		var/datum/instrument_band_lobby/owned_lobby = member_id ? GLOB.instrument_band_lobbies[member_id] : null
+		if(groupplaying && owned_lobby && owned_lobby.owner_id == member_id)
+			owned_lobby.stop_all_playing_members()
+			to_chat(user, span_notice("You ended the band performance."))
+			return
 		playing = FALSE
 		groupplaying = FALSE
 		soundloop.stop(user)
@@ -418,6 +445,8 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		if(!do_after(user, 1))
 			return
 
+		var/sync_anchor = world.time
+
 		for(var/obj/item/rogue/instrument/band_instrument in instruments_to_start)
 			if(band_instrument.playing || !band_instrument.curfile)
 				continue
@@ -428,7 +457,7 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			band_instrument.groupplaying = TRUE
 			band_instrument.soundloop.mid_sounds = list(band_instrument.curfile)
 			band_instrument.soundloop.cursound = null
-			band_instrument.soundloop.start(play_source)
+			band_instrument.soundloop.start(play_source, sync_anchor)
 
 		for(var/mob/living/carbon/human/A in bandmates)
 			A.apply_status_effect(/datum/status_effect/buff/playing_music, stressevent, note_color)

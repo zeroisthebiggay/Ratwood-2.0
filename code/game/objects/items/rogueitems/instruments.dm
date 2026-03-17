@@ -4,7 +4,136 @@
 	extra_range = 10	// Increase sound range.
 	persistent_loop = TRUE
 	var/stress2give = /datum/stressevent/music
-	sound_group = /datum/sound_group/instruments //reserves sound channels for up to 10 instruments at a time
+	sound_group = null
+
+GLOBAL_LIST_EMPTY(instrument_band_lobbies)
+
+/proc/instrument_band_member_id(mob/living/user)
+	if(!user)
+		return null
+	if(user.mind)
+		return "[REF(user.mind)]"
+	return "[REF(user)]"
+
+/datum/instrument_band_slot
+	var/member_id
+	var/member_name
+	var/instrument_type
+	var/instrument_name
+	var/song_file
+	var/datum/weakref/instrument_ref
+
+/datum/instrument_band_lobby
+	var/owner_id
+	var/owner_name
+	var/datum/weakref/owner_ref
+	var/list/member_slots = list() // key: instrument instance ref text
+
+/datum/instrument_band_lobby/proc/register_owner(mob/living/user, obj/item/rogue/instrument/instrument, song_file)
+	owner_id = instrument_band_member_id(user)
+	owner_name = user.real_name
+	owner_ref = WEAKREF(user)
+	add_or_replace_member(user, instrument, song_file)
+
+/datum/instrument_band_lobby/proc/add_or_replace_member(mob/living/user, obj/item/rogue/instrument/instrument, song_file)
+	var/member_id = instrument_band_member_id(user)
+	if(!member_id || !instrument || !song_file)
+		return FALSE
+	var/slot_key = "[REF(instrument)]"
+	var/datum/instrument_band_slot/slot = member_slots[slot_key]
+	if(!slot)
+		slot = new
+		member_slots[slot_key] = slot
+	var/old_member = slot.member_name
+	slot.member_id = member_id
+	slot.member_name = user.real_name
+	slot.instrument_type = slot_key
+	slot.instrument_name = instrument.name
+	slot.song_file = song_file
+	slot.instrument_ref = WEAKREF(instrument)
+
+	if(owner_id && owner_id != member_id)
+		var/mob/living/owner_mob = owner_ref?.resolve()
+		if(owner_mob)
+			if(old_member && old_member != user.real_name)
+				to_chat(owner_mob, span_notice("[user.real_name] replaced [old_member] on [instrument.name] in your band lobby."))
+			else
+				to_chat(owner_mob, span_notice("[user.real_name] joined your band lobby with [instrument.name]."))
+	return TRUE
+
+/datum/instrument_band_lobby/proc/remove_member_by_id(member_id)
+	for(var/slot_key in member_slots.Copy())
+		var/datum/instrument_band_slot/slot = member_slots[slot_key]
+		if(slot?.member_id == member_id)
+			member_slots -= slot_key
+
+/datum/instrument_band_lobby/proc/get_active_slots()
+	var/list/active_slots = list()
+	for(var/slot_key in member_slots.Copy())
+		var/datum/instrument_band_slot/slot = member_slots[slot_key]
+		if(!slot)
+			member_slots -= slot_key
+			continue
+		var/obj/item/rogue/instrument/instrument = slot.instrument_ref?.resolve()
+		if(!instrument || QDELETED(instrument))
+			member_slots -= slot_key
+			continue
+		active_slots += slot
+	return active_slots
+
+/datum/instrument_band_lobby/proc/get_title()
+	if(owner_name)
+		return "[owner_name]'s Band"
+	return "Unnamed Band"
+
+/datum/instrument_band_lobby/proc/is_within_range(atom/reference, range = 10)
+	if(!reference)
+		return FALSE
+	var/turf/reference_turf = get_turf(reference)
+	if(!reference_turf)
+		return FALSE
+	for(var/datum/instrument_band_slot/slot in get_active_slots())
+		var/obj/item/rogue/instrument/instrument = slot.instrument_ref?.resolve()
+		if(!instrument)
+			continue
+		if(get_dist(reference_turf, instrument) <= range)
+			return TRUE
+	return FALSE
+
+/datum/looping_sound/instrument/New(_parent, start_immediately=FALSE, _direct=FALSE, _channel = 0)
+	. = ..(_parent, FALSE, _direct, _channel)
+	// Instruments can be widespread on the map. Reserve channels only while actively playing.
+	if(channel)
+		SSsounds.free_datum_channels(src)
+		channel = null
+	if(start_immediately)
+		start()
+
+/datum/looping_sound/instrument/start(atom/on_behalf_of)
+	if(!channel)
+		channel = SSsounds.reserve_sound_channel(src)
+		if(!channel)
+			return
+	..()
+
+/datum/looping_sound/instrument/stop(null_parent)
+	if(channel)
+		for(var/client/C in GLOB.clients)
+			if(!(src in C.played_loops))
+				continue
+			var/list/L = C.played_loops[src]
+			var/sound/SD = L?["SOUND"]
+			var/stop_channel = SD?.channel || channel
+			if(C.mob)
+				C.mob.stop_sound_channel(stop_channel)
+			else
+				SEND_SOUND(C, sound(null, repeat = 0, wait = 0, channel = stop_channel))
+			C.played_loops -= src
+		thingshearing = list()
+	. = ..(null_parent)
+	if(channel)
+		SSsounds.free_datum_channels(src)
+		channel = null
 
 /obj/item/rogue/instrument
 	name = ""
@@ -78,12 +207,10 @@
 			user.remove_status_effect(/datum/status_effect/buff/harpy_sing)
 		return
 	else
-		var/playdecision = alert(user, "Would you like to start a band?", "Band Play", "Yes", "No")
-		switch(playdecision)
-			if("Yes")
-				groupplaying = TRUE
-			if("No")
-				groupplaying = FALSE
+		var/playdecision = input(user, "How do you want to play?", "Music") as null|anything in list("Play Song", "Band Lobby")
+		if(!playdecision)
+			return
+		groupplaying = (playdecision == "Band Lobby")
 		if(!groupplaying)
 			var/list/options = song_list.Copy()
 			if(user.mind && user.get_skill_level(/datum/skill/misc/music) >= 4)
@@ -177,37 +304,154 @@
 				soundloop.stop(user)
 				user.remove_status_effect(/datum/status_effect/buff/playing_music)
 		if(groupplaying)
-			var/pplnearby =view(7,loc)
-			var/list/instrumentsintheband = list()
-			var/list/bandmates = list()
-			for(var/mob/living/carbon/human/potentialbandmates in pplnearby)
-				var/list/thisguyinstrument = list()
-				var/obj/item/iteminhand = potentialbandmates.get_active_held_item()
-				if(istype(iteminhand, /obj/item/rogue/instrument))
-					var/decision = alert(potentialbandmates, "Would you like to perform in a band?", "Band Play", "Yes", "No")
-					switch(decision)
-						if("No")
-							return
-						else
-							bandmates += potentialbandmates
-							instrumentsintheband += iteminhand
-							thisguyinstrument += iteminhand
-							for(var/obj/item/rogue/instrument/bandinstrumentspersonal in thisguyinstrument)
-								if(bandinstrumentspersonal.playing)
-									return
-								bandinstrumentspersonal.curfile = input(potentialbandmates, "Which song shall [potentialbandmates] perform?", "Music", name) as null|anything in bandinstrumentspersonal.song_list
-								bandinstrumentspersonal.curfile = bandinstrumentspersonal.song_list[bandinstrumentspersonal.curfile]
-			if(do_after(user, 1))
-				for(var/obj/item/rogue/instrument/bandinstrumentsband in instrumentsintheband)
-					if(!curfile)
-						return
-					bandinstrumentsband.playing = TRUE
-					bandinstrumentsband.groupplaying = TRUE
-					bandinstrumentsband.soundloop.mid_sounds = bandinstrumentsband.curfile
-					bandinstrumentsband.soundloop.cursound = null
-					bandinstrumentsband.soundloop.start(user)
-					for(var/mob/living/carbon/human/A in bandmates)
-						A.apply_status_effect(/datum/status_effect/buff/playing_music, stressevent, note_color)
+			open_band_lobby_menu(user, stressevent, note_color)
+
+/obj/item/rogue/instrument/proc/open_band_lobby_menu(mob/living/user, stressevent, note_color)
+	var/choice = input(user, "Band Lobby", "Band Lobby") as null|anything in list("Register My Band", "Search Bands", "Start My Band", "Leave Band")
+	if(!choice)
+		return
+
+	if(choice == "Register My Band")
+		if(src.playing)
+			to_chat(user, span_warning("Stop playing first."))
+			return
+		var/song_choice = input(user, "Pick your song for this band slot", "Band Lobby", name) as null|anything in song_list
+		if(!song_choice)
+			return
+		var/song_file = song_list[song_choice]
+		if(!song_file)
+			return
+		curfile = song_file
+		var/member_id = instrument_band_member_id(user)
+		if(!member_id)
+			return
+		var/datum/instrument_band_lobby/lobby = GLOB.instrument_band_lobbies[member_id]
+		if(!lobby)
+			lobby = new
+			GLOB.instrument_band_lobbies[member_id] = lobby
+		lobby.register_owner(user, src, song_file)
+		groupplaying = TRUE
+		to_chat(user, span_notice("Registered [lobby.get_title()] with [name]."))
+		return
+
+	if(choice == "Search Bands")
+		var/list/search_results = list()
+		var/member_id = instrument_band_member_id(user)
+		for(var/lobby_id in GLOB.instrument_band_lobbies)
+			var/datum/instrument_band_lobby/lobby = GLOB.instrument_band_lobbies[lobby_id]
+			if(!lobby)
+				continue
+			if(!lobby.is_within_range(user, 10))
+				continue
+			var/list/active_slots = lobby.get_active_slots()
+			if(!active_slots.len)
+				continue
+			var/own_suffix = (lobby.owner_id == member_id) ? " (Your Band)" : ""
+			search_results["[lobby.get_title()][own_suffix] ([active_slots.len] members)"] = lobby
+		if(!search_results.len)
+			to_chat(user, span_warning("No active band lobbies found within 10 tiles."))
+			return
+		var/picked_lobby_name = input(user, "Choose a band to join", "Band Lobby") as null|anything in search_results
+		if(!picked_lobby_name)
+			return
+		var/datum/instrument_band_lobby/chosen_lobby = search_results[picked_lobby_name]
+		if(!chosen_lobby)
+			return
+		var/join_song_choice = input(user, "Pick your song for this band slot", "Band Lobby", name) as null|anything in song_list
+		if(!join_song_choice)
+			return
+		var/join_song = song_list[join_song_choice]
+		if(!join_song)
+			return
+		curfile = join_song
+		chosen_lobby.add_or_replace_member(user, src, join_song)
+		groupplaying = TRUE
+		to_chat(user, span_notice("Joined [chosen_lobby.get_title()] with [name]."))
+		return
+
+	if(choice == "Start My Band")
+		var/member_id = instrument_band_member_id(user)
+		if(!member_id)
+			return
+		var/datum/instrument_band_lobby/owned_lobby = GLOB.instrument_band_lobbies[member_id]
+		if(!owned_lobby || owned_lobby.owner_id != member_id)
+			to_chat(user, span_warning("You do not own a band lobby."))
+			return
+		if(!curfile)
+			var/owner_song_choice = input(user, "Pick your song for this band slot", "Band Lobby", name) as null|anything in song_list
+			if(!owner_song_choice)
+				return
+			curfile = song_list[owner_song_choice]
+		if(!curfile)
+			return
+		owned_lobby.add_or_replace_member(user, src, curfile)
+
+		var/list/slots = owned_lobby.get_active_slots()
+		if(!slots.len)
+			to_chat(user, span_warning("Nobody is registered in your band lobby."))
+			return
+
+		var/list/instruments_to_start = list()
+		var/list/bandmates = list()
+		for(var/datum/instrument_band_slot/slot in slots)
+			var/obj/item/rogue/instrument/slot_instrument = slot.instrument_ref?.resolve()
+			if(!slot_instrument || slot_instrument.playing || !slot.song_file)
+				continue
+			if(slot_instrument.not_held)
+				// non-held instruments are allowed to participate
+				;
+			else
+				if(!isliving(slot_instrument.loc))
+					continue
+				var/mob/living/holder = slot_instrument.loc
+				if(!(slot_instrument in holder.held_items))
+					continue
+			slot_instrument.curfile = slot.song_file
+			instruments_to_start += slot_instrument
+			if(isliving(slot_instrument.loc))
+				bandmates |= slot_instrument.loc
+
+		if(!instruments_to_start.len)
+			to_chat(user, span_warning("No ready band members to start."))
+			return
+
+		if(!do_after(user, 1))
+			return
+
+		for(var/obj/item/rogue/instrument/band_instrument in instruments_to_start)
+			if(band_instrument.playing || !band_instrument.curfile)
+				continue
+			var/atom/play_source = band_instrument
+			if(isliving(band_instrument.loc))
+				play_source = band_instrument.loc
+			band_instrument.playing = TRUE
+			band_instrument.groupplaying = TRUE
+			band_instrument.soundloop.mid_sounds = list(band_instrument.curfile)
+			band_instrument.soundloop.cursound = null
+			band_instrument.soundloop.start(play_source)
+
+		for(var/mob/living/carbon/human/A in bandmates)
+			A.apply_status_effect(/datum/status_effect/buff/playing_music, stressevent, note_color)
+		to_chat(user, span_notice("Your band has started playing."))
+		return
+
+	if(choice == "Leave Band")
+		var/member_id = instrument_band_member_id(user)
+		if(!member_id)
+			return
+		for(var/lobby_id in GLOB.instrument_band_lobbies.Copy())
+			var/datum/instrument_band_lobby/lobby = GLOB.instrument_band_lobbies[lobby_id]
+			if(!lobby)
+				GLOB.instrument_band_lobbies -= lobby_id
+				continue
+			if(lobby.owner_id == member_id)
+				GLOB.instrument_band_lobbies -= lobby_id
+				continue
+			lobby.remove_member_by_id(member_id)
+			if(!lobby.member_slots.len)
+				GLOB.instrument_band_lobbies -= lobby_id
+		groupplaying = FALSE
+		to_chat(user, span_notice("Left all band lobbies."))
 
 /obj/item/rogue/instrument/accord //made all the instruments in alphabetical order bcuz why not?
 	name = "accordion"

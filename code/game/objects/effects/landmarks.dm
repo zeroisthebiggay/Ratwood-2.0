@@ -782,46 +782,46 @@ GLOBAL_LIST_EMPTY(travel_spawn_points)
 		tile.aportalgoesto = travel_goes_to_id
 		tile.required_trait = required_trait
 
-//Alternate spawns for alternate maps
+//Alternate spawns for alternate maps. Throwing errors so disabled for now.
 
 /obj/effect/landmark/start/banditlate_alt
 	name = "Bandit"
 	icon_state = "arrow"
 	jobspawn_override = list("Bandit", "Pirate")
 	delete_after_roundstart = FALSE
-	// map = "Build Your Settlement"
+	// map = "Desert Town"
 
-/obj/effect/landmark/start/bandit_alt/Initialize()
-	..()
-	GLOB.bandit_starts_alt += loc
-	return INITIALIZE_HINT_QDEL
+// /obj/effect/landmark/start/bandit_alt/Initialize()
+// 	..()
+// 	GLOB.bandit_starts_alt += loc
+// 	return INITIALIZE_HINT_QDEL
 
 
-/obj/effect/landmark/start/vampirelord_alt
-	name = "Vampire Lord"
-	icon_state = "arrow"
-	delete_after_roundstart = FALSE
-	// map = "Build Your Settlement"
+// /obj/effect/landmark/start/vampirelord_alt
+// 	name = "Vampire Lord"
+// 	icon_state = "arrow"
+// 	delete_after_roundstart = FALSE
+// 	// map = "Build Your Settlement"
 
-/obj/effect/landmark/start/vampirelord_alt/Initialize()
-	. = ..()
-	GLOB.vlord_starts_alt += loc
-	return INITIALIZE_HINT_QDEL
+// /obj/effect/landmark/start/vampirelord_alt/Initialize()
+// 	. = ..()
+// 	GLOB.vlord_starts_alt += loc
+// 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/start/vampirespawn_alt
-	name = "Vampire Spawn"
-	icon_state = "arrow"
-	delete_after_roundstart = FALSE
-	// map = "Build Your Settlement"
+// /obj/effect/landmark/start/vampirespawn_alt
+// 	name = "Vampire Spawn"
+// 	icon_state = "arrow"
+// 	delete_after_roundstart = FALSE
+// 	// map = "Build Your Settlement"
 
-/obj/effect/landmark/start/vampirespawn_alt/Initialize()
-	. = ..()
-	GLOB.vspawn_starts_alt += loc
-	return INITIALIZE_HINT_QDEL
+// /obj/effect/landmark/start/vampirespawn_alt/Initialize()
+// 	. = ..()
+// 	GLOB.vspawn_starts_alt += loc
+// 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/start/vampireknight_alt
-	name = "Death Knight"
-	icon_state = "arrow"
-	jobspawn_override = list("Death Knight")
-	delete_after_roundstart = FALSE
-	// map = "Build Your Settlement"
+// /obj/effect/landmark/start/vampireknight_alt
+// 	name = "Death Knight"
+// 	icon_state = "arrow"
+// 	jobspawn_override = list("Death Knight")
+// 	delete_after_roundstart = FALSE
+// 	// map = "Build Your Settlement"

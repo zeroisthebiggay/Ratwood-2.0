@@ -2143,7 +2143,7 @@ GLOBAL_VAR_INIT(cold_breath_overlay, mutable_appearance(
 				protection = (0.25 * H.get_cold_protection(loc_temp))
 			else
 				// Heating is BAD (we are hotter then norm)
-				protection = (-0.125 * (1 - H.get_heat_protection(loc_temp)))	//a maximum of 9.9 minutes of time to move 100 points of temp (one level)
+				protection = (-0.1 * H.get_heat_protection(loc_temp))	//a maximum of 9.9 minutes of time to move 100 points of temp (one level)
 
 			var/step = 0.25 + (protection)
 			env_adjust = step
@@ -2155,7 +2155,7 @@ GLOBAL_VAR_INIT(cold_breath_overlay, mutable_appearance(
 				protection = (0.25 * H.get_heat_protection(loc_temp))
 			else
 				// Cooling is BAD (we are colder then norm)
-				protection = (-0.125 * (1 - H.get_cold_protection(loc_temp)))	//a maximum of 9.9 minutes of time to move 100 points of temp (one level)
+				protection = (-0.1 * H.get_cold_protection(loc_temp))	//a maximum of 9.9 minutes of time to move 100 points of temp (one level)
 
 			var/step = 0.25 + (protection)
 			env_adjust = -step

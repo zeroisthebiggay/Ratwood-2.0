@@ -1,7 +1,6 @@
 /datum/job/roguetown/gnoll
 	title = "Gnoll"
 	flag = GNOLL
-	department_flag = ANTAGONIST
 	antag_job = TRUE // whoever wrote this, I'm- gghrhhah!
 	faction = "Station"
 	total_positions = 1
@@ -12,7 +11,7 @@
 	outfit_female = null
 	display_order = JDO_GNOLL
 	show_in_credits = TRUE
-	min_pq = 10
+	min_pq = 30 //Same as wretches for now
 	max_pq = null
 	allowed_patrons = list(/datum/patron/inhumen/graggar)
 
@@ -68,7 +67,7 @@
 		H.AddSpell(F)
 		H.AddSpell(I)
 
-		var/mode = get_gnoll_scaling()
+		var/mode = SSgnoll_scaling.get_gnoll_scaling()
 		if(mode == GNOLL_SCALING_DYNAMIC)
 			to_chat(H, span_bignotice("I can expect to be joined by my pack this week. I should wait for them and group up."))
 		else

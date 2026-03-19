@@ -49,7 +49,8 @@
 		TRAIT_ZJUMP,
 		TRAIT_NOSLEEP,
 		TRAIT_GRABIMMUNE,
-		TRAIT_STRONGBITE
+		TRAIT_STRONGBITE,
+		TRAIT_UNLYCKERABLE //Literal archenemy
 	)
 	inherent_biotypes = MOB_HUMANOID
 	armor = 30

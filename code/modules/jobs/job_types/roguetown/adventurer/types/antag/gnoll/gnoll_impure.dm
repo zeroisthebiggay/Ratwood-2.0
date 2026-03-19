@@ -3,12 +3,10 @@
 	allowed_races = RACES_NO_CONSTRUCT
 	tutorial = "You have proven yourself worthy to Graggar, and he's granted you his blessing most divine. Now you hunt for worthy opponents, seeking out those strong enough to make you bleed."
 	min_pq = 0
-	reset_stats = TRUE
 
 	category_tags = list(CTAG_GNOLL_IMPURE)
 	outfit = /datum/outfit/job/roguetown/gnoll_impure
-	traits_applied = list(TRAIT_DODGEEXPERT) // Surely this won't be broken.
-	reset_stats = TRUE
+	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_UNLYCKERABLE) // Surely this won't be broken.
 	subclass_stats = list(
 		STATKEY_STR = -1,
 		STATKEY_CON = 5,

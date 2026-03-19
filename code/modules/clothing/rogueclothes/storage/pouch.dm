@@ -116,7 +116,7 @@
 	desc = "Used to hold someone's zigs and flints."
 	icon_state = "smokebox"
 	item_state = "smokebox"
-	component_type = /datum/component/storage/concrete/roguetown/zig_box
+	component_type = /datum/component/storage/concrete/grid/zigbox
 
 /obj/item/storage/belt/rogue/pouch/zigarrete/nicotine/PopulateContents()
 	new /obj/item/clothing/mask/cigarette/rollie/nicotine(src)

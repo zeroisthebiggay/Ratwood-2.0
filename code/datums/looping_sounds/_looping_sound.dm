@@ -53,6 +53,7 @@ GLOBAL_LIST_EMPTY(created_sound_groups)
 	var/frequency
 	var/stopped = TRUE
 	var/persistent_loop = FALSE //we stay in the client's played_loops so we keep updating volume even when out of range
+	var/repeat_sound = TRUE // if FALSE, sound plays once client-side instead of looping
 	var/cursound
 	var/list/thingshearing = list() // this is a list of WEAKREFS to the mobs that can currently hear us
 	var/ignore_walls = TRUE

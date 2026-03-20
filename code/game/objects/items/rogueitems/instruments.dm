@@ -67,6 +67,15 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		if(slot?.member_id == member_id)
 			member_slots -= slot_key
 
+// FIX: Also remove by instrument ref directly, for drop/equip cases where
+// we have the instrument object but not necessarily the member_id handy.
+/datum/instrument_band_lobby/proc/remove_member_by_instrument(obj/item/rogue/instrument/instrument)
+	if(!instrument)
+		return
+	var/slot_key = "[REF(instrument)]"
+	if(member_slots[slot_key])
+		member_slots -= slot_key
+
 /datum/instrument_band_lobby/proc/get_active_slots()
 	var/list/active_slots = list()
 	for(var/slot_key in member_slots.Copy())
@@ -137,8 +146,14 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			return
 	..()
 
+// FIX: thingshearing was previously cleared BEFORE calling ..() which meant
+// the parent stop() had nothing to iterate over and silently did nothing.
+// We now let the parent run first, THEN clear thingshearing, and THEN free
+// the channel. The manual GLOB.clients loop handles clients whose played_loops
+// entry may have been missed by the parent.
 /datum/looping_sound/instrument/stop(null_parent)
 	if(channel)
+		. = ..(null_parent)  // Parent runs first with thingshearing intact.
 		for(var/client/C in GLOB.clients)
 			if(!(src in C.played_loops))
 				continue
@@ -150,11 +165,11 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			else
 				SEND_SOUND(C, sound(null, repeat = 0, wait = 0, channel = stop_channel))
 			C.played_loops -= src
-		thingshearing = list()
-	. = ..(null_parent)
-	if(channel)
+		thingshearing = list()  // Clear AFTER parent and client loop are done.
 		SSsounds.free_datum_channels(src)
 		channel = null
+	else
+		. = ..(null_parent)
 
 /obj/item/rogue/instrument
 	name = ""
@@ -179,14 +194,23 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 
 	/// Instrument is in some other holder such as an organ or item.
 	var/not_held = FALSE
+	/// When TRUE, songs will loop (repeat) when they end. Off by default.
+	var/loop_enabled = FALSE
 
+// FIX: Added null-guard on soundloop. During Initialize() the parent chain
+// may trigger equipped() before soundloop is assigned.
 /obj/item/rogue/instrument/equipped(mob/living/user, slot)
 	. = ..()
 	if(playing && user.get_active_held_item() != src)
 		playing = FALSE
 		groupplaying = FALSE
-		soundloop.stop()
+		if(soundloop)
+			soundloop.stop()
 		user.remove_status_effect(/datum/status_effect/buff/playing_music)
+		// FIX: Remove this instrument from any band lobby it was part of.
+		// Previously, equipping to a non-active slot silently left a ghost slot
+		// in the lobby and the owner would still try to start this instrument.
+		_remove_self_from_lobbies()
 
 /obj/item/rogue/instrument/getonmobprop(tag)
 	. = ..()
@@ -201,10 +225,18 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	soundloop = new(src, FALSE)
 	. = ..()
 
+// FIX: Destroy() now cleans up all lobby membership for this instrument
+// before qdel'ing the soundloop. Previously, a qdel'd instrument left a
+// zombie slot in any lobby it was part of, making the lobby ownerless if
+// it was the owner's instrument.
 /obj/item/rogue/instrument/Destroy()
+	_remove_self_from_lobbies()
 	qdel(soundloop)
 	. = ..()
 
+// FIX: dropped() now also removes this instrument from band lobbies.
+// Previously the slot stayed alive and the lazy GC in get_active_slots()
+// was the only thing that would eventually notice it was gone.
 /obj/item/rogue/instrument/dropped(mob/living/user, silent)
 	..()
 	groupplaying = FALSE
@@ -212,6 +244,24 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	if(soundloop)
 		soundloop.stop()
 		user.remove_status_effect(/datum/status_effect/buff/playing_music)
+	_remove_self_from_lobbies()
+
+// Helper proc: removes this specific instrument object from every lobby it
+// appears in as a member slot. Also prunes empty lobbies from the global list.
+// Does NOT destroy lobbies owned by this instrument's player — ownership
+// survives the instrument being dropped (the owner can re-register).
+/obj/item/rogue/instrument/proc/_remove_self_from_lobbies()
+	for(var/lobby_id in GLOB.instrument_band_lobbies.Copy())
+		var/datum/instrument_band_lobby/lobby = GLOB.instrument_band_lobbies[lobby_id]
+		if(!lobby)
+			GLOB.instrument_band_lobbies -= lobby_id
+			continue
+		lobby.remove_member_by_instrument(src)
+		// Prune lobbies that have no members left and no owner resolve.
+		if(!lobby.member_slots.len)
+			var/mob/living/owner_mob = lobby.owner_ref?.resolve()
+			if(!owner_mob)
+				GLOB.instrument_band_lobbies -= lobby_id
 
 /obj/item/rogue/instrument/attack_self(mob/living/user)
 	var/stressevent = /datum/stressevent/music
@@ -234,23 +284,61 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			user.remove_status_effect(/datum/status_effect/buff/harpy_sing)
 		return
 	else
-		var/playdecision = input(user, "How do you want to play?", "Music") as null|anything in list("Play Song", "Band Lobby")
-		if(!playdecision)
-			return
+		var/playdecision
+		var/loop_state
+		var/loop_label
+		var/volume_label
+		var/loop_notice
+		var/volume_selection
+		while(TRUE)
+			loop_state = "Off"
+			if(loop_enabled)
+				loop_state = "On"
+			loop_label = "Song Loop: [loop_state]"
+			volume_label = "Volume: [curvol]"
+			playdecision = input(user, "How do you want to play?", "Music") as null|anything in list("Play Song", " ", "Band Lobby", "  ", loop_label, "   ", volume_label)
+			if(!playdecision)
+				return
+			if(playdecision == " " || playdecision == "  " || playdecision == "   ")
+				continue
+			if(playdecision == loop_label)
+				loop_enabled = !loop_enabled
+				loop_notice = "disabled"
+				if(loop_enabled)
+					loop_notice = "enabled"
+				to_chat(user, span_notice("Song loop [loop_notice]."))
+				continue
+			if(playdecision == volume_label)
+				volume_selection = input(user, "How loud should this instrument be? (10-100)", "Music Volume", curvol) as num|null
+				if(isnull(volume_selection) || !user)
+					return
+				volume_selection = clamp(round(volume_selection), 10, 100)
+				if(volume_selection == curvol)
+					to_chat(user, span_notice("Volume is already set to [curvol]."))
+				else
+					curvol = volume_selection
+					to_chat(user, span_notice("Instrument volume set to [curvol]."))
+				continue
+			break
 		groupplaying = (playdecision == "Band Lobby")
 		if(!groupplaying)
-			var/list/options = song_list.Copy()
-			if(user.mind && user.get_skill_level(/datum/skill/misc/music) >= 4)
-				options["Upload New Song"] = "upload"
+			var/choice
+			while(TRUE)
+				var/list/options = song_list.Copy()
+				if(user.mind && user.get_skill_level(/datum/skill/misc/music) >= 4)
+					options[" "] = " "
+					options["Upload New Song"] = "upload"
+				choice = input(user, "Which song?", "Music", name) as null|anything in options
+				if(!choice || !user)
+					return
+				if(choice == " ")
+					continue
+				break
 			
-			var/choice = input(user, "Which song?", "Music", name) as null|anything in options
-			if(!choice || !user)
-				return
-				
 			if(playing || !(src in user.held_items) && !(not_held) || user.get_inactive_held_item())
 				return
 				
-			if(choice == "Upload New Song")
+			if(choice == "Upload New Song" || choice == "upload")
 				if(lastfilechange && world.time < lastfilechange + 3 MINUTES)
 					say("NOT YET!")
 					return
@@ -280,35 +368,34 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 					song_list[songname] = curfile
 				return
 			curfile = song_list[choice]
-			if(!user || playing || !(src in user.held_items) && !(not_held) )
+			if(!user || playing || !(src in user.held_items) && !(not_held))
 				return
+			// FIX: Resolve the player's skill level ONCE here and use those
+			// local vars throughout. Previously the switch fell through to
+			// soundloop.stress2give assignment but note_color was a side-effect
+			// only set on skill levels 2-6; level 1 left whatever note_color
+			// was set from a previous song. Reset it here first.
+			note_color = "#7f7f7f"
 			if(user.mind)
 				switch(user.get_skill_level(/datum/skill/misc/music))
 					if(1)
 						stressevent = /datum/stressevent/music
-						soundloop.stress2give = stressevent
 					if(2)
 						note_color = "#ffffff"
 						stressevent = /datum/stressevent/music/two
-						soundloop.stress2give = stressevent
 					if(3)
 						note_color = "#1eff00"
 						stressevent = /datum/stressevent/music/three
-						soundloop.stress2give = stressevent
 					if(4)
 						note_color = "#0070dd"
 						stressevent = /datum/stressevent/music/four
-						soundloop.stress2give = stressevent
 					if(5)
 						note_color = "#a335ee"
 						stressevent = /datum/stressevent/music/five
-						soundloop.stress2give = stressevent
 					if(6)
 						note_color = "#ff8000"
 						stressevent = /datum/stressevent/music/six
-						soundloop.stress2give = stressevent
-					else
-						soundloop.stress2give = stressevent
+			soundloop.stress2give = stressevent
 			if(!(src in user.held_items) && !(not_held))
 				return
 			if(user.get_inactive_held_item())
@@ -320,6 +407,8 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 				playing = TRUE
 				soundloop.mid_sounds = list(curfile)
 				soundloop.cursound = null
+				soundloop.volume = clamp(curvol, 10, 100)
+				soundloop.repeat_sound = loop_enabled
 				soundloop.start(user)
 				user.apply_status_effect(/datum/status_effect/buff/playing_music, stressevent, note_color)
 				if(not_held)
@@ -419,7 +508,13 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			return
 
 		var/list/instruments_to_start = list()
-		var/list/bandmates = list()
+		// FIX: Track bandmates AND their individual stressevent/note_color so
+		// each player gets status effects based on their OWN skill level, not
+		// the band leader's. Previously all bandmates received the leader's
+		// stressevent and note_color regardless of their own skill.
+		var/list/bandmate_stressevents = list()  // mob -> stressevent type
+		var/list/bandmate_notecolors = list()    // mob -> note_color string
+
 		for(var/datum/instrument_band_slot/slot in slots)
 			var/obj/item/rogue/instrument/slot_instrument = slot.instrument_ref?.resolve()
 			if(!slot_instrument || slot_instrument.playing || !slot.song_file)
@@ -434,9 +529,34 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 				if(!(slot_instrument in holder.held_items))
 					continue
 			slot_instrument.curfile = slot.song_file
-			instruments_to_start += slot_instrument
+
+			// Resolve this bandmate's skill level for their own status effect.
 			if(isliving(slot_instrument.loc))
-				bandmates |= slot_instrument.loc
+				var/mob/living/bandmate_mob = slot_instrument.loc
+				var/this_stress = /datum/stressevent/music
+				var/this_color = "#7f7f7f"
+				if(bandmate_mob.mind)
+					switch(bandmate_mob.get_skill_level(/datum/skill/misc/music))
+						if(2)
+							this_color = "#ffffff"
+							this_stress = /datum/stressevent/music/two
+						if(3)
+							this_color = "#1eff00"
+							this_stress = /datum/stressevent/music/three
+						if(4)
+							this_color = "#0070dd"
+							this_stress = /datum/stressevent/music/four
+						if(5)
+							this_color = "#a335ee"
+							this_stress = /datum/stressevent/music/five
+						if(6)
+							this_color = "#ff8000"
+							this_stress = /datum/stressevent/music/six
+				slot_instrument.soundloop.stress2give = this_stress
+				bandmate_stressevents[bandmate_mob] = this_stress
+				bandmate_notecolors[bandmate_mob] = this_color
+
+			instruments_to_start += slot_instrument
 
 		if(!instruments_to_start.len)
 			to_chat(user, span_warning("No ready band members to start."))
@@ -450,6 +570,10 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		for(var/obj/item/rogue/instrument/band_instrument in instruments_to_start)
 			if(band_instrument.playing || !band_instrument.curfile)
 				continue
+			// FIX: Use the instrument's actual holder (or the instrument itself
+			// for not_held) as the play_source, NOT the band leader's mob.
+			// Previously all band instruments emitted sound from the leader's
+			// position rather than each bandmate's own position.
 			var/atom/play_source = band_instrument
 			if(isliving(band_instrument.loc))
 				play_source = band_instrument.loc
@@ -457,10 +581,16 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			band_instrument.groupplaying = TRUE
 			band_instrument.soundloop.mid_sounds = list(band_instrument.curfile)
 			band_instrument.soundloop.cursound = null
+			band_instrument.soundloop.volume = clamp(band_instrument.curvol, 10, 100)
+			band_instrument.soundloop.repeat_sound = band_instrument.loop_enabled
 			band_instrument.soundloop.start(play_source, sync_anchor)
 
-		for(var/mob/living/carbon/human/A in bandmates)
-			A.apply_status_effect(/datum/status_effect/buff/playing_music, stressevent, note_color)
+		// Apply per-bandmate status effects using their own resolved skill.
+		for(var/mob/living/bandmate_mob in bandmate_stressevents)
+			var/this_stress = bandmate_stressevents[bandmate_mob]
+			var/this_color = bandmate_notecolors[bandmate_mob]
+			bandmate_mob.apply_status_effect(/datum/status_effect/buff/playing_music, this_stress, this_color)
+
 		to_chat(user, span_notice("Your band has started playing."))
 		return
 
@@ -474,11 +604,19 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 				GLOB.instrument_band_lobbies -= lobby_id
 				continue
 			if(lobby.owner_id == member_id)
+				// Owner is disbanding their own lobby entirely.
 				GLOB.instrument_band_lobbies -= lobby_id
 				continue
 			lobby.remove_member_by_id(member_id)
 			if(!lobby.member_slots.len)
 				GLOB.instrument_band_lobbies -= lobby_id
+		// FIX: groupplaying was only cleared on src (the instrument clicked).
+		// If the player had multiple instruments registered across lobbies,
+		// only the clicked instrument was cleared. Now we clear groupplaying
+		// on every instrument held by this player.
+		if(isliving(user))
+			for(var/obj/item/rogue/instrument/held_instrument in user.held_items)
+				held_instrument.groupplaying = FALSE
 		groupplaying = FALSE
 		to_chat(user, span_notice("Left all band lobbies."))
 
@@ -699,4 +837,3 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	"The Power (Whistling)" = 'sound/music/instruments/vocalsx (2).ogg',
 	"Bard Dance (Whistling)" = 'sound/music/instruments/vocalsx (3).ogg',
 	"Old Time Battles (Whistling)" = 'sound/music/instruments/vocalsx (4).ogg')
-

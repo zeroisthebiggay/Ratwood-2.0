@@ -45,28 +45,30 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/janissary
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	head = /obj/item/clothing/head/roguetown/helmet/janissaryhelm
+	beltr = /obj/item/quiver/bullet/lead//nice to have variety but blunderbus might not fit the vibe
+	r_hand = /obj/item/gun/ballistic/firearm/arquebus
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 		/obj/item/rope/chain = 1,
 		/obj/item/storage/keyring/guardcastle = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
-		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
+		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,
 		/obj/item/powderflask,
 		/obj/item/impact_grenade/smoke/blind_gas,
 		)
 
 	H.adjust_blindness(-3)
 	if(H.mind)
-		var/weapons = list("Long Rifle","Blunderbuss")
-		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		// var/weapons = list("Long Rifle","Blunderbuss")
+		// var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
-		switch(weapon_choice)
-			if("Long Rifle")
-				beltr = /obj/item/quiver/bullet/lead
-				r_hand = /obj/item/gun/ballistic/firearm/arquebus
-			if("Blunderbuss") 
-				beltr = /obj/item/quiver/bullet/grapeshot
-				r_hand = /obj/item/gun/ballistic/firearm/blunderbuss
+		// switch(weapon_choice)
+		// 	if("Long Rifle")
+		// 		beltr = /obj/item/quiver/bullet/lead
+		// 		r_hand = /obj/item/gun/ballistic/firearm/arquebus
+		// 	if("Blunderbuss") 
+		// 		beltr = /obj/item/quiver/bullet/grapeshot
+		// 		r_hand = /obj/item/gun/ballistic/firearm/blunderbuss
 				
 		var/weapons2 = list("Scimitar","Whip","Club")
 		var/weapon_choice2 = input(H, "Choose your sidearm.", "TAKE UP ARMS") as anything in weapons2

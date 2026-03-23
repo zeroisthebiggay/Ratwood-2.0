@@ -24647,6 +24647,14 @@
 /obj/structure/table/wood{
 	icon_state = "tablewood1"
 	},
+/obj/item/quiver/bullet/lead{
+	pixel_x = 7;
+	pixel_y = 36
+	},
+/obj/item/quiver/bullet/lead{
+	pixel_x = 0;
+	pixel_y = 34
+	},
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/deserttown/garrison)
 "mwY" = (

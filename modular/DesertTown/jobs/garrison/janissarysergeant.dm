@@ -128,30 +128,3 @@
 /obj/item/clothing/cloak/catcloak/jancap
 	name = "janissary sergeant's cloak"
 	desc = "A most handsome cloak, of royal red, denoting the authority of a leader."
-// /obj/item/clothing/cloak/janissarysergeant
-// 	name = "Janissary Aghasi cloak"
-// 	desc = "A most handsome cloak, denoting a certain superlative authority"
-// 	color = CLOTHING_RED
-// 	icon_state = "shortcloak"
-// 	item_state = "shortcloak"
-// 	alternate_worn_layer = CLOAK_BEHIND_LAYER
-// 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
-// 	boobed = TRUE
-// 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
-// 	sleevetype = "shirt"
-// 	nodismemsleeves = TRUE
-// 	inhand_mod = TRUE
-// 	detail_tag = "_detail"
-// 	detail_color = CLOTHING_BLACK
-
-// /obj/item/clothing/cloak/janissarysergeant/ComponentInitialize()
-// 	. = ..()
-// 	AddComponent(/datum/component/storage/concrete/roguetown/cloak)
-
-// /obj/item/clothing/cloak/janissarysergeant/dropped(mob/living/carbon/human/user)
-// 	..()
-// 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-// 	if(STR)
-// 		var/list/things = STR.contents()
-// 		for(var/obj/item/I in things)
-// 			STR.remove_from_storage(I, get_turf(src))

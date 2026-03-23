@@ -40,7 +40,7 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/janissary
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	head = /obj/item/clothing/head/roguetown/helmet/janissaryhelm
-	neck = /obj/item/clothing/neck/roguetown/chaincoif
+	neck = /obj/item/clothing/neck/roguetown/chaincoif/chainmantle
 	gloves = /obj/item/clothing/gloves/roguetown/chain
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt

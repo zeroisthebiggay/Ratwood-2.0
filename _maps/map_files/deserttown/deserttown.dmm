@@ -5627,6 +5627,7 @@
 	pixel_y = 32
 	},
 /obj/structure/closet/crate/chest/crate,
+/obj/item/clothing/cloak/citywatch/janissary,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},
@@ -6840,6 +6841,7 @@
 /obj/machinery/light/rogue/candle{
 	pixel_y = -32
 	},
+/obj/structure/fluff/grindwheel,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/deserttown/garrison)
 "dxo" = (
@@ -8633,14 +8635,25 @@
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/church/basement)
 "eqB" = (
+/obj/structure/rack/rogue/shelf,
+/obj/item/gun/ballistic/firearm/handgonne{
+	pixel_x = -20;
+	pixel_y = -16
+	},
+/obj/item/gun/ballistic/firearm/handgonne{
+	pixel_x = -9;
+	pixel_y = -18
+	},
+/obj/item/powderflask{
+	pixel_x = -4;
+	pixel_y = 34
+	},
+/obj/item/powderflask{
+	pixel_x = -7;
+	pixel_y = 35
+	},
 /obj/structure/table/wood{
 	icon_state = "tablewood1"
-	},
-/obj/item/quiver/javelin/iron,
-/obj/item/quiver/javelin/iron,
-/obj/item/quiver/javelin/iron,
-/obj/structure/fluff/walldeco/customflag/deserttown{
-	pixel_y = 32
 	},
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/deserttown/garrison)
@@ -15154,9 +15167,6 @@
 	},
 /area/rogue/under/deserttown/basement/town)
 "hAo" = (
-/obj/structure/table/wood{
-	icon_state = "tablewood1"
-	},
 /obj/item/quiver/bolts{
 	pixel_y = 32
 	},
@@ -15169,6 +15179,9 @@
 	pixel_y = 32
 	},
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow,
+/obj/structure/table/wood{
+	icon_state = "tablewood1"
+	},
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/deserttown/garrison)
 "hAA" = (
@@ -16777,6 +16790,7 @@
 /obj/item/rope/chain,
 /obj/machinery/light/rogue/candle,
 /obj/structure/closet/crate/chest/crate,
+/obj/item/clothing/cloak/citywatch/janissary,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},
@@ -18411,8 +18425,6 @@
 /area/rogue/outdoors/deserttown)
 "jpw" = (
 /obj/structure/rack/rogue,
-/obj/item/clothing/suit/roguetown/armor/chainmail/janissary,
-/obj/item/clothing/suit/roguetown/armor/chainmail/janissary,
 /turf/open/floor/rogue/deserttile{
 	icon_state = "tiledrab2"
 	},
@@ -18865,10 +18877,10 @@
 /area/rogue/indoors/deserttown/manor)
 "jzx" = (
 /obj/structure/rack/rogue,
-/obj/item/rogueweapon/huntingknife/idagger/steel,
-/obj/item/rogueweapon/huntingknife/idagger/steel,
-/obj/item/rogueweapon/scabbard/sheath,
-/obj/item/rogueweapon/scabbard/sheath,
+/obj/item/rogueweapon/shield/tower/zyb,
+/obj/item/rogueweapon/shield/tower/zyb,
+/obj/item/rogueweapon/shield/iron/zybantine,
+/obj/item/rogueweapon/shield/iron/zybantine,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/deserttown/garrison)
 "jAm" = (
@@ -20809,10 +20821,11 @@
 /turf/open/floor/rogue/carpet,
 /area/rogue/indoors/deserttown/tavern)
 "kyQ" = (
-/obj/structure/fluff/grindwheel,
-/obj/machinery/light/rogue/candle,
-/turf/open/floor/rogue/wood,
-/area/rogue/indoors/deserttown/garrison)
+/obj/structure/fluff/walldeco/customflag/deserttown{
+	pixel_y = 32
+	},
+/turf/open/transparent/openspace/debug,
+/area/rogue/outdoors/deserttown/roofs)
 "kyT" = (
 /obj/structure/table/wood/poor,
 /obj/effect/spawner/lootdrop/potion_ingredient,
@@ -29918,8 +29931,9 @@
 /area/rogue/indoors/deserttown/smithguild)
 "pkS" = (
 /obj/structure/rack/rogue,
-/obj/item/clothing/suit/roguetown/armor/chainmail/janissary,
-/obj/item/clothing/suit/roguetown/armor/chainmail/janissary,
+/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/janissary,
+/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/janissary,
+/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/janissary,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/deserttown/garrison)
 "plb" = (
@@ -36648,6 +36662,12 @@
 "svg" = (
 /turf/open/floor/rogue/citybrick/citybrick5,
 /area/rogue/outdoors/deserttown)
+"svC" = (
+/obj/structure/fluff/walldeco/customflag/deserttown{
+	pixel_y = 32
+	},
+/turf/open/floor/rogue/woodturned,
+/area/rogue/indoors/deserttown/garrison)
 "svU" = (
 /obj/structure/mineral_door/wood/donjon/stone{
 	locked = 1;
@@ -42531,11 +42551,36 @@
 	},
 /area/rogue/indoors/deserttown/garrison)
 "vvw" = (
+/obj/structure/rack/rogue/shelf,
+/obj/item/rogueweapon/scabbard/sheath{
+	pixel_x = 17;
+	pixel_y = 32
+	},
+/obj/item/rogueweapon/huntingknife/idagger/steel{
+	pixel_x = -3;
+	pixel_y = 32
+	},
+/obj/item/rogueweapon/huntingknife/idagger/steel{
+	pixel_x = 5;
+	pixel_y = 31
+	},
+/obj/item/rogueweapon/huntingknife/idagger/steel{
+	pixel_x = 12;
+	pixel_y = 29
+	},
+/obj/item/rogueweapon/scabbard/sheath{
+	pixel_x = 6;
+	pixel_y = 32
+	},
+/obj/item/rogueweapon/scabbard/sheath{
+	pixel_x = -5;
+	pixel_y = 30
+	},
+/obj/item/quiver/javelin/iron,
+/obj/item/quiver/javelin/iron,
+/obj/item/quiver/javelin/iron,
 /obj/structure/rack/rogue,
-/obj/item/rogueweapon/shield/tower/zyb,
-/obj/item/rogueweapon/shield/tower/zyb,
-/obj/item/rogueweapon/shield/tower/zyb,
-/turf/open/floor/rogue/woodturned,
+/turf/open/floor/rogue/wood,
 /area/rogue/indoors/deserttown/garrison)
 "vvN" = (
 /obj/structure/closet/crate/roguecloset{
@@ -362440,7 +362485,7 @@ kMO
 kMO
 jlj
 lUF
-jlj
+lUF
 jlj
 jlj
 ibD
@@ -481126,7 +481171,7 @@ jzx
 fpq
 hWz
 jlj
-ktu
+kyQ
 ktu
 qaF
 qaF
@@ -482631,7 +482676,7 @@ ktu
 ktu
 qaF
 jlj
-kyQ
+hKh
 djf
 fpT
 hGS
@@ -482933,12 +482978,12 @@ eUX
 ktu
 qaF
 jlj
-djf
+svC
 fpT
 xwC
 aIf
 jlj
-ktu
+kyQ
 ktu
 ktu
 ktu
@@ -605555,7 +605600,7 @@ fae
 aJD
 aJD
 hZD
-ktu
+hZD
 ktu
 ktu
 qaF
@@ -605856,8 +605901,8 @@ jRW
 qcE
 aJD
 aJD
+aJD
 hZD
-ktu
 ktu
 ktu
 qaF
@@ -606158,8 +606203,8 @@ qcE
 eXV
 aJD
 aJD
+aJD
 hZD
-ktu
 ktu
 ktu
 qaF
@@ -606460,8 +606505,8 @@ aJD
 aJD
 aJD
 aJD
+aJD
 hZD
-ktu
 ktu
 ktu
 qaF
@@ -606762,8 +606807,8 @@ aJD
 aJD
 aJD
 aJD
+aJD
 hZD
-ktu
 ktu
 ktu
 qaF
@@ -607064,8 +607109,8 @@ aJD
 aJD
 aJD
 aJD
+aJD
 hZD
-ktu
 ktu
 ktu
 qaF
@@ -607366,8 +607411,8 @@ aJD
 aJD
 aJD
 aJD
+aJD
 hZD
-ktu
 ktu
 ktu
 qaF
@@ -607669,7 +607714,7 @@ aJD
 aJD
 aJD
 hZD
-ktu
+hZD
 ktu
 ktu
 qaF

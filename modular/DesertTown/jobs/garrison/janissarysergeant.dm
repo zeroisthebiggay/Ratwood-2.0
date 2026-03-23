@@ -37,22 +37,24 @@
 
 //All skills/traits are on the loadouts. All are identical. Welcome to the stupid way we have to make sub-classes...
 /datum/outfit/job/roguetown/janissarysergeant
-	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/janissary
-	pants = /obj/item/clothing/under/roguetown/chainlegs
 	neck = /obj/item/clothing/neck/roguetown/bevor
-	shoes = /obj/item/clothing/shoes/roguetown/shalal/reinforced
-	belt = /obj/item/storage/belt/rogue/leather
+	head = /obj/item/clothing/head/roguetown/helmet/janissaryhelm
+	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/janissary
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
+	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/shalal
+	belt = /obj/item/storage/belt/rogue/leather/shalal
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	gloves = /obj/item/clothing/gloves/roguetown/plate/iron
 	backr = /obj/item/storage/backpack/rogue/satchel
-	head = /obj/item/clothing/head/roguetown/helmet/janissaryhelm
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
+	cloak = /obj/item/clothing/cloak/catcloak/jancap
 	id = /obj/item/scomstone/garrison
 
 //Rare-ish anti-armor two hander sword. Kinda alternative of a bastard sword type. Could be cool.
 /datum/advclass/janissarysergeant/janissarysergeant
 	name = "Sergeant-at-Arms"
-	tutorial = "You are a not just anybody but the janissarysergeant-at-Arms of the Duchy's garrison. While you may have started as some peasant or mercenary, you have advanced through the ranks to that of someone who commands respect and wields it. Take up arms, janissarysergeant!"
+	tutorial = "You are the most experienced of the SULTAN's Soldiery, leading the Janissary in maintaining order and attending to threats and crimes below the PALACE's attention. \
+				See to those under your command and fill in the gaps CATAPHRACTS leave in their wake. Obey the orders of your Marshal and the SULTAN."
 	outfit = /datum/outfit/job/roguetown/janissarysergeant/janissarysergeant
 
 	category_tags = list(CTAG_JANISSARYSERGEANT)
@@ -64,23 +66,23 @@
 		STATKEY_WIL = 1,
 	)
 	subclass_skills = list(
-		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/maces = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/bows = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/sneaking = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_MASTER,	// We are basically identical to a regular MAA, except having better athletics to help us manage our order usage better
-		/datum/skill/misc/riding = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/tracking = SKILL_LEVEL_APPRENTICE,	//Decent tracking akin to Skirmisher.
+		/datum/skill/combat/polearms = 4,
+		/datum/skill/combat/swords = 4,
+		/datum/skill/combat/knives = 3,
+		/datum/skill/combat/axes = 3,
+		/datum/skill/combat/whipsflails = 4,
+		/datum/skill/combat/maces = 4,
+		/datum/skill/combat/shields = 4,
+		/datum/skill/combat/crossbows = 3,
+		/datum/skill/combat/bows = 3,
+		/datum/skill/combat/wrestling = 4,
+		/datum/skill/combat/unarmed = 3,
+		/datum/skill/misc/climbing = 3,
+		/datum/skill/misc/sneaking = 2,
+		/datum/skill/misc/reading = 2,
+		/datum/skill/misc/athletics = 5,	// We are basically identical to a regular MAA, except having better athletics to help us manage our order usage better
+		/datum/skill/misc/riding = 1,
+		/datum/skill/misc/tracking = 2,	//Decent tracking akin to Skirmisher.
 	)
 
 /datum/outfit/job/roguetown/janissarysergeant/janissarysergeant/pre_equip(mob/living/carbon/human/H)
@@ -106,21 +108,50 @@
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
-			if("Rhomphaia")			//Rare-ish anti-armor two hander sword. Kinda alternative of a bastard sword type. Could be cool.
+			if("Rhomphaia")
 				backl = /obj/item/rogueweapon/scabbard/sword
 				l_hand = /obj/item/rogueweapon/sword/long/rhomphaia
 				beltr = /obj/item/rogueweapon/mace/cudgel
-			if("Whip & Shield")	//Tower-shield, higher durability wood shield w/ more coverage. Plus a steel flail; maybe.. less broken that a steel mace?
+			if("Whip & Shield")
 				beltr = /obj/item/rogueweapon/flail/sflail
 				backl = /obj/item/rogueweapon/shield/tower
-			if("Glaive")			//Halberd - basically exact same as MAA. It's a really valid build. Spear thrust + sword chop + bash.
+			if("Glaive")
 				r_hand = /obj/item/rogueweapon/halberd/glaive
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
 				beltr = /obj/item/rogueweapon/mace/cudgel
-			if("Sabre & Crossbow")	//Versetile skirmisher class. Considered other swords but sabre felt best without being too strong. (This one gets no cudgel, no space.)
+			if("Sabre & Crossbow")
 				beltr = /obj/item/quiver/bolts
 				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 				r_hand = /obj/item/rogueweapon/sword/sabre
-				l_hand = /obj/item/rogueweapon/scabbard/sword
+				backl = /obj/item/rogueweapon/scabbard/sword
 
+/obj/item/clothing/cloak/catcloak/jancap
+	name = "janissary sergeant's cloak"
+	desc = "A most handsome cloak, of royal red, denoting the authority of a leader."
+// /obj/item/clothing/cloak/janissarysergeant
+// 	name = "Janissary Aghasi cloak"
+// 	desc = "A most handsome cloak, denoting a certain superlative authority"
+// 	color = CLOTHING_RED
+// 	icon_state = "shortcloak"
+// 	item_state = "shortcloak"
+// 	alternate_worn_layer = CLOAK_BEHIND_LAYER
+// 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
+// 	boobed = TRUE
+// 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
+// 	sleevetype = "shirt"
+// 	nodismemsleeves = TRUE
+// 	inhand_mod = TRUE
+// 	detail_tag = "_detail"
+// 	detail_color = CLOTHING_BLACK
 
+// /obj/item/clothing/cloak/janissarysergeant/ComponentInitialize()
+// 	. = ..()
+// 	AddComponent(/datum/component/storage/concrete/roguetown/cloak)
+
+// /obj/item/clothing/cloak/janissarysergeant/dropped(mob/living/carbon/human/user)
+// 	..()
+// 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+// 	if(STR)
+// 		var/list/things = STR.contents()
+// 		for(var/obj/item/I in things)
+// 			STR.remove_from_storage(I, get_turf(src))

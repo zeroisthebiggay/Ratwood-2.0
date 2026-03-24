@@ -116,11 +116,10 @@
 		// /datum/job/roguetown/sheikh,
 		// /datum/job/roguetown/magician,
 
-		// /datum/job/roguetown/mamluk,
+		// /datum/job/roguetown/azeb,
 		// /datum/job/roguetown/janissary,
-		// /datum/job/roguetown/JanissaryAgha,
+		// /datum/job/roguetown/azebagha,
 		// /datum/job/roguetown/slavemaster,
 		
 		// /datum/job/roguetown/dtslave,
 		// /datum/job/roguetown/dtprince,
-		// /datum/job/roguetown/dtshophand,

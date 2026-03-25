@@ -29,13 +29,17 @@
 		"Absolver" = TRUE, 
 		"Templar" = TRUE, 
 		"Sergeant" = TRUE, 
-		"Men-at-arms" = TRUE, 
+		"Man at Arms" = TRUE, 
 		"Knight" = TRUE, 
 		"Squire" = TRUE, 
 		"Mercenary" = TRUE, 
 		"Warden" = TRUE,
 		"Acolyte" = TRUE,
-		"Adventurer" = TRUE
+		"Adventurer" = TRUE,
+		"Vanguard" = TRUE,
+		"City Guard" = TRUE,
+		"Bandit" = TRUE
+
 	)
 	var/mob/living/tracked_target = null
 	var/shown_hunt_disclaimer = FALSE
@@ -60,23 +64,22 @@
 	return TRUE
 
 /obj/effect/proc_holder/spell/invoked/gnoll_sniff/proc/select_new_target(mob/user)
-	var/list/possible_targets = list()
+	var/list/hunted_targets = list()
+	var/list/combat_targets = list()
+	//Allows a fallback, if no hunted targets are available, we can track worthy prey (combat roles) instead. 
 	for(var/mob/living/L in GLOB.player_list)
 		if(L == user || istype(L, /mob/living/carbon/human/dummy) || !L.mind)
 			continue
-		var/is_hunted = L.has_flaw(/datum/charflaw/hunted)
-		// Don't uncomment for now
-		// var/target_role = L.job
-		var/is_valid_prey = is_hunted
-		// if(!is_valid_prey)
-		// 	if(target_role in combat_roles)
-		// 		is_valid_prey = TRUE
-		if(is_valid_prey)
-			var/entry_name = "[L.real_name]"
-			possible_targets[entry_name] = L
+		var/entry_name = "[L.real_name]"
+		if(L.has_flaw(/datum/charflaw/hunted))
+			hunted_targets[entry_name] = L
+		else if(L.job in combat_roles)
+			combat_targets[entry_name] = L
+
+	var/list/possible_targets = length(hunted_targets) ? hunted_targets : combat_targets
 
 	if(!length(possible_targets))
-		to_chat(user, span_warning("The air is stale. No hunted souls are in the region."))
+		to_chat(user, span_warning("The air is stale. No worthy prey walks these lands."))
 		return
 
 	var/selection = input(user, "Whose scent shall we follow?", "The Great Hunt") as null|anything in sort_list(possible_targets)

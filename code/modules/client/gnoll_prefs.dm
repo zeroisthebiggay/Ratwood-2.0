@@ -19,6 +19,159 @@
 	if(!gnoll_name)
 		gnoll_name = "[pick(GLOB.wolf_prefixes)] [pick(GLOB.wolf_suffixes)]"
 
+/datum/gnoll_prefs/proc/get_pronoun_options()
+	return list(
+		"He/Him" = HE_HIM,
+		"She/Her" = SHE_HER,
+		"They/Them" = THEY_THEM,
+		"It/Its" = IT_ITS
+	)
+
+/datum/gnoll_prefs/proc/get_pelt_options()
+	return list(
+		"Firepelt" = "firepelt",
+		"Rotpelt" = "rotpelt",
+		"Whitepelt" = "whitepelt",
+		"Bloodpelt" = "bloodpelt",
+		"Nightpelt" = "nightpelt",
+		"Darkpelt" = "darkpelt"
+	)
+
+/datum/gnoll_prefs/proc/get_descriptor_options(slot)
+	switch(slot)
+		if("height")
+			return list(
+				"Moderate" = /datum/mob_descriptor/height/moderate,
+				"Middling" = /datum/mob_descriptor/height/middling,
+				"Short" = /datum/mob_descriptor/height/short,
+				"Tall" = /datum/mob_descriptor/height/tall,
+				"Towering" = /datum/mob_descriptor/height/towering,
+				"Giant" = /datum/mob_descriptor/height/giant,
+				"Tiny" = /datum/mob_descriptor/height/tiny
+			)
+		if("body")
+			return list(
+				"Average" = /datum/mob_descriptor/body/average,
+				"Athletic" = /datum/mob_descriptor/body/athletic,
+				"Muscular" = /datum/mob_descriptor/body/muscular,
+				"Herculean" = /datum/mob_descriptor/body/herculean,
+				"Toned" = /datum/mob_descriptor/body/toned,
+				"Heavy" = /datum/mob_descriptor/body/heavy,
+				"Lean" = /datum/mob_descriptor/body/lean,
+				"Burly" = /datum/mob_descriptor/body/burly,
+				"Gaunt" = /datum/mob_descriptor/body/gaunt,
+				"Lanky" = /datum/mob_descriptor/body/lanky
+			)
+		if("fur")
+			return list(
+				"Plain" = /datum/mob_descriptor/fur/plain,
+				"Short" = /datum/mob_descriptor/fur/short,
+				"Coarse" = /datum/mob_descriptor/fur/coarse,
+				"Bristly" = /datum/mob_descriptor/fur/bristly,
+				"Fluffy" = /datum/mob_descriptor/fur/fluffy,
+				"Shaggy" = /datum/mob_descriptor/fur/shaggy,
+				"Silky" = /datum/mob_descriptor/fur/silky,
+				"Lank" = /datum/mob_descriptor/fur/lank,
+				"Mangy" = /datum/mob_descriptor/fur/mangy,
+				"Velvety" = /datum/mob_descriptor/fur/velvety,
+				"Dense" = /datum/mob_descriptor/fur/dense,
+				"Matted" = /datum/mob_descriptor/fur/matted
+			)
+		if("voice")
+			return list(
+				"Growly" = /datum/mob_descriptor/voice/growly,
+				"Deep" = /datum/mob_descriptor/voice/deep,
+				"Booming" = /datum/mob_descriptor/voice/booming,
+				"Gravelly" = /datum/mob_descriptor/voice/gravelly,
+				"Commanding" = /datum/mob_descriptor/voice/commanding,
+				"Monotone" = /datum/mob_descriptor/voice/monotone,
+				"Ordinary" = /datum/mob_descriptor/voice/ordinary,
+				"Soft" = /datum/mob_descriptor/voice/soft,
+				"Grave" = /datum/mob_descriptor/voice/grave,
+				"Venomous" = /datum/mob_descriptor/voice/venomous,
+				"Dispassionate" = /datum/mob_descriptor/voice/dispassionate,
+				"Whiny" = /datum/mob_descriptor/voice/whiny,
+				"Drawling" = /datum/mob_descriptor/voice/drawling,
+				"Shrill" = /datum/mob_descriptor/voice/shrill,
+				"Stilted" = /datum/mob_descriptor/voice/stilted
+			)
+		if("muzzle")
+			return list(
+				"Long" = /datum/mob_descriptor/face/gnoll/long_muzzle,
+				"Short" = /datum/mob_descriptor/face/gnoll/short_muzzle,
+				"Broad" = /datum/mob_descriptor/face/gnoll/broad_muzzle,
+				"Narrow" = /datum/mob_descriptor/face/gnoll/narrow_muzzle,
+				"Scarred" = /datum/mob_descriptor/face/gnoll/scarred_muzzle,
+				"Sharp" = /datum/mob_descriptor/face/gnoll/sharp_muzzle,
+				"Worn" = /datum/mob_descriptor/face/gnoll/worn_muzzle,
+				"Disfigured" = /datum/mob_descriptor/face/gnoll/disfigured_muzzle
+			)
+		if("expression")
+			return list(
+				"Alert" = /datum/mob_descriptor/face_exp/gnoll/alert,
+				"Snarling" = /datum/mob_descriptor/face_exp/gnoll/snarling,
+				"Predatory" = /datum/mob_descriptor/face_exp/gnoll/predatory,
+				"Hollow" = /datum/mob_descriptor/face_exp/gnoll/hollow,
+				"Fierce" = /datum/mob_descriptor/face_exp/gnoll/fierce,
+				"Vacant" = /datum/mob_descriptor/face_exp/gnoll/vacant,
+				"Groveling" = /datum/mob_descriptor/face_exp/gnoll/groveling,
+				"Leering" = /datum/mob_descriptor/face_exp/gnoll/leering
+			)
+
+	return null
+
+/datum/gnoll_prefs/proc/get_selected_label(list/options, value)
+	for(var/label in options)
+		if(options[label] == value)
+			return "[label]"
+	return null
+
+/datum/gnoll_prefs/proc/list_has_value(list/options, value)
+	for(var/label in options)
+		if(options[label] == value)
+			return TRUE
+	return FALSE
+
+/datum/gnoll_prefs/proc/get_descriptor_value(slot)
+	switch(slot)
+		if("height")
+			return descriptor_height
+		if("body")
+			return descriptor_body
+		if("fur")
+			return descriptor_fur
+		if("voice")
+			return descriptor_voice
+		if("muzzle")
+			return descriptor_muzzle
+		if("expression")
+			return descriptor_expression
+
+	return null
+
+/datum/gnoll_prefs/proc/set_descriptor_value(slot, value)
+	var/list/options = get_descriptor_options(slot)
+	if(!options || !list_has_value(options, value))
+		return FALSE
+
+	switch(slot)
+		if("height")
+			descriptor_height = value
+		if("body")
+			descriptor_body = value
+		if("fur")
+			descriptor_fur = value
+		if("voice")
+			descriptor_voice = value
+		if("muzzle")
+			descriptor_muzzle = value
+		if("expression")
+			descriptor_expression = value
+		else
+			return FALSE
+
+	return TRUE
+
 /datum/gnoll_prefs/proc/gnoll_show_ui(mob/user)
 	if(!user.client)
 		return
@@ -33,38 +186,17 @@
 	dat += "<a href='?_src_=gnoll_prefs;action=random_name'>Random Gnoll Name</a><br><br>"
 
 	// Pronouns section
+	var/list/pronoun_options = get_pronoun_options()
+	var/pronoun_label = get_selected_label(pronoun_options, gnoll_pronouns) || "He/Him"
 	dat += "<b>Pronouns:</b> "
-	var/list/pronoun_options = list(HE_HIM, SHE_HER, THEY_THEM, IT_ITS)
-	var/list/pronoun_display = list(
-		HE_HIM = "He/Him",
-		SHE_HER = "She/Her",
-		THEY_THEM = "They/Them",
-		IT_ITS = "It/Its"
-	)
-	for(var/pronoun in pronoun_options)
-		var/display_pronoun = pronoun_display[pronoun] ? pronoun_display[pronoun] : pronoun
-		if(gnoll_pronouns == pronoun)
-			dat += "<b>[display_pronoun]</b> "
-		else
-			dat += "<a href='?_src_=gnoll_prefs;action=set_pronouns;pronouns=[pronoun]'>[display_pronoun]</a> "
+	dat += "<a href='?_src_=gnoll_prefs;action=choose_pronouns'>[pronoun_label]</a>"
 	dat += "<br><br>"
 
 	// Pelt type section
+	var/list/pelt_options = get_pelt_options()
+	var/pelt_label = get_selected_label(pelt_options, pelt_type) || "Firepelt"
 	dat += "<b>Pelt Pattern:</b> "
-	var/list/pelt_options = list(
-		"Firepelt" = "firepelt",
-		"Rotpelt" = "rotpelt",
-		"Whitepelt" = "whitepelt",
-		"Bloodpelt" = "bloodpelt",
-		"Nightpelt" = "nightpelt",
-		"Darkpelt" = "darkpelt"
-	)
-	for(var/pelt_label in pelt_options)
-		var/pelt_id = pelt_options[pelt_label]
-		if(pelt_type == pelt_id)
-			dat += "<b>[pelt_label]</b> "
-		else
-			dat += "<a href='?_src_=gnoll_prefs;action=set_pelt;pelt=[pelt_id]'>[pelt_label]</a> "
+	dat += "<a href='?_src_=gnoll_prefs;action=choose_pelt'>[pelt_label]</a>"
 	dat += "<br><br>"
 
 	// Genitals section
@@ -83,135 +215,45 @@
 	dat += "<br>"
 
 	// Height section
+	var/list/height_options = get_descriptor_options("height")
+	var/height_label = get_selected_label(height_options, descriptor_height) || "Moderate"
 	dat += "<b>Height:</b> "
-	var/list/height_options = list(
-		/datum/mob_descriptor/height/moderate = "Moderate",
-		/datum/mob_descriptor/height/middling = "Middling",
-		/datum/mob_descriptor/height/short = "Short",
-		/datum/mob_descriptor/height/tall = "Tall",
-		/datum/mob_descriptor/height/towering = "Towering",
-		/datum/mob_descriptor/height/giant = "Giant",
-		/datum/mob_descriptor/height/tiny = "Tiny"
-	)
-	for(var/tp in height_options)
-		var/label = height_options[tp]
-		if(descriptor_height == tp)
-			dat += "<b>[label]</b> "
-		else
-			dat += "<a href='?_src_=gnoll_prefs;action=set_descriptor;slot=height;type=[tp]'>[label]</a> "
+	dat += "<a href='?_src_=gnoll_prefs;action=choose_descriptor;slot=height'>[height_label]</a>"
 	dat += "<br><br>"
 
 	// Body section
+	var/list/body_options = get_descriptor_options("body")
+	var/body_label = get_selected_label(body_options, descriptor_body) || "Muscular"
 	dat += "<b>Build:</b> "
-	var/list/body_options = list(
-		/datum/mob_descriptor/body/average = "Average",
-		/datum/mob_descriptor/body/athletic = "Athletic",
-		/datum/mob_descriptor/body/muscular = "Muscular",
-		/datum/mob_descriptor/body/herculean = "Herculean",
-		/datum/mob_descriptor/body/toned = "Toned",
-		/datum/mob_descriptor/body/heavy = "Heavy",
-		/datum/mob_descriptor/body/lean = "Lean",
-		/datum/mob_descriptor/body/burly = "Burly",
-		/datum/mob_descriptor/body/gaunt = "Gaunt",
-		/datum/mob_descriptor/body/lanky = "Lanky"
-	)
-	for(var/tp in body_options)
-		var/label = body_options[tp]
-		if(descriptor_body == tp)
-			dat += "<b>[label]</b> "
-		else
-			dat += "<a href='?_src_=gnoll_prefs;action=set_descriptor;slot=body;type=[tp]'>[label]</a> "
+	dat += "<a href='?_src_=gnoll_prefs;action=choose_descriptor;slot=body'>[body_label]</a>"
 	dat += "<br><br>"
 
 	// Fur section
+	var/list/fur_options = get_descriptor_options("fur")
+	var/fur_label = get_selected_label(fur_options, descriptor_fur) || "Coarse"
 	dat += "<b>Coat:</b> "
-	var/list/fur_options = list(
-		/datum/mob_descriptor/fur/plain = "Plain",
-		/datum/mob_descriptor/fur/short = "Short",
-		/datum/mob_descriptor/fur/coarse = "Coarse",
-		/datum/mob_descriptor/fur/bristly = "Bristly",
-		/datum/mob_descriptor/fur/fluffy = "Fluffy",
-		/datum/mob_descriptor/fur/shaggy = "Shaggy",
-		/datum/mob_descriptor/fur/silky = "Silky",
-		/datum/mob_descriptor/fur/lank = "Lank",
-		/datum/mob_descriptor/fur/mangy = "Mangy",
-		/datum/mob_descriptor/fur/velvety = "Velvety",
-		/datum/mob_descriptor/fur/dense = "Dense",
-		/datum/mob_descriptor/fur/matted = "Matted"
-	)
-	for(var/tp in fur_options)
-		var/label = fur_options[tp]
-		if(descriptor_fur == tp)
-			dat += "<b>[label]</b> "
-		else
-			dat += "<a href='?_src_=gnoll_prefs;action=set_descriptor;slot=fur;type=[tp]'>[label]</a> "
+	dat += "<a href='?_src_=gnoll_prefs;action=choose_descriptor;slot=fur'>[fur_label]</a>"
 	dat += "<br><br>"
 
 	// Voice section
+	var/list/voice_options = get_descriptor_options("voice")
+	var/voice_label = get_selected_label(voice_options, descriptor_voice) || "Growly"
 	dat += "<b>Voice:</b> "
-	var/list/voice_options = list(
-		/datum/mob_descriptor/voice/growly = "Growly",
-		/datum/mob_descriptor/voice/deep = "Deep",
-		/datum/mob_descriptor/voice/booming = "Booming",
-		/datum/mob_descriptor/voice/gravelly = "Gravelly",
-		/datum/mob_descriptor/voice/commanding = "Commanding",
-		/datum/mob_descriptor/voice/monotone = "Monotone",
-		/datum/mob_descriptor/voice/ordinary = "Ordinary",
-		/datum/mob_descriptor/voice/soft = "Soft",
-		/datum/mob_descriptor/voice/grave = "Grave",
-		/datum/mob_descriptor/voice/venomous = "Venomous",
-		/datum/mob_descriptor/voice/dispassionate = "Dispassionate",
-		/datum/mob_descriptor/voice/whiny = "Whiny",
-		/datum/mob_descriptor/voice/drawling = "Drawling",
-		/datum/mob_descriptor/voice/shrill = "Shrill",
-		/datum/mob_descriptor/voice/stilted = "Stilted"
-	)
-	for(var/tp in voice_options)
-		var/label = voice_options[tp]
-		if(descriptor_voice == tp)
-			dat += "<b>[label]</b> "
-		else
-			dat += "<a href='?_src_=gnoll_prefs;action=set_descriptor;slot=voice;type=[tp]'>[label]</a> "
+	dat += "<a href='?_src_=gnoll_prefs;action=choose_descriptor;slot=voice'>[voice_label]</a>"
 	dat += "<br><br>"
 
 	// Muzzle shape section
+	var/list/muzzle_options = get_descriptor_options("muzzle")
+	var/muzzle_label = get_selected_label(muzzle_options, descriptor_muzzle) || "Long"
 	dat += "<b>Muzzle Shape:</b> "
-	var/list/muzzle_options = list(
-		/datum/mob_descriptor/face/gnoll/long_muzzle = "Long",
-		/datum/mob_descriptor/face/gnoll/short_muzzle = "Short",
-		/datum/mob_descriptor/face/gnoll/broad_muzzle = "Broad",
-		/datum/mob_descriptor/face/gnoll/narrow_muzzle = "Narrow",
-		/datum/mob_descriptor/face/gnoll/scarred_muzzle = "Scarred",
-		/datum/mob_descriptor/face/gnoll/sharp_muzzle = "Sharp",
-		/datum/mob_descriptor/face/gnoll/worn_muzzle = "Worn",
-		/datum/mob_descriptor/face/gnoll/disfigured_muzzle = "Disfigured"
-	)
-	for(var/tp in muzzle_options)
-		var/label = muzzle_options[tp]
-		if(descriptor_muzzle == tp)
-			dat += "<b>[label]</b> "
-		else
-			dat += "<a href='?_src_=gnoll_prefs;action=set_descriptor;slot=muzzle;type=[tp]'>[label]</a> "
+	dat += "<a href='?_src_=gnoll_prefs;action=choose_descriptor;slot=muzzle'>[muzzle_label]</a>"
 	dat += "<br><br>"
 
 	// Expression section
+	var/list/expression_options = get_descriptor_options("expression")
+	var/expression_label = get_selected_label(expression_options, descriptor_expression) || "Alert"
 	dat += "<b>Expression:</b> "
-	var/list/expression_options = list(
-		/datum/mob_descriptor/face_exp/gnoll/alert = "Alert",
-		/datum/mob_descriptor/face_exp/gnoll/snarling = "Snarling",
-		/datum/mob_descriptor/face_exp/gnoll/predatory = "Predatory",
-		/datum/mob_descriptor/face_exp/gnoll/hollow = "Hollow",
-		/datum/mob_descriptor/face_exp/gnoll/fierce = "Fierce",
-		/datum/mob_descriptor/face_exp/gnoll/vacant = "Vacant",
-		/datum/mob_descriptor/face_exp/gnoll/groveling = "Groveling",
-		/datum/mob_descriptor/face_exp/gnoll/leering = "Leering"
-	)
-	for(var/tp in expression_options)
-		var/label = expression_options[tp]
-		if(descriptor_expression == tp)
-			dat += "<b>[label]</b> "
-		else
-			dat += "<a href='?_src_=gnoll_prefs;action=set_descriptor;slot=expression;type=[tp]'>[label]</a> "
+	dat += "<a href='?_src_=gnoll_prefs;action=choose_descriptor;slot=expression'>[expression_label]</a>"
 	dat += "<br><br>"
 
 	dat += "<center><a href='?_src_=gnoll_prefs;action=close'>Close</a></center>"
@@ -236,6 +278,36 @@
 		if("random_name")
 			gnoll_name = "[pick(GLOB.wolf_prefixes)] [pick(GLOB.wolf_suffixes)]"
 			gnoll_show_ui(user)
+
+		if("choose_pronouns")
+			var/list/pronoun_options = get_pronoun_options()
+			var/current_pronoun = get_selected_label(pronoun_options, gnoll_pronouns)
+			var/selected_pronoun = input(user, "Choose pronouns", "Gnoll Customization", current_pronoun) as null|anything in pronoun_options
+			if(!selected_pronoun)
+				return
+			gnoll_pronouns = pronoun_options[selected_pronoun]
+			gnoll_show_ui(user)
+
+		if("choose_pelt")
+			var/list/pelt_options = get_pelt_options()
+			var/current_pelt = get_selected_label(pelt_options, pelt_type)
+			var/selected_pelt = input(user, "Choose pelt pattern", "Gnoll Customization", current_pelt) as null|anything in pelt_options
+			if(!selected_pelt)
+				return
+			pelt_type = pelt_options[selected_pelt]
+			gnoll_show_ui(user)
+
+		if("choose_descriptor")
+			var/slot = href_list["slot"]
+			var/list/descriptor_options = get_descriptor_options(slot)
+			if(!descriptor_options)
+				return
+			var/current_descriptor = get_selected_label(descriptor_options, get_descriptor_value(slot))
+			var/selected_descriptor = input(user, "Describe my [slot]", "Gnoll Customization", current_descriptor) as null|anything in descriptor_options
+			if(!selected_descriptor)
+				return
+			if(set_descriptor_value(slot, descriptor_options[selected_descriptor]))
+				gnoll_show_ui(user)
 
 		if("set_pronouns")
 			var/new_pronouns = href_list["pronouns"]

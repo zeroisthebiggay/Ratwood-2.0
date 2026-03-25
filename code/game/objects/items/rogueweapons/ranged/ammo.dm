@@ -87,7 +87,7 @@
 	hitsound = 'sound/combat/hits/blunt/woodblunt (2).ogg'
 
 /obj/projectile/bullet/reusable/bolt/blunt/heavy
-	damage = 50
+	damage = 75
 	armor_penetration = 50
 	embedchance = 5
 	woundclass = BCLASS_BLUNT

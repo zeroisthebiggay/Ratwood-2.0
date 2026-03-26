@@ -89,6 +89,7 @@
 /datum/species/gnoll/regenerate_icons(mob/living/carbon/human/H)
 	H.icon = 'icons/roguetown/mob/monster/gnoll.dmi'
 	H.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB)
+	clear_extremity_overlays(H)
 	H.update_damage_overlays()
 	H.update_inv_armor_special()
 	return TRUE
@@ -113,6 +114,7 @@
 	UnregisterSignal(C, COMSIG_MOVABLE_BARK)
 
 /datum/species/gnoll/update_damage_overlays(mob/living/carbon/human/H)
+	clear_extremity_overlays(H)
 	H.remove_overlay(DAMAGE_LAYER)
 	H.remove_overlay(LEG_DAMAGE_LAYER)
 	H.remove_overlay(ARM_DAMAGE_LAYER)
@@ -123,6 +125,19 @@
 	H.apply_overlay(LEG_DAMAGE_LAYER)
 	H.apply_overlay(ARM_DAMAGE_LAYER)
 	return TRUE
+
+/datum/species/gnoll/proc/clear_extremity_overlays(mob/living/carbon/human/H)
+	// Gnolls do not use humanoid hand/foot worn layers; clear them so bloodied extremity sprites never appear.
+	H.remove_overlay(SHOES_LAYER)
+	H.remove_overlay(SHOESLEEVE_LAYER)
+	H.remove_overlay(LEGSLEEVE_LAYER)
+	H.remove_overlay(GLOVES_LAYER)
+	H.remove_overlay(GLOVESLEEVE_LAYER)
+	H.overlays_standing[SHOES_LAYER] = null
+	H.overlays_standing[SHOESLEEVE_LAYER] = null
+	H.overlays_standing[LEGSLEEVE_LAYER] = null
+	H.overlays_standing[GLOVES_LAYER] = null
+	H.overlays_standing[GLOVESLEEVE_LAYER] = null
 
 /datum/species/gnoll/random_name(gender,unique,lastname)
 	return "VEREWOLF"

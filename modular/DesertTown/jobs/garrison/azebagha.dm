@@ -61,7 +61,6 @@
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/visored
 	id = /obj/item/scomstone/garrison
 
-//Rare-ish anti-armor two hander sword. Kinda alternative of a bastard sword type. Could be cool.
 /datum/advclass/azebagha/azebagha
 	name = "Sergeant-at-Arms"
 	tutorial = "An experienced soldier of the Sultan's Azeb Corp you have been tasked with overseeing the newly constructed border. \
@@ -72,10 +71,11 @@
 
 	category_tags = list(CTAG_AZEBAGHA)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 1,
+		STATKEY_SPD = 1,
 		STATKEY_INT = 1,
-		STATKEY_CON = 1,
-		STATKEY_PER = 1, //Gets bow-skills, so give a SMALL tad of perception to aid in bow draw.
+		STATKEY_PER = 1, 
+		STATKEY_CON = 1, 
 		STATKEY_WIL = 1,
 	)
 	subclass_skills = list(
@@ -94,7 +94,7 @@
 		/datum/skill/misc/sneaking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_MASTER,	
-		/datum/skill/misc/riding = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/riding = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT,	
 	)
 
@@ -118,23 +118,34 @@
 		)
 	H.adjust_blindness(-3)
 	if(H.mind)
-		var/weapons = list("Shotel","Flail & Shield","Glaive","Sabre & Crossbow")	//Bit more unique than footsman, you are a jack-of-all-trades + slightly more 'elite'.
-		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/primary = list("Scimitar","Shotel","Whip","Warden Axe")
+		var/primary_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/secondary = list("Greataxe","Javelins and Shield","Blackhorn Longbow","Handgonne")
+		var/secondary_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
-		switch(weapon_choice)
+		switch(primary_choice)
+			if("Scimitar")		
+				beltl = /obj/item/rogueweapon/scabbard/sword
+				l_hand = /obj/item/rogueweapon/sword/sabre/shamshir
 			if("Shotel")		
-				backl = /obj/item/rogueweapon/scabbard/sword
+				beltl = /obj/item/rogueweapon/scabbard/sword
 				l_hand = /obj/item/rogueweapon/sword/long/shotel
-				beltr = /obj/item/rogueweapon/mace/cudgel
-			if("Whip & Shield")	
-				beltr = /obj/item/rogueweapon/whip/antique
-				backl = /obj/item/rogueweapon/shield/iron/zybantine
-			if("Glaive")			
-				r_hand = /obj/item/rogueweapon/halberd/glaive
+			if("Whip")	
+				beltl = /obj/item/rogueweapon/whip/antique
+			if("Warden Axe")	
+				beltl = /obj/item/rogueweapon/stoneaxe/woodcut/wardenpick
+
+		switch(secondary_choice)
+			if("Greataxe")			
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
-				beltr = /obj/item/rogueweapon/mace/cudgel
-			if("Sabre & Crossbow")	//Versetile skirmisher class. Considered other swords but sabre felt best without being too strong. (This one gets no cudgel, no space.)
-				beltr = /obj/item/quiver/bolts
-				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
-				r_hand = /obj/item/rogueweapon/sword/sabre
-				l_hand = /obj/item/rogueweapon/scabbard/sword
+				l_hand = /obj/item/rogueweapon/greataxe/steel
+			if("Javelins and Shield")	
+				beltr = /obj/item/quiver/javelin/steel
+				backl = /obj/item/rogueweapon/shield/iron/zybantine
+			if("Blackhorn Longbow")
+				beltr = /obj/item/quiver/arrows
+				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow/warden
+			if("Handgonne")//okay I can remove this later but I think it would be... just... so based
+				r_hand = /obj/item/gun/ballistic/firearm/handgonne
+				l_hand = /obj/item/powderflask
+				beltr = /obj/item/quiver/bullet/lead

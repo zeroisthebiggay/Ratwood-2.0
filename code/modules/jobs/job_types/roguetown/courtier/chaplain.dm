@@ -67,20 +67,15 @@
 		STATKEY_PER = 2//eye for intrigue
 	)
 	subclass_skills = list(
-		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/staves = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,//please don't steal the court physician's job
-		/datum/skill/craft/alchemy = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/staves = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
+		/datum/skill/magic/holy = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,//fancy lad school
-		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/labor/farming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/magic/holy = SKILL_LEVEL_MASTER,
 	)
 	subclass_stashed_items = list(
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,

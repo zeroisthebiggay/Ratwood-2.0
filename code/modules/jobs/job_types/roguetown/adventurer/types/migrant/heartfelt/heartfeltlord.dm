@@ -539,7 +539,7 @@
 	name = "Focus Target!"
 	overlay_state = "focustarget"
 	effect_to_apply = /datum/status_effect/debuff/order/heartfelt/focustarget
-	message_varname = "targettext"
+	message_varname = "focustargettext"
 
 /datum/status_effect/debuff/order/heartfelt/focustarget
 	id = "target"
@@ -589,5 +589,6 @@
 	ORDER_INPUT(chargetext, "Push them back!!")
 	ORDER_INPUT(bolstertext, "Hold the line!!")
 	ORDER_INPUT(onfeettext, "Stand proud for Heartfelt!!")
+	ORDER_INPUT(focustargettext, "Break their spirits and mark them for death!!")
 
 	#undef ORDER_INPUT

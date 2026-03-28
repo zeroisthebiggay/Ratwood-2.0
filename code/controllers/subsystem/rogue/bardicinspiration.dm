@@ -190,7 +190,7 @@ GLOBAL_LIST_INIT(learnable_songst3, (list(/obj/effect/proc_holder/spell/invoked/
 
 	for(var/obj/effect/proc_holder/spell/knownsong in mind.spell_list)
 		if(knownsong.type == item.type)
-			to_chat(span_warning("You already know this one!"))
+			to_chat(src, span_warning("You already know this one!"))
 			inspiration.is_picking = FALSE
 			return
 	var/obj/effect/proc_holder/spell/invoked/song/new_song = new item

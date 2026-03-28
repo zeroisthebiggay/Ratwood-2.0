@@ -24,7 +24,7 @@
 	invocation_type = "emote"
 	action_icon_state = "sniff"
 	invocation_emote_self = "<span class='notice'>I sniff the air.</span>"
-	var/alist/combat_roles = list(
+	var/static/list/combat_roles = list(
 		"Orthodoxist" = TRUE, 
 		"Absolver" = TRUE, 
 		"Templar" = TRUE, 
@@ -70,11 +70,15 @@
 /obj/effect/proc_holder/spell/invoked/gnoll_sniff/proc/select_new_target(mob/user)
 	var/list/hunted_targets = list()
 	var/list/combat_targets = list()
+	var/list/name_counts = list()
 	//Allows a fallback, if no hunted targets are available, we can track worthy prey (combat roles) instead. 
 	for(var/mob/living/L in GLOB.player_list)
 		if(L == user || istype(L, /mob/living/carbon/human/dummy) || !L.mind)
 			continue
-		var/entry_name = "[L.real_name]"
+		var/base_name = "[L.real_name]"
+		var/name_count = (name_counts[base_name] || 0) + 1
+		name_counts[base_name] = name_count
+		var/entry_name = (name_count > 1) ? "[base_name] ([name_count])" : base_name
 		if(L.has_flaw(/datum/charflaw/hunted))
 			hunted_targets[entry_name] = L
 		else if(L.job in combat_roles)

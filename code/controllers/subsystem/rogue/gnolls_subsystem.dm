@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(gnoll_scaling)
 // Scaling tuning quick reference:
 // - SINGLE: set single_mode_slots.
 // - FLAT: below flat_mode_threshold_players uses flat_mode_low_slots, otherwise flat_mode_high_slots.
-// - DYNAMIC: starts at dynamic_mode_base_slots, then adds using ((active_players - dynamic_mode_start_players) / dynamic_mode_players_per_extra_slot, 1)
+// - DYNAMIC: starts at dynamic_mode_base_slots, then adds using FLOOR((active_players - dynamic_mode_start_players) / dynamic_mode_players_per_extra_slot, 1)
 //   once active_players is above dynamic_mode_start_players.
 // - max_gnoll_slots clamps final slot count.
 // - recheck_below_players controls when another scaling check is queued.
@@ -134,6 +134,11 @@ SUBSYSTEM_DEF(gnoll_scaling)
 
 	if(recheck_below_players > 0 && players_amt < recheck_below_players)
 		queue_scaling_recheck()
+
+// Keep scaling state in sync when trusted game systems adjust gnoll slots outside this subsystem.
+/datum/controller/subsystem/gnoll_scaling/proc/note_external_slot_adjustment(total_positions, spawn_positions)
+	last_applied_total_positions = total_positions
+	last_applied_spawn_positions = spawn_positions
 
 /datum/controller/subsystem/gnoll_scaling/proc/get_gnoll_scaling()
 	if(gnoll_scaling_mode != 0)

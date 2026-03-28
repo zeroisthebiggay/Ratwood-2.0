@@ -74,6 +74,8 @@
 	var/intercept_parent_attack = TRUE
 	var/intercept_parent_mousedrop = TRUE
 
+	var/bottle_autoclose = TRUE					// "Closable" reagent bottles being put in storage will automatically be re-corked
+
 /datum/component/storage/Initialize(datum/component/storage/concrete/master)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

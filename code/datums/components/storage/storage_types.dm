@@ -173,6 +173,7 @@
 	allow_dump_out = TRUE
 	dump_time = 40
 	collection_mode = COLLECT_SAME
+	bottle_autoclose = FALSE
 
 /datum/component/storage/concrete/tray/New(datum/P, ...)
 	. = ..()

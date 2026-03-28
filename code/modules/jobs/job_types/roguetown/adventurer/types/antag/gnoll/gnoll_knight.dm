@@ -5,6 +5,7 @@
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/gnoll/knight
 	category_tags = list(CTAG_GNOLL)
+	applies_post_equipment = FALSE
 	traits_applied = list(TRAIT_HEAVYARMOR) // Flavoring
 	
 	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg'

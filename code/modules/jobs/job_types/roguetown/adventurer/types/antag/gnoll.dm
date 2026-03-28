@@ -49,6 +49,20 @@
 	if(!client?.prefs?.gnoll_prefs)
 		return
 
+	// Gnolls should be a blank slate; strip inherited vice/virtue state from base character prefs.
+	if(length(vices))
+		for(var/datum/charflaw/vice as anything in vices)
+			vice.on_removal(src)
+	if(charflaw && !(charflaw in vices))
+		charflaw.on_removal(src)
+	vices = list()
+	charflaw = null
+
+	if(status_traits)
+		for(var/trait in status_traits.Copy())
+			if(HAS_TRAIT_FROM(src, trait, TRAIT_VIRTUE))
+				REMOVE_TRAIT(src, trait, TRAIT_VIRTUE)
+
 	var/datum/gnoll_prefs/prefs = client.prefs.gnoll_prefs
 
 	if(prefs.gnoll_name)

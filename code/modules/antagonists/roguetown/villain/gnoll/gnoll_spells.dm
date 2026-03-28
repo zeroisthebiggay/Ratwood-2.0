@@ -76,9 +76,9 @@
 			continue
 		var/entry_name = "[L.real_name]"
 		if(L.has_flaw(/datum/charflaw/hunted))
-			hunted_targets[entry_name] = WEAKREF(L)
+			hunted_targets[entry_name] = L
 		else if(L.job in combat_roles)
-			combat_targets[entry_name] = WEAKREF(L)
+			combat_targets[entry_name] = L
 
 	var/list/possible_targets = length(hunted_targets) ? hunted_targets : combat_targets
 
@@ -86,7 +86,7 @@
 		to_chat(user, span_warning("The air is stale. No worthy prey walks these lands."))
 		return
 
-	var/selection = input(user, "Whose scent shall we follow?", "The Great Hunt") as null|anything in sort_list(possible_targets)
+	var/selection = input(user, "Whose scent shall we follow?", "The Great Hunt") as null|anything in possible_targets
 	if(!selection)
 		return
 
@@ -96,8 +96,7 @@
 		to_chat(user, span_boldwarning("(RP expectations are still valid as a Gnoll. You can always still do other gnoll things if targets are too difficult. Remember the rule of Interesting!)"))
 		shown_hunt_disclaimer = TRUE
 
-	var/datum/weakref/selected_target_ref = possible_targets[selection]
-	var/mob/living/selected_target = selected_target_ref?.resolve()
+	var/mob/living/selected_target = possible_targets[selection]
 	if(!is_valid_hunted(selected_target))
 		to_chat(user, span_warning("That scent slips away before you can lock onto it."))
 		return
@@ -219,7 +218,7 @@
 		var/mob/living/carbon/human/userashuman = user
 		userashuman.blood_volume = max(0, userashuman.blood_volume - blood_loss)
 	for(var/mob/living/carbon/human/H in range(7, origin_turf))
-		if(H.dna?.species?.id == "gnoll" && !user)
+		if(H.dna?.species?.id == "gnoll" && H != user)
 			gnoll_hitchhikers++
 			H.blood_volume = max(0, H.blood_volume - blood_loss)
 			do_teleport(H, destination_turf)

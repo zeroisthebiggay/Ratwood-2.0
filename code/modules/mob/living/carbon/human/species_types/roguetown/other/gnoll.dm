@@ -87,8 +87,9 @@
 	return TRUE
 
 /datum/species/gnoll/regenerate_icons(mob/living/carbon/human/H)
+	var/static/list/gnoll_base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB)
 	H.icon = 'icons/roguetown/mob/monster/gnoll.dmi'
-	H.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB)
+	H.base_intents = gnoll_base_intents
 	H.update_damage_overlays()
 	H.update_inv_armor_special()
 	return TRUE

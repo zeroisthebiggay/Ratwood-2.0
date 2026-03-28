@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 		desc = "An open bottle. Hopefully a cork is nearby."
 	update_icon()
 
-/obj/item/reagent_containers/glass/bottle/proc/handle_storage_autoclose(mob/living/user, datum/component/storage/concrete/stor, notify_user = TRUE, make_sound = FALSE)
+/obj/item/reagent_containers/glass/bottle/proc/handle_autoclose(mob/living/user, datum/component/storage/concrete/stor, notify_user = TRUE, make_sound = FALSE)
 	// I hate my stupid hacky chud proc, but alas.
 	if(closed)
 		return
@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 /obj/item/reagent_containers/glass/bottle/on_enter_storage(datum/component/storage/concrete/S)
 	. = ..()
 	if(S.bottle_autoclose)
-		handle_storage_autoclose(stor = S, notify_user = TRUE, make_sound = TRUE)
+		handle_autoclose(stor = S, notify_user = TRUE, make_sound = TRUE)
 
 /*
 	I tried overriding attack_obj() for autoclose too. It didn't work, for a couple of reasons:

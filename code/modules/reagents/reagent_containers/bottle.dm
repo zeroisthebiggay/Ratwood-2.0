@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 			user.mob_timers["autocork_notif"] = world.time
 
 	// If we opt to make a sound, it will never be more than once per action.
-	var/soundcheck = make_sound ? already_notified : TRUE
+	var/soundcheck = make_sound ? !already_notified : TRUE
 
 	closed = TRUE
 	do_close(user, no_msg = TRUE, no_snd = soundcheck)

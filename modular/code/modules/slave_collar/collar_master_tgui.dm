@@ -105,6 +105,8 @@
 		pet_entry["arousal_forced"] = !!pet.active_timers?["force_arousal_[REF(pet)]"]
 		pet_entry["clothing_forbidden"] = HAS_TRAIT_FROM(pet, TRAIT_NUDIST, COLLAR_TRAIT)
 		pet_entry["forced_love"] = pet.has_status_effect(/datum/status_effect/in_love)
+		var/obj/item/clothing/neck/roguetown/cursed_collar/collar = pet.get_item_by_slot(SLOT_NECK)
+		pet_entry["received_cum_count"] = istype(collar) ? collar.received_cum_count : null
 
 		var/obj/item/chastity/device = CM.get_pet_cursed_chastity(pet)
 		pet_entry["has_cursed_chastity"] = !!device

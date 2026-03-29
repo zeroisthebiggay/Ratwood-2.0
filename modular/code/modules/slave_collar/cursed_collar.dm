@@ -16,6 +16,27 @@
 	var/datum/mind/collar_master = null
 	var/silenced = FALSE
 	var/applying = FALSE
+	/// Round-persistent counter for non-self ejaculation events received by the current wearer.
+	var/received_cum_count = 0
+
+/obj/item/clothing/neck/roguetown/cursed_collar/examine(mob/user)
+	. = ..()
+	. += span_notice("It bears [received_cum_count] marks of others' release this binding.")
+
+/obj/item/clothing/neck/roguetown/cursed_collar/proc/record_nonself_ejaculation(mob/living/carbon/human/source, mob/living/carbon/human/wearer)
+	if(!source || !wearer)
+		return FALSE
+	if(source == wearer)
+		return FALSE
+	if(loc != wearer)
+		return FALSE
+	received_cum_count++
+	// TESTING ONLY: remove this log line after validation is complete.
+	log_game("COLLAR TEST COUNTER: [key_name(source)] -> [key_name(wearer)] count=[received_cum_count]")
+	return TRUE
+
+/obj/item/clothing/neck/roguetown/cursed_collar/proc/reset_received_cum_count()
+	received_cum_count = 0
 
 /obj/item/clothing/neck/roguetown/cursed_collar/attack(mob/living/carbon/human/C, mob/living/user)
 	if(!istype(C))
@@ -150,6 +171,7 @@
 
 /obj/item/clothing/neck/roguetown/cursed_collar/dropped(mob/living/carbon/human/user)
 	. = ..()
+	reset_received_cum_count()
 	if(!user)
 		return
 	SEND_SIGNAL(user, COMSIG_CARBON_LOSE_COLLAR)

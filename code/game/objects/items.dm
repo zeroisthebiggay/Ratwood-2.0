@@ -840,7 +840,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			var/oldy = pixel_y
 			pixel_y = pixel_y+5
 			animate(src, pixel_y = oldy, time = 0.5)
-	if(altgripped || wielded)
+	if(altgripped)
+		sharpness = IS_SHARP
+		ungrip(user,FALSE)
+	else if(wielded)
 		ungrip(user, FALSE)
 	item_flags &= ~IN_INVENTORY
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
@@ -898,7 +901,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	user.update_equipment_speed_mods()
 
 	if(!user.is_holding(src))
-		if(altgripped || wielded)
+		if(altgripped)
+			sharpness = IS_SHARP
+			ungrip(user,FALSE)
+		else if(wielded)
 			ungrip(user, FALSE)
 	if(twohands_required)
 		if(slot == ITEM_SLOT_HANDS)
@@ -1479,6 +1485,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(altgripped)
 		altgripped = FALSE
 		wielded = FALSE
+		sharpness = IS_SHARP
 		if(force_wielded)
 			update_force_dynamic()
 		wdefense_dynamic = wdefense
@@ -1559,7 +1566,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	if(alt_intents && !gripped_intents)
 		altgrip(user)
-		sharpness = IS_SHARP
 	if(gripped_intents)
 		wield(user)
 

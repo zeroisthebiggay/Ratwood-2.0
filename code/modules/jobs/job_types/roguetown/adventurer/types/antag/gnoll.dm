@@ -57,6 +57,7 @@
 		charflaw.on_removal(src)
 	vices = list()
 	charflaw = null
+	statpack = null
 	headshot_link = null
 
 	if(status_traits)
@@ -65,6 +66,9 @@
 				REMOVE_TRAIT(src, trait, TRAIT_VIRTUE)
 
 	var/datum/gnoll_prefs/prefs = client.prefs.gnoll_prefs
+
+	// Gnolls are assigned their own subclass statlines later in equip flow; wipe any inherited statpack roll now.
+	roll_stats()
 
 	if(prefs.gnoll_name)
 		real_name = prefs.gnoll_name

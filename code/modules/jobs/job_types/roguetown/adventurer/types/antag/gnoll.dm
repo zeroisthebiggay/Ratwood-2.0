@@ -69,6 +69,7 @@
 
 	// Gnolls are assigned their own subclass statlines later in equip flow; wipe any inherited statpack roll now.
 	roll_stats()
+	refresh_live_vocal_preferences()
 
 	if(prefs.gnoll_name)
 		real_name = prefs.gnoll_name

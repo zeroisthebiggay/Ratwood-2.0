@@ -239,8 +239,7 @@
 			if(!(direct_target in display_targets))
 				display_targets += direct_target
 	var/active_source = length(hunted_targets) ? "Hunted flaw" : "Combat fallback"
-	var/selection_mode_description = "F
-	ollows gnoll tracking rules: hunted targets are preferred globally, combat roles are only used when no hunted targets are valid."
+	var/selection_mode_description = "Follows gnoll tracking rules: hunted targets are preferred globally, combat roles are only used when no hunted targets are valid."
 	if(length(direct_scent_targets))
 		selection_mode_description += " Active direct-scent targets already being tracked by gnolls are also shown below."
 	var/gnoll_mode_name = "Unavailable"

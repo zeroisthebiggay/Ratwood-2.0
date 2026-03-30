@@ -12,6 +12,40 @@
 	howl_spies_allowed = TRUE
 	howl_distance_limit = 500
 
+/obj/effect/proc_holder/spell/self/howl/gnoll/cast(mob/user = usr)
+	..()
+	var/message = input("Howl at the bloodied sky...", "GORESPAWN") as text|null
+	if(!message) return
+
+	var/datum/antagonist/antag_data = user.mind.has_antag_datum(wolf_antag_type)
+
+	// sound played for owner
+	playsound(user, pick(howl_sounds_far), 75, TRUE)
+
+	for(var/mob/player in GLOB.player_list)
+
+		if(!player.mind) continue
+		if(isbrain(player)) continue
+
+		// Admin ghost visibility
+		if(player.stat == DEAD)
+			var/speaker_name = (antag_data && hasvar(antag_data, "wolfname")) ? antag_data:wolfname : user.real_name
+			to_chat(player, span_notice("[speaker_name] (gnoll howl, distant): [message]"))
+			continue
+
+		// Announcement to other werewolves (and anyone else who has beast language somehow)
+		if(player.mind.has_antag_datum(wolf_antag_type) || (player.has_language(/datum/language/beast)) && howl_spies_allowed)
+			var/speaker_name = (antag_data && hasvar(antag_data, "wolfname")) ? antag_data:wolfname : user.real_name
+			to_chat(player, span_boldannounce("[speaker_name] howls to the bloodied sky: [message]"))
+
+		//sound played for other players
+		if(player == user) continue
+		var/player_distance = get_dist(player, user)
+		if(player_distance > 7 && player_distance <= howl_distance_limit)
+			player.playsound_local(get_turf(player), pick(howl_sounds_far), 25, FALSE, pressure_affected = FALSE)
+
+	user.log_message("howls: [message] ([wolf_antag_type])", LOG_GAME)
+
 /obj/effect/proc_holder/spell/invoked/gnoll_sniff
 	name = "Track"
 	desc = "Graggar has some worthy folks for you, hunt them down! Cast on self to set target, cast to track target, cast on a person to remember their scent temporarily"

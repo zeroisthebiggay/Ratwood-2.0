@@ -25,8 +25,13 @@
 	for(var/mob/player in GLOB.player_list)
 
 		if(!player.mind) continue
-		if(player.stat == DEAD) continue
 		if(isbrain(player)) continue
+
+		// Admin ghost visibility
+		if(player.stat == DEAD)
+			var/speaker_name = (antag_data && hasvar(antag_data, "wolfname")) ? antag_data:wolfname : user.real_name
+			to_chat(player, span_notice("[speaker_name] (howl, distant): [message]"))
+			continue
 
 		// Announcement to other werewolves (and anyone else who has beast language somehow)
 		if(player.mind.has_antag_datum(wolf_antag_type) || (player.has_language(/datum/language/beast)) && howl_spies_allowed)

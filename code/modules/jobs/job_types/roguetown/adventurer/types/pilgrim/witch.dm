@@ -7,7 +7,7 @@
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	traits_applied = list(TRAIT_DEATHSIGHT, TRAIT_WITCH, TRAIT_ARCYNE_T1, TRAIT_ALCHEMY_EXPERT)
-	maximum_possible_slots = 20 // Should never fill, for the purpose of players to know what types towners are in round at the menu
+	maximum_possible_slots = 5 // really I want to say 3 but 5 is PRETTY roomy
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_SPD = 2,

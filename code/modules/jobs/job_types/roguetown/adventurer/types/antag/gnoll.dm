@@ -13,7 +13,6 @@
 	show_in_credits = TRUE
 	min_pq = 30 //Same as wretches for now
 	max_pq = null
-	allowed_patrons = list(/datum/patron/inhumen/graggar)
 
 	obsfuscated_job = TRUE
 
@@ -49,6 +48,9 @@
 /mob/living/carbon/human/proc/apply_gnoll_preferences(initial_setup = TRUE)
 	if(!client?.prefs?.gnoll_prefs)
 		return FALSE
+
+	// Gnoll role always belongs to Graggar, regardless of the source slot's faith.
+	set_patron(/datum/patron/inhumen/graggar)
 
 	if(initial_setup)
 		// Gnolls should be a blank slate at spawn; strip inherited vice/virtue state from base character prefs.
@@ -157,10 +159,12 @@
 		H.AddSpell(I)
 
 		var/mode = SSgnoll_scaling.get_gnoll_scaling()
-		if(mode != GNOLL_SCALING_SINGLE)
+		if(mode == GNOLL_SCALING_NONE)
+			to_chat(H, span_bignotice("There are no scheduled gnoll reinforcements this week. I must rely on cunning over numbers."))
+		else if(mode != GNOLL_SCALING_DOUBLE)
 			to_chat(H, span_bignotice("I can expect to be joined by my pack this week. I should wait for them and group up."))
 		else
-			to_chat(H, span_bignotice("Isolated from my pack, I am likely a lone soul this week. I should especially avoid getting killed, and look for my pack next week."))
+			to_chat(H, span_bignotice("My pack is small this week. I should regroup with the other gnoll and avoid reckless fights until we can hunt together."))
 		to_chat(H, span_bignotice("Graggar is patient, and values good strategy. I mustn't be hasty, especially if my marks prove difficult to isolate.\n Perhaps there is merit in forging alliances, or setting up camp."))
 
 /mob/living/carbon/human/proc/gnoll_inspect_skin()

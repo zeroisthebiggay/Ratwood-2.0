@@ -4,9 +4,9 @@ SUBSYSTEM_DEF(gnoll_scaling)
 
 	var/gnoll_scaling_mode = 0
 	var/gnoll_playercount_lock = TRUE
-	var/desired_gnoll_slots = 1
+	var/desired_gnoll_slots = 2
 	var/gnoll_scaling_check_queued = FALSE
-	var/last_logged_target_slots = 1
+	var/last_logged_target_slots = 2
 	var/last_storyteller_name = "Unknown"
 	var/last_mode_origin = "default"
 	var/admin_scaling_override = FALSE
@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(gnoll_scaling)
 
 	// Tuning values for each scaling mode.
 	var/max_gnoll_slots = 6
-	var/single_mode_slots = 1
+	var/double_mode_slots = 2
 	var/flat_mode_threshold_players = 125
 	var/flat_mode_low_slots = 2
 	var/flat_mode_high_slots = 4
@@ -27,8 +27,10 @@ SUBSYSTEM_DEF(gnoll_scaling)
 
 /datum/controller/subsystem/gnoll_scaling/proc/get_mode_name(mode)
 	switch(mode)
-		if(GNOLL_SCALING_SINGLE)
-			return "SINGLE"
+		if(GNOLL_SCALING_NONE)
+			return "NONE"
+		if(GNOLL_SCALING_DOUBLE)
+			return "DOUBLE"
 		if(GNOLL_SCALING_FLAT)
 			return "FLAT"
 		if(GNOLL_SCALING_DYNAMIC)
@@ -41,8 +43,9 @@ SUBSYSTEM_DEF(gnoll_scaling)
 
 /datum/controller/subsystem/gnoll_scaling/proc/get_admin_scaling_snapshot()
 	var/list/snapshot = list(
+		"mode_id" = null,
 		"mode_name" = "Unavailable",
-		"is_non_single" = FALSE,
+		"has_pop_growth" = FALSE,
 		"pop_remaining" = "N/A",
 		"auto_scaling_disabled" = FALSE,
 		"auto_scaling_status" = "Enabled",
@@ -53,10 +56,11 @@ SUBSYSTEM_DEF(gnoll_scaling)
 		snapshot["auto_scaling_status"] = "Disabled for this round (manual slot override detected)"
 
 	var/mode = get_gnoll_scaling()
+	snapshot["mode_id"] = mode
 	snapshot["mode_name"] = get_mode_name(mode)
-	var/is_non_single = (mode != GNOLL_SCALING_SINGLE)
-	snapshot["is_non_single"] = is_non_single
-	if(!is_non_single)
+	var/has_pop_growth = (mode == GNOLL_SCALING_FLAT || mode == GNOLL_SCALING_DYNAMIC)
+	snapshot["has_pop_growth"] = has_pop_growth
+	if(!has_pop_growth)
 		return snapshot
 
 	var/players_amt = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
@@ -84,11 +88,11 @@ SUBSYSTEM_DEF(gnoll_scaling)
 	last_mode_origin = "direct"
 	if(preferred_mode == GNOLL_SCALING_RANDOM)
 		last_mode_origin = "random"
-		preferred_mode = pick(GNOLL_SCALING_SINGLE, GNOLL_SCALING_FLAT, GNOLL_SCALING_DYNAMIC)
+		preferred_mode = pick(GNOLL_SCALING_DOUBLE, GNOLL_SCALING_FLAT, GNOLL_SCALING_DYNAMIC)
 
-	if(!(preferred_mode in list(GNOLL_SCALING_SINGLE, GNOLL_SCALING_FLAT, GNOLL_SCALING_DYNAMIC)))
+	if(!(preferred_mode in list(GNOLL_SCALING_NONE, GNOLL_SCALING_DOUBLE, GNOLL_SCALING_FLAT, GNOLL_SCALING_DYNAMIC)))
 		last_mode_origin = "fallback"
-		preferred_mode = GNOLL_SCALING_SINGLE
+		preferred_mode = GNOLL_SCALING_DOUBLE
 
 	return preferred_mode
 
@@ -103,7 +107,8 @@ SUBSYSTEM_DEF(gnoll_scaling)
 	addtimer(CALLBACK(src, PROC_REF(unlock_gnoll_scaling)), 6000)
 
 // Scaling tuning quick reference:
-// - SINGLE: set single_mode_slots.
+// - NONE: disable gnoll spawning (0 slots).
+// - DOUBLE: set double_mode_slots.
 // - FLAT: below flat_mode_threshold_players uses flat_mode_low_slots, otherwise flat_mode_high_slots.
 // - DYNAMIC: starts at dynamic_mode_base_slots, then adds using FLOOR((active_players - dynamic_mode_start_players) / dynamic_mode_players_per_extra_slot, 1)
 //   once active_players is above dynamic_mode_start_players.
@@ -116,13 +121,15 @@ SUBSYSTEM_DEF(gnoll_scaling)
 	var/players_amt = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
 
 	var/mode = get_gnoll_scaling()
-	var/target_slots = 1
+	var/target_slots = 2
 	var/previous_target_slots = desired_gnoll_slots
 	var/recheck_below_players = 0
 
 	switch(mode)
-		if(GNOLL_SCALING_SINGLE)
-			target_slots = single_mode_slots
+		if(GNOLL_SCALING_NONE)
+			target_slots = 0
+		if(GNOLL_SCALING_DOUBLE)
+			target_slots = double_mode_slots
 		if(GNOLL_SCALING_FLAT)
 			target_slots = (players_amt >= flat_mode_threshold_players) ? flat_mode_high_slots : flat_mode_low_slots
 			recheck_below_players = flat_mode_recheck_below_players
@@ -154,7 +161,7 @@ SUBSYSTEM_DEF(gnoll_scaling)
 			log_game(override_msg)
 			message_admins(override_msg)
 			return
-	var/capped_target_slots = clamp(target_slots, 1, max_gnoll_slots)
+	var/capped_target_slots = clamp(target_slots, 0, max_gnoll_slots)
 	var/new_total = max(gnoll_job.current_positions, capped_target_slots)
 	var/new_spawn = max(gnoll_job.current_positions, capped_target_slots)
 	gnoll_job.total_positions = new_total
@@ -184,7 +191,7 @@ SUBSYSTEM_DEF(gnoll_scaling)
 	if(gnoll_scaling_mode != 0)
 		return gnoll_scaling_mode
 
-	var/preferred_mode = GNOLL_SCALING_SINGLE
+	var/preferred_mode = GNOLL_SCALING_DOUBLE
 	var/storyteller_name = "Unknown"
 	if(SSgamemode?.current_storyteller)
 		preferred_mode = SSgamemode.current_storyteller.preferred_gnoll_mode

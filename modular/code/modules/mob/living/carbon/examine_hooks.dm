@@ -9,12 +9,13 @@
 	var/user_is_gnoll = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/datum/antagonist/gnoll/gnoll_antag = H.mind?.has_antag_datum(/datum/antagonist/gnoll)
 		user_is_gnoll = H.dna?.species?.id == "gnoll"
-		if(H.dna?.species?.id == "gnoll" && gnoll_antag?.is_examine_marked_target(src))
-			lines += span_cultsmall("Graggar has marked them!")
-		if(H.dna?.species?.id == "gnoll" && src.has_gnoll_scent_this_round)
-			lines += span_cultsmall("They have gnoll scent, a breeder!")
+		if(user_is_gnoll)
+			var/datum/antagonist/gnoll/gnoll_antag = H.mind?.has_antag_datum(/datum/antagonist/gnoll)
+			if(gnoll_antag?.is_examine_marked_target(src))
+				lines += span_cultsmall("Graggar has marked them!")
+			if(src.has_gnoll_scent_this_round)
+				lines += span_cultsmall("They have gnoll scent, a breeder!")
 	if(src.has_gnoll_scent_this_round && !user_is_gnoll)
 		lines += span_warning("They have a strange scent about them...")
 	var/perception_level = 15

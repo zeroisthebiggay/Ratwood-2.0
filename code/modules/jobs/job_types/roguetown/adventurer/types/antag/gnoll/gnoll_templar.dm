@@ -3,7 +3,7 @@
 	maximum_possible_slots = 1
 	tutorial = "None are as valued to protect graggarite worship as his gnoll champions themselves."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
+	allowed_races = list(/datum/species/gnoll)
 	outfit = /datum/outfit/job/roguetown/gnoll/templar
 	applies_post_equipment = FALSE
 	category_tags = list(CTAG_GNOLL)

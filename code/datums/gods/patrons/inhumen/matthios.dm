@@ -24,16 +24,10 @@
 #define MATTHIOS_LOCKPICK_BONUS "matthios_lockpick_bonus"
 
 /datum/patron/inhumen/matthios/proc/apply_lockpick_bonus(mob/living/living)
-	if(HAS_TRAIT_FROM(living, TRAIT_COMMIE, MATTHIOS_LOCKPICK_BONUS))
-		return
-	living.adjust_skillrank(/datum/skill/misc/lockpicking, 1, TRUE)
-	ADD_TRAIT(living, TRAIT_COMMIE, MATTHIOS_LOCKPICK_BONUS)
+	return
 
 /datum/patron/inhumen/matthios/proc/remove_lockpick_bonus(mob/living/living)
-	if(!HAS_TRAIT_FROM(living, TRAIT_COMMIE, MATTHIOS_LOCKPICK_BONUS))
-		return
-	REMOVE_TRAIT(living, TRAIT_COMMIE, MATTHIOS_LOCKPICK_BONUS)
-	living.adjust_skillrank(/datum/skill/misc/lockpicking, -1, TRUE)
+	return
 
 /datum/patron/inhumen/matthios/on_gain(mob/living/living)
 	. = ..()

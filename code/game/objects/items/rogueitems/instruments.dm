@@ -67,8 +67,6 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		if(slot?.member_id == member_id)
 			member_slots -= slot_key
 
-// FIX: Also remove by instrument ref directly, for drop/equip cases where
-// we have the instrument object but not necessarily the member_id handy.
 /datum/instrument_band_lobby/proc/remove_member_by_instrument(obj/item/rogue/instrument/instrument)
 	if(!instrument)
 		return
@@ -146,7 +144,7 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			return
 	..()
 
-// FIX: thingshearing was previously cleared BEFORE calling ..() which meant
+// Thingshearing was previously cleared BEFORE calling ..() which meant
 // the parent stop() had nothing to iterate over and silently did nothing.
 // We now let the parent run first, THEN clear thingshearing, and THEN free
 // the channel. The manual GLOB.clients loop handles clients whose played_loops
@@ -197,19 +195,16 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	/// When TRUE, songs will loop (repeat) when they end. Off by default.
 	var/loop_enabled = FALSE
 
-// FIX: Added null-guard on soundloop. During Initialize() the parent chain
+// Added null-guard on soundloop. During Initialize() the parent chain
 // may trigger equipped() before soundloop is assigned.
 /obj/item/rogue/instrument/equipped(mob/living/user, slot)
 	. = ..()
-	if(playing && user.get_active_held_item() != src)
+	if(playing && !(src in user.held_items) && !not_held)
 		playing = FALSE
 		groupplaying = FALSE
 		if(soundloop)
 			soundloop.stop()
 		user.remove_status_effect(/datum/status_effect/buff/playing_music)
-		// FIX: Remove this instrument from any band lobby it was part of.
-		// Previously, equipping to a non-active slot silently left a ghost slot
-		// in the lobby and the owner would still try to start this instrument.
 		_remove_self_from_lobbies()
 
 /obj/item/rogue/instrument/getonmobprop(tag)
@@ -225,25 +220,22 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	soundloop = new(src, FALSE)
 	. = ..()
 
-// FIX: Destroy() now cleans up all lobby membership for this instrument
-// before qdel'ing the soundloop. Previously, a qdel'd instrument left a
-// zombie slot in any lobby it was part of, making the lobby ownerless if
-// it was the owner's instrument.
 /obj/item/rogue/instrument/Destroy()
 	_remove_self_from_lobbies()
 	qdel(soundloop)
 	. = ..()
 
-// FIX: dropped() now also removes this instrument from band lobbies.
-// Previously the slot stayed alive and the lazy GC in get_active_slots()
-// was the only thing that would eventually notice it was gone.
 /obj/item/rogue/instrument/dropped(mob/living/user, silent)
 	..()
+	if(user && (src in user.held_items))
+		return
+	var/was_playing = playing || groupplaying
 	groupplaying = FALSE
 	playing = FALSE
-	if(soundloop)
+	if(soundloop && was_playing)
 		soundloop.stop()
-		user.remove_status_effect(/datum/status_effect/buff/playing_music)
+		if(user)
+			user.remove_status_effect(/datum/status_effect/buff/playing_music)
 	_remove_self_from_lobbies()
 
 // Helper proc: removes this specific instrument object from every lobby it
@@ -257,7 +249,6 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			GLOB.instrument_band_lobbies -= lobby_id
 			continue
 		lobby.remove_member_by_instrument(src)
-		// Prune lobbies that have no members left and no owner resolve.
 		if(!lobby.member_slots.len)
 			var/mob/living/owner_mob = lobby.owner_ref?.resolve()
 			if(!owner_mob)
@@ -370,11 +361,6 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			curfile = song_list[choice]
 			if(!user || playing || !(src in user.held_items) && !(not_held))
 				return
-			// FIX: Resolve the player's skill level ONCE here and use those
-			// local vars throughout. Previously the switch fell through to
-			// soundloop.stress2give assignment but note_color was a side-effect
-			// only set on skill levels 2-6; level 1 left whatever note_color
-			// was set from a previous song. Reset it here first.
 			note_color = "#7f7f7f"
 			if(user.mind)
 				switch(user.get_skill_level(/datum/skill/misc/music))
@@ -520,7 +506,6 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			if(!slot_instrument || slot_instrument.playing || !slot.song_file)
 				continue
 			if(slot_instrument.not_held)
-				// non-held instruments are allowed to participate
 				;
 			else
 				if(!isliving(slot_instrument.loc))
@@ -530,7 +515,6 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 					continue
 			slot_instrument.curfile = slot.song_file
 
-			// Resolve this bandmate's skill level for their own status effect.
 			if(isliving(slot_instrument.loc))
 				var/mob/living/bandmate_mob = slot_instrument.loc
 				var/this_stress = /datum/stressevent/music
@@ -570,10 +554,6 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		for(var/obj/item/rogue/instrument/band_instrument in instruments_to_start)
 			if(band_instrument.playing || !band_instrument.curfile)
 				continue
-			// FIX: Use the instrument's actual holder (or the instrument itself
-			// for not_held) as the play_source, NOT the band leader's mob.
-			// Previously all band instruments emitted sound from the leader's
-			// position rather than each bandmate's own position.
 			var/atom/play_source = band_instrument
 			if(isliving(band_instrument.loc))
 				play_source = band_instrument.loc
@@ -604,16 +584,11 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 				GLOB.instrument_band_lobbies -= lobby_id
 				continue
 			if(lobby.owner_id == member_id)
-				// Owner is disbanding their own lobby entirely.
 				GLOB.instrument_band_lobbies -= lobby_id
 				continue
 			lobby.remove_member_by_id(member_id)
 			if(!lobby.member_slots.len)
 				GLOB.instrument_band_lobbies -= lobby_id
-		// FIX: groupplaying was only cleared on src (the instrument clicked).
-		// If the player had multiple instruments registered across lobbies,
-		// only the clicked instrument was cleared. Now we clear groupplaying
-		// on every instrument held by this player.
 		if(isliving(user))
 			for(var/obj/item/rogue/instrument/held_instrument in user.held_items)
 				held_instrument.groupplaying = FALSE

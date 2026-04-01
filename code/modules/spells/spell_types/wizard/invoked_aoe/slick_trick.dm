@@ -15,14 +15,14 @@
 	associated_skill = /datum/skill/magic/arcane
 	gesture_required = TRUE
 	spell_tier = 3 // AOE
-	invocation = "Dolus Lubricus!" //"Slick Trick" in Latin
+	invocations = list("Dolus Lubricus!") //"Slick Trick" in Latin
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_HIGH //Big warning as its AoE
 
 	var/slip_effect_duration = 10 SECONDS
 	var/pre_slip_buffer_delay = 0.5 SECONDS
-	var/slip_effect_type = TURF_WET_MAGIC
+	var/slip_effect_type = TURF_WET_LUBE
 	var/area_of_effect_radius = 1 // 1 = 3x3
 
 /obj/effect/proc_holder/spell/invoked/slick_trick/cast(list/targets, mob/user = usr)
@@ -77,14 +77,14 @@
 	associated_skill = /datum/skill/magic/arcane
 	gesture_required = TRUE
 	spell_tier = 2 // non AOE version of slick trip
-	invocation = "Lapsus Maximus!" // :)
+	invocations = list("Lapsus Maximus!") // :)
 	invocation_type = "whisper"
 	glow_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_MEDIUM //Not an AOE, but make it flashy and silly still. There's not many other tells that you're the one slipping people. 
 
 	var/slip_effect_duration = 10 SECONDS //same duration bc apparently duration is weird and I don't wanna mess with it, plus it's only one tile
 	var/pre_slip_buffer_delay = 0.5 SECONDS
-	var/slip_effect_type = TURF_WET_MAGIC
+	var/slip_effect_type = TURF_WET_LUBE
 	var/area_of_effect_radius = 0 // does 0 make it 1 tile?
 
 /obj/effect/proc_holder/spell/invoked/slick_trick_small/cast(list/targets, mob/user = usr)

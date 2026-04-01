@@ -772,3 +772,18 @@
 	icon_state = "mask_opal"
 	desc = "An opal mask that both conceals and protects the face."
 	sellprice = 100
+
+/obj/item/clothing/mask/rogue/xylixmask
+	name = "jester mask"
+	item_state = "xylixmask"
+	icon_state = "xylixmask"
+	desc = "A ceramic mask, forever stuck with the joyful smile its patron god favors. While it will shatter easily from blows, its smug countenance shall taunt its foes."
+	max_integrity = 50
+	armor = null
+	flags_inv = HIDEFACE|HIDESNOUT
+	body_parts_covered = FACE
+	block2add = FOV_BEHIND
+	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_HIP
+	smeltresult = null
+	anvilrepair = /datum/skill/craft/ceramics
+	sellprice = 0

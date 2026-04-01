@@ -1413,8 +1413,6 @@
 	var/mob/living/L = AM
 	var/mob/living/M = owner
 
-	if(!(M.mobility_flags & MOBILITY_STAND))
-		return
 	if(L.buckled)
 		return
 	if(L.patron?.type == /datum/patron/divine/xylix)
@@ -1439,6 +1437,33 @@
 	playsound(L, pick(sounds), 50, TRUE)
 
 	L.AdjustKnockdown(2)
+
+/datum/status_effect/buff/stagehands_silence
+	id = "Stagehand"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/stagehands_silence
+	duration = 20 MINUTES
+
+/atom/movable/screen/alert/status_effect/buff/stagehands_silence
+	name = "Stangehand's Silence"
+	desc = "The slow quicken. My footsteps are quiet and I can move faster while sneaking."
+
+/datum/status_effect/buff/stagehands_silence/on_creation(mob/living/new_owner, ...)
+	. = ..()
+	if(owner.STASPD < 12)
+		effectedstats = list(STATKEY_SPD = 1) // +1 buff to spd for people w/ less than 12. should be cool but prevents any stupid shit. hopefully.
+
+/datum/status_effect/buff/stagehands_silence/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("My footsteps feel lighter and quieter. What is that droning sound in my head...?"))
+	// inspired by matthiosmuffle
+	ADD_TRAIT(owner, TRAIT_SILENT_FOOTSTEPS, "xylixboon")
+	ADD_TRAIT(owner, TRAIT_LIGHT_STEP, "xylixboon") 
+
+/datum/status_effect/buff/stagehands_silence/on_remove()
+	. = ..()
+	to_chat(owner, span_warning("The droning quiets. My footsteps are noisy, again."))
+	REMOVE_TRAIT(owner, TRAIT_SILENT_FOOTSTEPS, "xylixboon")
+	REMOVE_TRAIT(owner, TRAIT_LIGHT_STEP, "xylixboon")
 
 /atom/movable/screen/alert/status_effect/buff/pacify
 	name = "Blessing of Eora"

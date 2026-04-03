@@ -63,6 +63,11 @@
 				/obj/item/rogueweapon/scabbard/sheath = 1
 				)
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
+	if(H.age == AGE_MIDDLEAGED)
+		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 5, TRUE)
+	if(H.age == AGE_OLD)
+		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 6, TRUE)
+		H.adjust_skillrank_up_to(/datum/skill/craft/tanning, 4, TRUE)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/huntersyell)
 
@@ -121,6 +126,8 @@
 				/obj/item/rogueweapon/scabbard/sheath = 1
 				)
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
+	if(H.age == AGE_MIDDLEAGED)
+		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 5, TRUE)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 6, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/craft/tanning, 4, TRUE)

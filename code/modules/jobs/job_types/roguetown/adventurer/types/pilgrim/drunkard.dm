@@ -44,5 +44,7 @@
 						)
 	ADD_TRAIT(H, TRAIT_CRACKHEAD, TRAIT_GENERIC)
 
+	if(H.age == AGE_MIDDLEAGED)
+		H.adjust_skillrank_up_to(/datum/skill/misc/stealing, 5, TRUE)//lol
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/misc/stealing, 6, TRUE)//lol

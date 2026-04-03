@@ -65,5 +65,7 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/random
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mineroresight)
+	if(H.age == AGE_MIDDLEAGED)
+		H.adjust_skillrank_up_to(/datum/skill/labor/mining, 5, TRUE)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/labor/mining, 6, TRUE)

@@ -26,7 +26,7 @@
 		/datum/skill/combat/slings = SKILL_LEVEL_APPRENTICE,
 
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/labor/farming = SKILL_LEVEL_MASTER,
+		/datum/skill/labor/farming = SKILL_LEVEL_EXPERT,
 		/datum/skill/labor/lumberjacking = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
@@ -63,6 +63,9 @@
 						)
 	beltl = /obj/item/rogueweapon/sickle
 	backr = /obj/item/rogueweapon/hoe
+	if(H.age == AGE_MIDDLEAGED)
+		H.adjust_skillrank_up_to(/datum/skill/labor/farming, 5, TRUE)
+		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 3, TRUE)
 	if(H.age == AGE_OLD)//So ppl have reason to pick this I guess?
 		H.adjust_skillrank_up_to(/datum/skill/labor/farming, 6, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 4, TRUE)

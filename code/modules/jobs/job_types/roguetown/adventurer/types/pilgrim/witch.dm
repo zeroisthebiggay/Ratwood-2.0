@@ -46,6 +46,8 @@
 						/obj/item/recipe_book/magic = 1,
 						/obj/item/chalk = 1
 						)
+	if(H.age == AGE_MIDDLEAGED)
+		H.adjust_skillrank_up_to(/datum/skill/craft/alchemy, 5, TRUE)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/craft/alchemy, 6, TRUE)
 

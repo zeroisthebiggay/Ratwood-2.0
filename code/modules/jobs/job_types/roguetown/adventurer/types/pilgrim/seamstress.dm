@@ -42,9 +42,7 @@
 						/obj/item/natural/bundle/fibers/full = 1,
 						/obj/item/flashlight/flare/torch = 1,
 						/obj/item/needle/thorn = 1,
-						/obj/item/recipe_book/sewing = 1,
 						/obj/item/book/rogue/swatchbook = 1,
-						/obj/item/recipe_book/leatherworking = 1
 						)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fittedclothing)

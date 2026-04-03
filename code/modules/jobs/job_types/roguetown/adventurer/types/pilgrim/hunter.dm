@@ -58,8 +58,6 @@
 				/obj/item/rogueweapon/huntingknife = 1,
 				/obj/item/flashlight/flare/torch = 1,
 				/obj/item/flashlight/flare/torch/lantern = 1,
-				/obj/item/recipe_book/survival = 1,
-				/obj/item/recipe_book/leatherworking = 1,
 				/obj/item/rogueweapon/scabbard/sheath = 1
 				)
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
@@ -121,8 +119,6 @@
 				/obj/item/flint = 1,
 				/obj/item/bait = 1,
 				/obj/item/rogueweapon/huntingknife = 1,
-				/obj/item/recipe_book/survival = 1,
-				/obj/item/recipe_book/leatherworking = 1,
 				/obj/item/rogueweapon/scabbard/sheath = 1
 				)
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather

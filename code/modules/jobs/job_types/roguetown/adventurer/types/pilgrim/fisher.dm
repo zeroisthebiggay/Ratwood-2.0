@@ -60,7 +60,6 @@
 							/obj/item/natural/worms = 2,
 							/obj/item/rogueweapon/shovel/small = 1,
 							/obj/item/flashlight/flare/torch = 1,
-							/obj/item/recipe_book/survival = 1,
 							/obj/item/rogueweapon/scabbard/sheath = 1
 							)
 	else

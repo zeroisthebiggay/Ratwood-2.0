@@ -107,7 +107,6 @@
 		/obj/item/rogueore/iron = 5,
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/blacksmithing = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/armor_brush = 1,
 		/obj/item/polishing_cream = 1
 		)

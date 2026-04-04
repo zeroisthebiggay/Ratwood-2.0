@@ -3719,6 +3719,7 @@
 /area/rogue/indoors/deserttown/manor)
 "bXF" = (
 /obj/structure/closet/crate/roguecloset/dark,
+/obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/under/deserttown/basement/keep)
 "bXK" = (
@@ -5575,6 +5576,12 @@
 /obj/item/millstone,
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/deserttown/warden)
+"cRl" = (
+/obj/machinery/light/rogue/candle/blue{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/tile/harem1,
+/area/rogue/under/deserttown/basement/keep)
 "cRr" = (
 /obj/structure/fluff/railing/wood,
 /obj/machinery/light/rogue/torchholder/c,
@@ -6519,7 +6526,7 @@
 	redstone_id = "gatemanor3"
 	},
 /turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/deserttown/manor)
+/area/rogue/indoors/deserttown/manor)
 "dsz" = (
 /obj/structure/mineral_door/wood,
 /turf/open/floor/rogue/blocks/stonered,
@@ -10179,7 +10186,9 @@
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/church)
 "ffv" = (
-/obj/machinery/light/rogue/candle,
+/obj/structure/drape/zybantine{
+	pixel_y = 32
+	},
 /turf/open/floor/rogue/tile/harem2{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},
@@ -18130,7 +18139,7 @@
 	name = "Throne Room"
 	},
 /turf/open/floor/rogue/citybrick/citybrick2,
-/area/rogue/outdoors/deserttown/manor)
+/area/rogue/indoors/deserttown/manor)
 "iXh" = (
 /obj/machinery/light/rogue/campfire/fireplace{
 	pixel_y = 32
@@ -23687,6 +23696,7 @@
 "lGC" = (
 /obj/structure/table/wood,
 /obj/item/soap/bath,
+/obj/machinery/light/rogue/candle/blue/r,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/under/deserttown/basement/keep)
 "lGE" = (
@@ -25730,7 +25740,7 @@
 	lockid = "manor"
 	},
 /turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/deserttown/manor)
+/area/rogue/indoors/deserttown/manor)
 "mEk" = (
 /obj/structure/fluff/walldeco/stone/bronze,
 /turf/closed/wall/mineral/rogue/sandstone,
@@ -27812,6 +27822,7 @@
 /area/rogue/outdoors/deserttown)
 "nzy" = (
 /obj/structure/chair/bench/couchamagenta,
+/obj/machinery/light/rogue/candle/blue/l,
 /turf/open/floor/rogue/blocks/stonered,
 /area/rogue/under/deserttown/basement/keep)
 "nzz" = (
@@ -40956,15 +40967,8 @@
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/deserttown/manor)
 "ucw" = (
-/obj/effect/decal/cobbleedge{
-	icon_state = "borderfall";
-	dir = 1
-	},
-/obj/machinery/light/rogue/candle/blue/l,
-/obj/structure/stairs/stone{
-	dir = 1
-	},
-/turf/open/water/bath,
+/obj/machinery/light/rogue/torchholder/l,
+/turf/open/floor/rogue/tile/checkeralt,
 /area/rogue/under/deserttown/basement/keep)
 "ucM" = (
 /obj/structure/table/wood,
@@ -110058,7 +110062,7 @@ bIG
 qCD
 cCd
 xQl
-qQF
+ucw
 qQF
 xQl
 gXj
@@ -230864,8 +230868,8 @@ kUV
 lkh
 awA
 aeu
-awA
 aeu
+awA
 aeu
 xQl
 oJb
@@ -234489,7 +234493,7 @@ uBZ
 uBZ
 xQl
 aSq
-mMe
+cRl
 xQl
 xQl
 cZO
@@ -234796,8 +234800,8 @@ xQl
 nzy
 bAj
 eBo
-ucw
-gGM
+irg
+lCF
 gGM
 eGu
 xQl
@@ -235696,7 +235700,7 @@ vTK
 uBZ
 uBZ
 xQl
-dzQ
+xQl
 ffv
 cND
 bAj
@@ -236297,7 +236301,7 @@ pwX
 pwX
 pwX
 vTK
-uBZ
+hxZ
 uBZ
 uBZ
 dUY
@@ -236602,7 +236606,7 @@ vTK
 aeu
 aeu
 xQl
-dzQ
+xQl
 ffv
 cND
 eBo
@@ -237807,7 +237811,7 @@ iAa
 cbS
 iAa
 vTK
-aLS
+pNw
 tAD
 xQl
 xQl
@@ -355277,16 +355281,16 @@ wBV
 aEZ
 kBR
 qTq
-gsr
-gsr
-gsr
-gsr
+hhI
+hhI
+hhI
+hhI
 mEh
 mEh
-gsr
-gsr
-gsr
-gsr
+hhI
+hhI
+hhI
+hhI
 gsr
 xmY
 xmY
@@ -355579,7 +355583,7 @@ hhI
 hhI
 hhI
 hhI
-gsr
+hhI
 eay
 mhO
 mhO
@@ -355881,7 +355885,7 @@ tZI
 xhQ
 tZI
 aEI
-gsr
+hhI
 sHB
 dsZ
 fif
@@ -356183,7 +356187,7 @@ qpu
 qpu
 qpu
 orq
-gsr
+hhI
 mhO
 uqV
 jmv
@@ -356485,7 +356489,7 @@ qpu
 qpu
 qpu
 qpu
-gsr
+hhI
 jFP
 uqV
 pNy
@@ -356787,7 +356791,7 @@ deb
 gKK
 gKK
 gKK
-gsr
+hhI
 lpe
 uqV
 uSL
@@ -357391,7 +357395,7 @@ uxb
 jBO
 uxb
 uxb
-fbF
+jzq
 mhO
 uqV
 pNy
@@ -357693,7 +357697,7 @@ gLx
 lXr
 lXr
 lXr
-fbF
+jzq
 mhO
 uqV
 pNy
@@ -357995,7 +357999,7 @@ deb
 gKK
 gKK
 gKK
-gsr
+hhI
 lpe
 uqV
 hgS
@@ -358297,7 +358301,7 @@ qpu
 qpu
 qpu
 qpu
-gsr
+hhI
 jFP
 uqV
 pNy
@@ -358901,7 +358905,7 @@ tZI
 sbv
 tZI
 fQW
-gsr
+hhI
 mhO
 tqZ
 fif
@@ -359203,7 +359207,7 @@ hhI
 hhI
 hhI
 hhI
-gsr
+hhI
 xfb
 mhO
 mhO
@@ -359505,16 +359509,16 @@ kBR
 kBR
 kBR
 qTq
-gsr
-gsr
-gsr
-gsr
+hhI
+hhI
+hhI
+hhI
 mEh
 mEh
-gsr
-gsr
-gsr
-gsr
+hhI
+hhI
+hhI
+hhI
 gsr
 owv
 owv

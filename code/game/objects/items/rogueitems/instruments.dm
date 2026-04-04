@@ -141,8 +141,11 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	if(!channel)
 		channel = SSsounds.reserve_sound_channel(src)
 		if(!channel)
-			return
+			var/atom/resolved_parent = parent?.resolve()
+			log_game("INSTRUMENT: Failed to reserve sound channel for [resolved_parent] - channels may be exhausted (reserve_high=[SSsounds.channel_reserve_high], random_min=[SSsounds.random_channels_min])")
+			return FALSE
 	..()
+	return TRUE
 
 // Thingshearing was previously cleared BEFORE calling ..() which meant
 // the parent stop() had nothing to iterate over and silently did nothing.
@@ -390,12 +393,14 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 				user.remove_status_effect(/datum/status_effect/buff/playing_music)
 				return
 			if(curfile)
-				playing = TRUE
 				soundloop.mid_sounds = list(curfile)
 				soundloop.cursound = null
 				soundloop.volume = clamp(curvol, 10, 100)
 				soundloop.repeat_sound = loop_enabled
-				soundloop.start(user)
+				if(!soundloop.start(user))
+					to_chat(user, span_warning("Could not play - no sound channels available. Try again in a moment."))
+					return
+				playing = TRUE
 				user.apply_status_effect(/datum/status_effect/buff/playing_music, stressevent, note_color)
 				if(not_held)
 					user.apply_status_effect(/datum/status_effect/buff/harpy_sing)
@@ -557,16 +562,27 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			var/atom/play_source = band_instrument
 			if(isliving(band_instrument.loc))
 				play_source = band_instrument.loc
-			band_instrument.playing = TRUE
-			band_instrument.groupplaying = TRUE
 			band_instrument.soundloop.mid_sounds = list(band_instrument.curfile)
 			band_instrument.soundloop.cursound = null
 			band_instrument.soundloop.volume = clamp(band_instrument.curvol, 10, 100)
 			band_instrument.soundloop.repeat_sound = band_instrument.loop_enabled
-			band_instrument.soundloop.start(play_source, sync_anchor)
+			if(!band_instrument.soundloop.start(play_source, sync_anchor))
+				if(isliving(play_source))
+					to_chat(play_source, span_warning("Could not play [band_instrument.name] - no sound channels available."))
+				continue
+			band_instrument.playing = TRUE
+			band_instrument.groupplaying = TRUE
 
-		// Apply per-bandmate status effects using their own resolved skill.
+		// Apply per-bandmate status effects only for those whose instruments actually started.
 		for(var/mob/living/bandmate_mob in bandmate_stressevents)
+			// Check that at least one of this bandmate's instruments is actually playing.
+			var/has_playing_instrument = FALSE
+			for(var/obj/item/rogue/instrument/held_inst in bandmate_mob.held_items)
+				if(held_inst.playing)
+					has_playing_instrument = TRUE
+					break
+			if(!has_playing_instrument)
+				continue
 			var/this_stress = bandmate_stressevents[bandmate_mob]
 			var/this_color = bandmate_notecolors[bandmate_mob]
 			bandmate_mob.apply_status_effect(/datum/status_effect/buff/playing_music, this_stress, this_color)

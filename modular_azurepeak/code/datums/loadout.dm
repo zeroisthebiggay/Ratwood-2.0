@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(loadout_items)
 
 /datum/loadout_item/custom_book
 	name = "Custom Book"
-	path = /obj/item/book/rogue/loadoutbook
+	path = /obj/item/paper/scroll/custom
 
 /datum/loadout_item/hand_mirror
 	name = "Hand Mirror"
@@ -740,6 +740,86 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/cursed_collar
 	name = "Cursed Collar"
 	path = /obj/item/clothing/neck/roguetown/cursed_collar
+
+/datum/loadout_item/chastity_belt
+	name = "Chastity Belt"
+	path = /obj/item/chastity
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cage
+	name = "Chastity Cage"
+	path = /obj/item/chastity/chastity_cage
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cage_anal
+	name = "Chastity Cage with Anal Shield"
+	path = /obj/item/chastity/chastity_cage/anal
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cage_spiked
+	name = "Spiked Chastity Cage"
+	path = /obj/item/chastity/chastity_cage/spiked
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cage_spiked_anal
+	name = "Spiked Chastity Cage with Anal Shield"
+	path = /obj/item/chastity/chastity_cage/spiked_anal
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cage_flat
+	name = "Flat Chastity Cage"
+	path = /obj/item/chastity/chastity_cage/flat
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cage_flat_anal
+	name = "Flat Chastity Cage with Anal Shield"
+	path = /obj/item/chastity/chastity_cage/flat/anal
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cage_flat_spiked
+	name = "Spiked Flat Chastity Cage"
+	path = /obj/item/chastity/chastity_cage/flat/spiked
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cage_flat_spiked_anal
+	name = "Spiked Flat Chastity Cage with Anal Shield"
+	path = /obj/item/chastity/chastity_cage/flat/spiked_anal
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_insertable
+	name = "Chastity Insertable"
+	path = /obj/item/chastity/chastity_belt
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_insertable_anal
+	name = "Chastity Insertable with Anal Shield"
+	path = /obj/item/chastity/chastity_belt/anal
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_insertable_spiked
+	name = "Spiked Chastity Insertable"
+	path = /obj/item/chastity/chastity_belt/spiked
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_insertable_spiked_anal
+	name = "Spiked Chastity Insertable with Anal Shield"
+	path = /obj/item/chastity/chastity_belt/spiked_anal
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_combination
+	name = "Combination Chastity Device"
+	path = /obj/item/chastity/intersex
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_combination_spiked
+	name = "Spiked Combination Chastity Device"
+	path = /obj/item/chastity/intersex/spiked
+	triumph_cost = 1
+
+/datum/loadout_item/chastity_cursed
+	name = "Cursed Chastity Device"
+	path = /obj/item/chastity/cursed
+	triumph_cost = 4
 
 /datum/loadout_item/cloth_blindfold
 	name = "Cloth Blindfold"
@@ -2077,10 +2157,25 @@ GLOBAL_LIST_EMPTY(loadout_items)
 
 //ADDITIONAL ITEMS
 
+/datum/loadout_item/backpack
+	name = "Backpack"
+	path = /obj/item/storage/backpack/rogue/backpack
+	triumph_cost = 6
+
 /datum/loadout_item/satchel
 	name = "Satchel"
 	path = /obj/item/storage/backpack/rogue/satchel
 	triumph_cost = 5
+
+/datum/loadout_item/otavansatchel
+	name = "Otavan Satchel"
+	path = /obj/item/storage/backpack/rogue/satchel/otavan
+	triumph_cost = 5
+
+/datum/loadout_item/shortsatchel
+	name = "Short Satchel"
+	path = /obj/item/storage/backpack/rogue/satchel/short
+	triumph_cost = 4
 
 /datum/loadout_item/pouches
 	name = "Pouche"
@@ -2096,6 +2191,16 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Paper Parasol"
 	path = /obj/item/rogueweapon/mace/parasol
 	triumph_cost = 3
+
+/datum/loadout_item/scabbard
+	name = "Scabbard"
+	path = /obj/item/rogueweapon/scabbard/sword
+	triumph_cost = 1
+
+/datum/loadout_item/greatweaponstrap
+	name = "Great Weapon Strap"
+	path = /obj/item/rogueweapon/scabbard/gwstrap
+	triumph_cost = 2
 
 //INSTRUMENTS
 

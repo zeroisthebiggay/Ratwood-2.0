@@ -44,13 +44,12 @@ Malum's tool
 
 /obj/item/rogueweapon/hammer/artefact/malum
 	force = 21
-	possible_item_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash, /datum/intent/forge,  /datum/intent/smelt)
+	possible_item_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash, /datum/intent/forge, /datum/intent/smelt)
 	name = "Malum's tool"
 	desc = "A blessed hammer that forges fate as it pleases."
 	icon = 'icons/roguetown/items/artefactsten.dmi'
 	icon_state = "malumartefact"
 	sharpness = IS_BLUNT
-	//dropshrink = 0.8
 	wlength = 10
 	slot_flags = ITEM_SLOT_HIP
 	w_class = WEIGHT_CLASS_NORMAL
@@ -59,21 +58,19 @@ Malum's tool
 	grid_width = 32
 	grid_height = 64
 
+/datum/intent/forge
+	name = "forge"
+	icon_state = "inforge"
+	chargetime = 0
+	noaa = TRUE
+	candodge = FALSE
+	canparry = FALSE
+	misscost = 0
+	no_attack = TRUE
+	releasedrain = 0
+	blade_class = BCLASS_PUNCH
 
-/datum/intent/forge //FUCK AUTISTIC ANVIL SMASH allows you to create 1 bar items on the spot
-    name = "forge"
-    icon_state = "inforge"
-    chargetime = 0
-    noaa = TRUE
-    candodge = FALSE
-    canparry = FALSE
-    misscost = 0
-    no_attack = TRUE
-    releasedrain = 0
-    blade_class = BCLASS_PUNCH
-
-
-/datum/intent/smelt // Malum's tool intent ok allows you to smelt items on the spot if they made of IRON STEEL and that shitty metal from skeletons
+/datum/intent/smelt
 	name = "smelt"
 	icon_state = "insmelt"
 	chargetime = 0
@@ -85,15 +82,16 @@ Malum's tool
 	releasedrain = 0
 	blade_class = BCLASS_PUNCH
 
-
-//shit made helper
-
 /proc/_malum_recipe_requires_extras(datum/anvil_recipe/R)
-	if(!R) return FALSE
-	if(ispath(R:needed_item)) return TRUE
+	if(!R)
+		return FALSE
+	if(ispath(R:needed_item))
+		return TRUE
 	var/ai = R:additional_items
-	if(ispath(ai)) return TRUE
-	if(islist(ai) && length(ai) > 0) return TRUE
+	if(ispath(ai))
+		return TRUE
+	if(islist(ai) && length(ai) > 0)
+		return TRUE
 	return FALSE
 
 /obj/item/rogueweapon/hammer/artefact/malum/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -155,6 +153,14 @@ Malum's tool
 			return
 
 		var/yield = 1
+		if("smeltamount" in I2.vars)
+			var/sa = I2.vars["smeltamount"]
+			if(isnum(sa) && sa > 0)
+				yield = sa
+		else if("smelt_yield" in I2.vars)
+			var/sy = I2.vars["smelt_yield"]
+			if(isnum(sy) && sy > 0)
+				yield = sy
 
 		user.visible_message(
 			span_info("[user] begins smelting down \the [I2] with [src]."),
@@ -165,14 +171,37 @@ Malum's tool
 		if(!do_after(user, 10 SECONDS, target = I2))
 			to_chat(user, span_warning("The smelting is interrupted!"))
 			return
+
 		if(QDELETED(I2) || (!isturf(I2.loc) && !istype(I2.loc, /obj/machinery/anvil)))
 			to_chat(user, span_warning("The smelting cannot be completed."))
 			return
 
 		var/turf/T = get_turf(I2)
+		if(!T)
+			to_chat(user, span_warning("There is nowhere for the smelted metal to go."))
+			return
+
 		qdel(I2)
 
 		var/obj/item/last_ingot = null
+		for(var/i = 1, i <= yield, i++)
+			last_ingot = new smeltpath(T)
+
+		if(last_ingot && yield == 1 && hascall(user, "put_in_hands"))
+			var/success = call(user, "put_in_hands")(last_ingot)
+			if(!success)
+				last_ingot.forceMove(T)
+
+		playsound(T, 'sound/items/bsmith2.ogg', 70, FALSE)
+
+		if(last_ingot)
+			if(yield == 1)
+				to_chat(user, span_notice("I smelt [last_ingot.name]."))
+			else
+				to_chat(user, span_notice("I smelt [yield] [last_ingot.name]\s."))
+		else
+			to_chat(user, span_warning("The smelting failed."))
+		return
 
 // CRAFT STARTTS HERE //
 

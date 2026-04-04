@@ -5923,9 +5923,9 @@
 /area/rogue/indoors/deserttown)
 "dbD" = (
 /obj/structure/rack/rogue,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/deserttown/garrison)
 "dbI" = (
@@ -25993,9 +25993,9 @@
 /area/rogue/indoors/deserttown/manor)
 "mJi" = (
 /obj/structure/closet/crate/roguecloset/crafted,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
 /obj/machinery/light/rogue/torchholder/c,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},
@@ -39677,11 +39677,10 @@
 /area/rogue/indoors/deserttown/shop)
 "tvb" = (
 /obj/structure/rack/rogue,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
-/obj/item/clothing/suit/roguetown/armor/gambeson,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
+/obj/item/clothing/suit/roguetown/armor/gambeson/zyb,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular/DesertTown/icons/alt/roguefloor.dmi'
 	},

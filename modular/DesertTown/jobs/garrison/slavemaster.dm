@@ -91,7 +91,7 @@
 	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	gloves = /obj/item/clothing/gloves/roguetown/angle
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/zyb
 	belt = /obj/item/storage/belt/rogue/leather/shalal/purple
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale
 	cloak = /obj/item/clothing/cloak/cape/purple

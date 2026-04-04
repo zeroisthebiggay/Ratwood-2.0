@@ -13,12 +13,14 @@
 	)
 	title_adjust = list(
 		/datum/job/roguetown/lord = list(display_title = "Sultan", f_title = "Sultana"),
+		/datum/job/roguetown/prince = list(display_title = "Amir", f_title = "Amira"),
 		// /datum/job/roguetown/marshal = list(display_title = "Mayor"),
 		/datum/job/roguetown/priest =  list(display_title = "High Priest", f_title = "High Priestess"),
 		/datum/job/roguetown/captain = list(display_title = "Cataphract Captain"),
 		/datum/job/roguetown/physician = list(display_title = "Palace Physician"),
 		/datum/job/roguetown/villager = list(display_title = "Villager"),
 		/datum/job/roguetown/magician = list(display_title = "Palace Magician"),
+		/datum/job/roguetown/pilgrim = list(display_title = "Nomad"),
 	)
 	tutorial_adjust = list(
 		// /datum/job/roguetown/marshal = "CHANGE THIS LATER. Manage the town outside of the palace. Hang out in the mayor building!!!",
@@ -104,13 +106,12 @@
 		// /datum/job/roguetown/clerk, //gonna try merging this with Sheikh - EDIT with higher pop we can afford to keep this role around
 		// /datum/job/roguetown/wapprentice,
 		// /datum/job/roguetown/orphan,
-		/datum/job/roguetown/prince,//dtprince
+		// /datum/job/roguetown/prince,//dtprince
 		// /datum/job/roguetown/shophand,
 		
 	)
 
 //list to blacklist for other maps (update as new replacements are added)
-		// /datum/job/roguetown/sultan,
 		// /datum/job/roguetown/cataphract,
 		// /datum/job/roguetown/vizier,
 		// /datum/job/roguetown/headslave,
@@ -121,7 +122,6 @@
 		// /datum/job/roguetown/azebagha,
 		// /datum/job/roguetown/slavemaster,
 		// /datum/job/roguetown/dtslave,
-		// /datum/job/roguetown/dtprince,
 
 	threat_regions = list(
 		THREAT_REGION_DESERT_NEAR,

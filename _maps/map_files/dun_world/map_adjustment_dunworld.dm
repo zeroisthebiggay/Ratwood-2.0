@@ -18,7 +18,6 @@
 		/datum/job/roguetown/azebagha,
 		/datum/job/roguetown/slavemaster,
 		/datum/job/roguetown/slave,
-		/datum/job/roguetown/dtprince,
 		/datum/job/roguetown/adventurer/courtslave,
 		
 		/datum/job/roguetown/vanguard,//more wardens

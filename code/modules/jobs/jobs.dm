@@ -72,8 +72,8 @@ GLOBAL_LIST_INIT(noble_positions, list(
 	"Clerk",
 	"Knight",
 	//Desert
-	"Sultan",
-	"Amir",
+	// "Sultan",
+	// "Amir",
 	"Sheikh",
 	"Vizier",
 ))
@@ -85,11 +85,9 @@ GLOBAL_LIST_INIT(courtier_positions, list(
 	"Apothecary",
 	"Jester",
 	"Seneschal",
-	//Desert
-	"Palace Magician",
-	// "Head Physician",
-	"Head Slave",
 	"Servant",
+	//Desert
+	"Head Slave",
 ))
 
 GLOBAL_LIST_INIT(garrison_positions, list(
@@ -159,8 +157,6 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 	"Beggar",
 	"Refugee",
 	"Pilgrim",
-	//desert
-	"Nomad",
 ))
 
 GLOBAL_LIST_INIT(mercenary_positions, list(

@@ -2,7 +2,7 @@
 // #define CTAG_SULTAN			"CAT_SULTAN"		// Lord alt
 #define CTAG_VIZIER			"CAT_VIZIER"		// Hand class alt
 #define CTAG_SHEIKH			"CAT_SHEIKH"		// Hand class alt
-#define CTAG_AMIR			"CAT_AMIR"		// Heir alt
+// #define CTAG_AMIR			"CAT_AMIR"		// Heir alt
 #define CTAG_CATAPHRACT		"CAT_CATAPHRACT"	// Knight alt
 #define CTAG_AZEB		"CAT_AZEB"		// Warden (?) alt
 #define CTAG_AZEBAGHA	"CAT_AZEBAGHA"		// Warden (?) alt
@@ -95,7 +95,7 @@
 // #define CHURCHLING	(1<<1)
 #define SLAVE		(1<<2)
 // #define ORPHAN		(1<<3)
-#define AMIR		(1<<4)
+// #define AMIR		(1<<4)
 // #define DTSHOPHAND	(1<<5)
 // #define CLERK 		(1<<6)
 // #define MAGEAPPRENTICE	(1<<7)

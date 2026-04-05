@@ -320,7 +320,7 @@
 	if(!slippy)
 		return FALSE
 	if(L.throwing)
-		qdel(L.throwing)
+		QDEL_NULL(L.throwing)
 	return L.slip(slippy.knockdown_time, T, slippy.lube_flags, slippy.paralyze_time, slippy.force_drop_items)
 
 /datum/magic_throw_slip_watcher/proc/on_moved(atom/movable/AM, atom/last_loc, dir)
@@ -329,6 +329,7 @@
 		qdel(src)
 		return
 	if(!L.throwing)
+		qdel(src)
 		return
 	if(try_apply_slip(L))
 		qdel(src)
@@ -341,8 +342,10 @@
 	if(try_apply_slip(L))
 		qdel(src)
 		return
-	if(L.throwing)
-		addtimer(CALLBACK(src, PROC_REF(poll_for_slip)), 1)
+	if(!L.throwing)
+		qdel(src)
+		return
+	addtimer(CALLBACK(src, PROC_REF(poll_for_slip)), 1)
 
 /datum/magic_throw_slip_watcher/proc/on_impact(datum/source)
 	var/mob/living/L = mob_ref?.resolve()

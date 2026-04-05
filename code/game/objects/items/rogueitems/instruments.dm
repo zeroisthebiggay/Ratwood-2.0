@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	var/instrument_name
 	var/song_file
 	var/datum/weakref/instrument_ref
+	var/datum/weakref/mob_ref
 
 /datum/instrument_band_lobby
 	var/owner_id
@@ -33,6 +34,9 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	owner_id = instrument_band_member_id(user)
 	owner_name = user.real_name
 	owner_ref = WEAKREF(user)
+	// Registering a new band is a clean slate — wipe ALL previous member slots
+	// so instruments from prior sessions don't silently carry over.
+	member_slots = list()
 	add_or_replace_member(user, instrument, song_file)
 
 /datum/instrument_band_lobby/proc/add_or_replace_member(mob/living/user, obj/item/rogue/instrument/instrument, song_file)
@@ -51,6 +55,7 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 	slot.instrument_name = instrument.name
 	slot.song_file = song_file
 	slot.instrument_ref = WEAKREF(instrument)
+	slot.mob_ref = WEAKREF(user)
 
 	if(owner_id && owner_id != member_id)
 		var/mob/living/owner_mob = owner_ref?.resolve()
@@ -103,7 +108,15 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		var/obj/item/rogue/instrument/instrument = slot.instrument_ref?.resolve()
 		if(!instrument)
 			continue
-		if(get_dist(reference_turf, instrument) <= range)
+		var/turf/check_turf = get_turf(instrument)
+		// Organs are moved to nullspace on Insert(), so get_turf() returns null.
+		// Fall back to the registered mob's turf in that case.
+		if(!check_turf)
+			var/mob/living/slot_mob = slot.mob_ref?.resolve()
+			check_turf = get_turf(slot_mob)
+		if(!check_turf)
+			continue
+		if(get_dist(reference_turf, check_turf) <= range)
 			return TRUE
 	return FALSE
 
@@ -117,6 +130,11 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		var/atom/stop_source = instrument
 		if(isliving(instrument.loc))
 			stop_source = instrument.loc
+		else if(instrument.not_held)
+			// not_held organs are in nullspace; resolve the mob from the stored weakref.
+			var/mob/living/slot_mob = slot.mob_ref?.resolve()
+			if(slot_mob)
+				stop_source = slot_mob
 		instrument.playing = FALSE
 		instrument.groupplaying = FALSE
 		instrument.soundloop.stop(stop_source)
@@ -505,45 +523,49 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 		// stressevent and note_color regardless of their own skill.
 		var/list/bandmate_stressevents = list()  // mob -> stressevent type
 		var/list/bandmate_notecolors = list()    // mob -> note_color string
+		var/list/instrument_to_bandmate = list() // instrument -> mob (for status effect lookup)
 
 		for(var/datum/instrument_band_slot/slot in slots)
 			var/obj/item/rogue/instrument/slot_instrument = slot.instrument_ref?.resolve()
 			if(!slot_instrument || slot_instrument.playing || !slot.song_file)
 				continue
+			var/mob/living/bandmate_mob
 			if(slot_instrument.not_held)
-				;
+				// Organs are in nullspace; resolve the mob from the stored weakref.
+				bandmate_mob = slot.mob_ref?.resolve()
+				if(!bandmate_mob)
+					continue
 			else
 				if(!isliving(slot_instrument.loc))
 					continue
-				var/mob/living/holder = slot_instrument.loc
-				if(!(slot_instrument in holder.held_items))
+				bandmate_mob = slot_instrument.loc
+				if(!(slot_instrument in bandmate_mob.held_items))
 					continue
 			slot_instrument.curfile = slot.song_file
 
-			if(isliving(slot_instrument.loc))
-				var/mob/living/bandmate_mob = slot_instrument.loc
-				var/this_stress = /datum/stressevent/music
-				var/this_color = "#7f7f7f"
-				if(bandmate_mob.mind)
-					switch(bandmate_mob.get_skill_level(/datum/skill/misc/music))
-						if(2)
-							this_color = "#ffffff"
-							this_stress = /datum/stressevent/music/two
-						if(3)
-							this_color = "#1eff00"
-							this_stress = /datum/stressevent/music/three
-						if(4)
-							this_color = "#0070dd"
-							this_stress = /datum/stressevent/music/four
-						if(5)
-							this_color = "#a335ee"
-							this_stress = /datum/stressevent/music/five
-						if(6)
-							this_color = "#ff8000"
-							this_stress = /datum/stressevent/music/six
-				slot_instrument.soundloop.stress2give = this_stress
-				bandmate_stressevents[bandmate_mob] = this_stress
-				bandmate_notecolors[bandmate_mob] = this_color
+			var/this_stress = /datum/stressevent/music
+			var/this_color = "#7f7f7f"
+			if(bandmate_mob.mind)
+				switch(bandmate_mob.get_skill_level(/datum/skill/misc/music))
+					if(2)
+						this_color = "#ffffff"
+						this_stress = /datum/stressevent/music/two
+					if(3)
+						this_color = "#1eff00"
+						this_stress = /datum/stressevent/music/three
+					if(4)
+						this_color = "#0070dd"
+						this_stress = /datum/stressevent/music/four
+					if(5)
+						this_color = "#a335ee"
+						this_stress = /datum/stressevent/music/five
+					if(6)
+						this_color = "#ff8000"
+						this_stress = /datum/stressevent/music/six
+			slot_instrument.soundloop.stress2give = this_stress
+			bandmate_stressevents[bandmate_mob] = this_stress
+			bandmate_notecolors[bandmate_mob] = this_color
+			instrument_to_bandmate[slot_instrument] = bandmate_mob
 
 			instruments_to_start += slot_instrument
 
@@ -562,6 +584,11 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			var/atom/play_source = band_instrument
 			if(isliving(band_instrument.loc))
 				play_source = band_instrument.loc
+			else if(band_instrument.not_held)
+				// not_held organs are in nullspace; use the registered mob as the sound source.
+				var/mob/living/band_mob = instrument_to_bandmate[band_instrument]
+				if(band_mob)
+					play_source = band_mob
 			band_instrument.soundloop.mid_sounds = list(band_instrument.curfile)
 			band_instrument.soundloop.cursound = null
 			band_instrument.soundloop.volume = clamp(band_instrument.curvol, 10, 100)
@@ -574,11 +601,14 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 			band_instrument.groupplaying = TRUE
 
 		// Apply per-bandmate status effects only for those whose instruments actually started.
+		// Use the instrument_to_bandmate mapping to handle both held and not_held instruments correctly.
 		for(var/mob/living/bandmate_mob in bandmate_stressevents)
-			// Check that at least one of this bandmate's instruments is actually playing.
 			var/has_playing_instrument = FALSE
-			for(var/obj/item/rogue/instrument/held_inst in bandmate_mob.held_items)
-				if(held_inst.playing)
+			for(var/obj/item/rogue/instrument/started_inst in instruments_to_start)
+				if(!started_inst.playing)
+					continue
+				// Check if this instrument belongs to this bandmate
+				if(instrument_to_bandmate[started_inst] == bandmate_mob)
 					has_playing_instrument = TRUE
 					break
 			if(!has_playing_instrument)

@@ -3,7 +3,7 @@
 	domain = "The Night, The Moon, Knowledge, Magic, Secrets"
 	desc = "The Father of Secrets is the glorious moonlight that grants us power through knowledge. We are granted visions of His vault of secrets, and given the ability to wield the Arcyne through His benevolence."
 	worshippers = "Wizards, Scholars, Night Owls"
-	virtues = "Wisdom, Temperance, Kindness"
+	virtues = "Wisdom, Curiosity, Pursuit of Arcyne"
 	sins = "Ignorance, Censorship, Bookburning"
 	mob_traits = list(TRAIT_NIGHT_OWL, TRAIT_NOCSIGHT)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,

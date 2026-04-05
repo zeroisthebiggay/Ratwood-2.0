@@ -1207,15 +1207,15 @@
 	resident_key_amount = 2
 
 /obj/structure/mineral_door/wood/towner/blacksmith
-	resident_advclass = list(/datum/advclass/blacksmith, /datum/advclass/masterblacksmith,)
+	resident_advclass = list(/datum/advclass/blacksmith, /datum/advclass/masterblacksmith)
 	lockid = "towner_blacksmith"
 
 /obj/structure/mineral_door/wood/towner/cheesemaker
-	resident_advclass = list(/datum/advclass/cheesemaker,)
+	resident_advclass = list(/datum/advclass/cheesemaker)
 	lockid = "towner_cheesemaker"
 
 /obj/structure/mineral_door/wood/towner/miner
-	resident_advclass = list(/datum/advclass/miner,)
+	resident_advclass = list(/datum/advclass/miner)
 	lockid = "towner_miner"
 
 /obj/structure/mineral_door/wood/towner/seamstress

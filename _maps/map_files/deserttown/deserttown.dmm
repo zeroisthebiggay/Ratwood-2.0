@@ -2745,21 +2745,6 @@
 /obj/structure/fluff/railing/border,
 /turf/open/floor/rogue/underworld/space/sparkle_quiet,
 /area/rogue/indoors/deserttown/magician)
-"byh" = (
-/obj/machinery/light/rogue/candle/blue,
-/obj/item/roguekey/vault{
-	pixel_x = -3;
-	pixel_y = 4
-	},
-/obj/structure/rack/rogue/shelf/biggest{
-	pixel_x = 0;
-	pixel_y = 10
-	},
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/turf/open/floor/carpet/royalblack,
-/area/rogue/indoors/deserttown/manor)
 "byp" = (
 /obj/structure/sandrock/sandrock3,
 /turf/open/floor/rogue/dunes,
@@ -34920,8 +34905,19 @@
 /area/rogue/indoors/deserttown/magician)
 "rbk" = (
 /obj/machinery/light/rogue/candle/blue,
+/obj/item/roguekey/vault{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/structure/rack/rogue/shelf/biggest{
+	pixel_x = 0;
+	pixel_y = 10
+	},
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
 /turf/open/floor/carpet/royalblack,
-/area/rogue/indoors/deserttown/bath)
+/area/rogue/indoors/deserttown/manor)
 "rbn" = (
 /obj/structure/mineral_door/wood/donjon{
 	dir = 8;
@@ -45511,11 +45507,11 @@
 	icon_state = "barsbent";
 	layer = 2.81
 	},
+/obj/structure/bell_common,
 /obj/structure/bars/passage/shutter{
 	name = "Toy Shop";
 	redstone_id = "gambleaccess"
 	},
-/obj/structure/bell_common,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/deserttown/bath)
 "wfO" = (
@@ -244908,7 +244904,7 @@ lLV
 byW
 kYV
 wfG
-rbk
+byW
 iqW
 iqW
 xnr
@@ -476190,7 +476186,7 @@ kIL
 hhI
 hhI
 hhI
-byh
+rbk
 jAg
 nVW
 nVW

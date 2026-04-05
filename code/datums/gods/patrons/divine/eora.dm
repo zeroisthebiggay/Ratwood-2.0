@@ -3,6 +3,8 @@
 	domain = "Love, Family, Beauty"
 	desc = "The Lady of the Hearth blesses our Love, unconditional of for whom it is for. Marriage is Astrata's Tyranny encroaching on Eora's domain. Her followers are oft promiscuous, bards especially so."
 	worshippers = "Lovers, Doting Parents, Bards, Hopeless Romantics"
+	virtues = "Compassion, Beauty, Art"
+	sins = "Temperance, Ugliness, Violence"
 	mob_traits = list(TRAIT_EMPATH, TRAIT_EXTEROCEPTION)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/eora_blessing			= CLERIC_T0,

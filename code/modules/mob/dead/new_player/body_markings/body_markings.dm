@@ -121,6 +121,14 @@
 	affected_bodyparts = HAND_LEFT | HAND_RIGHT | LEG_LEFT | LEG_RIGHT
 	default_color = DEFAULT_SECONDARY
 
+/datum/body_marking/wolf
+	icon = 'icons/mob/body_markings/chest_markings.dmi'
+	name = "Wolf"
+	icon_state = "wolf"
+	affected_bodyparts = CHEST
+	default_color = DEFAULT_SECONDARY
+	covers_chest = TRUE
+
 /datum/body_marking/bellyscale
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
 	name = "Belly Scales"
@@ -382,3 +390,17 @@
 	icon_state = "bun_s"
 	default_color = "FFFFFF"
 	affected_bodyparts = HEAD
+
+/datum/body_marking/harpy_feet_claws
+	icon = 'icons/mob/body_markings/harpy_markings.dmi'
+	name = "Feet Claws"
+	icon_state = "hclaw"
+	affected_bodyparts = LEG_LEFT | LEG_RIGHT
+	default_color = DEFAULT_SECONDARY
+
+/datum/body_marking/harpy_leg
+	icon = 'icons/mob/body_markings/harpy_markings.dmi'
+	name = "Avian Leg Color Override"
+	icon_state = "hleg"
+	affected_bodyparts = LEG_LEFT | LEG_RIGHT
+	default_color = DEFAULT_SECONDARY

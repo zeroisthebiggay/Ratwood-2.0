@@ -10,7 +10,7 @@
 	add_gradient_overlay(standing, hair_dye_gradient, hair_dye_color)
 
 /datum/bodypart_feature/hair/proc/add_gradient_overlay(mutable_appearance/standing, gradient_type, gradient_color)
-	if(gradient_type == /datum/hair_gradient/none)
+	if(gradient_type == /datum/hair_gradient/none || isnull(gradient_type))
 		return
 	var/datum/hair_gradient/gradient = HAIR_GRADIENT(gradient_type)
 	var/icon/temp = icon(gradient.icon, gradient.icon_state)
@@ -87,3 +87,24 @@
 	owner.legwear_socks = legwear_item
 	legwear_item.legwears_feature = src
 	legwear_item.color = accessory_colors
+
+/datum/bodypart_feature/chastity
+	name = "Chastity"
+	feature_slot = BODYPART_FEATURE_CHASTITY
+	body_zone = BODY_ZONE_CHEST
+	var/obj/item/chastity/chastity_item
+
+/datum/bodypart_feature/chastity/set_accessory_type(new_accessory_type, colors, mob/living/carbon/owner)
+	accessory_type = new_accessory_type
+	var/datum/sprite_accessory/chastity/accessory = SPRITE_ACCESSORY(accessory_type)
+	if(!isnull(colors))
+		accessory_colors = colors
+	else
+		accessory_colors = accessory.get_default_colors(color_key_source_list_from_carbon(owner))
+	accessory_colors = accessory.validate_color_keys_for_owner(owner, colors)
+	chastity_item = new accessory.chastity_type(owner)
+	if(owner.chastity_device)
+		qdel(owner.chastity_device)
+	owner.chastity_device = chastity_item
+	chastity_item.chastity_feature = src
+	chastity_item.color = accessory_colors

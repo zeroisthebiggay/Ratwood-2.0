@@ -14,7 +14,6 @@
 	speak_chance = 0
 	maxHealth = 50
 	health = 50
-	spacewalk = TRUE
 	see_in_dark = 10
 	harm_intent_damage = 6
 	melee_damage_lower = 6
@@ -32,8 +31,11 @@
 	movement_type = FLYING
 	speak_emote = list("squeaks")
 	base_intents = list(/datum/intent/bite)
-	
-	var/fly_time = 5 //5 ticks because vampire bats are agile
+	sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+	var/fly_time = 3 SECONDS //Less than this and it's impossible to deal with
 
 	var/max_co2 = 0 //to be removed once metastation map no longer use those for Sgt Araneus
 	var/min_oxy = 0
@@ -44,10 +46,37 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-/mob/living/simple_animal/hostile/retaliate/bat/Initialize()
+/mob/living/simple_animal/hostile/retaliate/bat/Initialize(mapload)
 	. = ..()
 	verbs += list(/mob/living/simple_animal/hostile/retaliate/bat/proc/fly_up,
-	/mob/living/simple_animal/hostile/retaliate/bat/proc/fly_down) 
+	/mob/living/simple_animal/hostile/retaliate/bat/proc/fly_down,
+	/mob/living/simple_animal/hostile/retaliate/bat/crow/proc/emote_caw,
+	/mob/living/simple_animal/hostile/retaliate/bat/crow/proc/change_stance)
+
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/proc/change_stance()
+	set category = "Winged Form"
+	set name = "Change Stance"
+	sitting = !sitting
+	update_icon()
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/update_icon_state()
+	icon_state = sitting ? "crow" : "crow_flying"
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/Move()
+	if(sitting)
+		return FALSE
+	return ..()
+
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/proc/emote_caw()
+	set category = "Winged Form"
+	set name = "Caw"
+	emote("caw", intentional = TRUE, animal = TRUE)
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/get_sound(input)
+	if(input == "caw")
+		return pick('sound/vo/mobs/bird/CROW_01.ogg', 'sound/vo/mobs/bird/CROW_02.ogg', 'sound/vo/mobs/bird/CROW_03.ogg')
 
 /mob/living/simple_animal/hostile/retaliate/bat/proc/fly_up()
 	set category = "Winged Form"
@@ -94,6 +123,7 @@
 	melee_damage_upper = 0
 	remains_type = /obj/effect/decal/remains/crow
 	fly_time = 3 SECONDS // slowing down crow for witches
+	var/sitting = FALSE
 
 /obj/effect/decal/remains/crow
 	name = "zad remains"

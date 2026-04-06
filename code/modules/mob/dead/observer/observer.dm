@@ -59,6 +59,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/deadchat_name
 	var/datum/spawners_menu/spawners_menu
 	var/ghostize_time = 0
+	move_resist = INFINITY
 
 /mob/dead/observer/rogue
 //	see_invisible = SEE_INVISIBLE_LIVING
@@ -77,15 +78,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	icon_state = "hollow"
 	alpha = 150
 
-/mob/dead/observer/rogue/Move(n, direct)
-	if(world.time < next_gmove)
-		return
-	next_gmove = world.time + 2
-
-	setDir(direct)
-
-	. = ..()
-
 /mob/dead/observer/screye
 //	see_invisible = SEE_INVISIBLE_LIVING
 	sight = 0
@@ -101,7 +93,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 
 
-/mob/dead/observer/Initialize()
+/mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
 
 	verbs += list(
@@ -615,10 +607,25 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = ""
 	set hidden = 1
-	var/list/mobs = getpois(mobs_only=1,skip_mindless=1)
+	var/list/all_mobs = getpois(mobs_only=1,skip_mindless=1)
+	var/list/allowed_mobs = list()
 
-	var/input = input("Who?!", "Haunt", null, null) as null|anything in mobs
-	var/mob/target = mobs[input]
+	// admins can see everybody, i think thats fair
+	if(!check_rights(R_ADMIN, FALSE))
+		for(var/current_name in all_mobs)
+			var/mob/current_mob = all_mobs[current_name]
+
+			if(current_mob.client)
+				// check if the player is has ghost protection
+				var/datum/preferences/current_prefs = current_mob.client.prefs
+				if(!current_prefs.ghost_protection)
+					allowed_mobs[current_name] = current_mob
+	else
+		allowed_mobs += all_mobs
+
+	var/input = input("Who?!", "Haunt", null, null) as null|anything in allowed_mobs
+	var/mob/target = allowed_mobs[input]
+
 	ManualFollow(target)
 
 /datum/mind
@@ -627,6 +634,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
 	if (!istype(target))
+		return
+	if(is_hidden_from_ghosts(target, src))
 		return
 
 	var/icon/I = icon(target.icon,target.icon_state,target.dir)
@@ -652,6 +661,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/orbit()
 	setDir(2)//reset dir so the right directional sprites show up
+	pixel_x = 25 //it's coal sire but it works to properly orbit around your target instead of a tile off to the side
 	return ..()
 
 /mob/dead/observer/stop_orbit(datum/component/orbiter/orbits)
@@ -659,7 +669,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//restart our floating animation after orbit is done.
 	pixel_y = 0
 	pixel_x = 0
-//	animate(src, pixel_y = 2, time = 10, loop = -1)
+	animate(src, pixel_y = 2, time = 10, loop = -1)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
@@ -1065,10 +1075,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		set_light(1, 1, 2)
 	else
 		set_light(0, 0, 0)
-
-// Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir)
-	return 1
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)
 	. = ..()

@@ -13,6 +13,83 @@
 	CL.screen += C
 	RegisterSignal(C, COMSIG_CLICK, PROC_REF(roguecraft))
 */
+
+/datum/component/personal_crafting/proc/calculate_pottery_quality_score(skill_level)
+	// Quality tiers: 0=Crude, 1=Rough, 2=Competent(regular), 3=Fine, 4=Flawless, 5=Masterwork
+	// Gating: regular only from Apprentice, fine from Journeyman, masterwork from Master
+	var/roll = rand(1, 100)
+	switch(skill_level)
+		if(SKILL_LEVEL_NONE)
+			return 0
+		if(SKILL_LEVEL_NOVICE)
+			return roll <= 25 ? 1 : 0
+		if(SKILL_LEVEL_APPRENTICE)
+			if(roll <= 20) return 2
+			if(roll <= 65) return 1
+			return 0
+		if(SKILL_LEVEL_JOURNEYMAN)
+			if(roll <= 15) return 3
+			if(roll <= 55) return 2
+			if(roll <= 80) return 1
+			return 0
+		if(SKILL_LEVEL_EXPERT)
+			if(roll <= 15) return 4
+			if(roll <= 50) return 3
+			if(roll <= 80) return 2
+			if(roll <= 95) return 1
+			return 0
+		if(SKILL_LEVEL_MASTER)
+			if(roll <= 20) return 5
+			if(roll <= 50) return 4
+			if(roll <= 80) return 3
+			if(roll <= 95) return 2
+			return 1
+	// SKILL_LEVEL_LEGENDARY (and any above)
+	if(roll <= 40) return 5
+	if(roll <= 70) return 4
+	if(roll <= 90) return 3
+	return 2
+
+/datum/component/personal_crafting/proc/apply_pottery_quality_to_item(obj/item/result, skill_level)
+	if(!result || !("pottery_quality" in result.vars))
+		return
+	var/quality_tier = calculate_pottery_quality_score(skill_level)
+	var/quality_prefix = ""
+	var/quality_multiplier = 1.0
+	switch(quality_tier)
+		if(0)
+			quality_prefix = "crude "
+			quality_multiplier = 0.4
+		if(1)
+			quality_prefix = "rough "
+			quality_multiplier = 0.6
+		if(2)
+			quality_prefix = ""
+			quality_multiplier = 0.8
+		if(3)
+			quality_prefix = "fine "
+			quality_multiplier = 1.04
+		if(4)
+			quality_prefix = "flawless "
+			quality_multiplier = 1.28
+		if(5)
+			quality_prefix = "masterwork "
+			quality_multiplier = 1.6
+	// Apply quality prefix to name for tiers 3 and above
+	if(quality_prefix && quality_tier >= 3)
+		result.name = quality_prefix + initial(result.name)
+	// Apply price multiplier
+	if(result.sellprice)
+		result.sellprice = round(result.sellprice * quality_multiplier)
+	// Add masterwork sparkle effect for tier 4+
+	if(quality_tier >= 4)
+		result.polished = 4
+		if(!result.GetComponent(/datum/component/metal_glint))
+			result.AddComponent(/datum/component/metal_glint)
+	// Store quality information on the result
+	result.pottery_quality = quality_tier
+	result.creator_skill = skill_level
+
 /datum/component/personal_crafting
 	var/busy
 	var/viewing_category = 1 //typical powergamer starting on the Weapons tab
@@ -35,8 +112,8 @@
 	get_surroundings - takes a list of things and makes a list of key-types to values-amounts of said type in the list
 	check_contents - takes a recipe and a key-type list and checks if said recipe can be done with available stuff
 	check_tools - takes recipe, a key-type list, and a user and checks if there are enough tools to do the stuff, checks bugs one level deep
-	construct_item - takes a recipe and a user, call all the checking procs, calls do_after,
-	checks all the things again, calls del_reqs, creates result,
+	construct_item - takes a recipe and a user, call all the checking procs, calls do_after, 
+	checks all the things again, calls del_reqs, creates result, 
 	calls CheckParts of said result with argument being list returned by del_reqs
 	del_reqs - takes recipe and a user, loops over the recipes reqs var and tries to find everything in the list make by get_environment and delete it/add to parts list, then returns the said list
 */
@@ -92,6 +169,8 @@
 /obj/item/proc/can_craft_with()
 	if(craft_blocked)
 		return FALSE
+	if(istype(src, /obj/item/storage/roguebag) && src.contents.len > 0) //for bait bags
+		return FALSE
 	return TRUE
 
 /datum/component/personal_crafting/proc/get_surroundings(mob/user)
@@ -106,6 +185,9 @@
 		else if(istype(I, /obj/item/natural/bundle))
 			var/obj/item/natural/bundle/B = I
 			.["other"][B.stacktype] += B.amount
+		else if(istype(I, /obj/item/construction/bundle))
+			var/obj/item/construction/bundle/B = I
+			.["other"][B.stacktype] += B.amount
 		else if(I.tool_behaviour)
 			.["tool_behaviour"] += I.tool_behaviour
 			.["other"][I.type] += 1
@@ -115,7 +197,13 @@
 				if(RC.is_drainable())
 					for(var/datum/reagent/A in RC.reagents.reagent_list)
 						.["other"][A.type] += A.volume
-			.["other"][I.type] += 1
+				if(istype(RC, /obj/item/reagent_containers/glass)) // Only count glass bottles themselves as a valid crafting item if it's empty
+					if(RC.reagents.total_volume == 0)
+						.["other"][I.type] += 1
+				else
+					.["other"][I.type] += 1
+			else
+				.["other"][I.type] += 1
 
 /datum/component/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len)
@@ -149,9 +237,10 @@
 	return TRUE
 
 /atom/proc/OnCrafted(dirin, mob/user)
-	SEND_SIGNAL(user, COMSIG_ITEM_CRAFTED, user, type)
+	if(user)
+		SEND_SIGNAL(user, COMSIG_ITEM_CRAFTED, user, type)
+		record_featured_stat(FEATURED_STATS_CRAFTERS, user)
 	dir = dirin
-	record_featured_stat(FEATURED_STATS_CRAFTERS, user)
 	record_featured_object_stat(FEATURED_STATS_CRAFTED_ITEMS, name)
 	return
 
@@ -235,7 +324,7 @@
 				continue
 			if(R.structurecraft && istype(S, R.structurecraft))
 				continue
-			if(S.density)
+			if(S.density && !R.ignoredensity)
 				to_chat(user, span_warning("Something is in the way."))
 				return
 		for(var/obj/machinery/M in T)
@@ -266,7 +355,6 @@
 						return FALSE
 					if(!check_tools(user, R, contents))
 						return FALSE
-
 					var/prob2craft = 25
 					if(R.craftdiff)
 						prob2craft -= (25*R.craftdiff)
@@ -291,6 +379,9 @@
 						var/list/L = R.result
 						for(var/IT in L)
 							var/atom/movable/I = new IT(T)
+							// Apply pottery quality if this is a pottery item
+							if(R.skillcraft == /datum/skill/craft/ceramics && ismob(user))
+								apply_pottery_quality_to_item(I, user.get_skill_level(R.skillcraft))
 							I.CheckParts(parts, R)
 							I.OnCrafted(user.dir, user)
 							I.add_fingerprint(user)
@@ -304,6 +395,9 @@
 									X.loud_message("Construction sounds can be heard")
 						else
 							var/atom/movable/I = new R.result (T)
+							// Apply pottery quality if this is a pottery item
+							if(R.skillcraft == /datum/skill/craft/ceramics && ismob(user))
+								apply_pottery_quality_to_item(I, user.get_skill_level(R.skillcraft))
 							I.CheckParts(parts, R)
 							if(R.diagonal)
 								I.OnCrafted(I.SelectDiagDirection(), user)
@@ -441,6 +535,17 @@
 						Deletion += I
 						surroundings -= I
 						amt--
+			else if(ispath(A, /obj/item/reagent_containers/glass)) //Don't eat bottles with reagents in them
+				var/atom/movable/I
+				while(amt > 0)
+					I = locate(A) in surroundings
+					var/obj/item/reagent_containers/glass/RC = I
+					if(RC.reagents?.total_volume > 0)
+						surroundings -= I
+						continue
+					Deletion += I
+					surroundings -= I
+					amt--
 			else
 				var/atom/movable/I
 				while(amt > 0)
@@ -482,16 +587,22 @@
 	var/list/data = list()
 	data["busy"] = busy
 
-
 	var/list/surroundings = get_surroundings(user)
 	var/list/craftability = list()
 	for(var/rec in GLOB.crafting_recipes)
 		var/datum/crafting_recipe/R = rec
 
+		if(R.hides_from_crafting_menu)
+			continue
 		if(!R.always_availible && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
 			continue
+		if(R.required_tech_node && !R.tech_unlocked)
+			continue
 
-		craftability[R.name] = check_contents(R, surroundings)
+		var/can_craft_recipe = check_contents(R, surroundings)
+		// Multiple recipe paths can intentionally share a display name (e.g. log/plank alternates).
+		// Keep the entry craftable if any variant with that name is craftable.
+		craftability[R.name] = craftability[R.name] || can_craft_recipe
 
 	data["craftability"] = craftability
 	data["showonlycraftable"] = showonlycraftable
@@ -506,14 +617,17 @@
 
 		if(R.name == "") //This is one of the invalid parents that sneaks in
 			continue
+		if(R.hides_from_crafting_menu)
+			continue
 
 		if(!R.always_availible && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
 			continue
-
+		if(R.required_tech_node && !R.tech_unlocked)
+			continue
 		var/category
 		if(R.skillcraft)
-			var/datum/skill/S = new R.skillcraft()
-			category = S.name
+			var/datum/skill/S = R.skillcraft
+			category = initial(S.name)
 		else
 			category = "Other"
 		if(isnull(crafting_recipes[category]))
@@ -524,11 +638,23 @@
 	return data
 
 /datum/component/personal_crafting/ui_interact(mob/user, datum/tgui/ui)
+	var/area/A = get_area(user)
+	if(!A.can_craft_here())
+		to_chat(user, span_warning("You cannot craft here."))
+		if(ui) ui.close()
+		return
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MiaCraft", "Crafting Menu", 700, 800)
 		ui.set_state(GLOB.not_incapacitated_turf_state)
 		ui.open()
+
+/datum/component/personal_crafting/ui_state(mob/user)
+	var/area/A = get_area(user)
+	if(!A.can_craft_here())
+		return UI_CLOSE
+	return ..()
 
 /datum/component/personal_crafting/ui_act(action, params)
 	. = ..()
@@ -611,7 +737,11 @@
 	var/list/surroundings = get_surroundings(user)
 	for(var/rec in GLOB.crafting_recipes)
 		var/datum/crafting_recipe/R = rec
+		if(R.hides_from_crafting_menu)
+			continue
 		if(!R.always_availible && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
+			continue
+		if(R.required_tech_node && !R.tech_unlocked)
 			continue
 
 		if(check_contents(R, surroundings))
@@ -650,6 +780,8 @@
 				user.mind.lastrecipe = r
 
 
+
+
 /client/verb/toggle_legacycraft()
 	set name = "Toggle legacy craft"
 	set category = "Options"
@@ -658,3 +790,4 @@
 
 /client
 	var/legacycraft = FALSE
+

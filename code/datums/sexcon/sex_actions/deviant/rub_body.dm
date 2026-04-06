@@ -1,6 +1,7 @@
 /datum/sex_action/rub_body
 	name = "Rub their body"
 	check_same_tile = FALSE
+	category = SEX_CATEGORY_HANDS
 
 /datum/sex_action/rub_body/shows_on_menu(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(user == target)
@@ -19,7 +20,7 @@
 
 /datum/sex_action/rub_body/on_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] rubs [target]'s body..."))
-	user.make_sucking_noise()
+	user.sexcon.make_sucking_noise()
 
 	user.sexcon.perform_sex_action(target, 0.5, 0, TRUE)
 	target.sexcon.handle_passive_ejaculation()

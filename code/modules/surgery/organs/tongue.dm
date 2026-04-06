@@ -19,13 +19,16 @@
 		/datum/language/orcish,
 		/datum/language/draconic,
 		/datum/language/thievescant,
+		/datum/language/canilunzt,
 		/datum/language/grenzelhoftian,
 		/datum/language/kazengunese,
 		/datum/language/otavan,
 		/datum/language/etruscan,
 		/datum/language/gronnic,
 		/datum/language/aavnic,
-		/datum/language/abyssal
+		/datum/language/abyssal,
+		/datum/language/merar,
+		/datum/language/undead
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
@@ -33,12 +36,13 @@
 	languages_possible = languages_possible_base
 
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
+	return
 
 /obj/item/organ/tongue/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
 	. = ..()
 	if(say_mod && M.dna && M.dna.species)
 		M.dna.species.say_mod = say_mod
-	if (modifies_speech)
+	if(modifies_speech)
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	M.UnregisterSignal(M, COMSIG_MOB_SAY)
 	for(var/datum/wound/facial/ears/tongue_wound as anything in M.get_wounds())
@@ -60,7 +64,7 @@
 	icon_state = "tongue-con"
 	say_mod = "crackles"
 	taste_sensitivity = 30 //It's dead, jim.
-	
+
 /obj/item/organ/tongue/lizard
 	name = "forked tongue"
 	desc = ""
@@ -203,7 +207,7 @@
 	var/phomeme_type = "sans"
 	var/list/phomeme_types = list("sans", "papyrus")
 
-/obj/item/organ/tongue/bone/Initialize()
+/obj/item/organ/tongue/bone/Initialize(mapload)
 	. = ..()
 	phomeme_type = pick(phomeme_types)
 
@@ -276,3 +280,10 @@
 		message = lizard_hiSS.Replace(message, "Sss")
 	speech_args[SPEECH_MESSAGE] = message
 
+/obj/item/organ/tongue/harpy
+	name = "bird tongue"
+	desc = "Chirp chirp chirp chirp chirp!!"
+	icon_state = "tongue-con"
+	say_mod = "chirps"
+	taste_sensitivity = 5
+	modifies_speech = FALSE

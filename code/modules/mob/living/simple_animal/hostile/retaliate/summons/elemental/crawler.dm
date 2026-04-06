@@ -30,7 +30,8 @@
 	pooptype = null
 	simple_detect_bonus = 20
 	deaggroprob = 0
-	defprob = 40
+	defprob = 20
+	candodge = TRUE
 	// del_on_deaggro = 44 SECONDS
 	retreat_health = 0.3
 	food = 0
@@ -45,7 +46,7 @@
 	STASTR = 8
 	STASPD = 8
 
-/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler/Initialize()
+/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler/Initialize(mapload)
 	src.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
 	. = ..()
 

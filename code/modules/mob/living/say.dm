@@ -101,7 +101,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(ic_blocked)
 		//The filter warning message shows the sanitized message though.
 		to_chat(src, span_warning("That message contained a word prohibited in IC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ic_chat'>\"[message]\"</span>"))
-		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, lowertext(config.ic_filter_regex.match))
+		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, LOWER_TEXT(config.ic_filter_regex.match))
 		return
 
 	var/datum/saymode/saymode = SSradio.saymodes[talk_key]
@@ -178,14 +178,16 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(saymode && !saymode.handle_message(src, message, language))
 		return
 
-	message = treat_message(message) // unfortunately we still need this
+	message = treat_message(message, language) // unfortunately we still need this
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
 	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
 		message = uppertext(message)
 	if(!message)
 		return
 
-	if(!can_speak_vocal(message))
+	// Allow sign languages and other tongueless speech to bypass the vocal speech check
+	var/using_tongueless_speech = language && (initial(language.flags) & TONGUELESS_SPEECH)
+	if(!can_speak_vocal(message) && !using_tongueless_speech)
 		emote("custom", message = "makes a muffled noise")
 		to_chat(src, span_warning("I can't talk."))
 		return
@@ -211,12 +213,17 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	else
 		src.log_talk(message, LOG_SAY, forced_by=forced)
 
-	if(src.client)
+	if(client)
+		last_words = message
 		record_featured_stat(FEATURED_STATS_SPEAKERS, src)	//Yappin'
 	if(findtext(message, "Abyssor"))	//funni
-		GLOB.azure_round_stats[STATS_ABYSSOR_REMEMBERED]++
+		record_round_statistic(STATS_ABYSSOR_REMEMBERED)
 
 	spans |= speech_span
+
+	// Add comic sans span for characters with the annoying face trait
+	if(HAS_TRAIT(src, TRAIT_COMICSANS))
+		spans |= SPAN_SANS
 
 	if(language)
 		var/datum/language/L = GLOB.language_datum_instances[language]
@@ -235,7 +242,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		else
 			if(L.spans?.len)
 				chosen_spans = L.spans
-		
+
 		if(chosen_spans?.len && islist(chosen_spans))
 			spans |= chosen_spans
 
@@ -253,7 +260,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message = uppertext(message)
 	if(!message)
 		return
-
 	if(D.flags & SIGNLANG)
 		send_speech_sign(message, message_range, src, bubble_type, spans, language, message_mode, original_message)
 	else
@@ -291,6 +297,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			continue
 		listening |= M
 		the_dead[M] = TRUE
+	var/list/hidden_ghosts = null
+	if(has_ghost_protection(src))
+		hidden_ghosts = get_hidden_ghosts_for_target(src)
+		for(var/mob/dead/observer/ghost in hidden_ghosts)
+			if(ghost in listening)
+				listening -= ghost
+				the_dead -= ghost
 	log_seen(src, null, listening, original_message, SEEN_LOG_SAY)
 
 	var/eavesdropping
@@ -324,8 +337,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			AM.Hear(rendered, src, message_language, highlighted_message, , spans, message_mode, original_message)
 		else
 			AM.Hear(rendered, src, message_language, message, , spans, message_mode, original_message)
-		
-		
+
+
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
 
 	//time for emoting!!
@@ -336,7 +349,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		var/mob/living/carbon/human/H = src
 		mob_color = H.voice_color
 	var/chatmsg = "<font color = #[mob_color]><b>[src]</b></font> " + sign_verb + "."
-	visible_message(chatmsg, runechat_message = sign_verb, log_seen = SEEN_LOG_EMOTE, ignored_mobs = understanders)
+	var/list/ignored_mobs = understanders.Copy()
+	if(length(hidden_ghosts))
+		ignored_mobs += hidden_ghosts
+	visible_message(chatmsg, runechat_message = sign_verb, log_seen = SEEN_LOG_EMOTE, ignored_mobs = ignored_mobs)
 
 	//speech bubble
 	var/list/speech_bubble_recipients = list()
@@ -382,6 +398,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// Create map text prior to modifying message for goonchat
 	if(can_see_runechat(speaker) && can_hear())
 		create_chat_message(speaker, message_language, raw_message, spans, message_mode)
+	if(raw_message == last_heard_raw_message)
+		return
+	last_heard_raw_message = raw_message
 	// Recompose message for AI hrefs, language incomprehension.
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode)
 	show_message(message, MSG_AUDIBLE, deaf_message, deaf_type)
@@ -397,11 +416,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/speaker_has_ceiling		= TRUE
 	var/turf/speaker_turf = get_turf(src)
 	var/turf/speaker_ceiling = get_step_multiz(speaker_turf, UP)
+	var/line_of_sight_only = FALSE
+
 	if(speaker_ceiling)
 		if(istransparentturf(speaker_ceiling))
 			speaker_has_ceiling = FALSE
 	if(eavesdropping_modes[message_mode])
 		eavesdrop_range = EAVESDROP_EXTRA_RANGE
+
 	if(message_mode != MODE_WHISPER)
 		Zs_too = TRUE
 		if(say_test(message) == "2")	//CIT CHANGE - ditto
@@ -409,6 +431,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			Zs_yell = TRUE
 		if(say_test(message) == "3")	//Big "!!" shout
 			Zs_all = TRUE
+
+	var/area/speaker_area = get_area(src)
+	if(speaker_area && speaker_area.soundproof == TRUE)
+		line_of_sight_only = TRUE
+		Zs_too = FALSE
+		Zs_yell = FALSE
+		Zs_all = FALSE
+	
 	// AZURE EDIT: thaumaturgical loudness (from orisons)
 	if (has_status_effect(/datum/status_effect/thaumaturgy))
 		spans |= SPAN_REALLYBIG
@@ -427,9 +457,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// AZURE EDIT END
 	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source)
 	var/list/the_dead = list()
+	var/list/hidden_ghosts = null
 //	var/list/yellareas	//CIT CHANGE - adds the ability for yelling to penetrate walls and echo throughout areas
 	for(var/_M in GLOB.player_list)
 		var/mob/M = _M
+
+		if(line_of_sight_only && !isobserver(M)) // If soundproof area, we only care about hearers_in_view, except observers
+			continue
+
 		var/atom/movable/tocheck = M
 		if(isdullahan(M))
 			var/mob/living/carbon/human/target = M
@@ -457,6 +492,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			continue
 		listening |= M
 		the_dead[M] = TRUE
+	if(has_ghost_protection(src))
+		hidden_ghosts = get_hidden_ghosts_for_target(src)
+		for(var/mob/dead/observer/ghost in hidden_ghosts)
+			if(ghost in listening)
+				listening -= ghost
+				the_dead -= ghost
 	log_seen(src, null, listening, original_message, SEEN_LOG_SAY)
 
 	var/eavesdropping
@@ -473,15 +514,16 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		var/turf/listener_ceiling = get_step_multiz(listener_turf, UP)
 		if(istype(_AM, /obj/item/listeningdevice)) // Very evil snowflake code.
 			hearall = TRUE
+
 		if(listener_ceiling)
 			listener_has_ceiling = TRUE
 			if(istransparentturf(listener_ceiling))
 				listener_has_ceiling = FALSE
-		if(!hearall)		
+		if(!hearall)
 			if((!Zs_too && !isobserver(AM)) || message_mode == MODE_WHISPER)
 				if(AM.z != src.z)
 					continue
-		if(Zs_too && AM.z != src.z && !Zs_all)
+		if(Zs_too && listener_turf.z != speaker_turf.z && !Zs_all)
 			if(!Zs_yell && !HAS_TRAIT(AM, TRAIT_KEENEARS) && !hearall)
 				if(listener_turf.z < speaker_turf.z && listener_has_ceiling)	//Listener is below the speaker and has a ceiling above them
 					continue
@@ -500,7 +542,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 					for(var/mob/living/MH in viewers(world.view, speaker_ceiling))
 						if(M == MH && MH.z == speaker_ceiling?.z)
 							speaker_obstructed = FALSE
-					
+
 				if(!listener_has_ceiling)
 					for(var/mob/living/ML in viewers(world.view, listener_ceiling))
 						if(ML == src && ML.z == listener_ceiling?.z)
@@ -575,7 +617,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 /mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
 	if(HAS_TRAIT(src, TRAIT_MUTE)|| HAS_TRAIT(src, TRAIT_PERMAMUTE) || HAS_TRAIT(src, TRAIT_BAGGED))
-		return FALSE	
+		return FALSE
 
 	if(is_muzzled())
 		return FALSE
@@ -588,7 +630,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /mob/living/proc/get_key(message)
 	var/key = copytext(message, 1, 2)
 	if(key in GLOB.department_radio_prefixes)
-		return lowertext(copytext(message, 2, 3))
+		return LOWER_TEXT(copytext(message, 2, 3))
 
 /mob/living/proc/get_message_language(message)
 	if(copytext(message, 1, 2) == ",")
@@ -599,8 +641,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				return LD
 	return null
 
-/mob/living/proc/treat_message(message)
-	if(HAS_TRAIT(src, TRAIT_ZOMBIE_SPEECH))
+/mob/living/proc/treat_message(message, language)
+	if(HAS_TRAIT(src, TRAIT_ZOMBIE_SPEECH) && !ispath(language, /datum/language/undead))
 		message = "[repeat_string(rand(1, 3), "U")][repeat_string(rand(1, 6), "H")]..."
 	else if(HAS_TRAIT(src, TRAIT_GARGLE_SPEECH))
 		message = vocal_cord_torn(message)
@@ -619,6 +661,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(cultslurring)
 		message = cultslur(message)
+
+	if(HAS_TRAIT(src, TRAIT_SIMPLESPEECH))
+		message = simplespeech(message)
 
 	message = capitalize(message)
 

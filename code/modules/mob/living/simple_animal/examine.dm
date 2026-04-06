@@ -4,6 +4,8 @@
 	var/t_is = p_are()
 
 	. = list("<span class='info'>✠ ------------ ✠\nThis is \a <EM>[src]</EM>.")
+	if(desc)
+		. += desc
 
 	var/m1 = "[t_He] [t_is]"
 	var/m2 = "[t_his]"
@@ -34,16 +36,16 @@
 	var/has_simple_wounds = HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS)
 	if(has_simple_wounds)
 		// Blood volume
-		switch(blood_volume)
-			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-				msg += span_artery("<B>[m1] extremely pale and sickly.</B>")
-			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				msg += span_artery("<B>[m1] very pale.</B>")
-			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				msg += span_artery("[m1] pale.")
-			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
-				msg += span_artery("[m1] a little pale.")
-	
+		if(blood_volume <= BLOOD_VOLUME_SURVIVE)
+			msg += span_artery("<B>[m1] extremely pale and sickly.</B>")
+		else if(blood_volume <= BLOOD_VOLUME_BAD)
+			msg += span_artery("<B>[m1] very pale.</B>")
+		else if(blood_volume <= BLOOD_VOLUME_OKAY)
+			msg += span_artery("[m1] pale.")
+		else if(blood_volume <= BLOOD_VOLUME_SAFE)
+			msg += span_artery("[m1] a little pale.")
+
+		bleed_rate = get_bleed_rate()
 		// Bleeding
 		if(bleed_rate)
 			var/bleed_wording = "bleeding"
@@ -62,9 +64,9 @@
 				msg += span_bloody("[m1] [bleed_wording]!")
 
 	//Fire/water stacks
-	if(fire_stacks + divine_fire_stacks > 0)
+	if(has_status_effect(/datum/status_effect/fire_handler))
 		msg += "[m1] covered in something flammable."
-	else if(fire_stacks < 0)
+	else if(has_status_effect(/datum/status_effect/fire_handler/wet_stacks))
 		msg += "[m1] soaked."
 
 	//Grabbing

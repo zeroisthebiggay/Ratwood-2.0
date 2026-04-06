@@ -30,7 +30,7 @@
 	attacked_sound = list('sound/combat/hits/onrock/onrock (1).ogg', 'sound/combat/hits/onrock/onrock (2).ogg', 'sound/combat/hits/onrock/onrock (3).ogg', 'sound/combat/hits/onrock/onrock (4).ogg')
 	neighborlay = "dirtedge"
 
-/turf/closed/mineral/Initialize()
+/turf/closed/mineral/Initialize(mapload)
 	if (!canSmoothWith)
 		canSmoothWith = list(/turf/closed/mineral, /turf/closed/indestructible)
 //	var/matrix/M = new
@@ -104,6 +104,13 @@
 /turf/closed/mineral/turf_destruction(damage_flag)
 	if(!(istype(src, /turf/closed)))
 		return
+	if(damage_flag == "stab" || damage_flag == "blunt")
+		if(istype(src, /turf/closed/mineral/rogue) || istype(src, /turf/closed/mineral/random/rogue)) // if a natural stone wall was destroyed, spawn a trigger trap for mine shaft collapsing
+			var/turf/T = get_turf(src)
+			if(!isnull(T) && !locate(/obj/structure/mine_collapse) in T) // there isn't a trap here, add to turf
+				var/obj/structure/mine_collapse/new_trap = new /obj/structure/mine_collapse(T)
+				if(new_trap) // to any future coders - do not randomize this type, it'll break the salt mines prison camp and let them mine iron, which'll let them break out too easily
+					new_trap.respawn_rock = src.type
 	if(damage_flag == "blunt")
 		var/obj/item/explo_mineral = mineralType
 		var/explo_mineral_amount = mineralAmt
@@ -156,6 +163,12 @@
 /turf/closed/mineral/attack_animal(mob/living/simple_animal/user)
 	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		gets_drilled(user)
+	if(user.can_mine && do_after(user, CLICK_CD_MELEE))
+		playsound(src,'sound/combat/hits/onstone/wallhit.ogg', 600, TRUE, 10)
+		visible_message(span_warning("[user] smashes [src]!"))
+		turf_integrity -= 500
+		if(turf_integrity <= 0)
+			gets_drilled(user)
 	..()
 
 /turf/closed/mineral/acid_melt()
@@ -184,7 +197,7 @@
 	var/mineralChance = 13
 	var/display_icon_state = "rock"
 
-/turf/closed/mineral/random/Initialize()
+/turf/closed/mineral/random/Initialize(mapload)
 
 	mineralSpawnChanceList = typelist("mineralSpawnChanceList", mineralSpawnChanceList)
 

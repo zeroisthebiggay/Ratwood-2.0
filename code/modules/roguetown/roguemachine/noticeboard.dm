@@ -22,7 +22,7 @@
 	density = TRUE
 	anchored = TRUE
 
-/obj/structure/roguemachine/noticeboard/Initialize()
+/obj/structure/roguemachine/noticeboard/Initialize(mapload)
 	. = ..()
 	SSroguemachine.noticeboards += src
 	input_point = locate(x, y - 1, z)
@@ -354,7 +354,7 @@
 	var/deposit = difficulty_data[actual_difficulty]["deposit"]
 
 	if(SStreasury.bank_accounts[user] < deposit)
-		say("Insufficient balance funds. You need [deposit] mammons in your meister.")
+		say("Insufficient balance funds. You need [deposit] mammons in your nervelock.")
 		return
 
 	var/list/type_choices = list(

@@ -2,6 +2,7 @@
 	name = "Force them to suck nipples"
 	require_grab = TRUE
 	stamina_cost = 1.0
+	target_sex_part = SEX_PART_JAWS
 
 /datum/sex_action/force_suck_nipples/shows_on_menu(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(user == target)
@@ -37,7 +38,7 @@
 
 /datum/sex_action/force_suck_nipples/on_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] forces [target] to suck [user.p_their()] nipples."))
-	target.make_sucking_noise()
+	user.sexcon.oralcourse_noise(target)
 
 	user.sexcon.perform_sex_action(user, 2, 4, TRUE)
 

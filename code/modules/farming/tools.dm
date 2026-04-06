@@ -98,10 +98,11 @@
 
 /obj/item/rogueweapon/sickle/aalloy
 	name = "decrepit sickle"
-	desc = "Her thought was simple; to seperate the wheat from the chaff. By removing the limitations set upon one's spirit by lyfe, only then could divinity be obtained. She was correct - yet Her ascension had gone terribly awry, all-the-same."
+	desc = "Her thought was simple; to separate the wheat from the chaff. By removing the limitations set upon one's spirit by lyfe, only then could divinity be obtained. She was correct - yet Her ascension had gone terribly awry, all-the-same."
 	icon_state = "asickle"
 	color = "#bb9696"
 	sellprice = 15
+	smeltresult = /obj/item/ingot/aaslag
 
 /obj/item/rogueweapon/sickle/copper
 	name = "copper sickle"
@@ -238,7 +239,7 @@
 			return
 		if(istype(T, /turf/open/floor/rogue/dirt))
 			playsound(T,'sound/items/dig_shovel.ogg', 100, TRUE)
-			if(do_after(user, work_time, target = src))	
+			if(do_after(user, work_time, target = src))
 				playsound(T,'sound/items/dig_shovel.ogg', 100, TRUE)
 				var/obj/structure/soil/soil = get_soil_on_turf(T)
 				if(soil)
@@ -319,7 +320,7 @@
 
 /obj/item/rogueweapon/pitchfork/aalloy
 	name = "decrepit pitchfork"
-	desc = "Do not fault the layman for fearing Her disciples, nor for driving them out of the villages with pitchforks-and-torches. They, too, will come to see the blessings of Zizo, all in due tyme." 
+	desc = "Do not fault the layman for fearing Her disciples, nor for driving them out of the villages with pitchforks-and-torches. They, too, will come to see the blessings of Zizo, all in due tyme."
 	icon_state = "apitchfork"
 	smeltresult = /obj/item/ingot/aalloy
 	color = "#bb9696"

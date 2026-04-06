@@ -10,6 +10,21 @@
 //	pixel_y = 10
 	layer = OBJ_LAYER
 
+
+
+/obj/structure/chair/smallbench
+	name = "small bench"
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "benchsmall"
+	buildstackamount = 1
+	item_chair = null
+	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
+	attacked_sound = "woodimpact"
+	sleepy = 0.5
+	layer = OBJ_LAYER
+	density = FALSE
+
+
 /obj/structure/chair/bench/church
 	icon_state = "church_benchleft"
 
@@ -19,8 +34,10 @@
 /obj/structure/chair/bench/church/r
 	icon_state = "church_benchright"
 
-/obj/structure/chair/bench/Initialize()
+/obj/structure/chair/bench/Initialize(mapload)
 	. = ..()
+	var/static/list/loc_connections = list(COMSIG_ATOM_EXIT = PROC_REF(on_exit))
+	AddElement(/datum/element/connect_loc, loc_connections)
 	handle_layer()
 
 /obj/structure/chair/bench/handle_layer()
@@ -34,13 +51,10 @@
 /obj/structure/chair/bench/post_buckle_mob(mob/living/M)
 	..()
 	density = TRUE
-//	M.pixel_y = 10
 
 /obj/structure/chair/bench/post_unbuckle_mob(mob/living/M)
 	..()
 	density = FALSE
-//	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-//	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
 
 /obj/structure/chair/bench/CanAStarPass(ID, travel_dir, caller)
 	if(travel_dir == dir)
@@ -52,10 +66,13 @@
 		return 0
 	return !density
 
-/obj/structure/chair/bench/CheckExit(atom/movable/O, turf/target)
-	if(get_dir(target, O.loc) == dir)
-		return 0
-	return !density
+/obj/structure/chair/bench/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
+	SIGNAL_HANDLER
+	if(istype(leaving, /obj/projectile))
+		return
+	if(get_dir(new_location, leaving.loc) == dir)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/chair/bench/couch
 	icon_state = "redcouch"
@@ -90,7 +107,7 @@
 /obj/structure/chair/bench/couchamagenta/r
 	icon_state = "couchamagentaright"
 
-/obj/structure/chair/bench/couch/Initialize()
+/obj/structure/chair/bench/couch/Initialize(mapload)
 	. = ..()
 	if(GLOB.lordprimary)
 		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
@@ -114,6 +131,11 @@
 	blade_dulling = DULLING_BASHCHOP
 	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
 	attacked_sound = "woodimpact"
+
+/obj/structure/chair/wood/rogue/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(COMSIG_ATOM_EXIT = PROC_REF(on_exit))
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/chair/wood/rogue/chair3
 	icon_state = "chair3"
@@ -154,9 +176,14 @@
 	origin_type = /obj/structure/chair/wood/rogue
 	blade_dulling = DULLING_BASHCHOP
 	can_parry = TRUE
-	gripped_intents = list(/datum/intent/hit)
+	force = 20
+	force_wielded = 20
+	throwforce = 25
+	wdefense = 1
+	possible_item_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood)
+	gripped_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood)
+	max_integrity = 50
 	obj_flags = CAN_BE_HIT
-	max_integrity = 100
 	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
 	attacked_sound = "woodimpact"
 	sleepy = 0.35
@@ -198,20 +225,20 @@
 		qdel(src)
 		return FALSE
 
-/obj/structure/chair/wood/rogue/CheckExit(atom/movable/O, turf/target)
-	if(isliving(O))
-		var/mob/living/M = O
-		if((M.mobility_flags & MOBILITY_STAND))
-			if(isturf(loc))
-				var/movefrom = get_dir(M.loc, target)
-				if(movefrom == turn(dir, 180) && item_chair != null)
-					playsound(loc, 'sound/foley/chairfall.ogg', 100, FALSE)
-					var/obj/item/I = new item_chair(loc)
-					item_chair = null
-					I.dir = dir
-					qdel(src)
-					return FALSE
-	return ..()
+/obj/structure/chair/wood/rogue/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
+	SIGNAL_HANDLER
+	if(!isliving(leaving))
+		return
+	var/mob/living/M = leaving
+	if(!(M.mobility_flags & MOBILITY_STAND))
+		return
+	if(item_chair && get_dir(leaving.loc, new_location) == REVERSE_DIR(dir))
+		playsound(loc, 'sound/foley/chairfall.ogg', 100, FALSE)
+		var/obj/item/I = new item_chair(loc)
+		item_chair = null
+		I.dir = dir
+		qdel(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/chair/wood/rogue/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(damage_amount > 5 && item_chair != null)
@@ -221,9 +248,7 @@
 		I.dir = dir
 		qdel(src)
 		return FALSE
-	else
-		..()
-
+	return ..()
 
 /obj/structure/chair/wood/rogue/fancy
 	icon_state = "chair1"
@@ -271,9 +296,14 @@
 	origin_type = /obj/structure/chair/stool/rogue
 	blade_dulling = DULLING_BASHCHOP
 	can_parry = TRUE
-	gripped_intents = list(/datum/intent/hit)
+	force = 15
+	force_wielded = 15
+	throwforce = 20
+	wdefense = 1
+	possible_item_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood)
+	gripped_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood)
+	max_integrity = 50
 	obj_flags = CAN_BE_HIT
-	max_integrity = 100
 	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
 	attacked_sound = "woodimpact"
 
@@ -295,6 +325,28 @@
 	sleepy = 3
 	debris = list(/obj/item/grown/log/tree/small = 1)
 	metalizer_result = /obj/machinery/anvil/crafted
+	var/broken_matress = FALSE
+	var/broken_percentage = 0
+	var/broken_rate = 1.0
+
+/obj/structure/bed/rogue/proc/damage_bed(dam_value)
+	if(broken_matress)
+		playsound(src, pick(list('sound/misc/mat/table (1).ogg','sound/misc/mat/table (2).ogg','sound/misc/mat/table (3).ogg','sound/misc/mat/table (4).ogg')), 30, TRUE, ignore_walls = FALSE)
+		return
+	if(sleepy <= 2) // the bed is already pretty awful and broken (i.e: straw bed/bedroll), so don't break it even further
+		return
+	broken_percentage += (dam_value * broken_rate)
+	if(broken_percentage >= 100) // bed broken
+		broken_percentage = 100 // clamp
+		broken_matress = TRUE
+		sleepy = 1 //Worse than a bedroll, better than nothing
+		visible_message(span_warning("\The [src] gives an violent snap. It looks broken!"))
+		playsound(src, 'sound/misc/mat/bed break.ogg', 50, TRUE, ignore_walls = FALSE)
+		desc += " The bed looks stained and has seen better daes."
+	else
+		playsound(src, pick(list('sound/misc/mat/bed squeak (1).ogg','sound/misc/mat/bed squeak (2).ogg','sound/misc/mat/bed squeak (3).ogg')), 25, TRUE, ignore_walls = FALSE)
+		if(broken_percentage > 10)
+			playsound(src, 'sound/misc/mat/bed damage.ogg', broken_percentage>>2, TRUE, ignore_walls = FALSE)
 
 /obj/structure/bed/rogue/OnCrafted(dirin)
 	dirin = turn(dirin, 180)
@@ -384,6 +436,7 @@
 	pixel_y = 0
 	sleepy = 3
 	debris = list(/obj/item/grown/log/tree/small = 2)
+	broken_rate = 0.5
 
 /obj/structure/bed/rogue/inn/double
 	icon_state = "double"
@@ -394,6 +447,7 @@
 	pixel_y = 0
 	sleepy = 3
 	debris = list(/obj/item/grown/log/tree/small = 2)
+	broken_rate = 0.5
 /*            ///////WIP  This will essentially allow for multiple mobs to buckle, just needs to change mousedrop function
 /obj/structure/bed/rogue/inn/double
 	var/list/buckled_mobs = list()

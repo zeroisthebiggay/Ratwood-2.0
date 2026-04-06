@@ -30,7 +30,8 @@
 		if(M.mind)
 			M.mind.special_role = "Death Knight"
 			M.mind.assigned_role = "Death Knight"
-			M.mind.current.job = null
+			if(M.mind.current)
+				M.mind.current.job = null
 		if(H.dna && H.dna.species)
 			H.dna.species.species_traits |= NOBLOOD
 			H.dna.species.soundpack_m = new /datum/voicepack/skeleton()
@@ -73,6 +74,7 @@
 		ADD_TRAIT(H, TRAIT_SHOCKIMMUNE, TRAIT_GENERIC)
 		ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 		ADD_TRAIT(H, TRAIT_ARCYNE_T2, TRAIT_GENERIC)
+		ADD_TRAIT(H, TRAIT_EXTREME_TEMPERATURE_IMMUNE, TRAIT_GENERIC)
 		for(var/obj/item/bodypart/B in H.bodyparts)
 			B.skeletonize(FALSE)
 		H.update_body()

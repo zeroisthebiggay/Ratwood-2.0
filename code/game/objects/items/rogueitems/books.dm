@@ -174,6 +174,10 @@
 	base_icon_state = "bibble"
 	title = "The Verses and Acts of the Ten"
 	dat = "gott.json"
+	possible_item_intents = list(
+		/datum/intent/use, 
+		/datum/intent/bless,
+	)
 
 /obj/item/book/rogue/bibble/read(mob/user)
 	if(!open)
@@ -203,20 +207,39 @@
 		if(m)
 			user.say(m)
 
-/obj/item/book/rogue/bibble/attack(mob/living/M, mob/user)
-	if(user.mind && user.mind.assigned_role == "Bishop")
+/obj/item/book/rogue/bibble/attack(atom/M, mob/user)
+	if(user.mind?.assigned_role == "Bishop" && user.used_intent?.type == /datum/intent/bless && isliving(M))
 		if(!user.can_read(src))
 			to_chat(user, span_warning("I don't understand these scribbly black lines."))
 			return
-		M.apply_status_effect(/datum/status_effect/buff/blessed)
-		M.add_stress(/datum/stressevent/blessed)
+		var/mob/living/to_bless = M
+		to_bless.apply_status_effect(/datum/status_effect/buff/blessed)
+		to_bless.add_stress(/datum/stressevent/blessed)
 		user.visible_message(span_notice("[user] blesses [M]."))
 		playsound(user, 'sound/magic/bless.ogg', 100, FALSE)
 		return
 
+/obj/item/book/rogue/bibble/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(user.mind?.assigned_role == "Bishop" && isitem(target) && user.used_intent?.type == /datum/intent/bless)
+		var/datum/component/silverbless/CP = target.GetComponent(/datum/component/silverbless)
+		if(!CP)
+			to_chat(user, span_info("\The [target] can not be blessed."))
+			return
+		else if(!CP.is_blessed && (CP.silver_type & SILVER_TENNITE))
+			playsound(user, 'sound/magic/censercharging.ogg', 100)
+			user.visible_message(span_info("[user] holds \the [src] over \the [target]..."))
+			if(do_after(user, 5 SECONDS, target = target))
+				CP.try_bless(BLESSING_TENNITE)
+				new /obj/effect/temp_visual/censer_dust(get_turf(target))
+			return
+		else
+			to_chat(user, span_info("It has already been blessed."))
+			return
+
 /obj/item/book/rogue/bibble/psy
-	name = "Of Psydon"
-	desc = "And HE WEEPS. Not for you, not for me, but for it all."
+	name = "Tome of Psydon"
+	desc = "'And HE WEEPS. Not for you, not for me, but for it all.' </br>A leatherbound tome, chronicling the beliefs held by the Orthodoxy; the largest Psydonic denomination in the world. The 'Harlaus Press', a recent invention by Otava's clergymen, has ensured that no corner of Psydonia would remain unlit by His teachings. Inside are three separate testaments, each marked with a velvet strap.. </br>PSALMS - TESTAMENTS OF CLERICAL WISDOM, COMMANDING INTERPRETATION. </br>GENESIS - TESTAMENTS OF PSYDONIA'S CREATION, FOR WHAT ONCE WAS. </br>INVOCATIONS - TESTAMENTS OF WILL, TO EXORCISE AND CHANT."
 	icon_state = "psyble_0"
 	base_icon_state = "psyble"
 	title = "psyble"
@@ -252,14 +275,14 @@
 
 /obj/item/book/rogue/bibble/psy/MiddleClick(mob/user, params)
 	. = ..()
-	var/sects = list("Sect 1 - PSALMS", "Sect 2 - OF LYFE", "Sect 3 - CHANTS")
-	var/sect_choice = input(user, "Select a Sect", "OF PSYDONIA") as anything in sects
+	var/sects = list("PSALMS", "GENESIS", "INVOCATIONS")
+	var/sect_choice = input(user, "SELECT YOUR TESTAMENT", "OF PSYDONIA") as anything in sects
 	switch(sect_choice)
-		if("Sect 1 - PSALMS")
+		if("PSALMS")
 			sect = "sect1"
-		if("Sect 2 - OF LYFE")
+		if("GENESIS")
 			sect = "sect2"
-		if("Sect 3 - CHANTS")
+		if("INVOCATIONS")
 			sect = "sect3"
 
 /datum/status_effect/buff/blessed
@@ -478,7 +501,7 @@
 	base_icon_state = "basic_book"
 	override_find_book = TRUE
 
-/obj/item/book/rogue/playerbook/Initialize(loc, in_round_player_generated, var/mob/living/in_round_player_mob, text)
+/obj/item/book/rogue/playerbook/Initialize(mapload, loc, in_round_player_generated, mob/living/in_round_player_mob, text)
 	. = ..()
 	is_in_round_player_generated = in_round_player_generated
 	if(is_in_round_player_generated)
@@ -489,7 +512,7 @@
 
 //Just rewrite this entirely. STRIP_HTML_SIMPLE might be insufficient, but that's just the tip of the iceberg.area
 //This needs to check if an input is valid via reject_bad_text, and if not prompt the user again.
-/obj/item/book/rogue/playerbook/proc/prompt_for_contents(var/mob/living/in_round_player_mob)
+/obj/item/book/rogue/playerbook/proc/prompt_for_contents(mob/living/in_round_player_mob)
 	while(!player_book_author_ckey) // doesn't have to be this, but better than defining a bool.
 		player_book_title = capitalize(STRIP_HTML_SIMPLE(input(in_round_player_mob, "What title do you want to give the book? (max 42 characters)", "Title", "Unknown"), MAX_NAME_LEN))
 		player_book_author = STRIP_HTML_SIMPLE(input(in_round_player_mob, "What do you want the author text to be? (max 42 characters)", "Author", ""), MAX_NAME_LEN)
@@ -522,6 +545,7 @@
 	base_icon_state = "[player_book_icon]"
 	pages = list("<b3><h3>Title: [player_book_title]<br>Author: [player_book_author]</b><h3>[player_book_text]")
 
+
 /obj/item/manuscript
 	name = "2 page manuscript"
 	desc = "A 2 page written piece aspiring to one dae become a book."
@@ -535,6 +559,10 @@
 	var/compiled_pages = null
 	var/list/page_texts = list()
 	var/qdel_source = FALSE
+
+/obj/item/manuscript/examine()
+	. = ..()
+	. += span_info("It has [number_of_pages] pages. Use paper to add more. Finish the book with a book crafting kit.")
 
 /obj/item/manuscript/attackby(obj/item/I, mob/living/user)
 	// why is a book crafting kit using the craft system, but crafting a book isn't? Well the crafting system for *some reason* is made in such a way as to make reworking it to allow you to put reqs vars in the crafted item near *impossible.*
@@ -608,9 +636,8 @@
 		for(var/I in page_texts)
 			dat += "<p>[I]</p>"
 		dat += "<br>"
-		dat += "<a href='?src=[REF(src)];close=1' style='position:absolute;right:50px'>Close</a>"
 		dat += "</body></html>"
-		user << browse(dat, "window=reading;size=1000x700;can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=0")
+		user << browse(dat, "window=reading;size=1000x700;can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1")
 		onclose(user, "reading", src)
 	else
 		return span_warning("I'm too far away to read it.")

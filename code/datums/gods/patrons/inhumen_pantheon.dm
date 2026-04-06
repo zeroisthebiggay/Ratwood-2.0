@@ -28,9 +28,9 @@
 					/obj/effect/proc_holder/spell/invoked/lesser_heal 					= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/blood_heal					= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/projectile/profane/miracle 	= CLERIC_T1,
-					/obj/effect/proc_holder/spell/invoked/raise_lesser_undead/miracle 	= CLERIC_T2,
+					/obj/effect/proc_holder/spell/invoked/raise_undead_formation/miracle= CLERIC_T2,
 					/obj/effect/proc_holder/spell/invoked/rituos/miracle 				= CLERIC_T3,
-					/obj/effect/proc_holder/spell/invoked/wound_heal					= CLERIC_T3,
+					/obj/effect/proc_holder/spell/invoked/tame_undead/miracle			= CLERIC_T3,
 	)
 	confess_lines = list(
 		"PRAISE ZIZO!",
@@ -42,7 +42,7 @@
 /datum/patron/inhumen/graggar
 	name = "Graggar"
 	domain = "Conquest, Cruelty, Kinslaying, Slaughter, Cannibalism, Rape"
-	desc = "The Gorebound Star was a half-orc warlord who sought to strike Ravox down in rage at the cruel fate of His lover. He was decapitated, and His head revived as a mutilated abberation of blue flesh and sickening tendrils. Gazing upon the Star will drive anyone mad."
+	desc = "The Gorebound Star was a half-orc warlord who sought to strike Ravox down in rage at the cruel fate of His lover. He was decapitated, and His head revived as a mutilated aberration of blue flesh and sickening tendrils. Gazing upon the Star will drive anyone mad."
 	worshippers = "Fallen Warriors, Cannibals, Serial Killers, The Cruel"
 	mob_traits = list(TRAIT_HORDE, TRAIT_ORGAN_EATER)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison					= CLERIC_ORI,

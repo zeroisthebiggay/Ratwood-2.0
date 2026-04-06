@@ -123,12 +123,14 @@
 	if(ishuman(targets[1]))
 		var/vice_found
 		var/mob/living/carbon/human/H = targets[1]
-		if(HAS_TRAIT(H, TRAIT_DECEIVING_MEEKNESS) && user.get_skill_level(/datum/skill/magic/holy) > SKILL_LEVEL_NOVICE)
+		if(HAS_TRAIT(H, TRAIT_DECEIVING_MEEKNESS) && user.get_skill_level(/datum/skill/magic/holy) <= SKILL_LEVEL_NOVICE)
 			if(!(H in fake_vices))
 				fake_vices[H] = pick(GLOB.character_flaws)
 				vice_found = fake_vices[H]
 			else
 				vice_found = fake_vices[H]
+			if(prob(50 + ((H.STAPER - 10) * 10)))
+				to_chat(H, span_warning("A pair of prying eyes were laid on me..."))
 		if(!vice_found)
 			vice_found = H.charflaw.name
 		to_chat(user, span_info("They are... [span_warning("a [vice_found]")]"))
@@ -236,7 +238,7 @@
 //T1, Baotha's version of Eora's Bud (now renamed True Peace Bloom). Applies the TRAIT_CRACKHEAD baothans have.
 /obj/effect/proc_holder/spell/invoked/griefflower
 	name = "False Serenity Bloom"
-	desc = "A gift for those whom you have choosen as worthy of Her grace, to be able to imbibe in Her gifts as you do."
+	desc = "A gift for those whom you have chosen as worthy of Her grace, to be able to imbibe in Her gifts as you do."
 	clothes_req = FALSE
 	range = 7
 	overlay_state = "love"

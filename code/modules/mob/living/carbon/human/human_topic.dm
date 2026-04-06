@@ -4,54 +4,51 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 /mob/living/carbon/human/Topic(href, href_list)
 	var/observer_privilege = isobserver(usr)
 
+	if(href_list["task"] == "bloodpoolinfo")
+		to_chat(usr, span_notice("Usable blood that yields Vitae and total blood is not the same thing. It takes some time for blood to become nourishing for us."))
+		return
+
+	if(href_list["task"] == "open_language_menu")
+		if(!ismob(usr))
+			return
+		var/datum/language_holder/H = get_language_holder()
+		H.open_language_menu(usr)
+
 	if(href_list["task"] == "view_headshot")
 		if(!ismob(usr))
 			return
-		var/mob/user = usr
-		var/list/dat = list()
-		dat += "<div align='center'><font size = 5; font color = '#dddddd'><b>[src]</b></font></div>"
-		var/legacy_check = FALSE
-		if(isnull(flavortext_display) && !isnull(flavortext))
-			if(isnull(client.prefs?.flavortext_display))	// They're both null, meaning this is a legacy char being examined.
-				is_legacy = TRUE		//We toggle it on in prefs and on mob
-				client.prefs.is_legacy = TRUE
-				legacy_check = TRUE
-				client.prefs?.flavortext_display = replacetext(flavortext, "\n", "<BR>")	//We only do the basic legacy conversion
-				flavortext_display = client.prefs?.flavortext_display
-			else
-				flavortext_display = client.prefs?.flavortext_display	//In this case, something went wrong and we can fix it.
-		if(isnull(ooc_notes_display) && !isnull(ooc_notes))		// Ditto for OOC notes.
-			if(isnull(client.prefs?.ooc_notes_display))
-				is_legacy = TRUE
-				client.prefs.is_legacy = TRUE
-				legacy_check = TRUE
-				client.prefs?.ooc_notes_display = replacetext(ooc_notes, "\n", "<BR>")
-				ooc_notes_display = client.prefs?.ooc_notes_display
-			else
-				ooc_notes_display = client.prefs?.ooc_notes_display
-		if(legacy_check)	//If this is how a Legacy char was established, we save it.
-			client.prefs?.save_character()
-		if(is_legacy)
-			dat += "<center><i><font color = '#b9b9b9'; font size = 1>This is a LEGACY Profile from naive days of Psydon.</font></i></center>"
-		if(valid_headshot_link(null, headshot_link, TRUE))
-			dat += ("<div align='center'><img src='[headshot_link]' width='325px' height='325px'></div>")
-		if(flavortext)
-			dat += "<div align='left'>[flavortext_display]</div>"
-		if(ooc_notes)
-			dat += "<br>"
-			dat += "<div align='center'><b>OOC notes</b></div>"
-			dat += "<div align='left'>[ooc_notes_display]</div>"
-		if(ooc_extra)
-			dat += "<div align='center'>[ooc_extra]</div>"
-		if(nsfw_headshot_link)
-			dat += "<br><div align='center'><b>NSFW</b></div>"
-		if(nsfw_headshot_link && (observer_privilege || (!wear_armor && !wear_shirt)))
-			dat += ("<br><div align='center'><img src='[nsfw_headshot_link]' width='600px'></div>")
-		else if(nsfw_headshot_link && (wear_armor || wear_shirt))
-			dat += "<br><center><i><font color = '#9d0080'; font size = 5>There is more to see but they are not naked...</font></i></center>"
-		var/datum/browser/popup = new(user, "[src]", nwidth = 700, nheight = 800)
-		popup.set_content(dat.Join())
-		popup.open(FALSE)
+		var/datum/examine_panel/mob_examine_panel = new(src)
+		mob_examine_panel.holder = src
+		mob_examine_panel.viewing = usr
+		mob_examine_panel.ui_interact(usr)
+		return
+
+	if(href_list["task"] == "show_custom_item_info")
+		if(!observer_privilege && !usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
+			return
+		var/obj/item/target_item = locate(href_list["item_ref"])
+		if(!istype(target_item))
+			return
+		if(!(target_item in held_items) && !(target_item in get_equipped_items(TRUE)) && \
+			target_item != chastity_device && \
+			!(chastity_device && target_item == chastity_device.attached_toy))
+			return
+		var/is_chastity_item = (target_item == chastity_device)
+		var/is_chastity_attached_toy = (chastity_device && target_item == chastity_device.attached_toy)
+		if(!observer_privilege && (is_chastity_item || is_chastity_attached_toy))
+			if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN))
+				return
+			var/perception_level = 15
+			if(isliving(usr))
+				var/mob/living/L = usr
+				perception_level = L.STAPER
+			if(perception_level < 8)
+				return
+		if(!target_item.has_customized_identity() && !target_item.always_show_examine_link)
+			return
+		var/list/item_examine = target_item.examine(usr)
+		if(length(item_examine))
+			to_chat(usr, usr.client?.prefs?.no_examine_blocks ? item_examine.Join("\n") : examine_block(item_examine.Join("\n")))
 		return
 
 	if(href_list["inspect_limb"] && (observer_privilege || usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY)))
@@ -86,9 +83,11 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(do_after(usr, time_taken, needhand = TRUE, target = src))
 			if(QDELETED(I) || QDELETED(L) || !L.remove_embedded_object(I))
 				return
-			L.receive_damage(I.embedding.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
+			var/hort = FALSE
+			hort = L.receive_damage(I.embedding.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
 			usr.put_in_hands(I)
-			emote("pain", TRUE)
+			if (hort)
+				emote("pain", TRUE)
 			playsound(loc, 'sound/foley/flesh_rem.ogg', 100, TRUE, -2)
 			if(usr == src)
 				usr.visible_message("<span class='notice'>[usr] rips [I] out of [usr.p_their()] [L.name]!</span>", "<span class='notice'>I successfully remove [I] from my [L.name].</span>")
@@ -107,11 +106,13 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		var/obj/item/I = L.bandage
 		if(!I)
 			return
+		var/time_to_unbandage = 5 SECONDS
+		time_to_unbandage *= (1 - (usr.get_skill_level(/datum/skill/misc/medicine) * 0.15))
 		if(usr == src)
 			usr.visible_message("<span class='warning'>[usr] starts unbandaging [usr.p_their()] [L.name].</span>","<span class='warning'>I start unbandaging [L.name]...</span>")
 		else
 			usr.visible_message("<span class='warning'>[usr] starts unbandaging [src]'s [L.name].</span>","<span class='warning'>I start unbandaging [src]'s [L.name]...</span>")
-		if(do_after(usr, 50, needhand = TRUE, target = src))
+		if(do_after(usr, time_to_unbandage, needhand = TRUE, target = src))
 			if(QDELETED(I) || QDELETED(L) || (L.bandage != I))
 				return
 			L.remove_bandage()
@@ -123,8 +124,80 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			to_chat(usr, span_warning("I can't reach that! Something is covering it."))
 			return
 
+	if(href_list["species_lore"])
+		if(!dna?.species?.desc)
+			return
+		var/datum/browser/popup = new(usr, "species_info", "<center>Lore</center>", 460, 550)
+		popup.set_content(dna.species.desc)
+		popup.open()
+		return
+
+		//Social rank
+	if(href_list["social_strata"])
+		var/is_clergy = FALSE
+		var/is_jester = FALSE
+		var/is_druid = FALSE
+		if(job)
+			var/datum/job/J = SSjob.GetJob(job)
+			if(J.department_flag == CHURCHMEN) //There may be a better way to check who is clergy, but this will do for now
+				is_clergy = TRUE
+			if(J.title == "Jester")
+				is_jester = TRUE
+			if(J.title == "Druid")
+				is_druid = TRUE
+		if(social_rank && !HAS_TRAIT(src, TRAIT_OUTLANDER))
+			var/examiner_rank = usr.social_rank
+			var/rank_name
+			if(HAS_TRAIT(src, TRAIT_NOBLE) && social_rank < 4) //anyone with the noble trait that wasn't a noble is now at least a minor noble
+				social_rank = SOCIAL_RANK_MINOR_NOBLE
+			switch(social_rank)
+				if(SOCIAL_RANK_DIRT)
+					rank_name = "dirt"
+				if(SOCIAL_RANK_PEASANT)
+					rank_name = "a peasant"
+				if(SOCIAL_RANK_YEOMAN)
+					rank_name = "a yeoman"
+				if(SOCIAL_RANK_MINOR_NOBLE)
+					rank_name = is_clergy ? "low clergy" : "a minor noble"
+				if(SOCIAL_RANK_NOBLE)
+					rank_name = is_clergy ? "clergy" : "a noble"
+				if(SOCIAL_RANK_ROYAL)
+					rank_name = is_clergy ? "head of the clergy" : "royalty"
+			if(HAS_TRAIT(src, TRAIT_DISGRACED_NOBLE))
+				rank_name = "a disgraced noble"
+				social_rank = 3
+			if(is_jester)
+				rank_name = "the jester"
+			if(is_druid)
+				rank_name = "a druid"
+			if(social_rank > examiner_rank)
+				to_chat(usr, span_notice("This persons social standing is equivalent to <EM>[rank_name]</EM>, they are my better."))
+			if(social_rank == examiner_rank)
+				to_chat(usr, span_notice("This person social standing is equivalent to <EM>[rank_name]</EM>, they are my equal."))
+			if(social_rank < examiner_rank)
+				to_chat(usr, span_notice("This person social standing is equivalent to <EM>[rank_name]</EM>, they are my lesser."))
+			if(family_datum)
+				var/datum/family_member/FM = family_datum.GetMemberForPerson(src)
+				var/spousetext = ""
+				if(FM && FM.spouses.len)
+					var/list/spouse_list = list()
+					for(var/datum/family_member/S in FM.spouses)
+						if(S.person)
+							spouse_list += S.person.real_name
+					if(spouse_list.len)
+						spousetext = jointext(spouse_list, ", ")
+				to_chat(usr, span_notice("They are a member of house[family_datum.housename].[spousetext ? " Married to [spousetext]." : ""]"))
+
+
+
+	if(href_list["reveal_cosmetic"])
+		if(mind && mind.cosmetic_class_title)
+			var/actual_job = job ? job : "Unknown"
+			to_chat(usr, span_notice("[mind.cosmetic_class_title] is [actual_job]."))
+		return
+
 	if(href_list["undiesthing"]) //canUseTopic check for this is handled by mob/Topic()
-		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE))
+		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, grabs = FALSE, skipundies = TRUE))
 			to_chat(usr, span_warning("I can't reach that! Something is covering it."))
 			return
 		if(!underwear)
@@ -140,7 +213,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			underwear = null
 
 	if(href_list["legwearsthing"]) //canUseTopic check for this is handled by mob/Topic()
-		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE))
+		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, grabs = FALSE, skipundies = TRUE))
 			to_chat(usr, span_warning("I can't reach that! Something is covering it."))
 			return
 		if(!legwear_socks)
@@ -149,11 +222,14 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(do_after(usr, 50, needhand = 1, target = src))
 			var/obj/item/bodypart/chest = get_bodypart(BODY_ZONE_CHEST)
 			chest.remove_bodypart_feature(legwear_socks.legwears_feature)
-			underwear.forceMove(get_turf(src))
+			legwear_socks.forceMove(get_turf(src))
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
-				C.put_in_hands(underwear)
-			underwear = null
+				C.put_in_hands(legwear_socks)
+			legwear_socks = null
+	if(href_list["chastitything"])
+		modular_handle_chastitything(usr)
+		return
 
 	if(href_list["pockets"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY)) //TODO: Make it match (or intergrate it into) strippanel so you get 'item cannot fit here' warnings if mob_can_equip fails
 		var/pocket_side = href_list["pockets"]
@@ -193,14 +269,14 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(!ishuman(src))
 			return
 		var/success = FALSE
-		var/obscured_name = FALSE 
+		var/obscured_name = FALSE
 
 		var/static/list/unknown_names = list(
 		"Unknown",
 		"Unknown Man",
 		"Unknown Woman",
 		)
-		
+
 		var/mob/living/carbon/human/H = src
 		var/mob/living/carbon/human/user = usr
 		var/intellectual = HAS_TRAIT(user, TRAIT_INTELLECTUAL)
@@ -214,7 +290,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			to_chat(user, span_info("They've moved too far away!"))
 			return
 		user.visible_message("[user] begins assessing [src].")
-		
+
 		if(do_mob(user, src, ((intellectual ? 20 : 40)) - (user.STAINT - 10) - (user.STAPER - 10) - user.get_skill_level(/datum/skill/misc/reading), uninterruptible = intellectual, double_progress = (intellectual ? FALSE : TRUE)))
 			var/is_guarded = HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS)	//Will scramble Stats and prevent skills from being shown
 			var/is_smart = FALSE	//Maximum info (all skills, gear and stats) either Intellectual virtue or having high enough PER / INT / Reading
@@ -222,7 +298,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			var/is_normal = FALSE	//High amount of info -- most gear slots, combat skills. No stats.
 			//If you don't get any of these, you'll still get to see 3 gear slots and shown weapon skills in Assess.
 			if(intellectual || ((user.STAINT - 10) + (user.STAPER - 10) + user.get_skill_level(/datum/skill/misc/reading)) >= 10)
-				is_smart = TRUE	
+				is_smart = TRUE
 			if(user.STAINT < 10 && !is_smart)
 				is_stupid = TRUE
 			if(!is_smart && !is_stupid && ((user.STAINT - 10) + (user.STAPER - 10) + user?.get_skill_level(/datum/skill/misc/reading)) >= 5)
@@ -261,7 +337,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			var/list/coverage_exposed = list(READABLE_ZONE_HEAD, READABLE_ZONE_CHEST, READABLE_ZONE_ARMS, READABLE_ZONE_L_ARM, READABLE_ZONE_R_ARM, READABLE_ZONE_LEGS, READABLE_ZONE_L_LEG, READABLE_ZONE_R_LEG, READABLE_ZONE_NOSE, READABLE_ZONE_MOUTH, READABLE_ZONE_EYES, READABLE_ZONE_NECK, READABLE_ZONE_VITALS, READABLE_ZONE_GROIN, READABLE_ZONE_HANDS, READABLE_ZONE_L_HAND, READABLE_ZONE_R_HAND, READABLE_ZONE_FEET, READABLE_ZONE_L_FOOT, READABLE_ZONE_R_FOOT)
 			var/list/coverage = list()	//All of the covered areas
 			var/list/blunt_max = list()	//Highest armor prot values
-			var/list/slash_max = list()	
+			var/list/slash_max = list()
 			var/list/stab_max = list()
 			var/list/piercing_max = list()
 			var/list/crit_weakness = list()	//The critical damage type the zone will be weak to
@@ -285,7 +361,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 							continue
 					if(C.body_parts_covered_dynamic)
 						readable_coverage = body_parts_covered2organ_names(C.body_parts_covered_dynamic, verbose = TRUE)
-					
+
 					if(length(C.prevent_crits) && (is_normal || is_smart))
 						for(var/critzone in C.prevent_crits)
 							for(var/crit in critclasses)
@@ -319,7 +395,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 								coverage_exposed.Remove(READABLE_ZONE_ARMS, READABLE_ZONE_R_ARM)	//Since individual limbs can be exposed, this is needed for the accuracy / granularity of the printout.
 							if(READABLE_ZONE_L_LEG)
 								coverage_exposed.Remove(READABLE_ZONE_LEGS, READABLE_ZONE_L_LEG)	//However it do be ugly.
-							if(READABLE_ZONE_R_LEG)	
+							if(READABLE_ZONE_R_LEG)
 								coverage_exposed.Remove(READABLE_ZONE_LEGS, READABLE_ZONE_R_LEG)
 							if(READABLE_ZONE_L_HAND)
 								coverage_exposed.Remove(READABLE_ZONE_HANDS, READABLE_ZONE_L_HAND)
@@ -364,7 +440,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 							else
 								coverage.Remove(READABLE_ZONE_FEET)
 						else
-							coverage.Remove(READABLE_ZONE_FEET)		
+							coverage.Remove(READABLE_ZONE_FEET)
 			for(var/exposedzone in coverage_exposed)	//We also filter out redundancies from the exposed remainder. Mostly L / Rs if there's a combined flag that slipped through.
 				switch(exposedzone)
 					if(READABLE_ZONE_HANDS)
@@ -444,7 +520,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 									dat += "-----------------------<br>"
 								else
 									continue
-					
+
 			dat += "</td>"
 			dat += "</tr>"
 			var/datum/browser/popup = new(user, "assess", ntitle = "[src] Assesment", nwidth = 1000, nheight = 600)
@@ -453,6 +529,29 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		else
 			user.visible_message("[user] fails to assess [src]!")
 		return
+
+	if(href_list["task"] == "view_rumours_gossip")
+		if(!ismob(usr))
+			return
+		var/msg = ""
+		if(rumour && length(rumour))
+			var/rumour_display = rumour
+			rumour_display = html_encode(rumour_display)
+			rumour_display = parsemarkdown_basic(rumour_display, hyperlink = TRUE)
+			msg += "<b>You recall what you heard around Town about [src]...</b><br>[rumour_display]"
+		if(((HAS_TRAIT(usr, TRAIT_NOBLE)) || observer_privilege) && length(noble_gossip))
+			if(msg)
+				msg += "<br><br>"
+			var/gossip_display = noble_gossip
+			gossip_display = html_encode(gossip_display)
+			gossip_display = parsemarkdown_basic(gossip_display, hyperlink = TRUE)
+			msg += "<b>You recall what the other Blue-bloods hushed about [src]...</b><br>[gossip_display]"
+		if(msg)
+			to_chat(usr, "<span class='info'>[msg]</span>")
+		else //Edge-case of there being ONLY noble gossip, but we aren't a noble.
+			to_chat(usr, "<span class='info'>Any tales of intrigue of this one are reserved to the nobility...</span>")
+		return
+
 	return ..() //end of this massive fucking chain. TODO: make the hud chain not spooky. - Yeah, great job doing that. - I made it worse sorry guys.
 
 //Sorry colorblind folks...
@@ -550,34 +649,34 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 
 		str += crits
 	str += "<br>---------------------------<br>"
-	
+
 	return str*/
 
-/proc/skilldiff_report(var/input)
+/proc/skilldiff_report(input)
 	switch (input)
 		if(-6)
-			return "<font color = '#ff4ad2'>I know nothing. They -- everything.</font>"
+			return "<font color = '#ff4ad2'>I know nothing. They -- everything</font>"
 		if(-5)
-			return "<font color = '#eb0000'<i>I stand no chance against them.</i></font>"
+			return "<font color = '#eb0000'><i>I stand no chance against them</i></font>"
 		if(-4)
-			return "<font color = '#c53c3c'<i>I am inferior.</i></font>"
+			return "<font color = '#c53c3c'><i>I am inferior</i></font>"
 		if(-3)
-			return "<font color = '#db8484'<i>I am notably worse.</i></font>"
+			return "<font color = '#db8484'><i>I am notably worse</i></font>"
 		if(-2)
-			return "<font color = '#e4a1a1'<i>I am worse.</i></font>"
+			return "<font color = '#e4a1a1'><i>I am worse</i></font>"
 		if(-1)
-			return "<font color = '#f8d3d3'<i>I am slightly worse.</i></font>"
+			return "<font color = '#f8d3d3'><i>I am slightly worse</i></font>"
 		if(0)
-			return "We are equal."
+			return "We are equal"
 		if(1)
-			return "<font color = '#3f6343'> I am slightly better.</font>"
+			return "<font color = '#3f6343'>I am slightly better</font>"
 		if(2)
-			return "<font color = '#49944f'> I am better.</font>"
+			return "<font color = '#49944f'>I am better</font>"
 		if(3)
-			return "<font color = '#44db51'> I am notably better.</font>"
+			return "<font color = '#44db51'>I am notably better</font>"
 		if(4)
-			return"<font color = '#62b4be'> I am superior.</font>"
+			return"<font color = '#62b4be'>I am superior</font>"
 		if(5)
-			return "<font color = '#2bdcfc'> They have no chance in this field.</font>"
+			return "<font color = '#2bdcfc'>They have no chance in this field</font>"
 		if(6)
-			return "<font color = '#ff4ad2'> They know nothing. A whelp.</font>"
+			return "<font color = '#ff4ad2'>They know nothing. A whelp</font>"

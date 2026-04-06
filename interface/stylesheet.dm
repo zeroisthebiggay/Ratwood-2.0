@@ -79,7 +79,7 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .smallnotice			{color: #f1d669;	font-size: 75%;}
 .hear					{color: #6685f5;	font-style: italic;}
 .adminnotice			{color: #6685f5;}
-.adminhelp				{color: #ff0000;	font-weight: bold;}
+.adminhelp				{color: #c87941;	font-weight: bold;}
 .unconscious			{color: #c9c1ba;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #80b077;}
@@ -129,8 +129,9 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .papyrus				{font-family: "Papyrus", cursive, sans-serif;}
 .robot					{font-family: "Courier New", cursive, sans-serif;}
 
+
 .orator					{font-family: "Project Sans", Pterra; font-size: 100%;}
-.sandwauk				{font-family: "Persian", Pterra; font-size: 100%;}
+.sandwauk				{font-family: "Almalik", Pterra; font-size: 100%;}
 .human					{font-family: "Honoka Mincho", Pterra;}
 .elf					{font-family: "Dauphin", cursive, Pterra;}
 .dwarf					{font-family: "MasonAlternate", Pterra;}
@@ -141,13 +142,15 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .orc					{font-family: "Thief by The Riddler", Pterra;}
 .beast					{font-family: "Thief by The Riddler", Pterra;}
 .reptile				{font-family: "Kingthings Petrock", Pterra; font-size: 120%;}
-.grenzelhoftian			{font-family: "Emperialisme", Pterra; font-size: 120%;}
+.canilunzt				{font-family: "Emperialisme", Pterra; font-size: 120%;}
 .kazengunese 			{font-family: "Yuji Boku", Pterra;}
 .kazenaccent			{font-family: "Geishta", "Pterra"; font-size: 120%;}
 .otavan					{font-family: "Notredame", "Pterra"; font-size: 200%;}
 .etruscan				{font-family: "Feronia", "Pterra"; font-size: 100%;}
 .gronnic				{font-family: "Jorvik Informal", "Pterra"; font-size: 100%;}
 .aavnic					{font-family: "Romeodn", "Pterra"; font-size: 100%;}
+.felid					{font-family: "Rasyideen", Pterra; font-size: 120%;}
+.abyssal				{font-family: "Achilles", "Pterra"; font-size: 110%;}
 
 .torture				{color: #42ff20}
 

@@ -2,6 +2,7 @@
 /datum/crafting_recipe/roguetown/structure
 	abstract_type = /datum/crafting_recipe/roguetown/structure
 	req_table = FALSE
+	subtype_reqs = TRUE
 	craftsound = 'sound/foley/Building-01.ogg'
 
 /datum/crafting_recipe/roguetown/structure/TurfCheck(mob/user, turf/T)
@@ -36,6 +37,78 @@
 	if(istype(checking,/turf/open/transparent/openspace))
 		return FALSE
 	return TRUE
+
+/datum/crafting_recipe/roguetown/structure/wooden_horse
+	name = "static wooden horse"
+	result = /obj/structure/wooden_horse
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 0
+
+/datum/crafting_recipe/roguetown/structure/wooden_horse/mobile
+	name = "mobile wooden horse"
+	result = /obj/structure/wooden_horse/mobile
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 0
+
+/datum/crafting_recipe/roguetown/structure/torture_table
+	name = "torture table"
+	result = /obj/structure/bondage/torture_table
+	reqs = list(
+		/obj/item/natural/wood/plank = 3,
+		/obj/item/ingot/iron = 1,
+	)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/torture_table/lever
+	name = "torture table lever"
+	result = /obj/structure/bondage/torture_table/lever
+	reqs = list(
+		/obj/item/natural/wood/plank = 3,
+		/obj/item/ingot/iron = 1,
+	)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/x_pillory
+	name = "x-pillory"
+	result = /obj/structure/bondage/x_pillory
+	reqs = list(
+		/obj/item/grown/log/tree/small = 2,
+		/obj/item/ingot/iron = 1,
+	)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/gloryhole
+	name = "gloryhole"
+	result = /obj/structure/bondage/gloryhole
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 0
+
+/datum/crafting_recipe/roguetown/structure/chains
+	name = "chains"
+	result = /obj/structure/bondage/chains
+	reqs = list(/obj/item/rope/chain = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/structure/psycrss
 	name = "wooden cross"
@@ -78,8 +151,7 @@
 	verbage = "constructs"
 
 /datum/crafting_recipe/roguetown/structure/zizo_shrine
-	name = "Profane Shrine"
-	always_availible = FALSE	//Has unique assign for certain roles.
+	name = "profane shrine"
 	reqs = list(
 		/obj/item/grown/log/tree/small = 1,
 		/obj/item/natural/stone = 2,
@@ -126,6 +198,15 @@
 	result = /obj/structure/mineral_door/wood/fancywood
 	reqs = list(/obj/item/grown/log/tree/small = 2)
 	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/glassdoor
+	name = "Wooden Glass Door"
+	result = /obj/structure/mineral_door/wood/window
+	reqs = list(/obj/item/grown/log/tree/small = 2, /obj/item/natural/glass = 2)
+	verbage_simple = "construst"
 	verbage = "constructs"
 	skillcraft = /datum/skill/craft/carpentry
 	craftdiff = 3
@@ -195,6 +276,13 @@
 	verbage = "constructs"
 	skillcraft = /datum/skill/craft/carpentry
 
+/datum/crafting_recipe/roguetown/structure/chairthrone
+	name = "small throne"
+	result = /obj/structure/chair/wood/rogue/throne
+	reqs = list(/obj/item/natural/wood/plank = 2, /obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
 
 /obj/item/chair/rogue/crafted
 	sellprice = 6
@@ -443,7 +531,7 @@
 /datum/crafting_recipe/roguetown/structure/bordercorner
 	name = "border corner"
 	result = /obj/structure/fluff/railing/corner
-	reqs = list(/obj/item/grown/log/tree/small = 1)
+	reqs = list(/obj/item/natural/wood/plank = 1)
 	ontile = TRUE
 	verbage_simple = "construct"
 	verbage = "constructs"
@@ -455,7 +543,7 @@
 /datum/crafting_recipe/roguetown/structure/border
 	name = "border"
 	result = /obj/structure/fluff/railing/border
-	reqs = list(/obj/item/grown/log/tree/small = 1)
+	reqs = list(/obj/item/natural/wood/plank = 1)
 	ontile = TRUE
 	verbage_simple = "construct"
 	verbage = "constructs"
@@ -473,8 +561,17 @@
 	skillcraft = /datum/skill/craft/carpentry
 	buildsame = TRUE
 
+/datum/crafting_recipe/roguetown/structure/mineshaft_support
+	name = "mineshaft support"
+	result = /obj/structure/barricade/mineshaft
+	reqs = list(/obj/item/grown/log/tree/small = 1)
+	ontile = TRUE
+	verbage_simple = "set up"
+	verbage = "sets up"
+	buildsame = TRUE
+
 /datum/crafting_recipe/roguetown/structure/fence
-	name = "palisade"
+	name = "palisade (stakes)"
 	result = /obj/structure/fluff/railing/fence
 	reqs = list(/obj/item/grown/log/tree/stake = 2)
 	ontile = TRUE
@@ -495,7 +592,7 @@
 
 
 /datum/crafting_recipe/roguetown/structure/fencealt
-	name = "palisade"
+	name = "palisade (log)"
 	result = /obj/structure/fluff/railing/fence
 	reqs = list(/obj/item/grown/log/tree/small = 1)
 	ontile = TRUE
@@ -540,6 +637,15 @@
 	verbage = "constructs"
 	skillcraft = /datum/skill/craft/carpentry
 	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/structure/sleepcoffin
+	name = "sleep coffin"
+	result = /obj/structure/closet/crate/coffin/vampire
+	reqs = list(/obj/item/natural/wood/plank = 2, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 0 // I don't like lickers or wretches. but they cannot make this by default to even level up. I guess fair is fair. changed to 0
 
 /obj/structure/closet/crate/roguecloset/crafted
 	sellprice = 6
@@ -674,6 +780,114 @@
 	verbage = "constructs"
 	skillcraft = /datum/skill/craft/carpentry
 
+/datum/crafting_recipe/roguetown/structure/fancytableblack
+	name = "fancy wooden table(black)"
+	result = /obj/structure/table/wood/fancy/black
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/fancytableblue
+	name = "fancy wooden table(blue)"
+	result = /obj/structure/table/wood/fancy/blue
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/fancytablecyan
+	name = "fancy wooden table(cyan)"
+	result = /obj/structure/table/wood/fancy/cyan
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/fancytablegreen
+	name = "fancy wooden table(green)"
+	result = /obj/structure/table/wood/fancy/green
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/fancytableorange
+	name = "fancy wooden table(orange)"
+	result = /obj/structure/table/wood/fancy/orange
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/fancytablepurple
+	name = "fancy wooden table(purple)"
+	result = /obj/structure/table/wood/fancy/purple
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/fancytablered
+	name = "fancy wooden table(red)"
+	result = /obj/structure/table/wood/fancy/red
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/fancytableroyalblack
+	name = "fancy wooden table(royal black)"
+	result = /obj/structure/table/wood/fancy/royalblack
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/fancytableroyalblue
+	name = "fancy wooden table(royal blue)"
+	result = /obj/structure/table/wood/fancy/royalblue
+	reqs = list(/obj/item/natural/wood/plank = 1, /obj/item/natural/silk = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/longtable
+	name = "nice long table"
+	result = /obj/structure/table/wood/long_table
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/longtablealt
+	name = "nice long table(middle)"
+	result = /obj/structure/table/wood/long_table/mid/alt
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/largetable
+	name = "large table"
+	result = /obj/structure/table/wood/large_table
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
 /datum/crafting_recipe/roguetown/structure/operatingtable
 	name = "operating table"
 	result = /obj/structure/table/optable
@@ -687,6 +901,14 @@
 	name = "stone table"
 	result = /obj/structure/table/church
 	reqs = list(/obj/item/natural/stone = 1)
+	verbage_simple = "build"
+	verbage = "builds"
+	skillcraft = /datum/skill/craft/masonry
+
+/datum/crafting_recipe/roguetown/structure/finestonetable
+	name = "fine stone table"
+	result = /obj/structure/table/finestone
+	reqs = list(/obj/item/natural/stoneblock = 1)
 	verbage_simple = "build"
 	verbage = "builds"
 	skillcraft = /datum/skill/craft/masonry
@@ -787,7 +1009,7 @@
 
 /datum/crafting_recipe/roguetown/structure/wallcandle
 	name = "wall candles"
-	result = /obj/machinery/light/rogue/wallfire/candle
+	result = /obj/machinery/light/rogue/candle
 	reqs = list(/obj/item/natural/stone = 1, /obj/item/candle/yellow = 1)
 	verbage_simple = "build"
 	verbage = "builds"
@@ -797,7 +1019,7 @@
 
 /datum/crafting_recipe/roguetown/structure/wallcandleblue
 	name = "wall candles blue"
-	result = /obj/machinery/light/rogue/wallfire/candle/blue
+	result = /obj/machinery/light/rogue/candle/blue
 	reqs = list(/obj/item/natural/stone = 1, /obj/item/candle/yellow = 1, /obj/item/ash = 1)
 	verbage_simple = "build"
 	verbage = "builds"
@@ -824,9 +1046,10 @@
 	skillcraft = /datum/skill/craft/masonry
 	craftdiff = 3
 
-/datum/crafting_recipe/roguetown/structure/scom
-	name = "SCOM"
-	result = /obj/structure/roguemachine/scomm
+// SCOM is not constructable, only the receive only version is constructable to prevent unactionable sneeding.
+/datum/crafting_recipe/roguetown/structure/rcom
+	name = "RCOM"
+	result = /obj/structure/roguemachine/scomm/receive_only
 	reqs = list(/obj/item/ingot/iron = 1,
 					/obj/item/reagent_containers/food/snacks/smallrat = 1)
 	verbage_simple = "assemble"
@@ -839,7 +1062,7 @@
 /datum/crafting_recipe/roguetown/structure/cauldronalchemy
 	name = "alchemy cauldron"
 	result = /obj/machinery/light/rogue/cauldron
-	reqs = list(/obj/item/ingot/iron = 1)
+	reqs = list(/obj/item/grown/log/tree/stick = 2, /obj/item/natural/stone = 3, /obj/item/reagent_containers/glass/bucket/pot/stone = 1) // changed to ore because this can be bought or mined. witches or even doctors who dont get a house get badly screwed over not having this.
 	verbage_simple = "assemble"
 	verbage = "assembles"
 	skillcraft = /datum/skill/craft/alchemy
@@ -848,7 +1071,7 @@
 /datum/crafting_recipe/roguetown/structure/ceramicswheel
 	name = "potter's wheel"
 	result = /obj/structure/fluff/ceramicswheel
-	reqs = list(/obj/item/natural/stone = 2, /obj/item/grown/log/tree/small = 2, /obj/item/roguegear/bronze = 1)
+	reqs = list(/obj/item/natural/stone = 2, /obj/item/grown/log/tree/small = 2, /obj/item/cooking/platter = 1) // changed to platter. not always artificer to make cogs or anyone to even make bronze.
 	verbage_simple = "construct"
 	craftdiff = 2
 	verbage = "constructs"
@@ -876,6 +1099,63 @@
 	result = /obj/structure/curtain
 	reqs = list(/obj/item/natural/cloth = 2)
 	craftdiff = 0
+	ignoredensity = TRUE
+
+/datum/crafting_recipe/roguetown/structure/curtaindirectional
+	name = "curtain (directional)"
+	result = /obj/structure/curtain/directional/crafted
+	reqs = list(/obj/item/natural/cloth = 2)
+	craftdiff = 1
+	ignoredensity = TRUE
+
+/datum/crafting_recipe/roguetown/structure/curtainblack
+	name = "curtain(black)"
+	result = /obj/structure/curtain/black
+	reqs = list(/obj/item/natural/cloth = 2, /obj/item/natural/silk= 1 )
+	craftdiff = 3
+	ignoredensity = TRUE
+
+/datum/crafting_recipe/roguetown/structure/curtainblue
+	name = "curtain(blue)"
+	result = /obj/structure/curtain/blue
+	reqs = list(/obj/item/natural/cloth = 2, /obj/item/natural/silk= 1 )
+	craftdiff = 3
+	ignoredensity = TRUE
+
+/datum/crafting_recipe/roguetown/structure/curtainbrown
+	name = "curtain(brown)"
+	result = /obj/structure/curtain/brown
+	reqs = list(/obj/item/natural/cloth = 2, /obj/item/natural/silk= 1 )
+	craftdiff = 3
+	ignoredensity = TRUE
+
+/datum/crafting_recipe/roguetown/structure/curtaingreen
+	name = "curtain(green)"
+	result = /obj/structure/curtain/green
+	reqs = list(/obj/item/natural/cloth = 2, /obj/item/natural/silk= 1 )
+	craftdiff = 3
+	ignoredensity = TRUE
+
+/datum/crafting_recipe/roguetown/structure/curtainmagenta
+	name = "curtain(magenta)"
+	result = /obj/structure/curtain/magenta
+	reqs = list(/obj/item/natural/cloth = 2, /obj/item/natural/silk= 1 )
+	craftdiff = 3
+	ignoredensity = TRUE
+
+/datum/crafting_recipe/roguetown/structure/curtainpurple
+	name = "curtain(purple)"
+	result = /obj/structure/curtain/purple
+	reqs = list(/obj/item/natural/cloth = 2, /obj/item/natural/silk= 1 )
+	craftdiff = 3
+	ignoredensity = TRUE
+
+/datum/crafting_recipe/roguetown/structure/curtainred
+	name = "curtain(red)"
+	result = /obj/structure/curtain/red
+	reqs = list(/obj/item/natural/cloth = 2, /obj/item/natural/silk= 1 )
+	craftdiff = 3
+	ignoredensity = TRUE
 
 /datum/crafting_recipe/roguetown/structure/apiary
 	name = "apiary"
@@ -888,7 +1168,7 @@
 
 // Here for now until we get a new file for anything trap related.
 /datum/crafting_recipe/roguetown/structure/spike_pit
-	name = "spike pit"
+	name = "spike pit (Dirt Floor needed)"
 	result = list(/obj/structure/spike_pit)
 	tools = list(/obj/item/rogueweapon/shovel = 1)
 	reqs = list(/obj/item/grown/log/tree/stake = 3)
@@ -927,7 +1207,7 @@
 /datum/crafting_recipe/roguetown/structure/noose/TurfCheck(mob/user, turf/T)
 	var/turf/checking = get_step_multiz(T, UP)
 	if(!checking)
-		return TRUE // Letting you craft in centcomm Z-level (bandit/vampire/wretch camps)
+		return TRUE // Letting you craft in centcom Z-level (bandit/vampire/wretch camps)
 	if(!isopenturf(checking))
 		return FALSE
 	if(istype(checking, /turf/open/transparent/openspace))
@@ -942,3 +1222,238 @@
 	verbage = "constructs"
 	craftsound = 'sound/foley/Building-01.ogg'
 	ontile = TRUE
+
+/datum/crafting_recipe/roguetown/structure/pillory
+	name = "pillory"
+	result = /obj/structure/pillory
+	reqs = list(/obj/item/ingot/iron = 1, /obj/item/grown/log/tree/small = 1)
+	craftdiff = 2
+	verbage = "constructs"
+	craftsound = 'sound/foley/Building-01.ogg'
+	ontile = TRUE
+
+// Sofas and other furnishing
+
+/datum/crafting_recipe/roguetown/structure/couchleft
+	name = "couch (left)"
+	result = /obj/structure/chair/bench/couch
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/couchright
+	name = "couch (right)"
+	result = /obj/structure/chair/bench/couch/r
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/blackcouchleft
+	name = "black couch (left)"
+	result = /obj/structure/chair/bench/couchablack
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/blackcouchright
+	name = "black couch (right)"
+	result = /obj/structure/chair/bench/couchablack/r
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/ultimacouchleft
+	name = "ultima couch (left)"
+	result = /obj/structure/chair/bench/ultimacouch
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/ultimacouchright
+	name = "ultima couch (right)"
+	result = /obj/structure/chair/bench/ultimacouch/r
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/altcouchleft
+	name = "couch alt (left)"
+	result = /obj/structure/chair/bench/coucha
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/altcouchright
+	name = "couch alt (right)"
+	result = /obj/structure/chair/bench/coucha/r
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/magentacouchleft
+	name = "magenta couch (left)"
+	result = /obj/structure/chair/bench/couchamagenta
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/magentacouchright
+	name = "magenta couch (right)"
+	result = /obj/structure/chair/bench/couchamagenta/r
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/natural/silk = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/fireplace
+	name = "Fireplace (North)"
+	result = /obj/machinery/light/rogue/campfire/fireplace/crafted
+	reqs = list(/obj/item/grown/log/tree/small = 1,
+				/obj/item/natural/stoneblock = 3)
+	verbage_simple = "build"
+	verbage = "builds"
+	skillcraft = /datum/skill/craft/masonry
+	wallcraft = TRUE
+
+/datum/crafting_recipe/roguetown/structure/mirror
+	name = "mirror (north)"
+	result = /obj/structure/mirror
+	reqs = list(/obj/item/natural/wood/plank = 2,
+				/obj/item/ingot/iron = 1,
+				/obj/item/natural/glass = 1)
+	skillcraft = /datum/skill/craft/carpentry
+	verbage = "constructs"
+	wallcraft = TRUE
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/structure/fancymirror
+	name = "fancy mirror (north)"
+	result = /obj/structure/mirror/fancy
+	reqs = list(/obj/item/natural/wood/plank = 1,
+				/obj/item/ingot/silver = 1,
+				/obj/item/ingot/gold = 1,
+				/obj/item/natural/glass = 1)
+	skillcraft = /datum/skill/craft/carpentry
+	verbage_simple = "construct"
+	verbage = "constructs"
+	wallcraft = TRUE
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/structure/floorclock
+	name = "Floor Clock"
+	result = /obj/structure/fluff/clock
+	reqs = list(/obj/item/natural/wood/plank = 2,/obj/item/roguegear = 1, /obj/item/ingot/iron = 1)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/drawer1// oh boy time to add drawers for all five of them, drawers are randomized and theres five different sprites that are all unique enough
+	name = "Long Dresser"
+	result = /obj/structure/closet/crate/drawer/drawer2
+	reqs= list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/drawer2
+	name = "Long Dresser (Alt)"
+	result = /obj/structure/closet/crate/drawer/drawer2
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/drawer3
+	name = "Tall and long Dresser"
+	result = /obj/structure/closet/crate/drawer/drawer3
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/drawer4
+	name = "Tall and skinny Dresser"
+	result = /obj/structure/closet/crate/drawer/drawer4
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/drawer5
+	name = "Bedside Drawer"
+	result = /obj/structure/closet/crate/drawer
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/telescope
+	name = "Telescope"
+	result = /obj/structure/telescope
+	reqs = list(/obj/item/grown/log/tree/stick = 2, /obj/item/ingot/iron = 1, /obj/item/natural/glass = 1)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/globe
+	name = "Globe"
+	result = /obj/structure/globe
+	reqs = list(/obj/item/grown/log/tree/stick = 2, /obj/item/natural/wood/plank = 3)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/tablewood3
+	name = "Wooden Table (Alt)"
+	result = /obj/structure/table/wood/poor/alt_alt
+	reqs = list(/obj/item/natural/wood/plank = 1)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/structure/ornatetable
+	name = "Ornate Wooden Table"
+	result = /obj/structure/table/fine
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	verbage_simple = "construst"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 3

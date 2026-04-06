@@ -5,14 +5,18 @@
 	taste_mult = 0.5
 	quality = DRINK_VERYGOOD
 	metabolization_rate = 0.02 * REAGENTS_METABOLISM
-	overdose_threshold = 18 
+	overdose_threshold = 18
 	addiction_threshold = 12 //Three sips, or a full goblet if properly mixed with two other reagents to hide the taste.
 	addiction_permanent = TRUE
 	color = "#721a46"
 
 /datum/reagent/consumable/ethanol/beer/emberwine/on_mob_metabolize(mob/living/carbon/human/C)
+	if(C?.patron && istype(C.patron, /datum/patron/inhumen/baotha))
+		overdose_threshold = 0
+	else
+		overdose_threshold = initial(overdose_threshold)
 	..()
-	if(!C.client.prefs.sexable)
+	if(!C?.client?.prefs?.sexable)
 		volume = 0
 		return
 	C.sexcon.aphrodisiac += 1
@@ -74,7 +78,6 @@
 		C.set_blurriness(5)
 
 /datum/reagent/consumable/ethanol/beer/emberwine/addiction_act_stage3(mob/living/carbon/human/C)
-	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_severe, name)
 	if(prob(20))
 		to_chat(C, span_danger("I have an intense craving for [name]."))
 		C.sexcon.adjust_arousal(5)
@@ -86,7 +89,6 @@
 
 /datum/reagent/consumable/ethanol/beer/emberwine/addiction_act_stage4(mob/living/carbon/human/C)
 	var/datum/sex_controller/S = C.sexcon
-	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_severe, name) //Not critical because they'll already be getting blueballed.
 	if(!S.arousal_frozen)
 		S.arousal_frozen = TRUE
 	C.sexcon.arousal = 40
@@ -95,3 +97,26 @@
 	if(prob(10))
 		to_chat(C, span_boldannounce("The feeling in your loins has subsided to a dull ache. Only more [name] would scratch the itch..."))
 	return
+
+/datum/reagent/erpjuice
+	name = "Erotic Fluid"
+	reagent_state = LIQUID
+	color = "#ebebeb"
+	metabolization_rate = 0.1
+
+/datum/reagent/erpjuice/on_mob_life(mob/living/carbon/M) //Rejoice, cum whores can now very inefficiently drink cum to substain themselves.
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.adjust_hydration(1)
+		H.adjust_nutrition(0.5) //Semen is not very nutritious. The player can go about 3 rounds of cumming before needing to wait a long time code-wise to cum more.
+		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+			H.blood_volume = min(H.blood_volume+10, BLOOD_VOLUME_NORMAL)
+	..()
+
+/datum/reagent/erpjuice/cum
+	description = "A thick, sticky, cream like fluid. produced during an orgasm."
+	taste_description = "salty and tangy"
+
+/datum/reagent/erpjuice/femcum
+	description = "A slightly milky fluid, thin and watery in texture."
+	taste_description = "faintly sweet and mineraly"

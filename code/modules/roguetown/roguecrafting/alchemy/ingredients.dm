@@ -23,7 +23,7 @@
 	var/med_name
 	var/minor_name
 
-/obj/item/alch/Initialize()
+/obj/item/alch/Initialize(mapload)
 	. = ..()
 	if(!isnull(major_pot))
 		var/datum/alch_cauldron_recipe/rec = locate(major_pot) in GLOB.alch_cauldron_recipes
@@ -105,12 +105,21 @@
 	med_pot = /datum/alch_cauldron_recipe/end_potion
 	minor_pot = /datum/alch_cauldron_recipe/str_potion
 
+/obj/item/alch/stonedust
+	name = "stone dust"
+	desc = "Finely ground mineral dust used for glass clay refinement."
+	icon_state = "coaldust"
+	major_pot = null
+	med_pot = null
+	minor_pot = null
+
 /obj/item/alch/silverdust
 	name = "silver dust"
 	icon_state = "silverdust"
 	major_pot = /datum/alch_cauldron_recipe/strong_antidote
 	med_pot = /datum/alch_cauldron_recipe/antidote
 	minor_pot = /datum/alch_cauldron_recipe/big_health_potion
+	is_silver = TRUE
 
 /obj/item/alch/magicdust
 	name = "pure essentia"
@@ -124,7 +133,7 @@
 	icon_state = "fire_runedust"
 	major_pot = /datum/alch_cauldron_recipe/str_potion
 	med_pot = /datum/alch_cauldron_recipe/con_potion
-	minor_pot = /datum/alch_cauldron_recipe/spd_potion
+	minor_pot = /datum/alch_cauldron_recipe/fire_potion
 
 /obj/item/alch/sinew
 	name = "sinew"
@@ -151,7 +160,7 @@
 /obj/item/alch/swampdust
 	name = "swampweed dust"
 	icon_state = "swampdust"
-	major_pot = /datum/alch_cauldron_recipe/berrypoison
+	major_pot = /datum/alch_cauldron_recipe/temp_potion
 	med_pot = /datum/alch_cauldron_recipe/aphrodisiac
 	minor_pot = /datum/alch_cauldron_recipe/end_potion
 
@@ -254,7 +263,7 @@
 
 /obj/item/alch/puresalt
 	name = "purified salts"
-	desc = "Salts that have been finely sifted to enchance their healing properties and to bolster its connection to the arcyne."
+	desc = "Salts that have been finely sifted to enhance their healing properties and to bolster their connection to the arcyne."
 	icon_state = "puresalt"
 
 	major_pot = /datum/alch_cauldron_recipe/antidote
@@ -269,6 +278,24 @@
 	major_pot = /datum/alch_cauldron_recipe/doompoison
 	med_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/big_stam_poison
+
+/obj/item/alch/infernaldust
+	name = "infernal dust"
+	desc = "The remains of an abyssal tether to this plane, banished or slain. Best handled with gloves."
+	icon_state = "infernaldust"
+
+	major_pot = /datum/alch_cauldron_recipe/fire_potion
+	med_pot = /datum/alch_cauldron_recipe/big_stam_poison
+	minor_pot = /datum/alch_cauldron_recipe/int_potion
+
+/obj/item/alch/solardust
+	name = "solar dust"
+	desc = "A pinch of Astrata worked into radiant matter. Looking at it hurts your eyes."
+	icon_state = "solardust"
+
+	major_pot = /datum/alch_cauldron_recipe/fire_potion
+	med_pot = /datum/alch_cauldron_recipe/int_potion
+	minor_pot = /datum/alch_cauldron_recipe/per_potion
 
 /obj/item/alch/berrypowder
 	name = "berry powder"
@@ -406,6 +433,14 @@
 	med_pot = /datum/alch_cauldron_recipe/int_potion
 	minor_pot = /datum/alch_cauldron_recipe/big_mana_potion
 
+/obj/item/alch/manabloompowder
+	name = "manabloom powder"
+	icon_state = "bluepowder"
+
+	major_pot = /datum/alch_cauldron_recipe/mana_potion
+	med_pot = /datum/alch_cauldron_recipe/int_potion
+	minor_pot = /datum/alch_cauldron_recipe/big_mana_potion
+
 /obj/item/alch/rosa
 	name = "rosa"
 	icon_state = "rosa"
@@ -420,6 +455,9 @@
 	muteinmouth = FALSE
 	alternate_worn_layer  = 8.9 //On top of helmet
 	mill_result = /obj/item/reagent_containers/food/snacks/grown/rogue/rosa_petals
+	major_pot = /datum/alch_cauldron_recipe/temp_potion
+	med_pot = /datum/alch_cauldron_recipe/aphrodisiac
+	minor_pot = /datum/alch_cauldron_recipe/stamina_potion
 
 /obj/item/alch/rosa/equipped(mob/living/carbon/human/user, slot)
 	. = ..()

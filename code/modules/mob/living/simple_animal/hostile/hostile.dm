@@ -65,7 +65,7 @@
 
 
 
-/mob/living/simple_animal/hostile/Initialize()
+/mob/living/simple_animal/hostile/Initialize(mapload)
 	. = ..()
 	last_aggro_loss = world.time //so we delete even if we never found a target
 	if(!targets_from)
@@ -84,7 +84,7 @@
 		return 0
 
 /mob/living/simple_animal/hostile/handle_automated_action()
-	if(AIStatus == NPC_AI_OFF)
+	if(AIStatus == NPC_AI_OFF || AIStatus == AI_OFF)
 		return 0
 	if(del_on_deaggro && last_aggro_loss && (world.time >= last_aggro_loss + del_on_deaggro))
 		if(deaggrodel())
@@ -103,8 +103,7 @@
 			DestroyPathToTarget()
 		if(!MoveToTarget(possible_targets))     //if we lose our target
 			if(AIShouldSleep(possible_targets))	// we try to acquire a new one
-				toggle_ai(AI_IDLE)			// otherwise we go idle
-				return 1
+				consider_wakeup() //If no clients are nearby, we idle - otherwise, we stay on
 	return 1
 
 /mob/living/simple_animal/hostile/proc/deaggrodel()
@@ -318,9 +317,6 @@
 		if(ranged) //We ranged? Shoot at em
 			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
 				OpenFire(target)
-		if(!Process_Spacemove()) //Drifting
-			walk(src,0)
-			return 1
 		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
 				walk_away(src,target,retreat_distance,move_to_delay)
@@ -409,6 +405,17 @@
 	walk(src, 0)
 	LoseAggro()
 
+/mob/living/simple_animal/hostile/proc/revalidate_target_on_faction_change()
+	if(!target || !isliving(target))
+		return
+	if(faction_check_mob(target))
+		LoseTarget()
+
+/mob/living/proc/notify_faction_change()
+	for(var/mob/living/simple_animal/hostile/H in orange(7, src))
+		if(H.target == src)
+			H.revalidate_target_on_faction_change()
+
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
@@ -436,7 +443,6 @@
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
 	if(binded)
 		return FALSE
-
 	if(CheckFriendlyFire(A))
 		return
 	visible_message(span_danger("<b>[src]</b> [ranged_message] at [A]!"))
@@ -467,8 +473,6 @@
 		P.fired_from = src
 		P.yo = targeted_atom.y - startloc.y
 		P.xo = targeted_atom.x - startloc.x
-		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
-			newtonian_move(get_dir(targeted_atom, targets_from))
 		P.original = targeted_atom
 		P.preparePixelProjectile(targeted_atom, src)
 		P.fire()
@@ -609,17 +613,14 @@
 		value = initial(search_objects)
 	search_objects = value
 
-/mob/living/simple_animal/process(delta_time)
-	consider_wakeup()
-
 /mob/living/simple_animal/hostile/consider_wakeup()
 	for(var/datum/spatial_grid_cell/grid as anything in our_cells.member_cells)
 		if(length(grid.client_contents))
 			toggle_ai(AI_ON)
-			testing("becomeidle [src]")
 			return TRUE
 
-	return FALSE
+	toggle_ai(AI_IDLE)
+	return TRUE
 
 /mob/living/simple_animal/hostile/proc/ListTargetsLazy(_Z)//Step 1, find out what we can see
 	. = list()

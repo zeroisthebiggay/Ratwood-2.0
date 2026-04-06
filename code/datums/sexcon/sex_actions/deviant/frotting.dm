@@ -1,13 +1,15 @@
 /datum/sex_action/frotting
 	name = "Frot them"
+	user_sex_part = SEX_PART_COCK
+	target_sex_part = SEX_PART_COCK
 
 /datum/sex_action/frotting/shows_on_menu(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(user == target)
 		return FALSE
 	if(!user.getorganslot(ORGAN_SLOT_PENIS))
-		return
+		return FALSE
 	if(!target.getorganslot(ORGAN_SLOT_PENIS))
-		return
+		return FALSE
 	return TRUE
 
 /datum/sex_action/frotting/can_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -28,7 +30,7 @@
 
 /datum/sex_action/frotting/on_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] frots cocks together with [target]."))
-	playsound(user, 'sound/misc/mat/fingering.ogg', 20, TRUE, -2, ignore_walls = FALSE)
+	user.sexcon.outercourse_noise(target, TRUE)
 
 	user.sexcon.perform_sex_action(user, 1, 4, TRUE)
 	user.sexcon.handle_passive_ejaculation(target)

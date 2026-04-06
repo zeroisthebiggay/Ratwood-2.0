@@ -4,6 +4,8 @@
 	icon_state = "imp"
 	icon_living = "imp"
 	icon_dead = "vvd"
+	summon_primer = "You are an imp, a small creature spending it's time in the infernal plane amusing itself and eating meat. Now you've been pulled from your home into a new world, that is decidedly lacking in fire. How you react to these events, only time can tell."
+	summon_tier = 1
 	gender = MALE
 	emote_hear = null
 	emote_see = null
@@ -24,11 +26,12 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	simple_detect_bonus = 20
 	ranged = TRUE
+	ranged_cooldown = 40
 	projectiletype = /obj/projectile/magic/firebolt
 	retreat_distance = 4
 	minimum_distance = 3
 	food_type = list()
-	footstep_type = FOOTSTEP_MOB_BAREFOOT
+	movement_type = FLYING
 	pooptype = null
 	STACON = 7
 	STASTR = 6
@@ -36,6 +39,7 @@
 	simple_detect_bonus = 20
 	deaggroprob = 0
 	defprob = 40
+	candodge = TRUE
 	// del_on_deaggro = 44 SECONDS
 	retreat_health = 0.3
 	food = 0
@@ -44,6 +48,10 @@
 	attack_verb_simple = "claw"
 	dodgetime = 30
 	aggressive = 1
+
+/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
 
 /obj/projectile/magic/firebolt
 	name = "ball of fire"

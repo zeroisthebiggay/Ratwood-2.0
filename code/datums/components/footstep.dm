@@ -62,11 +62,11 @@
 	if(steps % 2 && LM.m_intent == MOVE_INTENT_WALK && islamia(LM) || steps % 3 && LM.m_intent == MOVE_INTENT_RUN && islamia(LM) || steps % 2 && !islamia(LM))
 		return
 
-	if(steps != 0 && !LM.has_gravity(T)) // don't need to step as often when you hop around
-		return
 	return T
 
 /datum/component/footstep/proc/play_simplestep()
+	if(HAS_TRAIT(parent, TRAIT_SILENT_FOOTSTEPS))
+		return
 	var/turf/open/T = prepare_step()
 	if(!T)
 		return
@@ -95,6 +95,8 @@
 	var/turf/open/T = prepare_step()
 	if(!T)
 		return
+	if(HAS_TRAIT(parent, TRAIT_SILENT_FOOTSTEPS))
+		return
 	var/mob/living/carbon/human/H = parent
 	var/feetCover = (H.wear_armor && (H.wear_armor.body_parts_covered & FEET)) || (H.wear_pants && (H.wear_pants.body_parts_covered & FEET))
 
@@ -120,6 +122,9 @@
 			GLOB.footstep[T.footstep][2],
 			FALSE,
 			GLOB.footstep[T.footstep][3] + e_range)
+		if(ismob(parent) || isobj(parent))
+			var/dir = H.dir
+			show_sensory_effect(parent, 5, "footstep", dir, ignore_self = TRUE)
 //	if(!islamia(H))
 	else
 		//SANITY CHECK, WILL NOT PLAY A SOUND IF THE LIST IS INVALID
@@ -139,6 +144,9 @@
 				GLOB.barefootstep[T.barefootstep][2],
 				TRUE,
 				GLOB.barefootstep[T.barefootstep][3] + e_range)
+			if(ismob(parent) || isobj(parent))
+				var/dir = H.dir
+				show_sensory_effect(parent, 5, "footstep", dir, ignore_self = TRUE)
 		else
 			used_footsteps = list(
 				'sound/foley/footsteps/lamia_slither (1).ogg',
@@ -155,3 +163,7 @@
 			volume = rand(40, 85)
 			e_range = rand(1, 3)
 			playsound(T, used_sound, "vol" = volume, "extrarange" = e_range)
+
+			if(ismob(parent) || isobj(parent))
+				var/dir = H.dir
+				show_sensory_effect(parent, 5, "footstep", dir, ignore_self = TRUE)

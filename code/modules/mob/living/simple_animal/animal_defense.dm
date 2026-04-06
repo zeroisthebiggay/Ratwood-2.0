@@ -1,6 +1,50 @@
 
 
+/mob/living/simple_animal/proc/try_pull_secondary_rider(mob/living/carbon/human/M)
+	if(!can_buckle)
+		return FALSE
+	if(!GetComponent(/datum/component/riding))
+		return FALSE
+	if(M.buckled != src)
+		return FALSE
+
+	var/mob/living/grab_target = null
+	if(M.r_grab)
+		if(M.r_grab.grab_state >= GRAB_AGGRESSIVE)
+			var/atom/movable/right_grabbed = M.r_grab.grabbed
+			if(ismob(right_grabbed))
+				grab_target = right_grabbed
+	if(!grab_target)
+		if(M.l_grab)
+			if(M.l_grab.grab_state >= GRAB_AGGRESSIVE)
+				var/atom/movable/left_grabbed = M.l_grab.grabbed
+				if(ismob(left_grabbed))
+					grab_target = left_grabbed
+
+	if(!grab_target)
+		return FALSE
+	if(!buckled_mobs)
+		return FALSE
+	if(buckled_mobs.len >= max_buckled_mobs)
+		return FALSE
+	if(buckled_mobs.Find(grab_target))
+		return TRUE
+
+	grab_target.forceMove(get_turf(src))
+	buckle_mob(grab_target, TRUE, FALSE)
+	M.stop_pulling()
+
+	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
+	if(riding_datum)
+		riding_datum.driver = M
+		riding_datum.handle_vehicle_offsets()
+
+	visible_message(span_notice("[M] pulls [grab_target] onto [src]."), span_notice("[M] pulls [grab_target] onto me."))
+	return TRUE
+
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
+	if(try_pull_secondary_rider(M))
+		return TRUE
 	..()
 	switch(M.used_intent.type)
 		if(INTENT_HELP)
@@ -159,7 +203,7 @@
 	playsound(user.loc, "smallslash", 100, FALSE, -1)
 	user.next_attack_msg.Cut()
 	if(stat == DEAD)
-		if(user.has_status_effect(/datum/status_effect/debuff/silver_curse))
+		if(user.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder))
 			to_chat(user, span_notice("My power is weakened, I cannot heal!"))
 			return
 		if(user.mind && istype(user, /mob/living/carbon/human/species/werewolf))
@@ -214,6 +258,7 @@
 		playsound(target, 'sound/combat/hits/kick/kick.ogg', 100, TRUE, -1)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
+		target.lastattacker_weakref = WEAKREF(user)
 		if(target.mind)
 			target.mind.attackedme[user.real_name] = world.time
 		user.stamina_add(15)
@@ -267,7 +312,7 @@
 
 	take_overall_damage(brute_loss,burn_loss)
 
-/mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, used_intent = null, simplified = TRUE)
+/mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, item_animation_override = null, used_intent = null, simplified = TRUE)
 	if(!no_effect && !visual_effect_icon && melee_damage_upper)
 		if(melee_damage_upper < 10)
 			visual_effect_icon = ATTACK_EFFECT_PUNCH

@@ -871,4 +871,4 @@
 	. += span_notice("Alt+RMB opens the style radial menu.")
 	. += span_notice("Shift+RMB toggles the snout version of the selected style.")
 	. += span_notice("Shift+MMB toggles identity concealment.")
-	. += span_notice("When using harlequin styles (including snout versions): Right-click to honk.")
+	. += span_notice("When using the harlequin styles: Right-click to honk.")

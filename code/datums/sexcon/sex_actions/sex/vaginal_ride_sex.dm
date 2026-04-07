@@ -34,6 +34,7 @@
 
 /datum/sex_action/vaginal_ride_sex/on_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] rides [target]."))
+	user.mind.add_sleep_experience(/datum/skill/misc/riding, 0.5) // hehe
 	user.sexcon.intercourse_noise(user, TRUE)
 	user.sexcon.do_thrust_animate(target)
 

@@ -30,6 +30,7 @@
 	var/datum/weakref/tracked_target_ref = null
 	var/list/target_warning_next_by_ref = list()
 	var/shown_hunt_disclaimer = FALSE
+	var/last_selection
 
 /obj/effect/proc_holder/spell/invoked/gnoll_sniff/proc/sync_antag_tracked_target(mob/user, mob/living/target)
 	var/datum/antagonist/gnoll/gnoll_antag = user?.mind?.has_antag_datum(/datum/antagonist/gnoll)
@@ -66,17 +67,15 @@
 	var/list/combat_roles = get_gnoll_tracking_combat_roles()
 	var/list/name_counts = list()
 	//Allows a fallback, if no hunted targets are available, we can track worthy prey (combat roles) instead. 
-	for(var/mob/living/L in GLOB.player_list)
-		if(L == user || QDELETED(L) || L.stat == DEAD || istype(L, /mob/living/carbon/human/dummy) || !L.mind)
+	for(var/mob/living/carbon/human/human in GLOB.player_list)
+		if(human == user || QDELETED(human) || human.stat == DEAD || istype(human, /mob/living/carbon/human/dummy) || !human.mind)
 			continue
-		var/base_name = "[L.real_name]"
-		var/name_count = (name_counts[base_name] || 0) + 1
-		name_counts[base_name] = name_count
-		var/entry_name = (name_count > 1) ? "[base_name] ([name_count])" : base_name
-		if(L.has_flaw(/datum/charflaw/hunted))
-			hunted_targets[entry_name] = L
-		else if(L.job in combat_roles)
-			combat_targets[entry_name] = L
+		if(human.advsetup || !human.class_equip_finished) // they haven't gotten their true class name yet
+			continue
+		if(human.has_flaw(/datum/charflaw/hunted))
+			add_target_to_list(human, hunted_targets, name_counts)
+		else if(human.job in combat_roles)
+			add_target_to_list(human, combat_targets, name_counts)
 
 	var/list/possible_targets = length(hunted_targets) ? hunted_targets : combat_targets
 
@@ -84,14 +83,13 @@
 		to_chat(user, span_warning("The air is stale. No worthy prey walks these lands."))
 		return
 
-	var/selection = input(user, "Whose scent shall we follow?", "The Great Hunt") as null|anything in possible_targets
+	var/selection = tgui_input_list(user, "Whose scent shall we follow?", "The Great Hunt", possible_targets, last_selection)
 	if(!selection)
 		return
 
 	if(!shown_hunt_disclaimer)
-		to_chat(user, span_notice("You have chosen your first quarry. Go and see if this one is worthy of your attention. If not, you can always seek out another."))
-		to_chat(user, span_boldwarning("Roleplaying expectations still apply to you as a Gnoll. Gnolls are cunning hunters, not mindless beasts. You remain young and unproven in the eyes of the Darkstar, and there is little glory in slaughtering the meek."))
-		to_chat(user, span_boldnotice("You are not interested in easy kills; they are beneath you. Seek out the worthiest among your prey, and ensure a thrilling hunt for those involved."))
+		to_chat(user, span_notice("You have chosen your first quarry. ") + span_biginfo("Go and see if this one is worthy of your attention. \
+									If not, you can always seek out another."))
 		shown_hunt_disclaimer = TRUE
 
 	var/mob/living/selected_target = possible_targets[selection]
@@ -99,11 +97,23 @@
 		to_chat(user, span_warning("That scent slips away before you can lock onto it."))
 		return
 
+	last_selection = selection
 	tracked_target_ref = WEAKREF(selected_target)
 	sync_antag_tracked_target(user, selected_target)
 	notify_tracked_target(selected_target)
 	to_chat(user, span_notice("You focus your senses on [selected_target.real_name]."))
 	give_tracking_directions(user)
+
+/obj/effect/proc_holder/spell/invoked/gnoll_sniff/proc/add_target_to_list(mob/living/carbon/human/human, list/target_list, list/name_counts)
+	var/base_name = "[human.real_name]"
+	var/name_count = (name_counts[base_name] || 0) + 1
+	name_counts[base_name] = name_count
+	var/class = human.get_class_title()
+	// Names will display in the format "Urist McDwarf (2) - Grudgebearer Soldier"
+	var/entry_name = (name_count > 1) ? "[base_name] ([name_count])[length(class) ? " - [class]" : ""]" : "[base_name][length(class) ? " - [class]" : ""]"
+	
+	target_list[entry_name] = human
+	return
 
 /obj/effect/proc_holder/spell/invoked/gnoll_sniff/proc/give_tracking_directions(mob/user)
 	var/mob/living/tracked_target = tracked_target_ref?.resolve()

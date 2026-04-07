@@ -9559,6 +9559,10 @@
 /obj/effect/spawner/lootdrop/cheap_tableware_spawner,
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/under/town/basement/desert)
+"eJw" = (
+/obj/machinery/light/rogue/candle,
+/turf/open/floor/rogue/woodturned,
+/area/rogue/indoors/town/desert)
 "eJB" = (
 /obj/structure/closet/crate/roguecloset,
 /obj/item/clothing/suit/roguetown/shirt/dress/gen/random,
@@ -11959,6 +11963,12 @@
 	color = "#e3edff"
 	},
 /area/rogue/outdoors/desertdeep)
+"fSx" = (
+/obj/machinery/light/rogue/torchholder/r,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/indoors/town/desert)
 "fTx" = (
 /obj/structure/fluff/walldeco/chains,
 /turf/open/floor/rogue/cobble,
@@ -25110,6 +25120,10 @@
 "lYG" = (
 /obj/structure/fluff/walldeco/church/line,
 /obj/structure/fluff/walldeco/church/line,
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1;
+	layer = 2
+	},
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/outdoors/town/desert)
 "lYJ" = (
@@ -37073,6 +37087,7 @@
 "rOu" = (
 /obj/structure/bed/rogue/inn/wool,
 /obj/item/bedsheet/rogue/wool,
+/obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/town/desert)
 "rOz" = (
@@ -345949,7 +345964,7 @@ lON
 ghA
 kfI
 kfI
-pIF
+ujp
 btI
 kfI
 kCk
@@ -350480,7 +350495,7 @@ dyg
 dyg
 lON
 kfI
-eOK
+eJw
 lZG
 anm
 xzu
@@ -351987,7 +352002,7 @@ bzG
 rhI
 kfI
 lON
-ghA
+fSx
 ghA
 ghA
 jvK
@@ -355592,7 +355607,7 @@ igT
 hhm
 bHm
 vIg
-lQG
+hMN
 gtn
 lQG
 qwi
@@ -356800,7 +356815,7 @@ cBc
 vOA
 cBG
 vIg
-lQG
+hMN
 qbh
 lQG
 qwi

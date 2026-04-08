@@ -542,8 +542,6 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_CIVILIZEDBARBARIAN, id)
 
-//Heretics in rite armour / with rite buffs being punished, for lingering on hallowed ground.
-//If they're captured, it's a moot point.
 /atom/movable/screen/alert/status_effect/holy_empowerement
 	name = "Holy Ground"
 	desc = "These grounds are where I feel the most connection to my patron. Their blessing is strongest here!"

@@ -1959,7 +1959,8 @@
 /obj/structure/rack/rogue,
 /obj/structure/curtain/red{
 	icon_state = "curtain-closed";
-	opacity = 1
+	opacity = 1;
+	open = 0
 	},
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/banditcamp)
@@ -2166,7 +2167,8 @@
 /obj/structure/rack/rogue,
 /obj/structure/curtain/red{
 	icon_state = "curtain-closed";
-	opacity = 1
+	opacity = 1;
+	open = 0
 	},
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/banditcamp)

@@ -530,19 +530,23 @@
 	//head
 	if(head && !(SLOT_HEAD in obscured))
 		var/str = "[m3] [get_examine_item_name_with_hover(user, head)] on [m2] head. "
-		str += head.integrity_check(is_smart)
+		var/head_condition = head.integrity_check(is_smart)
+		str += head_condition
 		if(is_stupid)
 			if(istype(head,/obj/item/clothing/head/roguetown/helmet))
 				str = "[m3] some kinda helmet!"
 			else
 				str = "[m3] some kinda hat!"
+			if(head_condition)
+				str += " [head_condition]"
 		. += str
 
 	//suit/armor
 	if(wear_armor && !(SLOT_ARMOR in obscured))
 		var/str = "[m3] [get_examine_item_name_with_hover(user, wear_armor)]. "
+		var/armor_condition = wear_armor.integrity_check()
 		if(is_smart || is_normal)
-			str += wear_armor.integrity_check()
+			str += armor_condition
 		else if (is_stupid)
 			if(istype(wear_armor, /obj/item/clothing/suit/roguetown/armor))
 				var/obj/item/clothing/suit/roguetown/armor/examined_armor = wear_armor
@@ -555,6 +559,10 @@
 					if(ARMOR_CLASS_HEAVY)
 						if(!HAS_TRAIT(user, TRAIT_HEAVYARMOR))
 							str = "[m3] some heavy metal stuff!"
+			if(armor_condition)
+				str += " [armor_condition]"
+		if(armor_condition && !findtext(str, "[armor_condition]"))
+			str += " [armor_condition]"
 		. += str
 		//suit/armor storage
 		if(s_store && !(SLOT_S_STORE in obscured))

@@ -618,10 +618,10 @@ BLIND     // can't see anything
 /obj/item/clothing/show_examine_hover_tooltip()
 	if(..())
 		return TRUE
-	if(!armor)
+	if(slot_flags & ITEM_SLOT_HEAD)
+		return TRUE
+	if(slot_flags & (ITEM_SLOT_BACK | ITEM_SLOT_BACKPACK | ITEM_SLOT_BELT | ITEM_SLOT_HIP | ITEM_SLOT_CLOAK))
 		return FALSE
-	if(armor.getRating("slash") == 0 && armor.getRating("stab") == 0 && armor.getRating("blunt") == 0 && armor.getRating("piercing") == 0)
-		return length(prevent_crits) > 0
 	return TRUE
 
 /obj/item/clothing/get_hover_examine_stat_lines(mob/user)

@@ -65,17 +65,14 @@
 	var/percent = round((ratio * 100), 1)
 	var/result
 	if(percent < 100)
-		if(elaborate)
-			return span_warning("([percent]%)")
-		else
-			switch(percent)
-				if(1 to 15)
-					result = span_warning("It's nearly broken.")
-				if(16 to 30)
-					result = span_warning("It's severely damaged.")
-				if(31 to 80)
-					result = span_warning("It's damaged.")
-				if(80 to 99)
-					result = span_warning("It's a little damaged.")
+		switch(percent)
+			if(1 to 15)
+				result = span_warning("It's nearly broken.")
+			if(16 to 30)
+				result = span_warning("It's severely damaged.")
+			if(31 to 80)
+				result = span_warning("It's damaged.")
+			if(80 to 99)
+				result = span_warning("It's a little damaged.")
 	return result
 	

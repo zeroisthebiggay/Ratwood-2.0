@@ -279,6 +279,11 @@
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/riding = SKILL_LEVEL_JOURNEYMAN,
 	)
+
+	subclass_virtues = list(
+		/datum/virtue/utility/riding
+	)
+
 /datum/outfit/job/heartfelt/lord/chief/pre_equip(mob/living/carbon/human/H)
 	..()
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/beastskull

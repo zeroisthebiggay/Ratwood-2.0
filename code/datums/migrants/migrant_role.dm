@@ -51,3 +51,9 @@
 	name = "Assassin"
 	antag_datum = /datum/antagonist/assassin
 	advclass_cat_rolls = list(CTAG_ASSASSIN = 20)
+
+/datum/outfit/job/roguetown/cloak/tabard/pre_equip(mob/living/carbon/human/H)
+	cloak = /obj/item/clothing/cloak/tabard
+
+/datum/outfit/job/roguetown/cloak/surcoat/pre_equip(mob/living/carbon/human/H)
+	cloak = /obj/item/clothing/cloak/stabard/surcoat

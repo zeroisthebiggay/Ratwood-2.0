@@ -100,6 +100,13 @@
 	cost = 30
 	contains = list(/obj/item/rogueweapon/huntingknife/idagger/steel/parrying)
 
+/datum/supply_pack/rogue/Pioneer/axepick
+	name = "Pulaski Axe"
+	cost = 25
+	contains = list(/obj/item/rogueweapon/stoneaxe/woodcut/pick)
+
+/datum/supply_pack/rogue/Pioneer/
+
 //Tools of the trade.
 
 /datum/supply_pack/rogue/Pioneer/Mancatcher
@@ -116,6 +123,22 @@
 	name = "Smith tongs"
 	cost = 20
 	contains = list(/obj/item/rogueweapon/tongs)
+
+/datum/supply_pack/rogue/Pioneer/chiselset
+
+	name = "Chisel and Hammer"
+	cost = 20
+	contains = list(/obj/item/rogueweapon/chisel/assembly/hammer)
+
+/datum/supply_pack/rogue/Pioneer/handsaw
+	name = "Handsaw"
+	cost = 20
+	contains = list(/obj/item/rogueweapon/handsaw)
+
+/datum/supply_pack/rogue/Pioneer/linker
+	name = "Artificer's Wrench"
+	cost = 20 
+	contains = list(/obj/item/contraption/linker)
 
 /datum/supply_pack/rogue/Pioneer/cogs
 	name = "Cogs"
@@ -174,3 +197,70 @@
 	name = "Blackpowder stick"
 	cost = 100//From 35. Why was this 35? OOOUGH.
 	contains = list(/obj/item/tntstick)
+
+//WMDs, but for bombard and smokepowder stuff. Zezuz Pyst!!!
+//A serious investment just to get started.
+//Not even bringing up the other costs.
+/datum/supply_pack/rogue/Pioneer/bombard_frame
+	name = "Bombard frame"
+	cost = 250
+	contains = list(/obj/item/bombard_frame)
+
+/datum/supply_pack/rogue/Pioneer/bombard_barrel
+	name = "Bombard barrel"
+	cost = 250
+	contains = list(/obj/item/bombard_barrel)
+
+/datum/supply_pack/rogue/Pioneer/bombard_palantir
+	name = "Palantir"
+	cost = 250
+	contains = list(/obj/item/rogueweapon/palantir)
+
+/datum/supply_pack/rogue/Pioneer/bombard_sponge
+	name = "Bombard sponge"
+	cost = 150
+	contains = list(/obj/item/rogueweapon/woodstaff/quarterstaff/bombard_sponge)
+
+/datum/supply_pack/rogue/Pioneer/smokepowder_flask
+	name = "Smokepowder flask"
+	cost = 150
+	contains = list(/obj/item/powderflask)
+
+//WMDs, but shells for the above!!!!
+//Smoke bombard charges.
+/datum/supply_pack/rogue/Pioneer/bombard_charge_smoke
+	name = "Bombard charge (smoke)"
+	cost = 50
+	contains = list(/obj/item/cannonball/smoke)
+
+/datum/supply_pack/rogue/Pioneer/bombard_charge_poison
+	name = "Bombard charge (smoke - poison)"
+	cost = 125
+	contains = list(/obj/item/cannonball/smoke_poison)
+
+/datum/supply_pack/rogue/Pioneer/bombard_charge_custom
+	name = "Bombard charge (smoke - custom)"
+	cost = 300
+	contains = list(/obj/item/cannonball/smoke_custom)
+
+//Dangerous bombard charges.
+/datum/supply_pack/rogue/Pioneer/bombard_charge_canister
+	name = "Bombard charge (canister)"
+	cost = 125
+	contains = list(/obj/item/cannonball/canister)
+
+/datum/supply_pack/rogue/Pioneer/bombard_charge_explosive
+	name = "Bombard charge (explosive)"
+	cost = 400
+	contains = list(/obj/item/cannonball/explosive)
+
+/datum/supply_pack/rogue/Pioneer/bombard_charge_incendiary
+	name = "Bombard charge (incendiary)"
+	cost = 600
+	contains = list(/obj/item/cannonball/incendiary)
+
+//Misc bombard charges.
+/datum/supply_pack/rogue/Pioneer/bombard_charge_flare
+	name = "Bombard charge (flare)"
+	cost = 85
+	contains = list(/obj/item/cannonball/flare)

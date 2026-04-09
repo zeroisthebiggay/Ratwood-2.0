@@ -112,12 +112,15 @@
 	/// Has the limb been marked as having suffered a two-stage death flag?
 	var/grievously_wounded = FALSE
 
+	/// Branded writing on body part
+	var/branded_writing = ""
+
 	grid_width = 32
 	grid_height = 64
 
 	resistance_flags = FLAMMABLE
 
-/obj/item/bodypart/proc/adjust_marking_overlays(var/list/appearance_list)
+/obj/item/bodypart/proc/adjust_marking_overlays(list/appearance_list)
 	return
 
 /obj/item/bodypart/proc/get_specific_markings_overlays(list/specific_markings, aux = FALSE, mob/living/carbon/human/human_owner, override_color)
@@ -325,7 +328,7 @@
 		heal_damage(0, 0, INFINITY, null, FALSE)
 		. |= BODYPART_LIFE_UPDATE_HEALTH
 
-/obj/item/bodypart/Initialize()
+/obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	update_HP()
 
@@ -721,7 +724,8 @@
 			draw_organ_features = FALSE
 		if(NO_BODYPART_FEATURES in owner_species.species_traits)
 			draw_bodypart_features = FALSE
-
+	
+	// Organ overlays
 	if(!skeletonized && draw_organ_features)
 		for(var/obj/item/organ/organ as anything in get_organs())
 			if(organ.is_visible())
@@ -757,6 +761,9 @@
 	offset = OFFSET_ARMOR
 	offset_f = OFFSET_ARMOR_F
 	dismemberable = FALSE
+
+	/// Branded writing unique for chest so it can be applied to buttocks
+	var/branded_writing_on_buttocks = ""
 
 	grid_width = 64
 	grid_height = 96

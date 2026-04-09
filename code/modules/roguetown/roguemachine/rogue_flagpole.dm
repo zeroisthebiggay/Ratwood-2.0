@@ -117,16 +117,34 @@
 
 	if(!istype(user))
 		return
-	var/new_note = tgui_input_text(user, "Enter a new custom note for the [controlled_role]:", "Update Role Note", "", MAX_MESSAGE_LEN)
-	
-	if(!new_note)
+	var/list/role_entry = SSrogueinfo.role_data[controlled_role]
+	if(!role_entry)
+		to_chat(user, span_alert("Error: No data entry found for [controlled_role]."))
 		return
 
-	if(SSrogueinfo.role_data[controlled_role])
-		SSrogueinfo.role_data[controlled_role]["note"] = new_note
-		to_chat(user, span_notice("You have updated the custom note for [controlled_role]."))
-	else
-		to_chat(user, span_alert("Error: No data entry found for [controlled_role]."))
+	var/default_note = "No custom notes."
+	var/current_note = role_entry["note"]
+	if(current_note && current_note != default_note)
+		var/choice = alert(user, "This flag currently has a custom message:\n\"[current_note]\"\n\nSetting a new message will overwrite it. Continue?", "Overwrite Flag Message", "Continue", "Decline")
+		if(choice != "Continue")
+			return
+
+	var/default_text = (current_note && current_note != default_note) ? current_note : ""
+	var/new_note = tgui_input_text(user, "Enter a new custom note for the [controlled_role]:", "Update Role Note", default_text, MAX_MESSAGE_LEN)
+
+	if(!new_note)
+		return
+	var/trimmed_note = trim(new_note)
+	if(!length(trimmed_note))
+		to_chat(user, span_alert("Custom notes cannot be blank."))
+		return
+
+	if(trimmed_note == current_note)
+		to_chat(user, span_notice("The custom note for [controlled_role] is unchanged."))
+		return
+
+	role_entry["note"] = trimmed_note
+	to_chat(user, span_notice("You have updated the custom note for [controlled_role]."))
 
 /obj/item/mini_flagpole/freeform2
 	name = "freeform miniature flagpole"

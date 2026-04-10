@@ -60,7 +60,8 @@
 	var/display_name = get_examine_item_name_with_custom_link(user, I)
 	if(!I.show_examine_hover_tooltip())
 		return display_name
-	var/tooltip_html = I.get_hover_examine_html(user)
+	var/self_examine = (src == user)
+	var/tooltip_html = I.get_hover_examine_html(user, self_examine)
 	if(!tooltip_html)
 		return display_name
 	var/label = display_name

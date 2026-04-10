@@ -729,7 +729,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/get_hover_examine_condition_text()
 	return null
 
-/obj/item/proc/get_hover_examine_stat_lines(mob/user)
+/obj/item/proc/get_hover_examine_stat_lines(mob/user, self_examine = FALSE)
 	var/list/lines = list()
 	if(minstr)
 		lines += "<b>MIN.STR:</b> [minstr]"
@@ -778,17 +778,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		lines += "<b>INTEGRITY DAMAGE:</b> [intdamage_factor * 100]%"
 	if(demolition_mod != 1 && force >= 5)
 		lines += "<b>ANTI-OBJECT MOD:</b> [demolition_mod * 100]%"
-	var/true_durability = get_true_durability_percent_text()
-	if(true_durability)
-		lines += "<b>Durability:</b> [true_durability]"
+	if(self_examine)
+		var/true_durability = get_true_durability_percent_text()
+		if(true_durability)
+			lines += "<b>Durability:</b> [true_durability]"
 	return lines
 
-/obj/item/proc/get_hover_examine_html(mob/user)
+/obj/item/proc/get_hover_examine_html(mob/user, self_examine = FALSE)
 	var/list/sections = list()
 	var/description_text = get_hover_examine_description()
 	if(description_text)
 		sections += description_text
-	var/list/stat_lines = get_hover_examine_stat_lines(user)
+	var/list/stat_lines = get_hover_examine_stat_lines(user, self_examine)
 	if(length(stat_lines))
 		sections += stat_lines.Join("<br>")
 	if(original_name && original_name != name)

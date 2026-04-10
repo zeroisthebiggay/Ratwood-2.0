@@ -624,7 +624,7 @@ BLIND     // can't see anything
 		return FALSE
 	return TRUE
 
-/obj/item/clothing/get_hover_examine_stat_lines(mob/user)
+/obj/item/clothing/get_hover_examine_stat_lines(mob/user, self_examine = FALSE)
 	var/list/lines = list()
 	if(armor && (armor.getRating("slash") != 0 || armor.getRating("stab") != 0 || armor.getRating("blunt") != 0 || armor.getRating("piercing") != 0))
 		var/armor_class_text = "None"
@@ -646,9 +646,10 @@ BLIND     // can't see anything
 				prevent_text = "pick"
 			prevents += capitalize(prevent_text)
 		lines += "<b>PREVENTS CRITS:</b> [prevents.Join(", ")]"
-	var/true_durability = get_true_durability_percent_text()
-	if(true_durability)
-		lines += "<b>Durability:</b> [true_durability]"
+	if(self_examine)
+		var/true_durability = get_true_durability_percent_text()
+		if(true_durability)
+			lines += "<b>Durability:</b> [true_durability]"
 	return lines
 
 // Handle clicks from chat to show the examine details

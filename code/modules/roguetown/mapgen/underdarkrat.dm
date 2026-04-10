@@ -46,11 +46,11 @@
 /datum/mapGeneratorModule/underdarkratscarymud
 	clusterCheckFlags = CLUSTER_CHECK_SAME_ATOMS
 	allowed_areas = list(/area/rogue/under/underdarker)
-	allowed_turfs = list(/turf/open/floor/rogue/dirt)
+	allowed_turfs = list(/turf/open/floor/rogue/dirt, /turf/open/floor/rogue/grasscold, /turf/open/floor/rogue/grasspurple)
 	excluded_turfs = list(/turf/open/floor/rogue/dirt/road)
 	spawnableAtoms = list(/obj/structure/flora/mushroomcluster = 20,
 							/obj/structure/flora/roguegrass/thorn_bush = 10,
-							/obj/structure/flora/rogueshroom/unhappy/random = 40,
+							/obj/structure/flora/rogueshroom/unhappy/random = 30,
 							/obj/structure/flora/rogueshroom/happy/random = 1,
 							/obj/structure/flora/mushroomcluster/unhappy = 20,
 							/obj/structure/flora/tinymushrooms/unhappy = 20,

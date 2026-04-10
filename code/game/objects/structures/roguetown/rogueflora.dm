@@ -499,7 +499,7 @@
 /obj/structure/flora/rogueshroom/attack_right(mob/user)
 	handle_special_items_retrieval(user, src)
 
-/obj/structure/flora/rogueshroom/Initialize()
+/obj/structure/flora/rogueshroom/Initialize(mapload)
 	. = ..()
 	if(random_mush_zone)
 		icon_state = "mush[rand(1,5)]"
@@ -823,8 +823,7 @@
 	mush_light_color = "#e2e2e2"
 	int_req = 0
 	special_examine = "You recall the gathering of wildsmasters recently. It hasn't been long, but these mushrooms were always believed to be happy and colorful. The spores of this one are rumoured to be the cause, it's like... they collectively made a decision to stop fooling humenkind."
-	static_debris = list(/obj/item/natural/fibers = 1,
-						 /obj/item/grown/log/tree/small = 1)
+	static_debris = list(/obj/item/natural/fibers = 1, /obj/item/grown/log/tree/small = 1)
 	rare_mush_bonus_drop = /mob/living/simple_animal/hostile/rogue/mirespider_lurker/mushroom
 	mush_animate = FALSE
 

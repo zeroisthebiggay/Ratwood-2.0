@@ -1551,7 +1551,7 @@
 
 /obj/structure/fluff/statue/noc
 	name = "noc statue"
-	desc = "Wise and calm."
+	desc = "Wisdom and calm."
 	icon_state = "noc"
 	icon = 'icons/roguetown/misc/statues/statue_noc.dmi'
 
@@ -1561,12 +1561,12 @@
 
 /obj/structure/fluff/statue/eora
 	name = "eora statue"
-	desc = "Beautiful and Charming"
+	desc = "Beauty and Charm"
 	icon_state = "eora"
 	icon = 'icons/roguetown/misc/statues/statue_eora.dmi'
 
 /obj/structure/fluff/statue/zizo
-	name = "zaelorian statue"
+	name = "dubious statue"
 	desc = "Blasphemy... unless...?"
 	icon_state = "zaelorian_crynsaris"
 	icon = 'icons/roguetown/misc/statues/statue_zizo.dmi'

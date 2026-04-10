@@ -49,6 +49,12 @@
 						)
 	var/datum/inspiration/I = new /datum/inspiration(H)
 	I.grant_inspiration(H, bard_tier = BARD_T3)
+
+	if(SSmapping.config.map_name == "Desert Town")
+		head = /obj/item/clothing/head/roguetown/turban/fancypurple
+		pants = /obj/item/clothing/under/roguetown/sirwal/fancy/random
+		shoes = /obj/item/clothing/shoes/roguetown/shalal
+		belt = /obj/item/storage/belt/rogue/leather/cloth/sash/random
 	if(H.mind)
 		var/weapons = list("Accordion","Bagpipe","Drum","Flute","Guitar","Harp","Hurdy-Gurdy","Jaw Harp","Lute","Psyaltery","Shamisen","Trumpet","Viola","Vocal Talisman")
 		var/weapon_choice = tgui_input_list(H, "Choose your instrument.", "TAKE UP ARMS", weapons)

@@ -61,6 +61,12 @@
 		armor = /obj/item/clothing/suit/roguetown/armor/workervest
 		pants = /obj/item/clothing/under/roguetown/trou
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/random
+
+	if(SSmapping.config.map_name == "Desert Town")
+		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/thawb
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/bisht
+		head = /obj/item/clothing/head/roguetown/turban/random
+		shoes = /obj/item/clothing/shoes/roguetown/sandals
 	if(H.age == AGE_MIDDLEAGED)
 		H.adjust_skillrank_up_to(/datum/skill/labor/lumberjacking, 5, TRUE)
 	if(H.age == AGE_OLD)

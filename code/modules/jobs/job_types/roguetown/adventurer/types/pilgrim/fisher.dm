@@ -79,6 +79,10 @@
 							/obj/item/flashlight/flare/torch = 1,
 							/obj/item/rogueweapon/scabbard/sheath = 1
 							)
+	if(SSmapping.config.map_name == "Desert Town")
+		shoes = /obj/item/clothing/shoes/roguetown/sandals
+		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/thawb/random
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/bisht/random
 	if(H.age == AGE_MIDDLEAGED)
 		H.adjust_skillrank_up_to(/datum/skill/labor/fishing, 5, TRUE)
 	if(H.age == AGE_OLD)

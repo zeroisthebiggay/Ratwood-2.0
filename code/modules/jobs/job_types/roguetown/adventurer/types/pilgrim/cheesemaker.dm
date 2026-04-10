@@ -54,6 +54,9 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	beltl = /obj/item/flint
 	beltr = /obj/item/rogueweapon/scabbard/sheath
+	if(SSmapping.config.map_name == "Desert Town")
+		pants = /obj/item/clothing/under/roguetown/sirwal/plainrandom
+		shoes = /obj/item/clothing/shoes/roguetown/sandals
 	backpack_contents = list(
 		/obj/item/reagent_containers/powder/salt = 3,
 		/obj/item/reagent_containers/food/snacks/rogue/cheddar = 2,

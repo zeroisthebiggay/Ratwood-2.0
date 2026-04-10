@@ -61,6 +61,11 @@
 				/obj/item/rogueweapon/scabbard/sheath = 1
 				)
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
+	if(SSmapping.config.map_name == "Desert Town")
+		shoes = /obj/item/clothing/shoes/roguetown/shalal
+		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/thawb/random
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/bisht/bluegrey
+		head = /obj/item/clothing/head/roguetown/tagelmust
 	if(H.age == AGE_MIDDLEAGED)
 		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 5, TRUE)
 	if(H.age == AGE_OLD)
@@ -122,6 +127,11 @@
 				/obj/item/rogueweapon/scabbard/sheath = 1
 				)
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
+	if(SSmapping.config.map_name == "Desert Town")
+		shoes = /obj/item/clothing/shoes/roguetown/shalal
+		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/thawb/random
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/bisht/bluegrey
+		head = /obj/item/clothing/head/roguetown/tagelmust
 	if(H.age == AGE_MIDDLEAGED)
 		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 5, TRUE)
 	if(H.age == AGE_OLD)

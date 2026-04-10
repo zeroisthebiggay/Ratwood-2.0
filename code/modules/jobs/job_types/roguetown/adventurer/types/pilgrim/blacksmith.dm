@@ -78,11 +78,16 @@
 				r_hand = molds[mold_choice]
 		H.set_blindness(0)
 	if(H.pronouns == HE_HIM)
-		shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 		shirt = /obj/item/clothing/suit/roguetown/shirt/shortshirt
+		shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	else
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	if(SSmapping.config.map_name == "Desert Town")
+		pants = /obj/item/clothing/under/roguetown/sirwal/plainrandom
+		head = /obj/item/clothing/head/roguetown/turban/random
+		shoes = /obj/item/clothing/shoes/roguetown/sandals
+
 	if(H.age == AGE_MIDDLEAGED)
 		H.adjust_skillrank_up_to(/datum/skill/craft/blacksmithing, 5, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/craft/armorsmithing, 5, TRUE)

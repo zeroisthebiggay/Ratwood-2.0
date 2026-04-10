@@ -41,6 +41,10 @@
 	pants = /obj/item/clothing/under/roguetown/trou
 	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
 	backl = /obj/item/storage/backpack/rogue/backpack
+	if(SSmapping.config.map_name == "Desert Town")
+		head = /obj/item/clothing/head/roguetown/turban
+		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/thawb
+
 	backpack_contents = list(
 						/obj/item/natural/worms/leech/cheele = 1,
 						/obj/item/natural/cloth = 2,

@@ -34,6 +34,9 @@
 	belt = /obj/item/storage/belt/rogue/leather
 	beltr = /obj/item/clothing/mask/cigarette/rollie/cannabis
 	beltl = /obj/item/flint
+	if(SSmapping.config.map_name == "Desert Town")
+		head = /obj/item/clothing/head/roguetown/turban/fancypurple
+		shoes = /obj/item/clothing/shoes/roguetown/shalal
 	backpack_contents = list(
 						/obj/item/storage/pill_bottle/dice = 1,
 						/obj/item/storage/pill_bottle/dice/farkle = 1,

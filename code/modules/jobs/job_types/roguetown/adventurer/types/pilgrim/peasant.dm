@@ -63,6 +63,10 @@
 						)
 	beltl = /obj/item/rogueweapon/sickle
 	backr = /obj/item/rogueweapon/hoe
+	if(SSmapping.config.map_name == "Desert Town")
+		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/thawb/random
+		pants = /obj/item/clothing/under/roguetown/sirwal/plainrandom
+		shoes = /obj/item/clothing/shoes/roguetown/sandals
 	if(H.age == AGE_MIDDLEAGED)
 		H.adjust_skillrank_up_to(/datum/skill/labor/farming, 5, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/labor/butchering, 3, TRUE)

@@ -66,9 +66,9 @@
 /obj/item/alch/viscera
 	name = "viscera"
 	icon_state = "viscera"
-	major_pot = /datum/alch_cauldron_recipe/big_health_potion
+	major_pot = /datum/alch_cauldron_recipe/antidote
 	med_pot = /datum/alch_cauldron_recipe/health_potion
-	minor_pot = /datum/alch_cauldron_recipe/antidote
+	minor_pot = /datum/alch_cauldron_recipe/big_health_potion
 
 /obj/item/alch/waterdust
 	name = "water essentia"

@@ -27,6 +27,11 @@
 	var/interrupt_dflag
 	var/interrupt_ddir
 
+/obj/item/clothing/suit/roguetown/armor/regenerating/equipped(mob/user, slot)
+	. = ..()
+	if(slot == SLOT_SHIRT || slot == SLOT_ARMOR)
+		RegisterSignal(user, COMSIG_MOB_TAK)
+
 /obj/item/clothing/suit/roguetown/armor/regenerating/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armor_penetration)
 	. = ..()
 	if(regen_interrupt(damage_amount, damage_type, damage_flag, attack_dir))

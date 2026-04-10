@@ -3,13 +3,9 @@
 /turf/open/water/bloody,
 /area/rogue/under/cave/inhumen/wretch/gnollcavern)
 "ad" = (
-/obj/machinery/light/roguestreet/walllamp,
-/obj/structure/rack/rogue/shelf/biggest,
-/obj/effect/spawner/lootdrop/roguetown/dungeon/materials,
-/turf/open/floor/rogue/blocks{
-	icon_state = "bluestone"
-	},
-/area/rogue/under/cave/inhumen/wretch/camp)
+/obj/effect/landmark/start/wretchlate,
+/turf/open/floor/rogue/blocks/flipped,
+/area/rogue/outdoors/cave/wretch)
 "ak" = (
 /obj/item/natural/bone,
 /turf/open/water/bloody,
@@ -915,6 +911,18 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/rogue/under/cave/inhumen/wretch/camp)
+"jE" = (
+/obj/structure/rack/rogue/shelf/biggest,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/materials,
+/obj/machinery/light/roguestreet/walllamp{
+	dir = 4;
+	pixel_x = 0;
+	pixel_y = 10
+	},
+/turf/open/floor/rogue/blocks{
+	icon_state = "bluestone"
+	},
+/area/rogue/under/cave/inhumen/wretch/camp)
 "jI" = (
 /obj/machinery/light/rogue/candle/red,
 /turf/open/water/bloody,
@@ -1783,9 +1791,7 @@
 /turf/open/floor/rogue/metal/barograte,
 /area/rogue/under/cave/inhumen/wretch/camp)
 "ue" = (
-/obj/structure/stairs/stone{
-	dir = 8
-	},
+/obj/machinery/light/roguestreet/walllamp,
 /turf/open/floor/rogue/blocks{
 	icon_state = "bluestone"
 	},
@@ -1806,10 +1812,6 @@
 	},
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/cave/inhumen/wretch/camp)
-"uq" = (
-/obj/effect/landmark/start/wretchlate,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors/cave/wretch)
 "uB" = (
 /obj/structure/fluff/traveltile/wretch{
 	aportalgoesto = "wretchout2";
@@ -3545,12 +3547,8 @@
 /area/rogue/under/cave/inhumen/wretch/camp)
 "Na" = (
 /obj/structure/flora/roguetree/burnt,
-/turf/closed/mineral/random/rogue/coppertin/med,
-/area/rogue/under/cavewet/bogcaves{
-	ambush_mobs = null;
-	first_time_text = null;
-	name = "Wretched Caves"
-	})
+/turf/closed/wall/mineral/rogue/craftstone,
+/area/rogue/under/cave/inhumen/wretch/camp)
 "Nb" = (
 /obj/structure/mineral_door/wood/deadbolt{
 	dir = 8
@@ -3704,14 +3702,9 @@
 	name = "Wretched Caves"
 	})
 "Oz" = (
-/obj/structure/fluff/traveltile/wretch{
-	aportalgoesto = "wretchtradeout";
-	aportalid = "wretchtradein"
-	},
-/turf/open/floor/rogue/blocks{
-	icon_state = "bluestone"
-	},
-/area/rogue/under/cave/inhumen/wretch/camp)
+/obj/effect/landmark/start/wretchlate,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/cave/wretch)
 "OA" = (
 /turf/closed/mineral/random/rogue/ironcoal,
 /area/rogue/under/cavewet/bogcaves{
@@ -4006,10 +3999,13 @@
 	water_reagent = /datum/reagent/water/gross
 	},
 /area/rogue/outdoors/cave/wretch)
-"Ru" = (
-/obj/effect/landmark/start/wretchlate,
-/turf/open/floor/rogue/blocks/flipped,
-/area/rogue/outdoors/cave/wretch)
+"Rw" = (
+/obj/structure/fluff/traveltile/wretch{
+	aportalgoesto = "wretchtradeout";
+	aportalid = "wretchtradein"
+	},
+/turf/open/floor/rogue/blocks,
+/area/rogue/under/cave/inhumen/wretch/camp)
 "RF" = (
 /obj/structure/fluff/statue/femalestatue/zizo{
 	desc = "An ancient statue depicting an elven woman.";
@@ -6957,10 +6953,10 @@ iy
 iy
 CT
 CT
-iy
-iy
-iy
-iy
+CT
+CT
+CT
+CT
 iy
 iy
 iy
@@ -7049,10 +7045,10 @@ iy
 iy
 CT
 CT
-iy
-iy
-iy
-iy
+CT
+CT
+CT
+CT
 iy
 iy
 iy
@@ -7361,7 +7357,7 @@ CT
 CT
 CT
 Ov
-uq
+Oz
 pX
 CT
 Az
@@ -7898,7 +7894,7 @@ DS
 DS
 DS
 Az
-DS
+zU
 Kq
 DS
 Kj
@@ -7989,11 +7985,11 @@ CM
 yH
 Kq
 Kq
-Ly
+Az
 Az
 KF
 jC
-jC
+bA
 DS
 Is
 Ov
@@ -8081,9 +8077,9 @@ zS
 yH
 yH
 Kq
-Az
-Az
 DS
+Az
+Az
 Az
 Az
 DS
@@ -8173,7 +8169,7 @@ bV
 bV
 yH
 Kq
-Ly
+zU
 py
 KF
 jC
@@ -9748,7 +9744,7 @@ Ov
 Is
 Ov
 Ov
-KE
+jC
 Ov
 Ov
 Ov
@@ -10312,9 +10308,9 @@ DS
 DS
 Wu
 Wu
-Wu
 FL
 Wu
+FL
 Wu
 Wu
 FL
@@ -10938,7 +10934,7 @@ bA
 DS
 WY
 XA
-YZ
+jE
 zY
 YZ
 QE
@@ -11030,7 +11026,7 @@ DS
 Kj
 Az
 QE
-ad
+YZ
 zY
 zY
 aw
@@ -11215,7 +11211,7 @@ tW
 UD
 Kj
 QE
-Oz
+nA
 QE
 DS
 Kj
@@ -11307,7 +11303,7 @@ tW
 tW
 tW
 QE
-QE
+QB
 ym
 vY
 Ly
@@ -11398,8 +11394,8 @@ Ma
 tW
 tW
 IA
-tW
-tW
+QE
+Rw
 Na
 Kj
 Kj
@@ -11490,9 +11486,9 @@ Tw
 tW
 tW
 IA
-IA
-tW
-tW
+QE
+QE
+QE
 tW
 Kj
 Kj
@@ -11582,8 +11578,8 @@ Ma
 tW
 tW
 tW
-IA
-IA
+tW
+tW
 tW
 tW
 tW
@@ -11961,7 +11957,7 @@ CT
 CT
 CT
 Ov
-Ru
+ad
 Ov
 CT
 CT

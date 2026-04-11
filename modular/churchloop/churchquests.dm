@@ -424,8 +424,6 @@
 		/datum/job/roguetown/pilgrim,
 		/datum/job/roguetown/adventurer,
 		/datum/job/roguetown/mercenary,
-		/datum/job/roguetown/bandit,
-		/datum/job/roguetown/wretch,
 		/datum/job/roguetown/sergeant,
 		/datum/job/roguetown/dungeoneer,
 		/datum/job/roguetown/manorguard,
@@ -473,19 +471,6 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 
 /obj/item/quest_token/Initialize()
 	. = ..()
-	if(ismob(loc))
-		var/mob/M = loc
-		if(M && M.client)
-			owner_ckey = M.client.ckey
-			if(istype(M, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = M
-				owner_name = H.real_name || H.name || owner_ckey
-			else
-				owner_name = M.name || owner_ckey
-		else if(istext(M?.key))
-			owner_ckey = ckey(M.key)
-			owner_name = M.name || owner_ckey
-
 	if(!length(owner_name))
 		owner_name = "unknown"
 
@@ -726,7 +711,6 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	name = "sealed reliquary"
 	desc = "Solve the code. It does not expire."
 	icon_state = "questbox"
-	w_class = WEIGHT_CLASS_NORMAL
 
 	var/code = "0000"
 	var/list/bonus_patron_names = list()

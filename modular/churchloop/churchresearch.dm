@@ -1058,6 +1058,8 @@ var/global/list/NOC_SECRET_MIRACLES = list(
 	html += "When you click <b>Get special item</b> on one row, you lock that quest to that difficulty and receive a quest item.<br>"
 	html += "Other rows for that quest lock until reroll.<br>"
 	html += "The quest item is single-use, may be handed to others, and stays bound to the owner for completion rewards."
+	html += "</u>Quest items may be given to other players</u>."
+	html += "Outside combat mode, the target must willingly accept. In combat mode, the quest is forced upon them and completes immediately.<br>"
 	html += "</div></center><hr>"
 
 	var/quest_count = islist(H.quest_ui_entries) ? H.quest_ui_entries.len : 0
@@ -1578,6 +1580,8 @@ var/global/list/NOC_SECRET_MIRACLES = list(
 			open_quests_ui(H)
 			return
 
+		QI.set_owner(H)
+
 		var/success = FALSE
 		if(hascall(H, "put_in_hands"))
 			success = call(H, "put_in_hands")(QI)
@@ -1586,10 +1590,9 @@ var/global/list/NOC_SECRET_MIRACLES = list(
 			if(TT)
 				QI.forceMove(TT)
 
-		if(istype(QI, /obj/item/quest_token))
-			var/obj/item/quest_token/QBASE = QI
-			if(D["reward"])
-				QBASE.reward_amount = D["reward"]
+		var/obj/item/quest_token/QBASE = QI
+		if(D["reward"])
+			QBASE.reward_amount = D["reward"]
 
 		var/list/P = D["params"]
 		if(islist(P))
@@ -1629,6 +1632,16 @@ var/global/list/NOC_SECRET_MIRACLES = list(
 				var/obj/item/quest_token/flaw_aid/FA = QI
 				if(P["required_flaw_types"])
 					FA.required_flaw_types = P["required_flaw_types"]
+
+		var/base_desc = "[D["desc"]]"
+		var/use_desc = " Single-use quest item."
+
+		if(istype(QI, /obj/item/quest_token/coin_chest) || istype(QI, /obj/item/quest_token/donation_box) || istype(QI, /obj/item/quest_token/reliquary))
+			use_desc = " Self-completion item."
+		else
+			use_desc = " Peaceful use gives Boon. Combat-mode use forces to accept and gives Scorn."
+
+		QI.desc = "[base_desc] Reward goes to the token owner ([QBASE.reward_amount] Favor).[use_desc]"
 
 		D["spawned"] = TRUE
 		diffs[diff_key] = D

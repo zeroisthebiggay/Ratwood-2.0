@@ -147,12 +147,14 @@ GLOBAL_LIST_EMPTY(mushroom_circles)
 		. += span_warning("The mushrooms look unhealthy. They need tending with scissors soon or the circle will fade and become overgrown.")
 	else
 		. += span_info("The mushrooms glow steadily with fae power.")
-	if(user.patron?.type == /datum/patron/divine/dendor)
-		. += span_notice("Hold my amulet of Dendor and press it on this circle to travel to another fae circle.")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.patron && H.patron.type == /datum/patron/divine/dendor)
+			. += span_notice("Hold my amulet of Dendor and press it on this circle to travel to another fae circle.")
 
 /obj/structure/mushroom_circle/attackby(obj/item/I, mob/living/user, params)
-	// Scissors maintenance — anyone can do it
-	if(istype(I, /obj/item/rogueweapon/huntingknife/scissors))
+	// Scissors maintenance — requires snip intent so attacks don't accidentally maintain it
+	if(istype(I, /obj/item/rogueweapon/huntingknife/scissors) && user.used_intent.type == /datum/intent/snip)
 		if(!active)
 			to_chat(user, span_warning("The circle has already faded — scissors can't restore it now."))
 			return
@@ -166,7 +168,7 @@ GLOBAL_LIST_EMPTY(mushroom_circles)
 
 	// Dendor amulet — opens teleport menu
 	if(istype(I, /obj/item/clothing/neck/roguetown/psicross/dendor))
-		if(user.patron?.type != /datum/patron/divine/dendor)
+		if(!user.patron || user.patron.type != /datum/patron/divine/dendor)
 			to_chat(user, span_warning("Only a follower of Dendor may commune with this circle."))
 			return
 		if(!active)

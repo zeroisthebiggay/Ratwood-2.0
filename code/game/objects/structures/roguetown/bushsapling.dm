@@ -139,7 +139,7 @@
 	if(stage == BUSHSAP_STAGE_MATURE && !dead)
 		user.changeNext_move(CLICK_CD_INTENTCAP)
 		playsound(src.loc, "plantcross", 50, FALSE, -1)
-		if(do_after(user, SEARCHTIME, target = src))
+		if(do_after(user, 12, target = src))
 			if(!looty.len && world.time > res_replenish)
 				loot_replenish()
 			if(prob(50) && looty.len)
@@ -176,8 +176,8 @@
 		to_chat(user, span_notice("I water [src]."))
 		return
 
-	// Shearing at stage 3 (no skill gate)
-	if(istype(I, /obj/item/rogueweapon/huntingknife/scissors) && stage == BUSHSAP_STAGE_MATURE && !dead)
+	// Shearing at stage 3 — requires snip intent so the player opts in deliberately
+	if(istype(I, /obj/item/rogueweapon/huntingknife/scissors) && user.used_intent.type == /datum/intent/snip && stage == BUSHSAP_STAGE_MATURE && !dead)
 		to_chat(user, span_notice("I begin trimming [src]..."))
 		if(do_after(user, 3 SECONDS, target = src))
 			var/num_fibers = rand(1, 2)

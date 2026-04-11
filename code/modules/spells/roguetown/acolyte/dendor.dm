@@ -260,18 +260,24 @@
 	var/atom/target_atom = targets[1]
 	var/obj/structure/flora/newtree/target = null
 
-	if(istype(target_atom, /obj/structure/flora/newtree) \
-			&& !istype(target_atom, /obj/structure/flora/newtree/sanctified) \
-			&& !target_atom.burnt)
-		target = target_atom
-	else if(target_atom.loc && (get_dist(user, target_atom.loc) <= 1))
+	// Use for-in-list idiom: the loop var gets the correct static type regardless of source type.
+	for(var/obj/structure/flora/newtree/NT_target in list(target_atom))
+		if(!NT_target.burnt)
+			target = NT_target
+		break  // only check the first (and only) element
+	if(!target && target_atom.loc && (get_dist(user, target_atom.loc) <= 1))
 		for(var/obj/structure/flora/newtree/NT in target_atom.loc)
-			if(!istype(NT, /obj/structure/flora/newtree/sanctified) && !NT.burnt)
+			if(!NT.burnt)
 				target = NT
 				break
 
 	if(!target)
 		to_chat(H, span_warning("I must target a living tree directly adjacent to me. Old trees, burnt trees, wise trees, and already-sanctified trees cannot be consecrated."))
+		return FALSE
+
+	// Block if another sanctified tree is within 10 tiles.
+	for(var/obj/structure/flora/roguetree/wise/sanctified/ST in range(10, target))
+		to_chat(H, span_warning("A sanctified tree already stands nearby. The Treefather will not allow another grove anchor so close."))
 		return FALSE
 
 	H.visible_message(
@@ -283,7 +289,7 @@
 		to_chat(H, span_warning("The consecration ritual was interrupted — the blessing fades & must be restarted."))
 		return FALSE
 
-	if(QDELETED(target) || target.burnt || istype(target, /obj/structure/flora/newtree/sanctified))
+	if(QDELETED(target) || target.burnt)
 		to_chat(H, span_warning("The tree is no longer a valid target for sanctification."))
 		return FALSE
 

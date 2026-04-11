@@ -112,10 +112,12 @@
 		// Notify and debuff any soulbound players before clearing data.
 		if(tree_data.soulbound_players.len)
 			curse_soulbound_players()
-		// Remove slow modifiers before the datum is deleted.
+		// Clean up aura slow on destroy.
 		for(var/mob/living/M in tree_data.slowed_mobs)
 			if(!QDELETED(M))
-				M.remove_movespeed_modifier("SANCTIFIED_TREE_SLOW")
+				var/datum/status_effect/debuff/sanctified_tree_slow/SE = M.has_status_effect(/datum/status_effect/debuff/sanctified_tree_slow)
+				if(SE)
+					qdel(SE)
 		tree_data.slowed_mobs = list()
 		// Return any stored ritual armor to the ground.
 		if(tree_data.ritual_armor && !QDELETED(tree_data.ritual_armor))
@@ -135,6 +137,8 @@
 			H.apply_status_effect(/datum/status_effect/debuff/soulbind_broken)
 			REMOVE_TRAIT(H, "DENDOR_SOULBOUND", "SOULBIND")
 			for(var/obj/effect/proc_holder/spell/targeted/summon_lesser_dryad/S in H.mind?.spell_list)
+				H.mind.RemoveSpell(S)
+			for(var/obj/effect/proc_holder/spell/targeted/lesser_dryad_special/S in H.mind?.spell_list)
 				H.mind.RemoveSpell(S)
 			for(var/obj/effect/proc_holder/spell/invoked/minion_order/lesser_dryad/S in H.mind?.spell_list)
 				H.mind.RemoveSpell(S)
@@ -341,7 +345,7 @@
 			if(istype(held, /obj/item/natural/stone))
 				var/obj/item/natural/stone/stone = held
 				return stone.magic_power >= 5
-			return istype(held, /obj/item/boulder)
+			return istype(held, /obj/item/natural/rock)
 		if("flesh_item")
 			return istype(held, /obj/item/alch/sinew) || istype(held, /obj/item/alch/viscera) || istype(held, /obj/item/alch/bone) || istype(held, /obj/item/natural/bone) || istype(held, /obj/item/skull)
 		if("ash")
@@ -534,11 +538,8 @@
 	to_chat(user, span_green("[BA.name] rises from the ritual — the Treefather has blessed this armor with living power."))
 	// 50% chance: random wood armor piece from elven black oak mercenaries (excluding chest).
 	if(prob(50))
-		var/bonus_type = pick(
-			/obj/item/clothing/head/roguetown/helmet/heavy/elven_helm,
-			/obj/item/clothing/gloves/roguetown/elven_gloves,
-			/obj/item/clothing/shoes/roguetown/boots/leather/elven_boots
-		)
+		var/list/bonus_pool = list(/obj/item/clothing/head/roguetown/helmet/heavy/elven_helm, /obj/item/clothing/gloves/roguetown/elven_gloves, /obj/item/clothing/shoes/roguetown/boots/leather/elven_boots)
+		var/bonus_type = pick(bonus_pool)
 		var/obj/item/bonus = new bonus_type(T)
 		to_chat(user, span_green("The roots also yield [bonus.name] — an additional gift."))
 
@@ -548,11 +549,12 @@
 
 /// Applies or removes the bulwark slow on non-Dendor mobs within 5 tiles.
 /// Called every 5 seconds when has_slow_aura is TRUE.
-/// Uses additive slowdown of 4 (equivalent to -4 speed stat).
+/// Applies a -4 speed stat debuff via status effect (8-second duration),
+/// refreshed each tick so it stays active while in range.
 /obj/structure/flora/roguetree/wise/sanctified/proc/update_slow_aura()
 	var/list/in_range = list()
 	for(var/mob/living/carbon/human/H in range(5, src))
-		if(H.patron?.type == /datum/patron/divine/dendor)
+		if(H.patron && H.patron.type == /datum/patron/divine/dendor)
 			continue
 		if(H.stat != CONSCIOUS || H.incapacitated())
 			continue
@@ -561,16 +563,18 @@
 	for(var/mob/living/M in tree_data.slowed_mobs)
 		if(QDELETED(M) || !(M in in_range))
 			if(!QDELETED(M))
-				M.remove_movespeed_modifier("SANCTIFIED_TREE_SLOW")
+				var/datum/status_effect/debuff/sanctified_tree_slow/SE = M.has_status_effect(/datum/status_effect/debuff/sanctified_tree_slow)
+				if(SE)
+					qdel(SE)
 			tree_data.slowed_mobs -= M
-	// Apply modifier to newly in-range mobs.
-	for(var/mob/living/H in in_range)
-		if(H in tree_data.slowed_mobs)
-			continue
-		// Additive slowdown of 4 (priority 50, no multiplicative component)
-		H.add_movespeed_modifier("SANCTIFIED_TREE_SLOW", TRUE, 50, multiplicative_slowdown = 0, additive_slowdown = 4)
-		tree_data.slowed_mobs |= H
-		to_chat(H, span_warning("An oppressive weight presses against my feet near this tree."))
+	// Apply/refresh debuff on mobs in range.
+	for(var/mob/living/carbon/human/H in in_range)
+		var/datum/status_effect/debuff/sanctified_tree_slow/SE = H.has_status_effect(/datum/status_effect/debuff/sanctified_tree_slow)
+		if(SE)
+			SE.refresh()
+		else
+			H.apply_status_effect(/datum/status_effect/debuff/sanctified_tree_slow)
+			tree_data.slowed_mobs |= H
 
 /// Heals Dendor followers within 5 tiles periodically.
 /// Called every 60 seconds when has_heal_aura is TRUE.
@@ -623,6 +627,18 @@
 	to_chat(H, span_green("The Treefather's warmth flows into my wounds."))
 	tree_data.manual_heal_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(tree_data, manual_heal_cooldown, FALSE), 2 MINUTES)
+
+/// Temporary -4 speed debuff applied by the Treefather's Bulwark aura.
+/// Duration is 8 seconds — slightly longer than the 5-second aura tick —
+/// so it stays on continuously while the player remains in range.
+/datum/status_effect/debuff/sanctified_tree_slow
+	id = "sanctified_tree_slow"
+	duration = 8 SECONDS
+	effectedstats = list("speed" = -4)
+
+/datum/status_effect/debuff/sanctified_tree_slow/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("An oppressive weight and gnarled roots press against my feet near this tree, causing my movement to slow down."))
 
 //==============================================================================
 // Soulbind Broken Status Effect (permanent, applied on tree destruction)
@@ -725,6 +741,7 @@
 
 	// Grant soulbind spells
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_lesser_dryad)
+	H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_dryad_special)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order/lesser_dryad)
 
 	// Register tree destruction signal is no longer needed — cleanup is handled in Destroy().

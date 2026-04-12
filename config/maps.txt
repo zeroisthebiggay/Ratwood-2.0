@@ -16,9 +16,6 @@ endmap
 map roguetest
 endmap
 
-map dun_manor
-endmap
-
 map dun_world
 	votable
 endmap
@@ -29,5 +26,7 @@ map rockhill
 endmap
 
 map byos
-	votable
+endmap
+
+map deserttown
 endmap

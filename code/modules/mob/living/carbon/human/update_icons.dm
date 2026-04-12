@@ -1311,8 +1311,6 @@ There are several things that need to be remembered:
 			if(taur?.taur_clothing_category)
 				var/list/taur_shirt_states = list()
 				switch(wear_shirt.armor_class)
-					if(ARMOR_CLASS_NONE)
-						taur_shirt_states += "caparison"
 					if(ARMOR_CLASS_LIGHT)
 						taur_shirt_states += "leather"
 					if(ARMOR_CLASS_MEDIUM)
@@ -1423,8 +1421,6 @@ There are several things that need to be remembered:
 			if(taur?.taur_clothing_category)
 				var/list/taur_armor_states = list()
 				switch(wear_armor.armor_class)
-					if(ARMOR_CLASS_NONE)
-						taur_armor_states += "caparison"
 					if(ARMOR_CLASS_LIGHT)
 						taur_armor_states += "leather"
 					if(ARMOR_CLASS_MEDIUM)

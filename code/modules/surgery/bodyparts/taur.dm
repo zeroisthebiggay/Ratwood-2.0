@@ -161,7 +161,6 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 
 /obj/item/bodypart/taur/otie
 	name = "Otie Body"
-	taur_clothing_category = "m"
 	offset_x = -16
 	taur_icon_state = "otie_s"
 	taur_markings_state = "otie_markings"
@@ -224,7 +223,6 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 
 /obj/item/bodypart/taur/horse
 	name = "Saiga Body"
-	taur_clothing_category = "m"
 	offset_x = -16
 	taur_icon_state = "saiga_s"
 	clip_mask_state = "clip_mask_saiga"
@@ -254,7 +252,6 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 
 /obj/item/bodypart/taur/redpanda
 	name = "Red Panda Body"
-	taur_clothing_category = "m"
 	offset_x = -16
 	taur_icon_state = "redpanda_s"
 	taur_markings_state = "redpanda_markings"
@@ -263,7 +260,6 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 
 /obj/item/bodypart/taur/rat
 	name = "Rat Body"
-	taur_clothing_category = "m"
 	offset_x = -16
 	taur_icon_state = "rat_s"
 	taur_markings_state = "rat_markings"
@@ -275,7 +271,6 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 
 	offset_x = -16
 	taur_icon_state = "skunk_s"
-	taur_clothing_category = "m"
 	taur_markings_state = "skunk_markings"
 	taur_tertiary_state = "skunk_markings_2"
 
@@ -316,7 +311,6 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 
 /obj/item/bodypart/taur/tiger
 	name = "Tiger Body"
-	taur_clothing_category = "m"
 	offset_x = -16
 	taur_icon_state = "feline_s"
 	taur_markings_state = "tiger_markings"

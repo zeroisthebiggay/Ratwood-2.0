@@ -79,4 +79,3 @@ GLOBAL_VAR(king_throne)
 	M = mutable_appearance(icon, "throne_secondary", -(layer+0.1))
 	M.color = secondary
 	add_overlay(M)
-	

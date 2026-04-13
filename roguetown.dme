@@ -3121,6 +3121,7 @@
 #include "modular_deserttown\desertstuff.dm"
 #include "modular_deserttown\desertwalls.dm"
 #include "modular_deserttown\hyena.dm"
+#include "modular_deserttown\junglemapgen.dm"
 #include "modular_deserttown\jobs\courtslave.dm"
 #include "modular_deserttown\jobs\desertjobs.dm"
 #include "modular_deserttown\jobs\dtslave.dm"

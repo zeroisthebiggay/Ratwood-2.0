@@ -12,7 +12,7 @@
 		// /datum/job/roguetown/adventurer = 69
 	)
 	title_adjust = list(
-		/datum/job/roguetown/lord = list(display_title = "Viceroy", f_title = "Vicereine"),
+		/datum/job/roguetown/lord = list(display_title = "Grand Viceroy", f_title = "Grand Vicereine"),
 		/datum/job/roguetown/bandit = "Pirate", //couldn't get these to work
 		// /datum/antagonist/bandit = "Pirate",
 		/datum/job/roguetown/orphan = "Stowaway",
@@ -27,11 +27,27 @@
 	)
 	/// Jobs that this map won't use
 	blacklist = list(
+		/datum/job/roguetown/cataphract,
+		/datum/job/roguetown/vizier,
+		/datum/job/roguetown/headslave,
+		/datum/job/roguetown/sheikh,
+		/datum/job/roguetown/janissary,
+		/datum/job/roguetown/janissarysergeant,
+		/datum/job/roguetown/azeb,
+		/datum/job/roguetown/azebagha,
+		/datum/job/roguetown/slavemaster,
+		/datum/job/roguetown/slave,
+		/datum/job/roguetown/adventurer/courtslave,
+		
+		// /datum/job/roguetown/vanguard,//eh probably fine
+		/datum/job/roguetown/guardsman,//Not a city map
+		/datum/job/roguetown/watchcaptain,//Not a city map
+		/datum/job/roguetown/wardenmaster,//Probably the best possible place for 'em!
 		
 		// /datum/job/roguetown/adventurer//Adventurers
 		// /datum/job/roguetown/wretch,
 		// /datum/job/roguetown/bandit,
-		/datum/job/roguetown/pilgrim,
+		/datum/job/roguetown/pilgrim,//everyone came on the boat so no real difference with towner
 		// /datum/job/roguetown/trader,
 		// /datum/job/roguetown/assassin,
 
@@ -60,7 +76,7 @@
 
 		// /datum/job/roguetown/manorguard,
 		// /datum/job/roguetown/guardsman,
-		// /datum/job/roguetown/bogguardsman,
+		// /datum/job/roguetown/warden,
 		/datum/job/roguetown/dungeoneer,
 		// /datum/job/roguetown/sergeant,
 		// /datum/job/roguetown/squire,
@@ -69,11 +85,11 @@
 		//trader (probably fine to keep as it is)
 
 		/datum/job/roguetown/crier,
-		// /datum/job/roguetown/archivist,
-		// /datum/job/roguetown/barkeep,
+		// /datum/job/roguetown/archivist,//idk they can study the island
+		// /datum/job/roguetown/barkeep,//there IS a bar I guess?
 		// /datum/job/roguetown/guildmaster,
 		// /datum/job/roguetown/guildsman,
-		// /datum/job/roguetown/merchant,
+		// /datum/job/roguetown/merchant,//important
 		/datum/job/roguetown/niteman,
 		// /datum/job/roguetown/tailor,
 		// /datum/job/roguetown/elder,
@@ -103,23 +119,3 @@
 		// /datum/job/roguetown/shophand,
 		
 	)
-
-//list to blacklist for other maps (update as new replacements are added)
-//uncomment when desertmap is merged
-		// /datum/job/roguetown/dtvillager,
-
-		// /datum/job/roguetown/sultan,
-		// /datum/job/roguetown/cataracht,
-		// /datum/job/roguetown/vizier,
-
-		// /datum/job/roguetown/headslave,
-		// /datum/job/roguetown/sheikh,
-		// /datum/job/roguetown/magician,
-
-		// /datum/job/roguetown/azeb,
-		// /datum/job/roguetown/janissary,
-		// /datum/job/roguetown/azebagha,
-		// /datum/job/roguetown/slavemaster,
-		
-		// /datum/job/roguetown/dtslave,
-		// /datum/job/roguetown/dtprince,

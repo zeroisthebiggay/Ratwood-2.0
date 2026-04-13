@@ -627,7 +627,7 @@
 "nx" = (/obj/structure/fluff/railing/wood{dir = 4; layer = 2.8; pixel_x = 8},/turf/open/floor/rogue/herringbone,/area/rogue/indoors)
 "ny" = (/turf/closed/wall/mineral/rogue/stone/red_moss,/area/rogue/under/cave)
 "nz" = (/obj/structure/spider/stickyweb,/turf/open/floor/rogue/ruinedwood/spiral,/area/rogue/indoors/town/tavern)
-"nA" = (/obj/machinery/light/rogue/wallfire,/turf/closed/wall/mineral/rogue/stonebrick,/area/rogue/indoors)
+"nA" = (/obj/machinery/light/rogue/campfire/fireplace,/turf/closed/wall/mineral/rogue/stonebrick,/area/rogue/indoors)
 "nB" = (/turf/open/floor/rogue/ruinedwood/spiral,/area/rogue/outdoors/beach)
 "nC" = (/mob/living/simple_animal/hostile/retaliate/rogue/mole,/turf/open/floor/rogue/naturalstone,/area/rogue/under/cave)
 "nD" = (/obj/structure/fluff/walldeco/chains,/obj/structure/closet/crate/coffin/vampire,/turf/open/floor/rogue/blocks/paving,/area/rogue/under/cave)

@@ -12,7 +12,6 @@
 	canSmoothWith = list(
 						/turf/open/floor/rogue/grass,
 						/turf/open/floor/rogue/desert_grass,
-						/turf/open/floor/rogue/dunes,
 						/turf/open/floor/rogue/dirt,
 						/turf/open/floor/rogue/dirt/road,
 						/turf/open/floor/rogue/dirt/desert,
@@ -27,6 +26,7 @@
 						/turf/open/floor/rogue/snow,
 						/turf/open/floor/rogue/snowrough,)
 	// slowdown = 1
+	neighborlay = "duneedge"
 
 /turf/open/floor/rogue/dunes/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
@@ -187,7 +187,6 @@
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(
 						/turf/open/floor/rogue/grass,
-						/turf/open/floor/rogue/desert_grass,
 						/turf/open/floor/rogue/dunes,
 						/turf/open/floor/rogue/dirt,
 						/turf/open/floor/rogue/dirt/road,

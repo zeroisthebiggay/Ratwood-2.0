@@ -1465,6 +1465,7 @@
 	icon_state = "fur"
 	density = FALSE
 	anchored = TRUE
+	plane = -7
 
 /obj/structure/giantfur/small // the irony
 	name = "fur pelt"

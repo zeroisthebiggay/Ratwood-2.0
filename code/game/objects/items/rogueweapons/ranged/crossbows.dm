@@ -201,7 +201,7 @@
 	item_state = "slurbow"
 	possible_item_intents = list(/datum/intent/shoot/crossbow/slurbow, /datum/intent/arc/crossbow/slurbow, INTENT_GENERIC)
 	chargingspeed = 20
-	damfactor = 0.5
+	damfactor = 0.6
 	accfactor = 1.3
 	reloadtime = 20
 	hasloadedsprite = TRUE

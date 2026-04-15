@@ -40,29 +40,44 @@
 	contains = list(/obj/item/rogueweapon/huntingknife/idagger/navaja)
 
 /datum/supply_pack/rogue/merc_weapons/naginata
-	name = "Naginata"
+	name = "Kazengun Naginata"
 	cost = 80
 	contains = list(/obj/item/rogueweapon/spear/naginata)
 
+/datum/supply_pack/rogue/merc_weapons/kanabo
+	name = "Kazengun Kanabo (Greatclub)"
+	cost = 200
+	contains = list(/obj/item/rogueweapon/mace/goden/kanabo)
+
+/datum/supply_pack/rogue/merc_weapons/ssangsudo
+	name = "Kazengun Ssangsudo (Greatdsword)"
+	cost = 200
+	contains = list(/obj/item/rogueweapon/sword/long/kriegmesser/ssangsudo)
+
 /datum/supply_pack/rogue/merc_weapons/katana
-	name = "Kazengun Hwando"
+	name = "Kazengun Hwando (Sword)"
 	cost = 80
 	contains = list(/obj/item/rogueweapon/sword/sabre/mulyeog)
 
-/datum/supply_pack/rogue/merc_weapons/kazengunscabbard
-	name = "Kazengun Scabbard"
-	cost = 250
-	contains = list(/obj/item/rogueweapon/scabbard/sword/kazengun)
+/datum/supply_pack/rogue/merc_weapons/kazengundagger
+	name = "Kazengun Tanto (Dagger)"
+	cost = 80
+	contains = list(/obj/item/rogueweapon/huntingknife/idagger/steel/kazengun)
 
 /datum/supply_pack/rogue/merc_weapons/kazengunhookblade
 	name = "Kazengun Hook Sword"
 	cost = 100
 	contains = list(/obj/item/rogueweapon/sword/sabre/hook)
 
-/datum/supply_pack/rogue/merc_weapons/kazengundagger
-	name = "Kazengun Tanto"
+/datum/supply_pack/rogue/merc_weapons/kazengunscabbard
+	name = "Kazengun Scabbard (Reinforced)"
 	cost = 80
-	contains = list(/obj/item/rogueweapon/huntingknife/idagger/steel/kazengun)
+	contains = list(/obj/item/rogueweapon/scabbard/sword/kazengun)
+
+/datum/supply_pack/rogue/merc_weapons/kazengunscabbard_noparry
+	name = "Kazengun Scabbard (Ceremonial)"
+	cost = 40
+	contains = list(/obj/item/rogueweapon/scabbard/sword/kazengun/noparry)
 
 /datum/supply_pack/rogue/merc_weapons/kazengunsheath
 	name = "Small Lacquer Sheath"

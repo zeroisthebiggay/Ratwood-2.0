@@ -538,6 +538,7 @@
 	slowdown = 2
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/open/floor/rogue/grass,
+						/turf/open/floor/rogue/dunes,
 						/turf/open/floor/rogue/grassred,
 						/turf/open/floor/rogue/grassyel,
 						/turf/open/floor/rogue/grasscold,

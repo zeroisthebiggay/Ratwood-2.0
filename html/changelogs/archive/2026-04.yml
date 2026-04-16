@@ -131,3 +131,37 @@
 2026-04-13:
   zeroisthebiggay:
   - bugfix: mending no longer glows
+2026-04-14:
+  Jamdrawers:
+  - bugfix: desert grass can be tilled into soil, should smooth better visually
+  - bugfix: missing wretch teleport point on rockhill
+  - bugfix: fixes some merge errors in the vampire manor
+  Xander3359:
+  - bugfix: Fix being unable to delete an image from your OOC Extra
+  - config: Sets changelog to update daily instead of weekly
+  Yuckuza:
+  - bugfix: "Cursed Collars can no longer strip TRAIT_NODROP antag gear and natural\
+      \ armor\n:cl:\n<!-- Both :cl:'s are required for the changelog to work! You\
+      \ can put your name to the right of the first :cl: if you want to overwrite\
+      \ your GitHub username as author ingame. -->\n<!-- You can use multiple of the\
+      \ same prefix (they're only used for the icon ingame) and delete the unneeded\
+      \ ones. Despite some of the tags, changelogs should generally represent how\
+      \ a player might be affected by the changes rather than a summary of the PR's\
+      \ contents. -->\n<!-- By contributing to this codebase, you confirm that any\
+      \ code and sprites you provide are legal to share and will be licensed under\
+      \ the terms specified in README.md \u2014 AGPLv3 for code and CC-BY-SA 3.0 for\
+      \ assets, unless otherwise stated. You acknowledge that the project maintainers\
+      \ are under no obligation to remove any materials that do not violate these\
+      \ licenses. -->"
+2026-04-15:
+  Jamdrawers:
+  - bugfix: desertdeep added to valid hunting areas
+  - bugfix: Head Slave in desert map gets the vomitorium trait as well
+  Kroto-Ker:
+  - bugfix: Examine runtime.
+  Xander3359:
+  - bugfix: Fix void dragon not dropping the spell points scrolls
+2026-04-16:
+  zeroisthebiggay:
+  - image: fixes a stray pixel on the warden hood
+  - balance: reduces spellcost of message and mindlink by one

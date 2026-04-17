@@ -28,9 +28,7 @@
 	/// Jobs that this map won't use
 	blacklist = list(
 		/datum/job/roguetown/cataphract,
-		/datum/job/roguetown/vizier,
 		/datum/job/roguetown/headslave,
-		/datum/job/roguetown/sheikh,
 		/datum/job/roguetown/janissary,
 		/datum/job/roguetown/janissarysergeant,
 		/datum/job/roguetown/azeb,

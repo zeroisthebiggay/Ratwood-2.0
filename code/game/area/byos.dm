@@ -23,7 +23,7 @@
 				new /datum/ambush_config/mirespiders_unfair = 5)
 	first_time_text = "THE DREAD JUNGLE"
 	converted_type = /area/rogue/indoors/shelter/jungle
-	threat_region = THREAT_REGION_TERRORBOG
+	threat_region = THREAT_REGION_JUNGLE
 	deathsight_message = "a wretched, sweltering jungle"
 	// detail_text = DETAIL_TEXT_TERRORBOG
 
@@ -34,24 +34,42 @@
 	droning_sound_night = null
 	deathsight_message = "a wretched, sweltering jungle"
 
-	
-/area/rogue/outdoors/rtfield/byos
+
+/area/rogue/outdoors/byos
 	name = "New-Kingsfield wilderness"
 	first_time_text = null
-	threat_region = THREAT_REGION_ROCKHILL_BASIN
 	town_area = TRUE
+	icon_state = "rtfield"
+	soundenv = 19
+	ambush_times = list("night")
+	ambush_mobs = list(
+				/mob/living/simple_animal/hostile/retaliate/rogue/wolf/bobcat = 20,
+				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,
+				/mob/living/simple_animal/hostile/retaliate/rogue/fox = 30,
+				/mob/living/carbon/human/species/skeleton/npc/supereasy = 30)
+	droning_sound = 'sound/music/area/field.ogg'
+	droning_sound_dusk = 'sound/music/area/septimus.ogg'
+	droning_sound_night = 'sound/music/area/sleeping.ogg'
+	converted_type = /area/rogue/indoors/shelter/rtfield
+	deathsight_message = "somewhere in the wilds, next to towering walls"
+	warden_area = TRUE
+	threat_region = THREAT_REGION_ISLAND
+	detail_text = THREAT_REGION_ISLAND
+
+/area/rogue/outdoors/byos/town
+	icon_state = "town"
+	first_time_text = "The Colony of New Kingsfield"
+	town_area = TRUE
+	deathsight_message = "the colony of New Kingsfield and all its bustling souls"
+	droning_sound = 'sound/music/area/towngen.ogg'
+	droning_sound_dusk = 'sound/music/area/septimus.ogg'
+	droning_sound_night = 'sound/music/area/sleeping.ogg'
 
 // /area/rogue/outdoors/jungle/west
 // 	name = "Eastern Dread-Jungle"
 
 // /area/rogue/outdoors/jungle/east
 // 	name = "Western Dread-Jungle"
-
-/area/rogue/outdoors/town/byos
-	name = "outdoors"
-	first_time_text = "The Colony of New Kingsfield"
-	town_area = TRUE
-	deathsight_message = "the colony of New Kingsfield and all its bustling souls"
 
 /area/rogue/indoors/banditcamp/byos
 	name = "Pirate's Ship"

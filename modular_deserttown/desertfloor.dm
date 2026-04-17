@@ -243,8 +243,12 @@
 	. = ..()
 	src.ChangeTurf(/turf/open/floor/rogue/dirt/desert, flags = CHANGETURF_INHERIT_AIR)
 
+/turf/open/floor/rogue/desert_grass/nospawn
+
 /turf/open/floor/rogue/dirt/desert
 	icon = 'modular_deserttown/icons/desertfloor.dmi'
+	
+/turf/open/floor/rogue/dirt/desert/nospawn
 
 /turf/open/floor/rogue/dirt/road/desert
 	icon = 'modular_deserttown/icons/desertfloor.dmi'

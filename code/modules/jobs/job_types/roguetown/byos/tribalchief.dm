@@ -25,7 +25,6 @@
 	outfit = /datum/outfit/job/roguetown/tribalchieftain
 
 	display_order = JDO_TRIBALCHIEFTAIN
-	tutorial = "CHANGEME"
 	whitelist_req = FALSE
 	min_pq = 10
 	max_pq = null
@@ -104,7 +103,7 @@
 	tutorial = "Ooga Chacka BESTA chacka!"
 	// outfit = /datum/outfit/job/roguetown/tribalchieftain/warrior
 	category_tags = list(CTAG_TRIBALCHIEFTAIN)
-	traits_applied = list(TRAIT_DNR, TRAIT_HEAVYARMOR, TRAIT_TRIBAL)
+	traits_applied = list(TRAIT_DNR, TRAIT_HEAVYARMOR, TRAIT_TRIBAL, TRAIT_DARKVISION)
 	subclass_stats = list(
 		STATKEY_LCK = 5,
 		STATKEY_INT = 3,

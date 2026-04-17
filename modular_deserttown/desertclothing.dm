@@ -376,7 +376,6 @@
 	result = list(/obj/item/clothing/head/roguetown/turban)
 	reqs = list(/obj/item/natural/cloth = 1)
 	craftdiff = 1
-	tools = null
 
 /obj/item/clothing/head/roguetown/turban/fancypurple
 	name = "fancy purple turban"

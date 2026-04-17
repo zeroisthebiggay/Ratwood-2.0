@@ -177,14 +177,6 @@ GLOBAL_LIST_INIT(wanderer_positions, list(
 	"Gnoll",
 ))
 
-GLOBAL_LIST_INIT(tribal_positions, list(
-	"Tribal Chieftain",
-	"Tribal Shaman",
-	"Tribal Guard",
-	"Tribal Rabble",
-	"Tribal",
-))
-
 GLOBAL_LIST_INIT(roguewar_positions, list(
 	"Adventurer",
 ))
@@ -210,6 +202,11 @@ GLOBAL_LIST_INIT(foreign_positions, list(
 	"Suitor",
 	"Orthodoxist",
 	"Migrant",
+	"Tribal Chieftain",
+	"Tribal Shaman",
+	"Tribal Guard",
+	"Tribal Rabble",
+	"Tribal",
 ))
 
 GLOBAL_LIST_INIT(test_positions, list(
@@ -228,7 +225,6 @@ GLOBAL_LIST_INIT(job_assignment_order, get_job_assignment_order())
 	sorting_order += GLOB.yeoman_positions
 	sorting_order += GLOB.peasant_positions
 	sorting_order += GLOB.youngfolk_positions
-	sorting_order += GLOB.tribal_positions
 	return sorting_order
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(

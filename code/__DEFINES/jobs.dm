@@ -227,7 +227,6 @@
 #define JCOLOR_PEASANT "#b09262"
 #define JCOLOR_WANDERER  "#c86e3a"
 #define JCOLOR_INQUISITION "#FF0000"
-#define JCOLOR_TRIBAL "#0bac2e"
 
 /// Key value for taking the department's string and getting a color back
 #define JCOLOR_BY_DEPARTMENT list(\
@@ -241,7 +240,6 @@
 	"Peasants" = JCOLOR_PEASANT,\
 	"Sidefolk" = "grey",\
 	"Wanderers" = JCOLOR_WANDERER,\
-	"Tribe" = JCOLOR_TRIBAL,\
 )
 
 // job display orders //
@@ -414,7 +412,11 @@
 	/datum/job/roguetown/mercenary/desert_rider,\
 	/datum/job/roguetown/mercenary/grenzelhoft,\
 	/datum/job/roguetown/bandit,\
-	/datum/job/roguetown/wretch
+	/datum/job/roguetown/tribalchieftain,\
+	/datum/job/roguetown/tribalshaman,\
+	/datum/job/roguetown/tribalrabble,\
+	/datum/job/roguetown/tribleguard,\
+	/datum/job/roguetown/tribalvillager,\
 
 #define GARRISON_ROLES \
 	/datum/job/roguetown/warden,\
@@ -438,10 +440,3 @@
 #define INQUISITION_ROLES \
 	/datum/job/roguetown/puritan,\
 	/datum/job/roguetown/orthodoxist
-
-#define TRIBAL_ROLES \
-	/datum/job/roguetown/tribalchieftain,\
-	/datum/job/roguetown/tribalshaman,\
-	/datum/job/roguetown/tribalguard,\
-	/datum/job/roguetown/tribalvillager,\
-	/datum/job/roguetown/tribalrabble

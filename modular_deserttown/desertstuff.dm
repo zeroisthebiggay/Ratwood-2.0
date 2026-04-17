@@ -308,9 +308,9 @@
 	stump_type = null
 	pixel_x = -32
 
-/obj/structure/flora/roguetree/palm/Initialize()
+/obj/structure/flora/roguetree/stump/palm/Initialize()
 	. = ..()
-	icon_state = "st[rand(1,2)]"
+	icon_state = "palmstump[rand(1,2)]"
 
 /obj/structure/flora/roguegrass/bush/wall/tall/desert
 	icon = 'modular_deserttown/icons/alt/foliagetall.dmi'

@@ -180,29 +180,10 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/outdoors/mountains)
 "alq" = (
-/obj/structure/rack/rogue,
-/obj/structure/rack/rogue/shelf/big{
-	pixel_y = 37
+/obj/structure/vine{
+	color = "#bf080e"
 	},
-/obj/item/quiver/paalloy{
-	pixel_x = -4;
-	pixel_y = 30
-	},
-/obj/item/quiver/paalloy{
-	pixel_x = 9;
-	pixel_y = 27
-	},
-/obj/item/quiver/paalloy{
-	pixel_x = 2;
-	pixel_y = 28
-	},
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
-/turf/open/floor/rogue/cobble,
+/turf/closed/mineral/rogue,
 /area/rogue/under/cave)
 "alC" = (
 /turf/open/floor/rogue/ruinedwood/spiral,
@@ -299,7 +280,7 @@
 "arq" = (
 /obj/structure/mineral_door/bars{
 	locked = 1;
-	lockid = "gobbo_guards";
+	lockid = "tribal";
 	name = "Holding Cell"
 	},
 /turf/open/floor/rogue/dirt/road,
@@ -1052,12 +1033,6 @@
 "bzU" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/rogue/naturalstone,
-/area/rogue/under/cave)
-"bAd" = (
-/obj/structure/vine{
-	color = "#bf080e"
-	},
-/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
 /area/rogue/under/cave)
 "bAN" = (
 /obj/structure/mineral_door/bars{
@@ -3519,7 +3494,7 @@
 /obj/structure/mineral_door/wood/donjon{
 	armor = list(blunt=90, slash=90, stab=90, bullet=0, laser=0, energy=100, bomb=10, bio=100, rad=100, fire=50, acid=50);
 	locked = 1;
-	lockid = "gobbo_chief";
+	lockid = "tribalchief";
 	name = "Riches";
 	dir = 8
 	},
@@ -3959,6 +3934,12 @@
 /area/rogue/under/cave)
 "fEq" = (
 /turf/open/floor/rogue/dirt/road/desert,
+/area/rogue/under/cave)
+"fEO" = (
+/obj/structure/vine{
+	color = "#bf080e"
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
 /area/rogue/under/cave)
 "fEW" = (
 /obj/structure/mirror,
@@ -4873,6 +4854,10 @@
 /obj/item/clothing/suit/roguetown/armor/plate/half/paalloy,
 /obj/item/clothing/suit/roguetown/armor/plate/half/paalloy,
 /obj/item/clothing/suit/roguetown/armor/plate/half/paalloy,
+/obj/item/clothing/gloves/roguetown/chain/paalloy{
+	pixel_x = -9;
+	pixel_y = 32
+	},
 /turf/open/floor/rogue/blocks,
 /area/rogue/under/cave)
 "gFQ" = (
@@ -4974,7 +4959,7 @@
 /obj/structure/mineral_door/wood/donjon/stone{
 	name = "Chief's Room";
 	locked = 1;
-	lockid = "gobbo_chief";
+	lockid = "tribalchief";
 	masterkey = 0
 	},
 /turf/open/floor/rogue/blocks,
@@ -6686,7 +6671,7 @@
 /obj/structure/mineral_door/wood/donjon{
 	name = "Armory";
 	locked = 1;
-	lockid = "gobbo_guards";
+	lockid = "tribal";
 	masterkey = 0
 	},
 /turf/open/floor/rogue/cobble/mossy,
@@ -7151,7 +7136,7 @@
 /obj/structure/mineral_door/wood/donjon{
 	dir = 8;
 	locked = 1;
-	lockid = "gobbo_guards";
+	lockid = "tribal";
 	name = "Bad Room"
 	},
 /turf/open/floor/rogue/blocks,
@@ -7411,6 +7396,39 @@
 	dir = 8
 	},
 /turf/open/transparent/openspace,
+/area/rogue/under/cave)
+"kcU" = (
+/obj/structure/rack/rogue,
+/obj/structure/rack/rogue/shelf/big{
+	pixel_y = 37
+	},
+/obj/item/quiver/paalloy{
+	pixel_x = -4;
+	pixel_y = 30
+	},
+/obj/item/quiver/paalloy{
+	pixel_x = 9;
+	pixel_y = 27
+	},
+/obj/item/quiver/paalloy{
+	pixel_x = 2;
+	pixel_y = 28
+	},
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow,
+/obj/item/quiver/paalloy{
+	pixel_x = 2;
+	pixel_y = 28
+	},
+/obj/item/quiver/paalloy{
+	pixel_x = 2;
+	pixel_y = 28
+	},
+/turf/open/floor/rogue/cobble,
 /area/rogue/under/cave)
 "kcV" = (
 /obj/item/natural/rock,
@@ -8049,9 +8067,6 @@
 	icon_state = "wooden_floor2"
 	},
 /area/rogue/indoors/banditcamp/byos)
-"kSg" = (
-/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
-/area/rogue/under/cave)
 "kSj" = (
 /obj/structure/flora/roguegrass/bush/jungle/large,
 /turf/open/floor/rogue/dirt/desert,
@@ -8168,7 +8183,7 @@
 "kYY" = (
 /obj/structure/closet/crate/chest/gold{
 	locked = 1;
-	lockid = "gobbo_chief"
+	lockid = "tribalchief"
 	},
 /obj/item/rogueore/gold,
 /obj/item/rogueore/gold,
@@ -8253,10 +8268,6 @@
 /obj/item/rogueweapon/huntingknife,
 /obj/item/rogueweapon/huntingknife,
 /obj/item/rogueweapon/huntingknife,
-/obj/item/rogueweapon/huntingknife/idagger{
-	pixel_x = -5;
-	pixel_y = 6
-	},
 /obj/item/rogueweapon/huntingknife/idagger/steel/padagger{
 	pixel_x = 7;
 	pixel_y = -6
@@ -8264,6 +8275,10 @@
 /obj/item/rogueweapon/huntingknife/idagger/steel/padagger{
 	pixel_x = 11;
 	pixel_y = -9
+	},
+/obj/item/rogueweapon/huntingknife/idagger/steel/padagger{
+	pixel_x = 7;
+	pixel_y = -6
 	},
 /turf/open/floor/rogue/blocks,
 /area/rogue/under/cave)
@@ -8600,7 +8615,7 @@
 "lyD" = (
 /obj/structure/mineral_door/wood/donjon/stone{
 	name = "Seer's Room";
-	lockid = "gobbo_guards";
+	lockid = "tribal";
 	masterkey = 0
 	},
 /turf/open/floor/rogue/blocks,
@@ -9672,10 +9687,7 @@
 /turf/open/floor/rogue/tile,
 /area/rogue/under/cave)
 "mLy" = (
-/obj/structure/stairs/stone{
-	dir = 8
-	},
-/turf/open/transparent/openspace,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
 /area/rogue/under/cave)
 "mLE" = (
 /obj/effect/landmark/chest_or_mimic,
@@ -11274,10 +11286,8 @@
 /turf/closed/mineral/random/rogue/high,
 /area/rogue/under/cave)
 "oQt" = (
-/obj/structure/vine{
-	color = "#bf080e"
-	},
-/turf/closed/mineral/rogue,
+/obj/structure/stairs,
+/turf/open/floor/rogue/blocks,
 /area/rogue/under/cave)
 "oQL" = (
 /obj/structure/stairs/stone,
@@ -12942,7 +12952,7 @@
 /area/rogue/indoors/town/church/chapel)
 "qUJ" = (
 /obj/structure/mineral_door/wood/donjon{
-	lockid = "gobbo_guards";
+	lockid = "tribal";
 	name = "Guard's Quarters"
 	},
 /turf/open/floor/rogue/cobble,
@@ -14744,7 +14754,13 @@
 	dir = 8
 	},
 /obj/structure/rack/rogue,
-/obj/item/rogueweapon/mace/warhammer/steel/paalloy,
+/obj/item/rogueweapon/mace/cudgel/shellrungu,
+/obj/item/rogueweapon/mace/cudgel/shellrungu,
+/obj/item/rogueweapon/mace/cudgel/shellrungu,
+/obj/item/rogueweapon/mace/warhammer/steel/paalloy{
+	pixel_x = 4;
+	pixel_y = -8
+	},
 /turf/open/floor/rogue/blocks,
 /area/rogue/under/cave)
 "tcU" = (
@@ -16469,7 +16485,7 @@
 /area/rogue/indoors)
 "vlk" = (
 /obj/structure/mineral_door/wood/donjon/stone{
-	lockid = "gobbo_chief"
+	lockid = "tribal"
 	},
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/under/cave)
@@ -39815,8 +39831,8 @@ dNc
 hsi
 fbv
 rHm
-kTU
-kTU
+hsi
+hsi
 rHm
 rRr
 rRr
@@ -41432,8 +41448,8 @@ dNc
 dNc
 dNc
 dNc
-dNc
-dNc
+wXy
+wXy
 wXy
 wXy
 teF
@@ -41633,7 +41649,7 @@ dNc
 dNc
 dNc
 dNc
-dNc
+wXy
 wXy
 wXy
 wXy
@@ -41835,9 +41851,9 @@ dNc
 dNc
 dNc
 dNc
-wXy
-wXy
-wXy
+dNc
+dNc
+dNc
 rRr
 rRr
 rRr
@@ -42034,10 +42050,10 @@ dNc
 dNc
 dNc
 dNc
-dNc
-dNc
-dNc
-dNc
+hsi
+hsi
+hsi
+hsi
 dNc
 dNc
 oQg
@@ -42237,11 +42253,11 @@ dNc
 dNc
 dNc
 hsi
+fbv
+sHY
 hsi
 hsi
-hsi
-dNc
-dNc
+sHY
 dNc
 oQg
 rRr
@@ -42440,10 +42456,10 @@ dNc
 dNc
 hsi
 fbv
-sHY
-kTU
-kTU
-sHY
+rRr
+uWe
+uff
+rRr
 rRr
 rRr
 rRr
@@ -42843,11 +42859,11 @@ dNc
 dNc
 dNc
 hsi
-fbv
-rRr
-uWe
-uff
-rRr
+hsi
+hsi
+hsi
+hsi
+dNc
 rRr
 oQg
 oQg
@@ -43044,11 +43060,11 @@ dNc
 dNc
 dNc
 dNc
-hsi
-hsi
-hsi
-hsi
-hsi
+dNc
+dNc
+dNc
+dNc
+dNc
 dNc
 oQg
 oQg
@@ -45056,12 +45072,12 @@ dNc
 dNc
 dNc
 dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+uSo
+uSo
+uSo
+uSo
+uSo
+uSo
 niM
 nim
 niM
@@ -45670,7 +45686,7 @@ qkG
 vkM
 vkM
 uSo
-qNG
+uSo
 qNG
 sWp
 sWp
@@ -46285,15 +46301,15 @@ dNc
 dNc
 wXy
 wXy
+rRr
 dNc
-xoA
-ojN
-ojN
-xoA
-jLR
-xoA
-ojN
-ojN
+dNc
+dNc
+dNc
+dNc
+dNc
+dNc
+dNc
 dNc
 dNc
 dNc
@@ -46485,18 +46501,18 @@ qNG
 qNG
 dNc
 dNc
-rRr
-bzU
+wXy
+wXy
+dNc
 xoA
-xoA
-kTo
-iiF
-wsd
-pxu
-wsd
-iiF
 ojN
 ojN
+xoA
+jLR
+xoA
+ojN
+ojN
+dNc
 dNc
 dNc
 dNc
@@ -46685,19 +46701,19 @@ niM
 qNG
 qNG
 qNG
-eUq
-rRr
-sth
+dNc
+dNc
+wXy
+bzU
+xoA
+xoA
+kTo
+iiF
+wsd
+pxu
+wsd
+iiF
 ojN
-jLR
-eXT
-fiS
-csk
-fiS
-fiS
-rlF
-eVa
-eXT
 ojN
 dNc
 dNc
@@ -46887,26 +46903,26 @@ qNG
 qNG
 qNG
 sWp
+eUq
+rRr
+sth
+ojN
+jLR
+eXT
+fiS
+csk
+fiS
+fiS
+rlF
+eVa
+eXT
+ojN
 dNc
-rRr
-rRr
-ojN
-kll
-anZ
-lAI
-vzr
-jqm
-jpM
-lAI
-vzr
-jqm
-xoA
-xoA
-ojN
-ojN
-xoA
-xoA
-ojN
+dNc
+dNc
+dNc
+dNc
+dNc
 dNc
 dNc
 oQg
@@ -47089,27 +47105,27 @@ qNG
 sWp
 sWp
 sWp
-sth
+dNc
 rRr
 rRr
-rXH
-pDZ
-isU
-isU
-hzX
-rcm
-hzX
-xRo
-hzX
-cof
-xxk
-jLR
-jLR
-ucP
-eXT
-isU
+ojN
+kll
+anZ
+lAI
+vzr
+jqm
+jpM
+lAI
+vzr
+jqm
+xoA
+xoA
 ojN
 ojN
+xoA
+xoA
+ojN
+dNc
 dNc
 dNc
 dNc
@@ -47291,27 +47307,27 @@ sWp
 sWp
 sWp
 qNG
-bzU
+sth
 rRr
 rRr
+rXH
+pDZ
+isU
+isU
+hzX
+rcm
+hzX
+xRo
+hzX
+cof
+xxk
+jLR
+jLR
+ucP
+eXT
+isU
 ojN
-geR
-mKJ
-iLQ
-mKJ
-mKJ
-mKJ
-mKJ
-iLQ
-mKJ
-xoA
-xoA
-juY
-eXT
-lxD
-eXT
-tZu
-xoA
+ojN
 dNc
 dNc
 dNc
@@ -47493,27 +47509,27 @@ sWp
 sWp
 qNG
 dNc
+bzU
 rRr
-kZb
-sth
-jLR
-gmZ
+rRr
+ojN
+geR
+mKJ
+iLQ
+mKJ
+mKJ
+mKJ
+mKJ
+iLQ
+mKJ
+xoA
+xoA
+juY
 eXT
-iEE
-uZX
-uZX
-uZX
-uZX
-tyo
+lxD
 eXT
-eXT
-hLP
-eXT
-eXT
-rLN
-eXT
-eXT
-jLR
+tZu
+xoA
 dNc
 dNc
 dNc
@@ -47695,27 +47711,27 @@ sWp
 qNG
 qNG
 dNc
-dNc
 rRr
-rRr
-ojN
-jTQ
-kll
-kll
-kll
-buT
-kll
-kll
-kll
-kll
-xoA
-xoA
-bRu
+kZb
+sth
+jLR
+gmZ
+eXT
+iEE
+uZX
+uZX
+uZX
+uZX
+tyo
 eXT
 eXT
-lxD
-oVc
-xoA
+hLP
+eXT
+eXT
+rLN
+eXT
+eXT
+jLR
 dNc
 dNc
 dNc
@@ -47898,26 +47914,26 @@ qNG
 qNG
 dNc
 dNc
-eUq
 rRr
-dks
-pDZ
-isU
-isU
-hzX
-lvt
-hzX
-vFy
-hzX
-lvt
-xxk
-jLR
-jLR
-ucP
+rRr
+ojN
+jTQ
+kll
+kll
+kll
+buT
+kll
+kll
+kll
+kll
+xoA
+xoA
+bRu
 eXT
-isU
-ojN
-ojN
+eXT
+lxD
+oVc
+xoA
 dNc
 qNG
 qNG
@@ -48100,26 +48116,26 @@ qNG
 dNc
 dNc
 dNc
-dNc
-bzU
+eUq
+rRr
+dks
+pDZ
+isU
+isU
+hzX
+lvt
+hzX
+vFy
+hzX
+lvt
+xxk
+jLR
+jLR
+ucP
+eXT
+isU
 ojN
-mKJ
-gSg
-uGg
-vzr
-gSg
-gSg
-jml
-vzr
-gSg
-xoA
-xoA
 ojN
-ojN
-xoA
-xoA
-ojN
-dNc
 dNc
 dNc
 qNG
@@ -48303,24 +48319,24 @@ dNc
 dNc
 dNc
 dNc
-dNc
+bzU
 ojN
-jLR
-iGa
-fiS
-typ
-okq
-vqW
-fiS
-twE
-eXT
+mKJ
+gSg
+uGg
+vzr
+gSg
+gSg
+jml
+vzr
+gSg
+xoA
+xoA
 ojN
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+ojN
+xoA
+xoA
+ojN
 dNc
 dNc
 dNc
@@ -48506,16 +48522,16 @@ dNc
 dNc
 dNc
 dNc
-dNc
-xoA
-xoA
-pkQ
-iiF
-wsd
-drL
-wsd
-iiF
 ojN
+jLR
+iGa
+fiS
+typ
+okq
+vqW
+fiS
+twE
+eXT
 ojN
 dNc
 dNc
@@ -48705,20 +48721,20 @@ dNc
 dNc
 dNc
 dNc
-oQg
 dNc
 dNc
 dNc
 dNc
 xoA
-ojN
-ojN
 xoA
-jLR
-xoA
+pkQ
+iiF
+wsd
+drL
+wsd
+iiF
 ojN
 ojN
-dNc
 dNc
 dNc
 dNc
@@ -48908,18 +48924,18 @@ sWp
 sWp
 sWp
 oQg
-oQg
 dNc
 dNc
 dNc
 dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+xoA
+ojN
+ojN
+xoA
+jLR
+xoA
+ojN
+ojN
 dNc
 dNc
 dNc
@@ -49110,7 +49126,7 @@ sWp
 oQg
 oQg
 oQg
-dNc
+oQg
 dNc
 dNc
 dNc
@@ -80216,7 +80232,7 @@ vCu
 fbv
 xui
 xui
-kTU
+hsi
 dNc
 xui
 xui
@@ -80419,10 +80435,10 @@ vCu
 jLR
 hsi
 hsi
-dNc
-dNc
-dNc
-dNc
+hsi
+hsi
+hsi
+hsi
 dNc
 dNc
 dNc
@@ -80618,14 +80634,14 @@ vCu
 hJo
 hJo
 vCu
-uSo
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+llZ
+cyF
+cyF
+cyF
+cyF
+cyF
+hsi
+hsi
 dNc
 dNc
 dNc
@@ -80821,13 +80837,13 @@ hJo
 hJo
 hsi
 uSo
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+fzG
+vCu
+vCu
+eZp
+hJo
+iFQ
+hsi
 dNc
 dNc
 dNc
@@ -81022,14 +81038,14 @@ vxN
 hJo
 hJo
 cyF
+oQt
+vCu
+ylM
+itn
+aeW
+hJo
+cyF
 hsi
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
 dNc
 dNc
 dNc
@@ -81224,14 +81240,14 @@ cyF
 cyF
 hJo
 cyF
+oQt
+vCu
+ylM
+vAr
+pxC
+hJo
+cyF
 hsi
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
 dNc
 dNc
 dNc
@@ -81427,13 +81443,13 @@ cyF
 cyF
 cyF
 hsi
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+hJo
+ylM
+itn
+fcY
+hJo
+cyF
+fJh
 dNc
 dNc
 dNc
@@ -81628,14 +81644,14 @@ cyF
 cyF
 hJo
 cyF
+oQt
+hJo
+ylM
+cyJ
+upc
+hJo
+vAz
 hsi
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
 dNc
 dNc
 dNc
@@ -81830,14 +81846,14 @@ vxN
 hJo
 hJo
 cyF
+oQt
+vCu
+ylM
+gWB
+olJ
+hJo
+wRz
 hsi
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
 dNc
 dNc
 dNc
@@ -82033,13 +82049,13 @@ hJo
 hJo
 hsi
 uSo
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+vCu
+vCu
+vCu
+vUw
+hJo
+hsi
+hsi
 dNc
 dNc
 dNc
@@ -82234,13 +82250,13 @@ vCu
 hJo
 hJo
 vCu
-uSo
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+llZ
+vCu
+cyF
+qfY
+cyF
+qkG
+hsi
 dNc
 dNc
 dNc
@@ -82434,15 +82450,15 @@ uSo
 uSo
 vCu
 hJo
-hJo
 vCu
+vCu
+jLR
 hsi
-dNc
-dNc
-dNc
-dNc
-dNc
-dNc
+hsi
+hsi
+hsi
+hsi
+hsi
 dNc
 dNc
 dNc
@@ -82637,14 +82653,14 @@ vCu
 vCu
 hJo
 vCu
-vCu
-jLR
+fbv
+xui
+xui
 hsi
-hsi
 dNc
-dNc
-dNc
-dNc
+xui
+xui
+xui
 dNc
 dNc
 dNc
@@ -82838,12 +82854,12 @@ vCu
 vCu
 vCu
 vCu
-vCu
-fbv
+cyF
+eoM
 xui
 xui
-hsi
-dNc
+nGe
+xui
 xui
 xui
 xui
@@ -83024,7 +83040,7 @@ dNc
 dNc
 dNc
 dNc
-hsi
+dNc
 hsi
 ujQ
 sCr
@@ -83041,14 +83057,14 @@ uSo
 uSo
 cyF
 cyF
-eoM
+gmb
 xui
 xui
 nGe
 xui
 xui
 xui
-xui
+dNc
 dNc
 dNc
 dNc
@@ -83226,30 +83242,30 @@ dNc
 dNc
 dNc
 dNc
+dNc
 hsi
-alq
-vCu
+kcU
 vCu
 hJo
 vCu
 rAf
 hsi
-uSo
-cyF
-cyF
-cyF
-cyF
-cyF
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
 hsi
 hsi
-cyF
-gmb
-xui
-xui
-nGe
-xui
-xui
-xui
+hsi
+hsi
+hsi
+hsi
+hsi
+dNc
+dNc
+dNc
 dNc
 dNc
 dNc
@@ -83428,7 +83444,7 @@ dNc
 dNc
 dNc
 dNc
-hsi
+dNc
 hsi
 pOQ
 hFm
@@ -83436,19 +83452,19 @@ ldX
 tcO
 fVb
 hsi
-uSo
-fzG
 vCu
 vCu
-eZp
-hJo
-iFQ
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
 hsi
-hsi
-hsi
-hsi
-hsi
-hsi
+dNc
+dNc
+dNc
+dNc
 dNc
 dNc
 dNc
@@ -83638,14 +83654,14 @@ uSo
 uSo
 hsi
 hsi
-hsi
 vCu
-ylM
-itn
-aeW
-hJo
-cyF
-hsi
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
 hsi
 dNc
 dNc
@@ -83841,13 +83857,13 @@ hXr
 hsi
 vyN
 cyF
-hJo
-ylM
-vAr
-pxC
-hJo
-cyF
-hsi
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
 hsi
 dNc
 dNc
@@ -84043,13 +84059,13 @@ nZp
 hsi
 hsi
 cyF
-hJo
-ylM
-itn
-fcY
-hJo
-cyF
-fJh
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
 hsi
 dNc
 dNc
@@ -84245,13 +84261,13 @@ vCu
 lyD
 eoM
 cyF
-hJo
-ylM
-cyJ
-upc
-hJo
-vAz
-hsi
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
 hsi
 dNc
 dNc
@@ -84448,12 +84464,12 @@ uSo
 uSo
 vCu
 vCu
-ylM
-gWB
-olJ
-hJo
-wRz
-hsi
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
 dNc
 dNc
 dNc
@@ -84652,10 +84668,10 @@ vCu
 vCu
 vCu
 vCu
-vUw
-hJo
-hsi
-hsi
+vCu
+vCu
+vCu
+vCu
 dNc
 dNc
 dNc
@@ -84852,12 +84868,12 @@ uSo
 uSo
 cyF
 vCu
-cyF
-qfY
-cyF
-qkG
-hsi
-dNc
+vCu
+vCu
+vCu
+vCu
+vCu
+vCu
 dNc
 dNc
 dNc
@@ -85457,8 +85473,8 @@ nFS
 nFS
 dNc
 dNc
-dNc
-dNc
+uSo
+uSo
 dNc
 vCu
 rxa
@@ -85663,7 +85679,7 @@ uSo
 xui
 xui
 xui
-mLy
+xui
 blZ
 xui
 xui
@@ -86071,7 +86087,7 @@ xui
 blZ
 blZ
 uSo
-dNc
+uSo
 dNc
 dNc
 dNc
@@ -86677,7 +86693,7 @@ xui
 blZ
 blZ
 uSo
-dNc
+uSo
 dNc
 dNc
 dNc
@@ -112770,8 +112786,8 @@ pwO
 pwO
 pwO
 eWy
-jfA
-jfA
+hZE
+hZE
 htM
 htM
 htM
@@ -112972,8 +112988,8 @@ pwO
 pwO
 pwO
 eWy
-jfA
-jfA
+hZE
+hZE
 htM
 gmp
 eWy
@@ -148866,8 +148882,8 @@ dNc
 sSl
 ehw
 jKa
-oQt
-oQt
+alq
+alq
 sei
 byf
 sYM
@@ -149067,10 +149083,10 @@ jpx
 dNc
 fyE
 byf
-oQt
+alq
 ojN
-oQt
-oQt
+alq
+alq
 mSh
 kZQ
 byf
@@ -149461,7 +149477,7 @@ dqG
 dqG
 dqG
 eWy
-oQt
+alq
 byf
 byf
 byf
@@ -149475,7 +149491,7 @@ ojN
 byf
 ehw
 sSl
-oQt
+alq
 byf
 sSl
 ojN
@@ -149662,7 +149678,7 @@ dqG
 dqG
 dqG
 eWy
-oQt
+alq
 pfU
 byf
 jpx
@@ -149670,10 +149686,10 @@ oEJ
 kwr
 rza
 xSV
-kSg
-bAd
+mLy
+fEO
 wlc
-oQt
+alq
 jpx
 byf
 uqO
@@ -149875,7 +149891,7 @@ pqN
 fZc
 sbo
 iaz
-oQt
+alq
 dNc
 byf
 byf
@@ -150069,8 +150085,8 @@ ojN
 jKa
 kZQ
 byf
-oQt
-oQt
+alq
+alq
 pqN
 pqN
 xdr
@@ -150271,8 +150287,8 @@ ojN
 byf
 byf
 jKa
-oQt
-kSg
+alq
+mLy
 pqN
 sWy
 kNe
@@ -150472,7 +150488,7 @@ dqG
 jpx
 sha
 jpx
-oQt
+alq
 kNe
 kmI
 eYe
@@ -150889,7 +150905,7 @@ pir
 byf
 byf
 byf
-oQt
+alq
 eWy
 dqG
 dqG
@@ -151075,7 +151091,7 @@ dqG
 dqG
 dqG
 eWy
-oQt
+alq
 bmd
 byf
 ojN
@@ -151282,7 +151298,7 @@ qqQ
 rEP
 pir
 jpx
-kSg
+mLy
 pqN
 ijb
 vQf
@@ -151293,7 +151309,7 @@ xSV
 dNc
 byf
 unK
-oQt
+alq
 eWy
 dqG
 dqG
@@ -151490,8 +151506,8 @@ pqN
 byf
 sSl
 pqN
-kSg
-oQt
+mLy
+alq
 jpx
 ehw
 byf
@@ -151689,10 +151705,10 @@ ucM
 pir
 ojN
 xSV
-bAd
+fEO
 xSV
 dNc
-oQt
+alq
 rza
 byf
 byf
@@ -151883,23 +151899,23 @@ dqG
 dqG
 dqG
 eWy
-oQt
+alq
 byf
 sSl
 fyE
 kZQ
 byf
 sSl
-oQt
-oQt
-oQt
-oQt
+alq
+alq
+alq
+alq
 pfU
 ehw
 sYM
 yiz
 rza
-oQt
+alq
 eWy
 eWy
 dqG
@@ -152085,7 +152101,7 @@ dqG
 dqG
 dqG
 dqG
-oQt
+alq
 rza
 fyE
 ehw
@@ -152099,8 +152115,8 @@ kZQ
 sha
 byf
 sSl
-oQt
-oQt
+alq
+alq
 eWy
 eWy
 dqG
@@ -152289,7 +152305,7 @@ dqG
 dqG
 dqG
 dNc
-oQt
+alq
 qRA
 fhZ
 ehw
@@ -152495,13 +152511,13 @@ dNc
 ojN
 dNc
 ojN
-oQt
+alq
 rza
 rza
-oQt
+alq
 rza
-oQt
-oQt
+alq
+alq
 eWy
 eWy
 dqG
@@ -153171,7 +153187,7 @@ htM
 htM
 htM
 htM
-jfA
+hZE
 xui
 eWy
 eWy
@@ -153373,7 +153389,7 @@ htM
 klm
 vTI
 htM
-jfA
+htM
 xui
 eWy
 eWy

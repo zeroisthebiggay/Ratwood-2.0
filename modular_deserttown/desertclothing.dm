@@ -693,7 +693,7 @@
 
 /datum/crafting_recipe/roguetown/sewing/bragreen
 	name = "exotic silk bra(green)"
-	result = list(/obj/item/storage/belt/rogue/leather/exoticsilkbelt/bra/green)
+	result = list(/obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/green)
 	reqs = list(/obj/item/natural/silk = 2)
 	craftdiff = 4
 
@@ -706,7 +706,7 @@
 
 /datum/crafting_recipe/roguetown/sewing/brared
 	name = "exotic silk bra (red)"
-	result = list(/obj/item/storage/belt/rogue/leather/exoticsilkbelt/bra/red)
+	result = list(/obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/red)
 	reqs = list(/obj/item/natural/silk = 2)
 	craftdiff = 4
 

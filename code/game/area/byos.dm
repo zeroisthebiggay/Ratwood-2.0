@@ -51,20 +51,25 @@
 	droning_sound_dusk = 'sound/music/area/septimus.ogg'
 	droning_sound_night = 'sound/music/area/sleeping.ogg'
 	converted_type = /area/rogue/indoors/shelter/rtfield
-	deathsight_message = "somewhere in the wilds, next to towering walls"
+	deathsight_message = "the outskirts of the colony of New Kingsfield and all its bustling souls"
 	warden_area = TRUE
 	threat_region = THREAT_REGION_ISLAND
 	detail_text = THREAT_REGION_ISLAND
 
-/area/rogue/outdoors/byos/town
+/area/rogue/outdoors/town/byos
 	icon_state = "town"
 	first_time_text = "The Colony of New Kingsfield"
 	town_area = TRUE
 	deathsight_message = "the colony of New Kingsfield and all its bustling souls"
-	droning_sound = 'sound/music/area/towngen.ogg'
-	droning_sound_dusk = 'sound/music/area/septimus.ogg'
-	droning_sound_night = 'sound/music/area/sleeping.ogg'
-
+	threat_region = THREAT_REGION_ISLAND
+	detail_text = THREAT_REGION_ISLAND
+	ambush_times = list("night")
+	ambush_mobs = list(
+				/mob/living/simple_animal/hostile/retaliate/rogue/wolf/bobcat = 20,
+				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,
+				/mob/living/simple_animal/hostile/retaliate/rogue/fox = 30,
+				/mob/living/carbon/human/species/skeleton/npc/supereasy = 30)
+	
 // /area/rogue/outdoors/jungle/west
 // 	name = "Eastern Dread-Jungle"
 

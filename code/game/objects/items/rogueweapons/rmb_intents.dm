@@ -43,7 +43,7 @@
 	var/guaranteed_fail = FALSE
 	var/special_msg = span_danger("It didn't work! [HT.p_their(TRUE)] footing returned!")
 
-	if(HT.has_status_effect(/datum/status_effect/debuff/baited) || user.has_status_effect(/datum/status_effect/debuff/baitcd))
+	if(user.has_status_effect(/datum/status_effect/debuff/baitcd))
 		return	//We don't do anything if either of us is affected by bait statuses
 
 	HU.visible_message(span_danger("[HU] baits an attack from [HT]!"))
@@ -66,7 +66,6 @@
 	if(guaranteed_fail)
 		if(special_msg)
 			to_chat(HU, special_msg)
-		else
 			to_chat(HT, span_notice("I fooled [HU.p_them()]! I've regained my footing!"))
 		HU.emote("groan")
 		HU.stamina_add(HU.max_stamina * 0.2)

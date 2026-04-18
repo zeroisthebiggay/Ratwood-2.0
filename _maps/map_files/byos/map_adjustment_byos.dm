@@ -70,11 +70,6 @@
 		/datum/job/roguetown/slave,
 		/datum/job/roguetown/adventurer/courtslave,
 		
-		// /datum/job/roguetown/vanguard,//eh probably fine
-		/datum/job/roguetown/guardsman,//Not a city map
-		/datum/job/roguetown/watchcaptain,//Not a city map
-		/datum/job/roguetown/wardenmaster,//Probably the best possible place for 'em!
-		
 		// /datum/job/roguetown/adventurer//Adventurers
 		// /datum/job/roguetown/wretch,
 		// /datum/job/roguetown/bandit,
@@ -108,10 +103,14 @@
 		// /datum/job/roguetown/manorguard,
 		// /datum/job/roguetown/guardsman,
 		// /datum/job/roguetown/warden,
+		// /datum/job/roguetown/wardenmaster,//Probably the best possible place for 'em!
 		/datum/job/roguetown/dungeoneer,
 		// /datum/job/roguetown/sergeant,
 		// /datum/job/roguetown/squire,
 		// /datum/job/roguetown/veteran,
+		// /datum/job/roguetown/vanguard,//eh probably fine
+		/datum/job/roguetown/guardsman,//Not a city map
+		/datum/job/roguetown/watchcaptain,//Not a city map
 
 		//trader (probably fine to keep as it is)
 

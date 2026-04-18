@@ -12,16 +12,49 @@
 		// /datum/job/roguetown/adventurer = 69
 	)
 	title_adjust = list(
+		// Noble Court
 		/datum/job/roguetown/lord = list(display_title = "Grand Viceroy", f_title = "Grand Vicereine"),
-		/datum/job/roguetown/bandit = "Pirate", //couldn't get these to work
-		// /datum/antagonist/bandit = "Pirate",
-		/datum/job/roguetown/orphan = "Stowaway",
-		/datum/job/roguetown/beggar = "Stowaway",
+		// /datum/job/roguetown/hand = list(display_title = "Adjutant", f_title = "Adjutant"),
+		// /datum/job/roguetown/steward = list(display_title = "Seneschal", f_title = "Seneschal"),
+		// /datum/job/roguetown/butler = list(display_title = "Majordomo", f_title = "Majordomo"),
+		// /datum/job/roguetown/councillor = list(display_title = "Adviser", f_title = "Adviser"),
+		// /datum/job/roguetown/prince = list(display_title = "Scion", f_title = "Scion"),
+
+		// Military & Guards
+		// /datum/job/roguetown/marshal = list(display_title = "Sheriff", f_title = "Sheriff"),
+		// /datum/job/roguetown/warden = list(display_title = "Vanguard", f_title = "Vanguard"),
+		// /datum/job/roguetown/sergeant = list(display_title = "Watch Sergeant", f_title = "Watch Sergeant"),
+		// /datum/job/roguetown/manorguard = list(display_title = "House Guard", f_title = "House Guard"),
+		// /datum/job/roguetown/guardsman = list(display_title = "Watchman", f_title = "Watchwoman"),
+
+		// Clergy
+		// /datum/job/roguetown/priest = list(display_title = "Abbot", f_title = "Abbess"),
+		// /datum/job/roguetown/martyr = list(display_title = "Zealot", f_title = "Zealot"),
+
+		// Court Specialists
+		// /datum/job/roguetown/jester = list(display_title = "Fool", f_title = "Fool"),
+		// /datum/job/roguetown/physician = list(display_title = "Island Physician", f_title = "Island Physician"),
+
+		// Merchants & Crafters
+		// /datum/job/roguetown/merchant = list(display_title = "Trader", f_title = "Trader"),
+		// /datum/job/roguetown/guildmaster = list(display_title = "Guild Master", f_title = "Guild Mistress"),
+		// /datum/job/roguetown/guildsman = list(display_title = "Guildsman", f_title = "Guildswoman"),
+		// /datum/job/roguetown/archivist = list(display_title = "Scribe", f_title = "Scribe"),
+
+		// Common Folk
+		/datum/job/roguetown/villager = list(display_title = "Colonist", f_title = "Colonist"),
+		// /datum/job/roguetown/farmer = list(display_title = "Settler", f_title = "Settler"),
+		// /datum/job/roguetown/servant = list(display_title = "Servant", f_title = "Servant"),
+		// /datum/job/roguetown/lunatic = list(display_title = "Madman", f_title = "Madwoman"),
+
+		// Outcasts & Misc
+		/datum/job/roguetown/bandit = list(display_title = "Pirate", f_title = "Pirate"),
+		/datum/job/roguetown/orphan = list(display_title = "Stowaway", f_title = "Stowaway"),
+		/datum/job/roguetown/beggar = list(display_title = "Stowaway", f_title = "Stowaway"),
 	)
 	tutorial_adjust = list(
 		/datum/job/roguetown/lord = "You have been sent by the queen to oversee the colony of New Kingsfield. CHANGE THIS LATER.",
-		// /datum/job/roguetown/bandit = "CHANGE THIS LATER - Yarh har plunder!" ,
-	// 	"At some point in your lyfe, you'd fallen to the wrong side of the PIRATESHIP!. Whether by butchery or finesse, you're known throughout the SEVEN SEAS. Yet one of many faces in a SALTY PORT tavern, hung up on a wall. A tale told by the locals. Now, you lyve in a PIRATES COVE with your fellows, to avoid an unpleasant end."
+		/datum/job/roguetown/bandit = "At some point in your lyfe, you'd fallen to the wrong side of the PIRATESHIP!. Whether by butchery or finesse, you're known throughout the SEVEN SEAS. Yet one of many faces in a SALTY PORT tavern, hung up on a wall. A tale told by the locals. Now, you lyve in a PIRATES COVE with your fellows, to avoid an unpleasant end."
 		// /datum/job/roguetown/orphan = "CHANGE THIS LATER!",
 
 	)

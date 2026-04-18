@@ -27,6 +27,7 @@ endmap
 
 map byos
 endmap
+	maxplayers 100
 
 map deserttown
 endmap

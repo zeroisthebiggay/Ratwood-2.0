@@ -64,9 +64,8 @@
 		guaranteed_fail = TRUE
 
 	if(guaranteed_fail)
-		if(special_msg)
-			to_chat(HU, special_msg)
-			to_chat(HT, span_notice("I fooled [HU.p_them()]! I've regained my footing!"))
+		to_chat(HU, special_msg)
+		to_chat(HT, span_notice("I fooled [HU.p_them()]! I've regained my footing!"))
 		HU.emote("groan")
 		HU.stamina_add(HU.max_stamina * 0.2)
 		HT.bait_stacks = 0

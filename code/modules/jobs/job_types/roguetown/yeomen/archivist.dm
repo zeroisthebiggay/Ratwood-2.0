@@ -93,7 +93,7 @@
 	mask = /obj/item/clothing/mask/rogue/spectacles
 	if(SSmapping.config.map_name == "Desert Town")
 		head = /obj/item/clothing/head/roguetown/tagelmust
-		shoes = /obj/item/clothing/shoes/roguetown/sandals
+		shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	id = /obj/item/scomstone/bad
 	backpack_contents = list(
 		/obj/item/recipe_book/alchemy,

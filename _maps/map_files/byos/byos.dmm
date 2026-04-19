@@ -430,6 +430,10 @@
 /obj/structure/stairs{
 	dir = 1
 	},
+/obj/structure/fluff/railing/border{
+	layer = 2;
+	dir = 8
+	},
 /turf/open/floor/rogue/metal,
 /area/rogue/outdoors/beach/byos)
 "awV" = (
@@ -3805,8 +3809,7 @@
 	dir = 1
 	},
 /obj/structure/fluff/railing/border{
-	dir = 4;
-	pixel_x = 3
+	dir = 4
 	},
 /turf/open/floor/rogue/metal,
 /area/rogue/outdoors/beach/byos)
@@ -4964,12 +4967,14 @@
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/under/cave)
 "fMY" = (
-/obj/structure/fluff/railing/border{
-	dir = 4;
-	pixel_x = 8
+/obj/structure/bars/grille{
+	dir = 1
 	},
-/obj/structure/fluff/railing/wood,
-/turf/open/water/ocean/deep,
+/obj/structure/fluff/railing/border{
+	dir = 9;
+	pixel_y = 8
+	},
+/turf/open/floor/rogue/metal,
 /area/rogue/outdoors/beach/byos)
 "fNn" = (
 /obj/effect/decal/cleanable/blood,
@@ -5823,6 +5828,14 @@
 	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave)
+"gED" = (
+/obj/structure/fluff/railing/border{
+	layer = 2;
+	dir = 8;
+	pixel_y = 8
+	},
+/turf/open/floor/rogue/metal,
+/area/rogue/outdoors/beach/byos)
 "gEZ" = (
 /obj/structure/stairs{
 	dir = 4;
@@ -7059,13 +7072,16 @@
 /turf/open/floor/rogue/grassyel,
 /area/rogue/under/cave)
 "hYI" = (
-/obj/structure/fluff/railing/border{
-	dir = 4;
-	pixel_x = 3
-	},
-/obj/structure/fluff/railing/wood,
 /obj/structure/bars/grille{
 	dir = 1
+	},
+/obj/structure/fluff/railing/border{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/fluff/railing/border{
+	dir = 5;
+	pixel_y = -24
 	},
 /turf/open/floor/rogue/metal,
 /area/rogue/outdoors/beach/byos)
@@ -10549,8 +10565,7 @@
 /area/rogue/outdoors/beach/byos)
 "lDo" = (
 /obj/structure/fluff/railing/border{
-	dir = 4;
-	pixel_x = 3
+	dir = 4
 	},
 /turf/open/floor/rogue/metal,
 /area/rogue/outdoors/beach/byos)
@@ -138593,8 +138608,8 @@ vio
 qyz
 qyz
 qyz
-jpF
-fMY
+qyz
+mXe
 cnM
 qyz
 qyz
@@ -138796,8 +138811,8 @@ qyz
 qyz
 shP
 avX
-neV
-cnM
+gED
+fMY
 qyz
 qyz
 qyz

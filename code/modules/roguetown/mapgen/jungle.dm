@@ -34,7 +34,6 @@
 							/obj/structure/voidstoneobelisk = 0.12,
 							/obj/structure/flora/roguegrass/herb/manabloom = 0.3,
 							/obj/item/magic/manacrystal = 0.3,
-							/obj/structure/closet/dirthole/closed/loot = 1,
 							/obj/structure/flora/roguegrass/swampweed = 1,
 							/obj/structure/flora/roguegrass/herb/random = 5,
 							/obj/structure/flora/rogueshroom/unhappy = 1,

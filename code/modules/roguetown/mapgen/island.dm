@@ -27,7 +27,6 @@
 							/obj/item/natural/stone = 3,
 							/obj/item/natural/rock = 3,
 							/obj/item/grown/log/tree/stick = 3,
-							/obj/structure/closet/dirthole/closed/loot=1,
 							/obj/structure/flora/roguegrass/herb/manabloom = 0.3,
 							/obj/structure/flora/roguetree/stump/palm = 1.5,
 							/obj/structure/glowshroom = 1.5,

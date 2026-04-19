@@ -3,8 +3,8 @@
 	flag = TRIBALVILLAGER
 	department_flag = TRIBAL
 	faction = "Station"
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 6
+	spawn_positions = 6
 	selection_color = JCOLOR_TRIBAL
 
 	allowed_sexes = list(MALE, FEMALE)

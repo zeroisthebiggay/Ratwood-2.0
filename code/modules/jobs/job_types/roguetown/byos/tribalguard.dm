@@ -2,7 +2,7 @@
 	title = "Tribal Guard"
 	flag = TRIBALGUARD
 	department_flag = TRIBAL
-	faction = "Station"
+	faction = "tribe"
 	total_positions = 4
 	spawn_positions = 4
 	selection_color = JCOLOR_TRIBAL

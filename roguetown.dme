@@ -710,6 +710,7 @@
 #include "code\datums\event_groups\_base.dm"
 #include "code\datums\forecast\_base.dm"
 #include "code\datums\forecast\alashur.dm"
+#include "code\datums\forecast\byos.dm"
 #include "code\datums\forecast\dunworld.dm"
 #include "code\datums\forecast\rockhill.dm"
 #include "code\datums\gods\_curses.dm"

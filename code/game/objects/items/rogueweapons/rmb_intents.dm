@@ -46,7 +46,7 @@
 	if(user.has_status_effect(/datum/status_effect/debuff/baitcd))
 		return	//We don't do anything if either of us is affected by bait statuses
 	if(user_zone == BODY_ZONE_CHEST)
-		HU.balloon_alert(HU, "Can't bait their chest!") //Don't waste our cooldown
+		HU.balloon_alert(HU, "<font color = '#ffffff'>Can't bait their chest!</font>") //Don't waste our cooldown
 		return
 
 	HU.visible_message(span_danger("[HU] baits an attack from [HT]!"))

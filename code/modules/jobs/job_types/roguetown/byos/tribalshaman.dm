@@ -12,10 +12,10 @@
 	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	display_order = JDO_TRIBALSHAMAN
 	// tutorial = "Ooga chacka ZAP a chacka!"
-	tutorial = "A gremlin among many other gremlins. You worship the chief as the representation of The Dragon, his chosen as the biggest and the strongest. \
-	There's little to say about you, aside from your proclivity for skullduggery over outright skull smashing, much to your chief's disappointment. Obey when called upon. \
-	This is The Dragon's island, and there's rumor of newcomers, which means more gold for him. \
-	Perhaps if you brought a fresh slave or mammons... The Dragon would finally notice you."
+	tutorial = "You've seen visions of fire and magma, gnashing claws and red scales. The Dragon's will burns behind your eyes, and Graggar's voice echoes in your dreams. \
+	Your wild hallucinations and prophetic trances set you apart from the rest of your tribe—some fear you, others revere you, but all know you are touched by something greater. \
+	You serve as the spiritual heart of the tribe, guiding the Chief and your kin with fervent, sometimes unsettling, devotion. \
+	Let no one doubt your faith: you are the Dragon's chosen, and you will do anything, no matter how mad, to see Graggar's vision made real."
 	outfit = /datum/outfit/job/roguetown/tribalshaman
 	whitelist_req = TRUE
 	min_pq = 8 //High potential for abuse, lovepotion/killersice/greater fireball is not for the faint of heart

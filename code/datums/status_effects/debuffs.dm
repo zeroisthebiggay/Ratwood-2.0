@@ -864,7 +864,7 @@
 
 /atom/movable/screen/alert/status_effect/debuff/baited
 	name = "Baited"
-	desc = "I fell for it. I'm exposed. I won't fall for it again. For now."
+	desc = "I won't fall for it again, for now."
 	icon_state = "bait"
 
 /atom/movable/screen/alert/status_effect/debuff/baitedcd
@@ -976,7 +976,7 @@
 
 /atom/movable/screen/alert/status_effect/debuff/baited
 	name = "Baited"
-	desc = "I fell for it. I'm exposed. I won't fall for it again. For now."
+	desc = "I won't fall for it again, for now."
 	icon_state = "bait"
 
 /atom/movable/screen/alert/status_effect/debuff/baitedcd

@@ -45,17 +45,16 @@
 
 	if(user.has_status_effect(/datum/status_effect/debuff/baitcd))
 		return	//We don't do anything if either of us is affected by bait statuses
+	if(user_zone == BODY_ZONE_CHEST)
+		HU.balloon_alert(HU, "Can't bait their chest!") //Don't waste our cooldown
+		return
 
 	HU.visible_message(span_danger("[HU] baits an attack from [HT]!"))
 	HU.apply_status_effect(/datum/status_effect/debuff/baitcd)
 
-	if((target_zone != user_zone) || ((target_zone == BODY_ZONE_CHEST) || (user_zone == BODY_ZONE_CHEST))) //Our zones do not match OR either of us is targeting chest.
+	if(check_zone(target_zone) != check_zone(user_zone) || ((target_zone == BODY_ZONE_CHEST)))
 		guaranteed_fail = TRUE
-		if(check_zone(target_zone) == check_zone(user_zone))
-			if((target_zone == BODY_ZONE_CHEST) || (user_zone == BODY_ZONE_CHEST))
-				guaranteed_fail = TRUE
-			else
-				guaranteed_fail = FALSE
+
 	if(!HT.can_see_cone(HU))
 		special_msg = span_danger("They need to see me for me to bait them!")
 		guaranteed_fail = TRUE

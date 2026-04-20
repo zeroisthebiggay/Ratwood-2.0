@@ -8,11 +8,11 @@
 	category_tags = list(CTAG_MERCENARY)
 	cmode_music = 'sound/music/combat_fullplate.ogg'
 	traits_applied = list(TRAIT_HEAVYARMOR)
-	subclass_stats = list( //Equivalent to the Doppelsoldner, but without their unique sword or blacksteel armor, in exchange they're basically just a dude in plate armor
+	subclass_stats = list( //Roughly equivalent to the Doppelsoldner, but without their unique sword or blacksteel armor, in exchange they're basically a regular guy in plate armor
 		STATKEY_CON = 3,
 		STATKEY_WIL = 3,
 		STATKEY_STR = 2,
-		STATKEY_PER = 1,
+		STATKEY_INT = 1,
 		STATKEY_SPD = -1
 	)
 	subclass_skills = list(
@@ -41,7 +41,7 @@
 			if("Longsword & Shield")
 				beltl = /obj/item/rogueweapon/scabbard/sword
 				r_hand = /obj/item/rogueweapon/sword/long
-				backl = /obj/item/rogueweapon/shield/iron
+				backl = /obj/item/rogueweapon/shield/tower/metal
 			if("Rapier & Buckler")
 				beltl = /obj/item/rogueweapon/scabbard/sword
 				r_hand = /obj/item/rogueweapon/sword/rapier
@@ -257,7 +257,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
 			if("WHO NEEDS A CLUB? I HAVE MY HANDS!")
 				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_EXPERT, TRUE)
-				ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_ferentia)
+				ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	belt = /obj/item/storage/belt/rogue/leather
 	head = /obj/item/clothing/neck/roguetown/chaincoif/iron
@@ -351,12 +351,12 @@
 	name = "Longbowman"
 	tutorial = "You've trained since you were young with a bow hunting game in the forest. You know the woods like you know the vitals of a wild saiga. In the mercenary guild, it's not hard to think of a brigand as a bipedal saiga."
 	outfit = /datum/outfit/job/roguetown/mercenary/ferentia_longbowman
-	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT) //Warden at home
-	subclass_stats = list(
-		STATKEY_PER = 3,
-		STATKEY_SPD = 2,
+	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_WOODSMAN, TRAIT_SURVIVAL_EXPERT) //Warden at home
+	subclass_stats = list( //Minus three weighted stats but they get woodsman to specialize them in being forest battlers, maybe try and get hired by the wardens pal
+		STATKEY_PER = 2,
 		STATKEY_CON = 1,
-		STATKEY_WIL = 1
+		STATKEY_WIL = 1,
+		STATKEY_SPD = 1
 	)
 	subclass_skills = list(
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
@@ -366,7 +366,7 @@
 		/datum/skill/combat/slings = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE, //You get a pulaski axe less to defend yourself and more for utility but skills nevertheless
+		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/swords = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
@@ -378,10 +378,22 @@
 		/datum/skill/labor/butchering = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 	)
+	extra_context = "This subclass gains Expert skill in their weapon of choice, be it axes or knives. Furthermore, this subclass possesses less stats compared to others to compensate for its Woodsman trait granting it a higher overall stat total when its conditions are met."
 
 /datum/outfit/job/roguetown/mercenary/ferentia_longbowman/pre_equip(mob/living/carbon/human/H)
 	..()
 	to_chat(H, span_warning("You've trained since you were young with a bow hunting game in the forest. You know the woods like you know the vitals of a wild saiga. In the mercenary guild, it's not hard to think of a brigand as a bipedal saiga."))
+	if(H.mind)
+		var/weapons = list("Axe", "Dagger")
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		switch(weapon_choice)
+			if("Axe")
+				r_hand = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
+			if("Dagger")
+				r_hand = /obj/item/rogueweapon/huntingknife/idagger/steel
+				beltl = /obj/item/rogueweapon/scabbard/sheath
+				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
 	belt = /obj/item/storage/belt/rogue/leather
 	head = /obj/item/clothing/head/roguetown/roguehood/reinforced
@@ -394,7 +406,6 @@
 	backr = /obj/item/storage/backpack/rogue/satchel
 	backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow
 	beltr = /obj/item/quiver/arrows
-	beltl = /obj/item/rogueweapon/stoneaxe/woodcut/pick
 	backpack_contents = list(
 		/obj/item/roguekey/mercenary = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,

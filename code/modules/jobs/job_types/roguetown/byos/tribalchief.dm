@@ -4,7 +4,7 @@
 	f_title = "Tribe Chieftess"
 	flag = TRIBALCHIEFTAIN
 	department_flag = TRIBAL
-	faction = "tribe"
+	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = JCOLOR_TRIBAL

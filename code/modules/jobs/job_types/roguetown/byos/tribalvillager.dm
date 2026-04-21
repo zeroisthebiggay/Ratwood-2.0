@@ -2,7 +2,7 @@
 	title = "Tribal Villager"
 	flag = TRIBALVILLAGER
 	department_flag = TRIBAL
-	faction = "tribe"
+	faction = "Station"
 	total_positions = 6
 	spawn_positions = 6
 	selection_color = JCOLOR_TRIBAL

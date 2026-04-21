@@ -3,7 +3,7 @@
 	flag = TRIBALSHAMAN
 	department_flag = TRIBAL
 	selection_color = JCOLOR_TRIBAL
-	faction = "tribe"
+	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 

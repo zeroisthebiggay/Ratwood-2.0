@@ -33,14 +33,14 @@
 	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/stampot)
 
 /datum/supply_pack/rogue/Medicaments/healthpotnew
-	name = "Greater Health Potion"
-	cost = 50
-	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/healthpotnew)
+	name = "Greater Health Vial"
+	cost = 30
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/healthpotnew)
 
 /datum/supply_pack/rogue/Medicaments/manapotnew
-	name = "Greater Mana Potion"
-	cost = 45
-	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/strongmanapot)
+	name = "Greater Mana Vial"
+	cost = 25
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/strongmanapot)
 
 /datum/supply_pack/rogue/Medicaments/stampotnew
 	name = "Greater Stamina Potion"

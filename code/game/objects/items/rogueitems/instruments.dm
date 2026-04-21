@@ -146,6 +146,7 @@ GLOBAL_LIST_EMPTY(instrument_band_lobbies)
 
 /// Returns the singleton instruments sound group, cached after first lookup.
 /datum/looping_sound/instrument/proc/_get_sound_group()
+	RETURN_TYPE(/datum/sound_group/instruments)
 	var/static/datum/sound_group/instruments/cached
 	if(!cached)
 		for(var/datum/sound_group/g in GLOB.created_sound_groups)

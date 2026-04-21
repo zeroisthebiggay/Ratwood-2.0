@@ -222,6 +222,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Archer's cap"
 	path = /obj/item/clothing/head/roguetown/archercap
 
+/datum/loadout_item/articap
+	name = "Artificer's Cap"
+	path = /obj/item/clothing/head/roguetown/articap
+
 /datum/loadout_item/strawhat
 	name = "Straw Hat"
 	path = /obj/item/clothing/head/roguetown/strawhat
@@ -515,6 +519,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/sailorjacket
 	name = "Leather Jacket"
 	path = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor
+
+/datum/loadout_item/artijacket
+	name = "Artificer Jacket"
+	path = /obj/item/clothing/suit/roguetown/armor/leather/jacket/artijacket
 
 /datum/loadout_item/priestrobe
 	name = "Undervestments"

@@ -490,7 +490,7 @@
 		added_def = 1,\
 	)
 
-/obj/item/rogueweapon/mace/goden/psymace/old
+/obj/item/rogueweapon/mace/goden/psy/old
 	name = "enduring mace"
 	desc = "An ornate mace, its silver tarnished by neglect. Even without HIS holy blessing, its weight ENDURES."
 	icon_state = "psymace"
@@ -502,7 +502,7 @@
 	smeltresult = /obj/item/ingot/steel
 	color = COLOR_FLOORTILE_GRAY
 
-/obj/item/rogueweapon/mace/goden/psymace/old/ComponentInitialize()
+/obj/item/rogueweapon/mace/goden/psy/old/ComponentInitialize()
 	return
 
 /obj/item/rogueweapon/mace/spiked

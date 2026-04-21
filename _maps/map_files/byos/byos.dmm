@@ -803,6 +803,10 @@
 /obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/inq/boat)
+"aSv" = (
+/mob/living/carbon/human/species/skeleton/npc/hardspread,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/under/cave)
 "aSB" = (
 /turf/open/floor/rogue/grasscold,
 /area/rogue/outdoors/jungle)
@@ -1191,6 +1195,13 @@
 /obj/structure/flora/roguegrass/maneater/real,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/jungle)
+"bvm" = (
+/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp{
+	wander = 0;
+	faction = list("infernal", "tribe")
+	},
+/turf/open/floor/rogue/volcanic,
+/area/rogue/under/cave)
 "bvt" = (
 /obj/item/natural/rock,
 /turf/open/floor/rogue/dirt/desert,
@@ -10106,6 +10117,10 @@
 /obj/item/reagent_containers/glass/bottle/mercury,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/outdoors/beach/harbor)
+"lbN" = (
+/obj/structure/flora/rogueshroom/unhappy,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/under/cave)
 "lcJ" = (
 /obj/structure/fluff/walldeco/mageguild,
 /turf/closed/wall/mineral/rogue/stone,
@@ -11697,15 +11712,8 @@
 	},
 /area/rogue/indoors/town/shop)
 "mJy" = (
-/obj/structure/chair/smallbench,
-/mob/living/simple_animal/hostile/retaliate/rogue/minotaur/axe/female{
-	STACON = 15;
-	STASPD = 15;
-	STASTR = 12;
-	faction = list("infernal");
-	wander = 0
-	},
-/turf/open/floor/rogue/churchmarble,
+/obj/structure/flora/rogueshroom/unhappy,
+/turf/open/floor/rogue/grassred,
 /area/rogue/under/cave)
 "mJA" = (
 /obj/structure/table/wood{
@@ -17237,6 +17245,14 @@
 "sqH" = (
 /turf/closed/mineral/rogue/bedrock/sandstone,
 /area/rogue/under/cave)
+"srp" = (
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/retaliate/rogue/bigrat{
+	faction = list("rats", "blood", "undead");
+	health = 60
+	},
+/turf/open/floor/rogue/grassred,
+/area/rogue/under/cave)
 "srN" = (
 /obj/structure/roguewindow/openclose{
 	dir = 8
@@ -17709,6 +17725,16 @@
 	},
 /turf/open/floor/rogue/dirt/road/desert,
 /area/rogue/indoors/town/tavern)
+"sMY" = (
+/mob/living/simple_animal/hostile/retaliate/rogue/minotaur/axe/female{
+	STACON = 15;
+	STASPD = 15;
+	STASTR = 12;
+	faction = list("infernal");
+	wander = 0
+	},
+/turf/open/floor/rogue/church,
+/area/rogue/under/cave)
 "sNx" = (
 /obj/item/reagent_containers/glass/cup/silver{
 	pixel_x = 5;
@@ -19037,6 +19063,10 @@
 "ufj" = (
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
+"uft" = (
+/mob/living/simple_animal/hostile/retaliate/rogue/dragon/broodmother,
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/under/cave/tribeden)
 "ufW" = (
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/retaliate/rogue/spider{
@@ -21718,6 +21748,16 @@
 	dir = 1
 	},
 /area/rogue/outdoors/jungle)
+"wZv" = (
+/mob/living/simple_animal/hostile/retaliate/rogue/minotaur/axe/female{
+	STACON = 15;
+	STASPD = 15;
+	STASTR = 12;
+	faction = list("infernal");
+	wander = 0
+	},
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/under/cave)
 "wZT" = (
 /obj/machinery/light/rogue/firebowl/standing,
 /turf/open/floor/rogue/metal/barograte,
@@ -43234,7 +43274,7 @@ kCI
 kCI
 fMS
 duA
-nQA
+uft
 nQA
 nQA
 kCv
@@ -45127,7 +45167,7 @@ vzr
 kin
 kin
 mtK
-kin
+wZv
 pdH
 lGD
 wXy
@@ -45310,7 +45350,7 @@ dNc
 dNc
 dNc
 oQg
-wXy
+bvm
 wXy
 wXy
 rRr
@@ -45328,7 +45368,7 @@ gfM
 pzb
 fYu
 riN
-mJy
+riN
 kin
 lCo
 vzr
@@ -45530,7 +45570,7 @@ wXy
 xoA
 fYu
 fYu
-fYu
+sMY
 fYu
 buD
 wXy
@@ -48144,7 +48184,7 @@ qNG
 rRr
 oQg
 wXy
-rRr
+teF
 rRr
 wXy
 wXy
@@ -52588,7 +52628,7 @@ rRr
 dNc
 dNc
 eUq
-rRr
+lbN
 sth
 ojN
 jLR
@@ -52785,13 +52825,13 @@ dNc
 dNc
 dNc
 dNc
-rRr
+lbN
 vpb
 rRr
 rRr
 rRr
 rRr
-rRr
+kZb
 ojN
 kll
 anZ
@@ -53595,7 +53635,7 @@ dNc
 dNc
 dNc
 rRr
-rRr
+lbN
 rRr
 rRr
 rRr
@@ -70000,7 +70040,7 @@ klm
 klm
 klm
 klm
-vJE
+aSv
 xoA
 uSo
 uSo
@@ -74049,7 +74089,7 @@ vCu
 vCu
 vCu
 uSo
-uyr
+vua
 uSo
 uSo
 uSo
@@ -112212,7 +112252,7 @@ rPH
 pPG
 eqe
 rPH
-rPH
+wtg
 rPH
 eqe
 eqe
@@ -112378,7 +112418,7 @@ rPH
 fPO
 eqe
 eqe
-eqe
+aIK
 eqe
 eqe
 eqe
@@ -112780,7 +112820,7 @@ pPG
 fPO
 rPH
 rPH
-rPH
+wtg
 rPH
 rPH
 eqe
@@ -134441,7 +134481,7 @@ pPG
 pPG
 fPO
 eqe
-rPH
+wtg
 rPH
 eqe
 tMU
@@ -135270,7 +135310,7 @@ rPH
 rPH
 rPH
 rPH
-eqe
+aIK
 rPH
 rPH
 eqe
@@ -135470,7 +135510,7 @@ rPH
 rPH
 rPH
 wtg
-rPH
+wtg
 rPH
 eqe
 wtg
@@ -135658,7 +135698,7 @@ rPH
 eqe
 rPH
 rPH
-eqe
+aIK
 eqe
 rPH
 eqe
@@ -135673,7 +135713,7 @@ rPH
 rPH
 rPH
 rPH
-rPH
+wtg
 rPH
 rPH
 rPH
@@ -135861,7 +135901,7 @@ rPH
 rPH
 rPH
 rPH
-eqe
+aIK
 rPH
 aIK
 fPO
@@ -136660,7 +136700,7 @@ wtg
 rPH
 rPH
 rPH
-rPH
+wtg
 eqe
 eqe
 eqe
@@ -136861,9 +136901,9 @@ lKh
 lKh
 rPH
 wtg
+aIK
 eqe
-eqe
-eqe
+aIK
 eqe
 eqe
 rPH
@@ -137046,7 +137086,7 @@ uuc
 uuc
 wiH
 rPH
-eqe
+aIK
 eqe
 eqe
 rPH
@@ -137061,7 +137101,7 @@ pPG
 pPG
 pPG
 lKh
-eqe
+aIK
 eqe
 eqe
 eqe
@@ -137876,7 +137916,7 @@ pPG
 pPG
 pPG
 lKh
-rPH
+wtg
 rPH
 eqe
 eqe
@@ -139478,7 +139518,7 @@ kSj
 eqe
 rPH
 rPH
-rPH
+wtg
 rPH
 eqe
 rPH
@@ -153151,7 +153191,7 @@ alq
 alq
 mSh
 kZQ
-byf
+mJy
 eWy
 eWy
 dqG
@@ -153340,7 +153380,7 @@ dqG
 oWD
 mgf
 byf
-byf
+mJy
 byf
 byf
 sha
@@ -154562,7 +154602,7 @@ kNe
 iaz
 qdY
 byf
-byf
+sYM
 rza
 eWy
 dqG
@@ -155557,7 +155597,7 @@ dqG
 dqG
 dqG
 eWy
-ehw
+srp
 kZQ
 mBY
 byf
@@ -155774,7 +155814,7 @@ alq
 rza
 byf
 byf
-byf
+mJy
 ojN
 eWy
 eWy
@@ -156370,9 +156410,9 @@ dNc
 alq
 qRA
 fhZ
-ehw
+srp
 yiz
-byf
+mJy
 yiz
 sSl
 byf

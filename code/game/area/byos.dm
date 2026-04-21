@@ -171,3 +171,15 @@
 		new /datum/ambush_config/triple_deepone = 20,
 		new /datum/ambush_config/deepone_party = 10,
 	)
+
+/area/rogue/under/cave/tribeden
+	name = "tribal hideout"
+	icon_state = "under"
+	first_time_text = "Ancient Encampment"
+	ambientsounds = AMB_BASEMENT
+	ambientnight = AMB_BASEMENT
+	droning_sound = 'sound/music/area/gobcamp.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+	ceiling_protected = TRUE
+	deathsight_message = "A hidden fortress"

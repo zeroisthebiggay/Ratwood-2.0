@@ -47,7 +47,7 @@
 	name = "Arcyne Fortress"
 	})
 "cw" = (
-/turf/open/floor/rogue,
+/turf/open/transparent/openspace,
 /area/rogue)
 "cz" = (
 /obj/structure/bookcase,
@@ -553,7 +553,7 @@
 	name = "Arcyne Fortress"
 	})
 "XH" = (
-/turf/open/floor/rogue,
+/turf/open/transparent/openspace,
 /area/rogue/indoors/town/magician{
 	first_time_text = "Arcyne Fortress";
 	name = "Arcyne Fortress"

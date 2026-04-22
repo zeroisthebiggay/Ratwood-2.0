@@ -1224,7 +1224,7 @@
 /obj/item/reagent_containers/food/snacks/eoran_aril/ochre/apply_effects(mob/living/carbon/eater)
 	if(ishuman(eater))
 		var/mob/living/carbon/human/H = eater
-		if(H.patron.type == /datum/patron/divine/eora & !H.status_effect/ritesexpended && !H.status_effect/devitalised)
+		if(H.patron.type == /datum/patron/divine/eora && !has_status_effect(/datum/status_effect/debuff/devitalised) && !has_status_effect(/datum/status_effect/debuff/devitalised))
 			var/list/mob/living/carbon/human/target_mobs = list()
 
 			for(var/mob/living/carbon/human/target in view(7, H))

@@ -1168,7 +1168,7 @@ var/forgerites = list("Ritual of Blessed Reforgance")
 		target.apply_status_effect(/datum/status_effect/eoranaura)
 		playsound(target, 'sound/magic/eora_bless.ogg', 90, FALSE, -1)
 		to_chat(target, span_boldred("I can do no HARM."))
-		ADD_TRAIT(target, TRAIT_PACIFISM)
+		ADD_TRAIT(target, TRAIT_PACIFISM, TRAIT_MIRACLE)
 
 
 

@@ -24,6 +24,8 @@
 	storyteller = /datum/storyteller/eora
 
 // Near a psycross, by an eoran sacred tree, inside the church, at the eoran shrine, holding poppy flowers, or has pacifism trait
+/datum/patron/divine/eora/can_pray(mob/living/follower)
+	. = ..()
 	// Allows prayer near psycross
 	for(var/obj/structure/fluff/psycross/cross in view(4, get_turf(follower)))
 		if(cross.divine == FALSE)
@@ -33,11 +35,11 @@
 	// Allows prayer near eoran sacred tree
 	for(var/obj/structure/eoran_pomegranate_tree in view(4, get_turf(follower)))
 		return TRUE
-	// Allows prayer at the eoran shrine
-	if(istype(get_area(follower), /area/rogue/outdoors/rtfield/eora))
-		return TRUE
 	// Allows prayer in the church
 	if(istype(get_area(follower), /area/rogue/indoors/town/church))
+		return TRUE
+	// Allows prayer at the eoran shrine
+	if(istype(get_area(follower), /area/rogue/outdoors/rtfield/eora))
 		return TRUE
 	// Allows Eorans to pray using flowers
 	var/obj/item/held_item = follower.get_active_held_item()

@@ -26,6 +26,9 @@
 	proximity_monitor = new(src, 7)
 
 /obj/item/parcel/HasProximity(mob/nearby)
+	if(!istype(nearby))
+		return
+
 	var/datum/component/quest_object/quest_component = GetComponent(/datum/component/quest_object)
 	if(!istype(quest_component))
 		return

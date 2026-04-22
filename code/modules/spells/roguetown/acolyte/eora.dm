@@ -21,12 +21,10 @@
 	. = ..()
 	if(slot == SLOT_HEAD)
 		ADD_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[REF(src)]")
-		ADD_TRAIT(user, TRAIT_EORAN_BLOSSOM, "peaceflower_[REF(src)]")
 
 /obj/item/clothing/head/peaceflower/dropped(mob/living/carbon/human/user)
 	..()
 	REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[REF(src)]")
-	REMOVE_TRAIT(user, TRAIT_EORAN_BLOSSOM, "peaceflower_[REF(src)]")
 
 /obj/item/clothing/head/peaceflower/proc/peace_check(mob/living/user)
 	// return true if we should be unequippable, return false if not
@@ -315,6 +313,7 @@
 	var/quality
 	var/skill
 	var/bitesize_mod
+	var/Eo_buff
 	// I hate this but let's be consistent.
 	var/datum/patron/patron
 
@@ -344,8 +343,7 @@
 
 	eater.apply_status_effect(/datum/status_effect/buff/healing, (quality + (skill / 5)) * bitesize_mod)
 	if(skill > 4 && patron.type == /datum/patron/divine && !h.status.effect(/datum/status_effect/buff/alch))
-		Eo_buff = rand(0, 6)
-		switch(Eo_buff)
+		switch(pick(0,1,2,3,4,5,6))
 			if(0)
 				eater.visible_message(span_notice("The food's blessing strengthens [eater]!"))
 				eater.apply_status_effect(/datum/status_effect/buff/alch/strengthpot, 45 SECONDS)
@@ -1226,7 +1224,7 @@
 /obj/item/reagent_containers/food/snacks/eoran_aril/ochre/apply_effects(mob/living/carbon/eater)
 	if(ishuman(eater))
 		var/mob/living/carbon/human/H = eater
-		if(H.patron.type == /datum/patron/divine/eora & !h.status_effect/ritesexpended && !h.status_effect/devitalised)
+		if(H.patron.type == /datum/patron/divine/eora & !H.status_effect/ritesexpended && !H.status_effect/devitalised)
 			var/list/mob/living/carbon/human/target_mobs = list()
 
 			for(var/mob/living/carbon/human/target in view(7, H))
@@ -1251,7 +1249,7 @@
 
 			if(target_mobs.len > 0)
 				H.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-				h.apply_status_effect(/datum/status_effect/debuff/devitalised)
+				H.apply_status_effect(/datum/status_effect/debuff/devitalised)
 				addtimer(CALLBACK(GLOBAL_PROC_REF(process_ochre_revivals), target_mobs), 0)
 
 	return ..()

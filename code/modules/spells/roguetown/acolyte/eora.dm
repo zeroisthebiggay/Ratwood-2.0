@@ -405,7 +405,7 @@
 		to_chat(user, span_warning("The targeted location is blocked. Eora's seed cannot sprout here."))
 		revert_cast()
 		return FALSE
-	if(!(istype(T, /turf/open/floor/rogue/grass) || istype(T, /turf/open/floor/rogue/dirt)))
+	if(!(istype(T, /turf/open/floor/rogue/grass) || istype(T, /turf/open/floor/rogue/dirt) || istype(T, /turf/open/floor/rogue/grassyel) || istype(T, /turf/open/floor/rogue/grassred) || istype(T, /turf/open/floor/rogue/grasscold) || istype(T, /turf/open/floor/rogue/desert_grass)))
 		to_chat(user, span_warning("The tree cannot grow here. It must be planted on dirt or grass!"))
 		revert_cast()
 		return FALSE
@@ -472,6 +472,18 @@
 		happiness_tier = 1
 
 /obj/structure/eoran_pomegranate_tree/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/reagent_containers/food/snacks/eoran_aril/crimson))
+		if(iscarbon(user))
+			var/mob/living/carbon/human/sacrifice = user
+			visible_message(span_danger("[user] begins altruistically channeling the crimson aril's power to restore the tree."),
+	 		 span_info("I begin channeling the crimson aril's power into the tree using my own blood."))
+			if(!do_after(sacrifice, 15 SECONDS))
+				return
+			sacrifice.blood_volume = max(0, sacrifice.blood_volume - ((BLOOD_VOLUME_NORMAL * 0.03) + (sacrifice.blood_volume * 0.06)))
+			obj_integrity = min(max_integrity, obj_integrity + max_integrity / 4)
+			qdel(I)
+			update_icon()
+			return TRUE
 	if(istype(I, /obj/item/ash))
 		if(iscarbon(user))
 			var/mob/living/carbon/c = user
@@ -953,6 +965,18 @@
 
 	for(var/aril_type in aril_types)
 		new aril_type(loc)
+		
+		// if you've tended your tree perfectly, are eligible to pick fruit, pray over the pomegranate, and haven't gotten one already, you get a guaranteed seed
+	var/mob/living/living_user = user
+	if(istype(living_user)\
+		&& (fruit_tier == 4)\
+		&& ((living_user.patron.type == /datum/patron/divine/eora) || HAS_TRAIT(living_user, TRAIT_CHOSEN))\
+		&& user.get_stress_event(/datum/stressevent/psyprayer)\
+		&& !HAS_TRAIT(living_user, TRAIT_EORAN_PITY))
+		to_chat(user, span_notice("Eora responds to your prayer, granting you a seed to nurture!"))
+		new /obj/item/reagent_containers/eoran_seed(loc)
+		ADD_TRAIT(living_user, TRAIT_EORAN_PITY, TRAIT_GENERIC)
+
 
 	qdel(src)
 
@@ -1006,16 +1030,46 @@
 	var/list/wCount = eater.get_wounds()
 	//No undead because they kinda don't have blood to give for this.
 	if(!eater.construct && !(eater.mob_biotypes & MOB_UNDEAD))
+	var/current_brute_loss = eater.getBruteLoss()
+		blood_loss += (eater.blood_volume * 0.06)
 		if(wCount.len > 0)
-			eater.heal_wounds(heal_amount)
+			eater.heal_wounds(heal_amount + (current_brute_loss * 0.12))
 			eater.update_damage_overlays()
 		eater.blood_volume = max(0, eater.blood_volume - blood_loss)
-		eater.adjustBruteLoss(-heal_amount, 0)
-		eater.adjustFireLoss(-heal_amount, 0)
-		eater.adjustOxyLoss(-heal_amount, 0)
-		eater.adjustToxLoss(-heal_amount, 0)
+		eater.adjustBruteLoss(-(heal_amount + (current_brute_loss * 0.12)), 0)
+		eater.adjustFireLoss(-(heal_amount + (eater.getFireLoss() * 0.12)), 0)
+		eater.adjustToxLoss(-(heal_amount + (eater.getToxLoss() * 0.12)), 0)
+		eater.adjustOxyLoss(-(heal_amount + (eater.getOxyLoss() * 0.12)), 0)
 		eater.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amount)
 		eater.adjustCloneLoss(-heal_amount, 0)
+		
+/obj/item/reagent_containers/food/snacks/eoran_aril/crimson/attack(mob/living/M, mob/living/user, def_zone)
+	if(!ishuman(M))
+		return
+	if(M == user)
+		. = ..()
+		return
+	visible_message(span_danger("[user] begins altruistically channeling the crimson aril's power to restore [M]."),
+	 span_info("I begin channeling the crimson aril's power into [M] using my own blood."))
+	if(!do_mob(user, M, time = 0.6 SECONDS, double_progress = TRUE, can_move = FALSE))
+		return
+	var/mob/living/carbon/human/eater = M
+	var/list/wCount = eater.get_wounds()
+	if(!user.construct && !(user.mob_biotypes & MOB_UNDEAD))
+		var/current_brute_loss = eater.getBruteLoss()
+		blood_loss += (user.blood_volume * 0.08)
+		if(wCount.len > 0)
+			eater.heal_wounds(heal_amount + (current_brute_loss * 0.12))
+			eater.update_damage_overlays()
+		user.blood_volume = max(0, user.blood_volume - blood_loss)
+		eater.adjustBruteLoss(-(heal_amount + (current_brute_loss * 0.12)), 0)
+		eater.adjustFireLoss(-(heal_amount + (eater.getFireLoss() * 0.12)), 0)
+		eater.adjustToxLoss(-(heal_amount + (eater.getToxLoss() * 0.12)), 0)
+		eater.adjustOxyLoss(-(heal_amount + (eater.getOxyLoss() * 0.12)), 0)
+		eater.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amount)
+		eater.adjustCloneLoss(-heal_amount, 0)
+	qdel(src)
+	return
 
 /obj/item/reagent_containers/food/snacks/eoran_aril/roseate
 	name = "roseate aril"
@@ -1240,7 +1294,7 @@
 	if(!isopenturf(T))
 		to_chat(user, span_warning("The seed needs open space to grow!"))
 		return
-	if(!(istype(T, /turf/open/floor/rogue/grass) || istype(T, /turf/open/floor/rogue/dirt)))
+	if(!(istype(T, /turf/open/floor/rogue/grass) || istype(T, /turf/open/floor/rogue/dirt) || istype(T, /turf/open/floor/rogue/grassyel) || istype(T, /turf/open/floor/rogue/grassred) || istype(T, /turf/open/floor/rogue/grasscold) || istype(T, /turf/open/floor/rogue/desert_grass)))
 		to_chat(user, span_warning("The seed must be planted on dirt or grass!"))
 		return
 
@@ -1251,7 +1305,7 @@
 		return
 
 	// Re-check conditions after delay
-	if(!isopenturf(T) || !(istype(T, /turf/open/floor/rogue/grass) || istype(T, /turf/open/floor/rogue/dirt)))
+	if(!isopenturf(T) || !(istype(T, /turf/open/floor/rogue/grass) || istype(T, /turf/open/floor/rogue/dirt) || istype(T, /turf/open/floor/rogue/grassyel) || istype(T, /turf/open/floor/rogue/grassred) || istype(T, /turf/open/floor/rogue/grasscold) || istype(T, /turf/open/floor/rogue/desert_grass)))
 		to_chat(user, span_warning("The ground is no longer suitable!"))
 		return
 

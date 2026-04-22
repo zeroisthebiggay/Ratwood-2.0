@@ -17,16 +17,16 @@
 /obj/effect/quest_spawn/Destroy(force)
 	. = ..()
 	QDEL_NULL(contained_atom)
-	proximity_monitor = null
+	QDEL_NULL(proximity_monitor)
 
 /obj/effect/quest_spawn/HasProximity(mob/nearby)
 	if(!contained_atom)
 		return
 
-	if(!istype(nearby))
+	if(!istype(nearby, /mob/living) || !nearby.ckey)
 		return
 
-	var/datum/component/quest_object/quest_component = GetComponent(/datum/component/quest_object)
+	var/datum/component/quest_object/quest_component = contained_atom.GetComponent(/datum/component/quest_object)
 	if(!istype(quest_component))
 		return
 
@@ -34,7 +34,8 @@
 	if(!istype(quest))
 		return
 
-	if(get_dist(get_turf(src), get_turf(quest.quest_scroll_ref?.resolve())) > 7)
+	var/atom/scroll = quest.quest_scroll_ref?.resolve()
+	if(!scroll || get_dist(get_turf(src), get_turf(scroll)) > 7)
 		return
 
 	var/image/I = image(icon = 'icons/effects/effects.dmi', loc = get_turf(src), icon_state = "mobwarning", layer = 18)

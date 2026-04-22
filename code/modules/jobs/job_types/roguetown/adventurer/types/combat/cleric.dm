@@ -129,6 +129,7 @@
 		if (/datum/patron/divine/eora)
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/eora
 			mask = /obj/item/clothing/head/roguetown/eoramask
+			r_hand = /obj/item/rogueweapon/huntingknife/scissors
 		if (/datum/patron/divine/xylix)
 			cloak = /obj/item/clothing/cloak/templar/xylix
 			mask = /obj/item/clothing/mask/rogue/xylixmask

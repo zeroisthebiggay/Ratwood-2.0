@@ -342,7 +342,7 @@
 		return
 
 	eater.apply_status_effect(/datum/status_effect/buff/healing, (quality + (skill / 5)) * bitesize_mod)
-	if(skill > 4 && patron.type == /datum/patron/divine && !h.status.effect(/datum/status_effect/buff/alch))
+	if(skill > 4 && patron.type == /datum/patron/divine && !has_status_effect(/datum/status_effect/buff/alch))
 		switch(pick(0,1,2,3,4,5,6))
 			if(0)
 				eater.visible_message(span_notice("The food's blessing strengthens [eater]!"))
@@ -1063,7 +1063,7 @@
 	//No undead because they kinda don't have blood to give for this.
 	if(!eater.construct && !(eater.mob_biotypes & MOB_UNDEAD))
 	var/current_brute_loss = eater.getBruteLoss()
-		blood_loss += (eater.blood_volume * 0.06)
+		var/blood_loss += (eater.blood_volume * 0.06)
 		if(wCount.len > 0)
 			eater.heal_wounds(heal_amount + (current_brute_loss * 0.12))
 			eater.update_damage_overlays()
@@ -1224,7 +1224,7 @@
 /obj/item/reagent_containers/food/snacks/eoran_aril/ochre/apply_effects(mob/living/carbon/eater)
 	if(ishuman(eater))
 		var/mob/living/carbon/human/H = eater
-		if(H.patron.type == /datum/patron/divine/eora && !has_status_effect(/datum/status_effect/debuff/devitalised) && !has_status_effect(/datum/status_effect/debuff/devitalised))
+		if(H.patron.type == /datum/patron/divine/eora && !eater.has_status_effect(/datum/status_effect/debuff/devitalised) && !eater.has_status_effect(/datum/status_effect/debuff/devitalised))
 			var/list/mob/living/carbon/human/target_mobs = list()
 
 			for(var/mob/living/carbon/human/target in view(7, H))

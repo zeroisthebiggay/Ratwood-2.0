@@ -22,6 +22,11 @@
 	if(!do_after(user, 5 SECONDS, needhand = TRUE, target = src))
 		return
 	playsound(src, pick('sound/foley/equip/rummaging-01.ogg', 'sound/foley/equip/rummaging-02.ogg', 'sound/foley/equip/rummaging-03.ogg'), 50, FALSE)
+	if(user.STALUC < 10 && prob(40))
+		to_chat(user, span_warning("You come up empty. Nothing but dust and bad luck."))
+		looted = TRUE
+		user.visible_message(span_notice("[user] finishes searching [src]."), span_notice("You finish searching [src]."))
+		return
 	var/items_found = 1
 	if(user.STALUC >= 16)
 		items_found = 3

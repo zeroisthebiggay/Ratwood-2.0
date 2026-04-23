@@ -342,7 +342,7 @@
 		return
 
 	eater.apply_status_effect(/datum/status_effect/buff/healing, (quality + (skill / 5)) * bitesize_mod)
-	if(skill > 4 || patron.type = /datum/patron/divine)
+	if(skill > 4 || patron.type == /datum/patron/divine)
 		eater.apply_status_effect(/datum/status_effect/buff/haste, 55 SECONDS)
 
 /obj/effect/proc_holder/spell/invoked/bless_food

@@ -42,7 +42,6 @@
 	backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow
 	beltr = /obj/item/quiver/arrows
 	beltl = /obj/item/rogueweapon/huntingknife/idagger/steel/padagger
-	r_hand = /obj/item/rogueweapon/spear/stone
 
 /datum/advclass/tribalrabble/rabble
 	name = "Hunter"
@@ -86,6 +85,7 @@
 	H.faction += list("orcs", "tribe")
 	if(!H.has_language(/datum/language/draconic))
 		H.grant_language(/datum/language/draconic)
+	r_hand = /obj/item/rogueweapon/spear/stone
 	backpack_contents = list(
 		/obj/item/roguekey/tribal = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,

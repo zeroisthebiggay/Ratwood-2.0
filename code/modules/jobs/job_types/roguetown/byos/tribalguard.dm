@@ -169,6 +169,7 @@
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		)
 	H.verbs |= /mob/proc/haltyell
+	H.faction += list("orcs", "tribe")
 	H.set_blindness(0)
 	if(H.mind)
 		var/weapons = list("Ancient Bardiche","Ancient Greatmace","Ancient Spear & Shield", "Ancient Javelins & Shield")
@@ -257,6 +258,7 @@
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		)
 	H.verbs |= /mob/proc/haltyell
+	H.faction += list("orcs", "tribe")
 	H.set_blindness(0)
 	if(H.mind)
 		var/weapons = list("Ancient Bardiche","Ancient Greatmace", "Ancient Javelins & Shield", "Maul - +STR/CON, -SPD/PER/INT")

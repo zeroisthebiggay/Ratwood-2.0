@@ -61,11 +61,6 @@
 	else if(world.port == 22099)
 		current_server = "Secondary"
 
-	to_chat(src, span_info("Current Server: [current_server] ([world.port])"))
-	#ifdef LOCALTEST
-	to_chat(src, "<span style='color:#638500;'>Primary Server: [primary_server] <a href='?src=[REF(src)];join_server=primary' style='[link_style]'><b>(JOIN)</b></a></span>")
-	to_chat(src, "<span style='color:#638500;'>Secondary Server: [secondary_server] <a href='?src=[REF(src)];join_server=secondary' style='[link_style]'><b>(JOIN)</b></a></span>")
-	#else
 	if(world.port == 22096)
 		to_chat(src, "<span style='color:#638500;'>Secondary Server: [secondary_server] <a href='?src=[REF(src)];join_server=secondary' style='[link_style]'><b>(JOIN)</b></a></span>")
 	else if(world.port == 22099)

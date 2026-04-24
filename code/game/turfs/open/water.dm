@@ -612,7 +612,7 @@
 /turf/open/water/river/get_heuristic_slowdown(mob/traverser, travel_dir)
 	var/const/UPSTREAM_PENALTY = 2 //Ratwood edit, Azure: 4
 	var/const/DOWNSTREAM_BONUS = -2 //Ratwood edit, Azure: -1
-	var/const/SIDESTREAM_PENALTY = 2
+	var/const/SIDESTREAM_PENALTY = 1 //Ratwood edit, Azure: 2
 	. = ..()
 	if(traverser.is_floor_hazard_immune())
 		return

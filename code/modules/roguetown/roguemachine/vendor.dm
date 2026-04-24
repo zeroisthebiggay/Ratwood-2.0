@@ -376,6 +376,21 @@
 /obj/structure/roguemachine/vendor/bathhouse
 	keycontrol = "nightmaiden"//used to be nightman but it's nice for them to be able to stock the shelves too when the master isn't around
 
+/obj/structure/roguemachine/vendor/bathhouse/locker
+	keycontrol = "tavern"
+
+/obj/structure/roguemachine/vendor/bathhouse/locker/Initialize(mapload)
+	. = ..()
+
+	// Add locker keys with a price of 10
+	for (var/X in list(/obj/item/roguekey/locker1, /obj/item/roguekey/locker2, /obj/item/roguekey/locker3, /obj/item/roguekey/locker4, /obj/item/roguekey/locker5, /obj/item/roguekey/locker6))
+		var/obj/P = new X(src)
+		held_items[P] = list()
+		held_items[P]["NAME"] = P.name
+		held_items[P]["PRICE"] = 10
+
+	update_icon()
+
 /obj/structure/roguemachine/vendor/inn/Initialize(mapload)
 	. = ..()
 

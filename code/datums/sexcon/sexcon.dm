@@ -275,10 +275,12 @@
 	return TRUE
 
 /datum/sex_controller/proc/adjust_speed(amt)
-	speed = clamp(speed + amt, SEX_SPEED_MIN, (HAS_TRAIT(user, TRAIT_DEATHBYSNUSNU) || HAS_TRAIT(user, TRAIT_DEPRAVED)) ? SEX_SPEED_MAX : SEX_SPEED_MAX - 1)
+	var/max_setting = (HAS_TRAIT(user, TRAIT_DEATHBYSNUSNU) || HAS_TRAIT(user, TRAIT_DEPRAVED) || user.has_status_effect(/datum/status_effect/debuff/emberwine)) ? SEX_SPEED_MAX : SEX_SPEED_MAX - 1
+	speed = clamp(speed + amt, SEX_SPEED_MIN, max_setting)
 
 /datum/sex_controller/proc/adjust_force(amt)
-	force = clamp(force + amt, SEX_FORCE_MIN, (HAS_TRAIT(user, TRAIT_DEATHBYSNUSNU) || HAS_TRAIT(user, TRAIT_DEPRAVED)) ? SEX_FORCE_MAX : SEX_FORCE_MAX - 1)
+	var/max_setting = (HAS_TRAIT(user, TRAIT_DEATHBYSNUSNU) || HAS_TRAIT(user, TRAIT_DEPRAVED) || user.has_status_effect(/datum/status_effect/debuff/emberwine)) ? SEX_FORCE_MAX : SEX_FORCE_MAX - 1
+	force = clamp(force + amt, SEX_FORCE_MIN, max_setting)
 /datum/sex_controller/proc/adjust_arousal_manual(amt)
 	manual_arousal = clamp(manual_arousal + amt, SEX_MANUAL_AROUSAL_MIN, SEX_MANUAL_AROUSAL_MAX)
 

@@ -275,10 +275,10 @@
 	return TRUE
 
 /datum/sex_controller/proc/adjust_speed(amt)
-	speed = clamp(speed + amt, SEX_SPEED_MIN, SEX_SPEED_MAX)
+	speed = clamp(speed + amt, SEX_SPEED_MIN, (HAS_TRAIT(user, TRAIT_DEATHBYSNUSNU) || HAS_TRAIT(user, TRAIT_DEPRAVED)) ? SEX_SPEED_MAX : SEX_SPEED_MAX - 1)
 
 /datum/sex_controller/proc/adjust_force(amt)
-	force = clamp(force + amt, SEX_FORCE_MIN, SEX_FORCE_MAX)
+	force = clamp(force + amt, SEX_FORCE_MIN, (HAS_TRAIT(user, TRAIT_DEATHBYSNUSNU) || HAS_TRAIT(user, TRAIT_DEPRAVED)) ? SEX_FORCE_MAX : SEX_FORCE_MAX - 1)
 /datum/sex_controller/proc/adjust_arousal_manual(amt)
 	manual_arousal = clamp(manual_arousal + amt, SEX_MANUAL_AROUSAL_MIN, SEX_MANUAL_AROUSAL_MAX)
 
@@ -607,6 +607,8 @@
 			oxyloss_multiplier = 1.0
 		if(SEX_FORCE_EXTREME)
 			oxyloss_multiplier = 2.0
+		if(SEX_FORCE_LUDICROUS)
+			oxyloss_multiplier = 3.0
 	oxyloss_amt *= oxyloss_multiplier
 	if(oxyloss_amt <= 0)
 		return
@@ -1230,6 +1232,8 @@
 			return 2.0
 		if(SEX_SPEED_EXTREME)
 			return 2.5
+		if(SEX_SPEED_LUDICROUS)
+			return 3
 
 /datum/sex_controller/proc/get_stamina_cost_multiplier()
 	switch(force)
@@ -1239,7 +1243,9 @@
 			return 1.5
 		if(SEX_FORCE_HIGH)
 			return 2.0
-		if(SEX_SPEED_EXTREME)
+		if(SEX_FORCE_EXTREME)
+			return 2.5
+		if(SEX_FORCE_LUDICROUS)
 			return 2.5
 
 /datum/sex_controller/proc/get_force_pleasure_multiplier(passed_force, giving)
@@ -1264,6 +1270,11 @@
 				return 2.0
 			else
 				return 0.8
+		if(SEX_FORCE_LUDICROUS)
+			if(giving)
+				return 2.0
+			else
+				return 0.8
 
 /datum/sex_controller/proc/get_force_pain_multiplier(passed_force)
 	switch(passed_force)
@@ -1275,6 +1286,8 @@
 			return 2.0
 		if(SEX_FORCE_EXTREME)
 			return 3.0
+		if(SEX_FORCE_LUDICROUS)
+			return 4.0
 
 /datum/sex_controller/proc/get_speed_pain_multiplier(passed_speed)
 	switch(passed_speed)
@@ -1286,6 +1299,8 @@
 			return 1.2
 		if(SEX_SPEED_EXTREME)
 			return 1.4
+		if(SEX_SPEED_LUDICROUS)
+			return 1.6
 
 /datum/sex_controller/proc/get_force_string()
 	switch(force)
@@ -1297,7 +1312,8 @@
 			return "<font color='#f05ee1'>ROUGH</font>"
 		if(SEX_FORCE_EXTREME)
 			return "<font color='#d146f5'>BRUTAL</font>"
-
+		if(SEX_FORCE_LUDICROUS)
+			return "<font color='#d61a43'>FERAL</font>"
 /datum/sex_controller/proc/get_speed_string()
 	switch(speed)
 		if(SEX_SPEED_LOW)
@@ -1308,7 +1324,8 @@
 			return "<font color='#f05ee1'>QUICK</font>"
 		if(SEX_SPEED_EXTREME)
 			return "<font color='#d146f5'>UNRELENTING</font>"
-
+		if(SEX_SPEED_LUDICROUS)
+			return "<font color='#d61a43'>FURIOUS</font>"
 /datum/sex_controller/proc/get_manual_arousal_string()
 	switch(manual_arousal)
 		if(SEX_MANUAL_AROUSAL_DEFAULT)
@@ -1332,6 +1349,8 @@
 			return pick(list("roughly", "carelessly", "forcefully", "fervently", "fiercely"))
 		if(SEX_FORCE_EXTREME)
 			return pick(list("brutally", "violently", "relentlessly", "savagely", "mercilessly"))
+		if(SEX_FORCE_LUDICROUS)
+			return pick(list("madly", "uncontrollably", "desperately", "deliriously", "freekishly"))
 
 /datum/sex_controller/proc/spanify_force(string)
 	switch(force)
@@ -1343,6 +1362,8 @@
 			return "<span class='love_high'>[string]</span>"
 		if(SEX_FORCE_EXTREME)
 			return "<span class='love_extreme'>[string]</span>"
+		if(SEX_FORCE_LUDICROUS)
+			return "<span class='love_ludicrous'>[string]</span>"
 
 /datum/sex_controller/proc/try_pelvis_crush(mob/living/carbon/human/target)
 	if(istype(user.rmb_intent, /datum/rmb_intent/strong))

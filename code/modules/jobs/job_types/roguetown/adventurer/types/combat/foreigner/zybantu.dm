@@ -76,10 +76,9 @@
 				r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/iron
 				backl = /obj/item/storage/backpack/rogue/satchel
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
-	switch(H.patron?.type)
-		if(/datum/patron/inhumen/zizo)
-			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
-			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
+				if(H.patron?.type == /datum/patron/inhumen/zizo)
+					H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
+					H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
 
 //Just the nomad clothes.
 /obj/item/clothing/cloak/cape/nomad

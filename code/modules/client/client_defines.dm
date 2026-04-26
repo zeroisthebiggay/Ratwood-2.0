@@ -32,6 +32,10 @@
 		/////////
 	///Player preferences datum for the client
 	var/datum/preferences/prefs = null
+	/// Single-instance Toggle Options TGUI menu
+	var/datum/toggle_options_menu/toggles_menu = null
+	/// Single-instance Volume Power TGUI menu
+	var/datum/volume_power_menu/volume_power_menu = null
 	///Move delay of controlled mob, related to input handling
 	var/move_delay = 0
 	///Current area of the controlled mob

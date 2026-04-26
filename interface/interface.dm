@@ -171,6 +171,7 @@ Hotkey-Mode: (hotkey-mode must be on)
 /client/verb/crtmode()
 	set category = "Options"
 	set name = "ToggleCRT"
+	set hidden = 1
 	if(!prefs)
 		return
 	if(prefs.crt == TRUE)
@@ -191,6 +192,7 @@ Hotkey-Mode: (hotkey-mode must be on)
 /client/verb/grainfilter()
 	set category = "Options"
 	set name = "ToggleGrain"
+	set hidden = 1
 	if(!prefs)
 		return
 	if(prefs.grain == TRUE)

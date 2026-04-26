@@ -210,6 +210,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/no_autopunctuate = FALSE
 	var/no_language_fonts = FALSE
 	var/no_language_icon = FALSE
+	var/hide_unavailable_emotes = FALSE
+	var/hide_tongue_noise_warnings = FALSE
 	var/ghost_protection = FALSE
 	var/lastclass
 

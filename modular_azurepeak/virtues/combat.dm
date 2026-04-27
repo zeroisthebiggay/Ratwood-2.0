@@ -2,7 +2,7 @@
 /datum/virtue/combat/magical_potential
 	name = "Arcyne Potential"
 	desc = "I am talented in the Arcyne arts, expanding my capacity for magic. I have become more intelligent from its studies. Other effects depends on what training I chose to focus on at a later age."
-	custom_text = "You gain +3 spellpoints and T1 Arcyne Potential, which comes with a limited, mostly flavor and non-combat spell list. If you already have skills with magic, you gain +1 level and +3 spell points."
+	custom_text = "You gain +2 spellpoints and T1 Arcyne Potential, which comes with a limited, mostly flavor and non-combat spell list. If you already have skills with magic, you gain +1 level and +3 spell points."
 	added_skills = list(list(/datum/skill/magic/arcane, 1, 6))
 
 /datum/virtue/combat/magical_potential/apply_to_human(mob/living/carbon/human/recipient)

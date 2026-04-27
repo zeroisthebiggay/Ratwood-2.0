@@ -143,7 +143,7 @@
 	reqs = list(/obj/item/natural/hide/cured = 1)
 	craftdiff = 2
 /datum/crafting_recipe/roguetown/leather/studhood
-    name = "leather padded hood"
-    result = /obj/item/clothing/head/roguetown/helmet/leather/armorhood
-    reqs = list(/obj/item/natural/hide/cured = 2)
-    craftdiff = 2
+	name = "leather padded hood"
+	result = /obj/item/clothing/head/roguetown/helmet/leather/armorhood
+	reqs = list(/obj/item/natural/hide/cured = 2)
+	craftdiff = 2

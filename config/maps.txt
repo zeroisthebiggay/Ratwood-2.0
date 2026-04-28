@@ -26,8 +26,8 @@ map rockhill
 endmap
 
 map byos
-endmap
 	maxplayers 100
+endmap
 
 map deserttown
 endmap

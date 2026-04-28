@@ -23,7 +23,7 @@
 	if(!contained_atom)
 		return
 
-	if(!istype(nearby, /mob/living) || !nearby.ckey)
+	if(!isliving(nearby) || !nearby.ckey)
 		return
 
 	var/datum/component/quest_object/quest_component = contained_atom.GetComponent(/datum/component/quest_object)

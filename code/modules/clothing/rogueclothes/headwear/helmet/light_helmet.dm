@@ -201,6 +201,7 @@
 	toggle_icon_state = TRUE
 	cold_protection = HEAD
 	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
+	block2add = FOV_BEHIND
 
 /obj/item/clothing/head/roguetown/helmet/leather/armorhood/advanced
 	name = "studded leather hood"
@@ -213,6 +214,7 @@
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_BLUNT, BCLASS_TWIST, BCLASS_CHOP, BCLASS_SMASH) //studded armor values with stab prot too
 	cold_protection = HEAD
 	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
+	block2add = FOV_BEHIND
 
 /obj/item/clothing/head/roguetown/helmet/leather/armorhood/AdjustClothes(mob/user)
 	if(loc == user)

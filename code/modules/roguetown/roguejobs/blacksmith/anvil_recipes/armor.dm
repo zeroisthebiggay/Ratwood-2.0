@@ -472,6 +472,7 @@
 	req_bar = /obj/item/ingot/iron
 	req_blade = /obj/item/blade/iron_plate
 	created_item = /obj/item/clothing/head/roguetown/helmet/horned
+
 /datum/anvil_recipe/armor/studdedhood
 	name = "Studded Leather Hood"
 	req_bar = /obj/item/ingot/iron

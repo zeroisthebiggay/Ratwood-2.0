@@ -94,7 +94,7 @@
 	else
 		cached_category = "Other"
 
-	return data
+	cached_display_data = data
 
 /datum/crafting_recipe/proc/generate_html(mob/user)
 	var/client/client = user

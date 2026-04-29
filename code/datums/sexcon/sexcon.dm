@@ -339,7 +339,7 @@
 	user.emote("groan", forced = TRUE)
 	return TRUE
 
-/datum/sex_controller/proc/cum_onto(mob/living/carbon/human/splashed_user = null)
+/datum/sex_controller/proc/cum_onto(mob/living/carbon/human/splashed_user = null, cum_on_face = TRUE)
 	if(try_resist_orgasm())
 		return
 	log_combat(user, target, "Came onto the target")
@@ -347,13 +347,16 @@
 	var/obj/item/organ/testicles/testes = user.getorganslot(ORGAN_SLOT_TESTICLES)
 	add_cum_floor(get_turf(target), do_big_puddle = testes?.ball_size > DEFAULT_TESTICLES_SIZE)
 	if(splashed_user)
-		var/datum/status_effect/facial/facial = splashed_user.has_status_effect(/datum/status_effect/facial)
-		if(!facial)
-			splashed_user.apply_status_effect(/datum/status_effect/facial)
-			if(splashed_user != user) // don't announce self-ejaculation (e.g. chastity overflow)
-				splashed_user.visible_message(span_love("[splashed_user] takes a load on their face!"), span_love("I take a load on my face!"))
+		if(cum_on_face)
+			var/datum/status_effect/facial/facial = splashed_user.has_status_effect(/datum/status_effect/facial)
+			if(!facial)
+				splashed_user.apply_status_effect(/datum/status_effect/facial)
+				if(splashed_user != user) // don't announce self-ejaculation (e.g. chastity overflow)
+					splashed_user.visible_message(span_love("[splashed_user] takes a load on their face!"), span_love("I take a load on my face!"))
+			else
+				facial.refresh_cum()
 		else
-			facial.refresh_cum()
+			splashed_user.visible_message(span_love("[splashed_user] takes a load on their body!"), span_love("I take a load on my body!"))
 		modular_record_collar_receive_event(splashed_user, user)
 	if(target.has_flaw(/datum/charflaw/addiction/lovefiend))
 		target.sate_addiction(/datum/charflaw/addiction/lovefiend)

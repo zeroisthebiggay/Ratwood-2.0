@@ -389,6 +389,11 @@
 				splashed_user.visible_message(span_love("[splashed_user] takes a load inside them!"), span_love("I take a load inside me!"))
 		else
 			splashed_type.refresh_cum()
+		if(oral && splashed_user.reagents) //cum fills hunger if taking it orally
+			var/obj/item/organ/testicles/testes = user.getorganslot(ORGAN_SLOT_TESTICLES)
+			var/cum_amount = testes?.ball_size > DEFAULT_TESTICLES_SIZE ? 6 : 3
+			var/cum_type = user.getorganslot(ORGAN_SLOT_VAGINA) ? /datum/reagent/erpjuice/femcum : /datum/reagent/erpjuice/cum
+			splashed_user.reagents.add_reagent(cum_type, cum_amount)
 		if(!oral && user?.dna?.species?.id == "gnoll")
 			splashed_user.has_gnoll_scent_this_round = TRUE
 		modular_record_collar_receive_event(splashed_user, user)

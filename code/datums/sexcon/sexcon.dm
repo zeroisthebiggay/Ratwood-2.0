@@ -1431,6 +1431,9 @@
 		if(SEX_MANUAL_AROUSAL_FULL)
 			return "<font color='#d146f5'>FULLY ERECT</font>"
 
+/datum/sex_controller/proc/get_knot_synonym()
+	return pick(list("knot", "knot", "bulb", "plug"))
+
 /datum/sex_controller/proc/get_generic_force_adjective(is_stealth = FALSE)
 	if(is_stealth)
 		return pick(list("subtly","sneakily","covertly","stealthily","quietly"))

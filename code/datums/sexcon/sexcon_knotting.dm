@@ -58,12 +58,12 @@
 	var/btm_forced = btm.sexcon.do_knot_action_as_bottom && !user.sexcon.do_knot_action
 	if(user.sexcon.considered_limp())
 		if(!user.sexcon.knotted_status)
-			to_chat(user, span_notice("My knot was too soft to tie."))
+			to_chat(user, span_notice("My [user.sexcon.get_knot_synonym()] was too soft to tie."))
 		if(!btm.sexcon.knotted_status)
 			if(btm_forced)
 				to_chat(btm, span_notice("They are too soft to knot..."))
 			else
-				to_chat(btm, span_notice("I feel their deflated knot slip out."))
+				to_chat(btm, span_notice("I feel their deflated [user.sexcon.get_knot_synonym()] slip out."))
 		return
 
 	var/target_knotted_part = SEX_PART_NULL
@@ -109,10 +109,12 @@
 			btm.sexcon.try_do_pain_effect(PAIN_MILD_EFFECT, FALSE)
 		btm.Stun(80) // stun for dramatic effect
 	if(btm_forced)
-		btm.visible_message(span_notice("[btm] forces [btm.p_them()]self down onto [user]'s knot!"), span_notice("I force myself down onto their knot!"))
-		to_chat(user, span_notice("They forced themselves onto my knot!"))
+		var/knot_word_force = user.sexcon.get_knot_synonym()
+		btm.visible_message(span_notice("[btm] forces [btm.p_them()]self down onto [user]'s [knot_word_force]!"), span_notice("I force myself down onto their [knot_word_force]!"))
+		to_chat(user, span_notice("They forced themselves onto my [user.sexcon.get_knot_synonym()]!"))
 	else
-		user.visible_message(span_notice("[user] ties their knot inside of [btm]!"), span_notice("I tie my knot inside of [btm]."))
+		var/knot_word_tie = user.sexcon.get_knot_synonym()
+		user.visible_message(span_notice("[user] ties their [knot_word_tie] inside of [btm]!"), span_notice("I tie my [knot_word_tie] inside of [btm]."))
 	if(btm.stat != DEAD)
 		switch(btm.sexcon.knotted_part) // this is not a smart way to do this in hindsight, but it is fast at least
 			if(SEX_PART_CUNT,SEX_PART_ANUS,SEX_PART_JAWS,SEX_PART_SLIT_SHEATH)
@@ -145,8 +147,8 @@
 	penor.add_mob_blood(top)
 	playsound(get_turf(top), 'sound/combat/dismemberment/dismem (5).ogg', 80, TRUE)
 	playsound(get_turf(top), 'sound/vo/male/tomscream.ogg', 80, TRUE)
-	to_chat(top, span_userdanger("You feel a sharp pain as your knot is torn asunder!"))
-	to_chat(btm, span_userdanger("You feel their knot withdraw faster than you can process!"))
+	to_chat(top, span_userdanger("You feel a sharp pain as your [top.sexcon.get_knot_synonym()] is torn asunder!"))
+	to_chat(btm, span_userdanger("You feel their [top.sexcon.get_knot_synonym()] withdraw faster than you can process!"))
 	knot_remove(forceful_removal = TRUE, notify = FALSE)
 	log_combat(btm, top, "Top had their cock ripped off (knot tugged too far)")
 	return TRUE
@@ -183,7 +185,7 @@
 		top.sexcon.perform_sex_action(btm, penis?.penis_size > DEFAULT_PENIS_SIZE ? 6.0 : 3.0, 2, FALSE)
 		btm.sexcon.handle_passive_ejaculation()
 		if(prob(50))
-			to_chat(top, span_love("I feel [btm] tightening over my knot."))
+			to_chat(top, span_love("I feel [btm] tightening over my [top.sexcon.get_knot_synonym()]."))
 			to_chat(btm, span_love("I feel [top] rubbing inside."))
 		return
 	if(top.pulling == btm || btm.pulling == top)
@@ -236,7 +238,7 @@
 			top.sexcon.try_do_pain_effect(PAIN_MILD_EFFECT, FALSE)
 			if(top.sexcon.tugging_knot_blocked && (top.mobility_flags & MOBILITY_STAND)) // only knock down if standing and knot area is blocked
 				top.Knockdown(10)
-				to_chat(top, span_warning("I trip trying to move while my knot is covered."))
+				to_chat(top, span_warning("I trip trying to move while my [top.sexcon.get_knot_synonym()] is covered."))
 				top.sexcon.tugging_knot_blocked = FALSE // reset blocked state in the case either character stip off again
 				top.sexcon.tugging_knot_check = 0 // check clothes again on the next step
 			top.Stun(15)
@@ -343,17 +345,19 @@
 			playsound(top, 'sound/misc/mat/segso.ogg', 50, TRUE, -2, ignore_walls = FALSE)
 			btm.emote("paincrit", forced = TRUE)
 			if(notify)
-				if(btm_removed)
-					btm.visible_message(span_notice("[btm] yanks [btm.p_them()]self free from [top]'s knot!"), span_notice("I yank myself free from [top]'s knot!"))
-				else
-					top.visible_message(span_notice("[top] yanks their knot out of [btm]!"), span_notice("I yank my knot out from [btm]."))
-				btm.sexcon.try_do_pain_effect(PAIN_HIGH_EFFECT, FALSE)
+			var/knot_word_yank = top.sexcon.get_knot_synonym()
+			if(btm_removed)
+				btm.visible_message(span_notice("[btm] yanks [btm.p_them()]self free from [top]'s [knot_word_yank]!"), span_notice("I yank myself free from [top]'s [knot_word_yank]!"))
+			else
+				top.visible_message(span_notice("[top] yanks their [knot_word_yank] out of [btm]!"), span_notice("I yank my [knot_word_yank] out from [btm]."))
+			btm.sexcon.try_do_pain_effect(PAIN_HIGH_EFFECT, FALSE)
 		else if(notify)
 			playsound(btm, 'sound/misc/mat/insert (1).ogg', 50, TRUE, -2, ignore_walls = FALSE)
+			var/knot_word_slip = top.sexcon.get_knot_synonym()
 			if(btm_removed)
-				btm.visible_message(span_notice("[btm] slips free from [top]'s knot!"), span_notice("I slip free from [top]'s knot."))
+				btm.visible_message(span_notice("[btm] slips free from [top]'s [knot_word_slip]!"), span_notice("I slip free from [top]'s [knot_word_slip]."))
 			else
-				top.visible_message(span_notice("[top] slips their knot out of [btm]!"), span_notice("I slip my knot out from [btm]."))
+				top.visible_message(span_notice("[top] slips their [knot_word_slip] out of [btm]!"), span_notice("I slip my [knot_word_slip] out from [btm]."))
 			btm.emote("painmoan", forced = TRUE)
 			btm.sexcon.try_do_pain_effect(PAIN_MILD_EFFECT, FALSE)
 		add_cum_floor(get_turf(btm))

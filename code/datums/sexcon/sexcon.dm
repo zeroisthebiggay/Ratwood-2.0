@@ -47,6 +47,7 @@
 	var/arousal_frozen = FALSE
 	var/last_arousal_increase_time = 0
 	var/last_ejaculation_time = 0
+	var/last_oral_drip_consume_time = 0
 	var/last_moan = 0
 	var/last_pain = 0
 	var/aphrodisiac = 1 //1 by default, acts as a multiplier on arousal gain. If this is different than 1, set/freeze arousal is disabled.
@@ -390,10 +391,11 @@
 		else
 			splashed_type.refresh_cum()
 		if(oral && splashed_user.reagents) //cum fills hunger if taking it orally
-			var/obj/item/organ/testicles/testes = user.getorganslot(ORGAN_SLOT_TESTICLES)
-			var/cum_amount = testes?.ball_size > DEFAULT_TESTICLES_SIZE ? 6 : 3
-			var/cum_type = user.getorganslot(ORGAN_SLOT_VAGINA) ? /datum/reagent/erpjuice/femcum : /datum/reagent/erpjuice/cum
-			splashed_user.reagents.add_reagent(cum_type, cum_amount)
+			if(user.getorganslot(ORGAN_SLOT_PENIS))
+				var/obj/item/organ/testicles/testes = user.getorganslot(ORGAN_SLOT_TESTICLES)
+				splashed_user.reagents.add_reagent(/datum/reagent/erpjuice/cum, testes?.ball_size > DEFAULT_TESTICLES_SIZE ? 6 : 3)
+			else
+				splashed_user.reagents.add_reagent(/datum/reagent/erpjuice/femcum, 2)
 		if(!oral && user?.dna?.species?.id == "gnoll")
 			splashed_user.has_gnoll_scent_this_round = TRUE
 		modular_record_collar_receive_event(splashed_user, user)
@@ -407,6 +409,41 @@
 		target.sate_addiction(/datum/charflaw/addiction/lovefiend)
 	after_ejaculation()
 	after_intimate_climax(oral)
+
+/datum/sex_controller/proc/consume_oral_drips(mob/living/carbon/human/source)
+	if(!source || !user || !source.sexcon)
+		return FALSE
+
+	var/datum/status_effect/creampie_leak/drip = source.has_status_effect(/datum/status_effect/creampie_leak/long)
+	if(!drip)
+		drip = source.has_status_effect(/datum/status_effect/creampie_leak)
+	if(!drip)
+		return FALSE
+
+	if(last_oral_drip_consume_time + 3 SECONDS > world.time)
+		return FALSE
+	last_oral_drip_consume_time = world.time
+
+	var/datum/status_effect/facial/facial = user.has_status_effect(/datum/status_effect/facial)
+	if(!facial)
+		user.apply_status_effect(/datum/status_effect/facial)
+	else
+		facial.refresh_cum()
+
+	if(user.reagents)
+		var/drip_type = drip.contents_to_drip || /datum/reagent/erpjuice/cum
+		user.reagents.add_reagent(drip_type, 1)
+
+	user.visible_message(span_love("[user] laps up the fluids leaking from [source]!"), span_love("I lap up the fluids leaking from [source]!"))
+
+	if(drip.duration <= world.time + 6 SECONDS)
+		if(istype(drip, /datum/status_effect/creampie_leak/long))
+			source.remove_status_effect(/datum/status_effect/creampie_leak/long)
+		else
+			source.remove_status_effect(/datum/status_effect/creampie_leak)
+	else
+		drip.duration -= 6 SECONDS
+	return TRUE
 
 /datum/status_effect/facial
 	id = "facial"

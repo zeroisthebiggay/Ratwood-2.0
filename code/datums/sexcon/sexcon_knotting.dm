@@ -373,6 +373,12 @@
 				btm.visible_message(span_love("[btm] takes a load in their mouth!"), span_love("I take a load in my mouth!"))
 			else
 				facial.refresh_cum()
+			if(btm.reagents)
+				if(top.getorganslot(ORGAN_SLOT_PENIS))
+					var/obj/item/organ/testicles/testes = top.getorganslot(ORGAN_SLOT_TESTICLES)
+					btm.reagents.add_reagent(/datum/reagent/erpjuice/cum, testes?.ball_size > DEFAULT_TESTICLES_SIZE ? 6 : 3)
+				else
+					btm.reagents.add_reagent(/datum/reagent/erpjuice/femcum, 2)
 			modular_record_collar_receive_event(btm, top)
 	knot_exit(keep_top_status, keep_btm_status)
 

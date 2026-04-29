@@ -62,6 +62,8 @@
 	user.sexcon.do_thrust_animate(target, pixels = 2, time = 1.5)
 
 	user.sexcon.perform_sex_action(user, 2, 0.5, TRUE)
+	if(is_bottom_grinding)
+		user.sexcon.perform_sex_action(target, 2, 0, TRUE)
 	user.sexcon.handle_passive_ejaculation()
 
 	if(pleasure_target)

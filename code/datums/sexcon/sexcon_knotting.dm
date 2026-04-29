@@ -501,6 +501,20 @@
 	name = "Gaped"
 	desc = "You were forcefully withdrawn from. Warmth runs freely down your thighs..."
 
+
+/atom/movable/screen/alert/status_effect/knot_tied/Click()
+	..()
+	var/mob/living/L = usr
+	if(!istype(L) || !L.sexcon)
+		return FALSE
+	if(L.sexcon.knotted_status == KNOTTED_AS_BTM && L.sexcon.knotted_forced_by_bottom)
+		var/mob/living/carbon/human/top = L.sexcon.knotted_owner
+		if(istype(top) && top.sexcon)
+			var/do_forceful_removal = L.cmode || L.sexcon.arousal > MAX_AROUSAL / 4 || L.sexcon.manual_arousal > SEX_MANUAL_AROUSAL_PARTIAL // bottom forced the knot, so bottom can wrench free
+			top.sexcon.knot_remove(forceful_removal = do_forceful_removal)
+	else if(L.sexcon.knotted_status == KNOTTED_AS_BTM)
+		to_chat(L, span_warning("I can't pull free!"))
+	return FALSE
 /datum/status_effect/knotted
 	id = "knotted"
 	status_type = STATUS_EFFECT_UNIQUE

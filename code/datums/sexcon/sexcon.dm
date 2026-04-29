@@ -416,9 +416,8 @@
 /proc/apply_creampie_drip(mob/living/carbon/human/target, orifice, use_long = FALSE)
 	var/datum/status_effect/creampie_leak/existing = target.has_status_effect(/datum/status_effect/creampie_leak/long) || target.has_status_effect(/datum/status_effect/creampie_leak)
 	if(existing)
-		if(!(existing.orifice & orifice)) // only message if a genuinely new orifice is involved
-			existing.orifice |= orifice
-			to_chat(target, span_love("I feel another warmth beginning to leak out of me."))
+		existing.orifice |= orifice
+		to_chat(target, span_love("I feel another warmth beginning to leak out of me."))
 		existing.duration = world.time + initial(existing.duration) // refresh timer
 		return
 	if(use_long)
@@ -527,8 +526,18 @@
 		owner.remove_status_effect(src)
 
 /datum/status_effect/creampie_leak/on_apply()
+	RegisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_up))
 	to_chat(owner, span_love("I feel a warmth beginning to leak out of me."))
 	return ..()
+
+/datum/status_effect/creampie_leak/on_remove()
+	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT)
+	return ..()
+
+/datum/status_effect/creampie_leak/proc/clean_up(datum/source, strength)
+	if(strength >= CLEAN_WEAK && !QDELETED(owner))
+		to_chat(owner, span_notice("I feel much cleaner now."))
+		owner.remove_status_effect(src)
 
 /datum/status_effect/creampie_leak/tick()
 	if(!owner?.sexcon?.bottom_exposed && !get_location_accessible(owner, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE))

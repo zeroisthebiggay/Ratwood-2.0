@@ -31,7 +31,7 @@
 	if(!user.sexcon.do_knot_action_as_bottom)
 		user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] sucks [target]'s cock..."))
 	else
-		user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] sucks [target]'s cock, trying to force their knot."))
+		user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective()] sucks [target]'s cock, taking the knot into their mouth..."))
 	user.sexcon.oralcourse_noise(user)
 	user.sexcon.do_thrust_animate(target)
 

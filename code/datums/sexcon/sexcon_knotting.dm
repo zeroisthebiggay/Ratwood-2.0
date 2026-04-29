@@ -44,8 +44,7 @@
 	if(!(top_knotted_part & SEX_PART_COCK))
 		return
 
-	// btm is the receptive participant. Explicitly provided for inverted-role actions (riding, blowjob)
-	// where cum_into is called on the penis owner's sexcon and self.target may not point at the rider/sucker.
+	// btm is the receptive participant; explicitly passed for inverted-role actions (riding, blowjob) where self.target may not point at the rider/sucker
 	var/mob/living/carbon/human/btm = knot_btm ? knot_btm : target
 	if(!btm)
 		return

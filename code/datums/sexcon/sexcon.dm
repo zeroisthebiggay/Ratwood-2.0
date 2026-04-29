@@ -370,14 +370,16 @@
 	after_ejaculation()
 
 /datum/sex_controller/proc/cum_into(oral = FALSE, mob/living/carbon/human/splashed_user = null, datum/sex_action/knot_action = null, knot_swap_roles = FALSE, mob/living/carbon/human/knot_btm = null, orifice = SEX_PART_NULL)
-	log_combat(user, target, "Came inside the target")
-	werewolf_sex_infect_attempt(user, target)
-	deadite_sex_infect_attempt(user, target)
+	// splashed_user is the bottom receiving; for top-initiated actions it matches target, for riding/blowjob it is the rider/sucker while target may be null
+	var/mob/living/carbon/human/effective_target = splashed_user || target
+	log_combat(user, effective_target, "Came inside the target")
+	werewolf_sex_infect_attempt(user, effective_target)
+	deadite_sex_infect_attempt(user, effective_target)
 	if(oral)
 		playsound(user, pick(list('sound/misc/mat/mouthend (1).ogg','sound/misc/mat/mouthend (2).ogg')), 100, FALSE, ignore_walls = FALSE)
 	else
 		playsound(user, 'sound/misc/mat/endin.ogg', 50, TRUE, ignore_walls = FALSE)
-	if(knot_btm || (user != target && !isnull(target) && istype(target)))
+	if(knot_btm || (user != effective_target && !isnull(effective_target) && istype(effective_target)))
 		knot_try(knot_action = knot_action, knot_swap_roles = knot_swap_roles, knot_btm = knot_btm)
 	if(splashed_user && (oral || !splashed_user.sexcon.knotted_status))
 		var/status_type = !oral ? /datum/status_effect/facial/internal : /datum/status_effect/facial
@@ -406,10 +408,10 @@
 				splashed_user.apply_status_effect(/datum/status_effect/creampie_leak/long, orifice)
 			else
 				splashed_user.apply_status_effect(/datum/status_effect/creampie_leak, orifice)
-	if(target.has_flaw(/datum/charflaw/addiction/lovefiend))
-		target.sate_addiction(/datum/charflaw/addiction/lovefiend)
+	if(effective_target?.has_flaw(/datum/charflaw/addiction/lovefiend))
+		effective_target.sate_addiction(/datum/charflaw/addiction/lovefiend)
 	after_ejaculation()
-	after_intimate_climax(oral)
+	after_intimate_climax(oral, splashed_user)
 
 /datum/sex_controller/proc/apply_cum_consumed_buff(mob/living/carbon/human/consumer)
 	if(!consumer)
@@ -589,11 +591,12 @@
 	last_ejaculation_time = world.time
 	record_round_statistic(STATS_PLEASURES)
 
-/datum/sex_controller/proc/after_intimate_climax(oral)
-	if(user == target || isnull(target) || !istype(target) || QDELETED(target))
+/datum/sex_controller/proc/after_intimate_climax(oral, mob/living/carbon/human/climax_target = null)
+	var/mob/living/carbon/human/effective_target = climax_target || target
+	if(user == effective_target || isnull(effective_target) || !istype(effective_target) || QDELETED(effective_target))
 		return
 	var/user_goodlover = HAS_TRAIT(user, TRAIT_GOODLOVER)
-	var/target_goodlover = HAS_TRAIT(target, TRAIT_GOODLOVER)
+	var/target_goodlover = HAS_TRAIT(effective_target, TRAIT_GOODLOVER)
 	if(!oral)
 		if(target_goodlover)
 			if(!user.mob_timers["cumtri"])
@@ -601,32 +604,32 @@
 				user.adjust_triumphs(1)
 				to_chat(user, span_love("Our loving is a true TRIUMPH!"))
 		if(user_goodlover)
-			if(!target.mob_timers["cumtri"])
-				target.mob_timers["cumtri"] = world.time
-				target.adjust_triumphs(1)
-				to_chat(target, span_love("Our loving is a true TRIUMPH!"))
+			if(!effective_target.mob_timers["cumtri"])
+				effective_target.mob_timers["cumtri"] = world.time
+				effective_target.adjust_triumphs(1)
+				to_chat(effective_target, span_love("Our loving is a true TRIUMPH!"))
 	var/user_beautiful = HAS_TRAIT(user, TRAIT_BEAUTIFUL)
 	var/user_ugly = HAS_TRAIT(user, TRAIT_UNSEEMLY) || HAS_TRAIT(user, TRAIT_DISFIGURED)
-	var/target_beautiful = HAS_TRAIT(target, TRAIT_BEAUTIFUL)
-	var/target_ugly = HAS_TRAIT(target, TRAIT_UNSEEMLY) || HAS_TRAIT(target, TRAIT_DISFIGURED)
+	var/target_beautiful = HAS_TRAIT(effective_target, TRAIT_BEAUTIFUL)
+	var/target_ugly = HAS_TRAIT(effective_target, TRAIT_UNSEEMLY) || HAS_TRAIT(effective_target, TRAIT_DISFIGURED)
 	if(user_ugly && target_ugly || user_beautiful && target_beautiful) // both are ugly/beautiful, add made love buff
 		user.add_stress(/datum/stressevent/cummax)
-		target.add_stress(/datum/stressevent/cummax)
+		effective_target.add_stress(/datum/stressevent/cummax)
 	else // one of them is ugly, add debuff to non-ugly character
 		if(target_ugly && !user_ugly && !user_goodlover) // good lover are immune to ugly characters
 			if(user_beautiful) // stress event last longer
 				user.add_stress(/datum/stressevent/unseemly_made_love/beautiful)
 			else
 				user.add_stress(/datum/stressevent/unseemly_made_love)
-			target.add_stress(/datum/stressevent/cummax)
+			effective_target.add_stress(/datum/stressevent/cummax)
 		if(user_ugly && !target_ugly && !target_goodlover) // good lover are immune to ugly characters
 			if(target_beautiful) // stress event last longer
-				target.add_stress(/datum/stressevent/unseemly_made_love/beautiful)
+				effective_target.add_stress(/datum/stressevent/unseemly_made_love/beautiful)
 			else
-				target.add_stress(/datum/stressevent/unseemly_made_love)
+				effective_target.add_stress(/datum/stressevent/unseemly_made_love)
 			user.add_stress(/datum/stressevent/cummax)
-	if(!oral && force >= SEX_FORCE_HIGH && (user.has_flaw(/datum/charflaw/addiction/sadist) || target.has_flaw(/datum/charflaw/addiction/masochist)))
-		target.emote("paincrit", forced = TRUE) // this satiates the sadomasochists in range
+	if(!oral && force >= SEX_FORCE_HIGH && (user.has_flaw(/datum/charflaw/addiction/sadist) || effective_target.has_flaw(/datum/charflaw/addiction/masochist)))
+		effective_target.emote("paincrit", forced = TRUE) // this satiates the sadomasochists in range
 
 /datum/sex_controller/proc/just_ejaculated()
 	return (last_ejaculation_time + 2 SECONDS >= world.time)

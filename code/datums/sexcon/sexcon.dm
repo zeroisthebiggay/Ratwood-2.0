@@ -386,7 +386,7 @@
 			if(oral)
 				splashed_user.visible_message(span_love("[splashed_user] takes a load in their mouth!"), span_love("I take a load in my mouth!"))
 			else
-				splashed_user.visible_message(span_love("[splashed_user] takes a load on their body!"), span_love("I take a load on my body!"))
+				splashed_user.visible_message(span_love("[splashed_user] takes a load inside them!"), span_love("I take a load inside me!"))
 		else
 			splashed_type.refresh_cum()
 		if(!oral && user?.dna?.species?.id == "gnoll")

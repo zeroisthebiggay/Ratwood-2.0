@@ -343,10 +343,12 @@
 /datum/sex_controller/proc/cum_onto(mob/living/carbon/human/splashed_user = null, cum_on_face = TRUE)
 	if(try_resist_orgasm())
 		return
-	log_combat(user, target, "Came onto the target")
-	playsound(target, 'sound/misc/mat/endout.ogg', 50, TRUE, ignore_walls = FALSE)
+	var/mob/living/carbon/human/effective_target = splashed_user || target
+	log_combat(user, effective_target, "Came onto the target")
+	if(effective_target)
+		playsound(effective_target, 'sound/misc/mat/endout.ogg', 50, TRUE, ignore_walls = FALSE)
 	var/obj/item/organ/testicles/testes = user.getorganslot(ORGAN_SLOT_TESTICLES)
-	add_cum_floor(get_turf(target), do_big_puddle = testes?.ball_size > DEFAULT_TESTICLES_SIZE)
+	add_cum_floor(get_turf(effective_target || user), do_big_puddle = testes?.ball_size > DEFAULT_TESTICLES_SIZE)
 	if(splashed_user)
 		if(cum_on_face)
 			var/datum/status_effect/facial/facial = splashed_user.has_status_effect(/datum/status_effect/facial)
@@ -365,8 +367,8 @@
 			else
 				external.refresh_cum()
 		modular_record_collar_receive_event(splashed_user, user)
-	if(target.has_flaw(/datum/charflaw/addiction/lovefiend))
-		target.sate_addiction(/datum/charflaw/addiction/lovefiend)
+	if(effective_target?.has_flaw(/datum/charflaw/addiction/lovefiend))
+		effective_target.sate_addiction(/datum/charflaw/addiction/lovefiend)
 	after_ejaculation()
 
 /datum/sex_controller/proc/cum_into(oral = FALSE, mob/living/carbon/human/splashed_user = null, datum/sex_action/knot_action = null, knot_swap_roles = FALSE, mob/living/carbon/human/knot_btm = null, orifice = SEX_PART_NULL)

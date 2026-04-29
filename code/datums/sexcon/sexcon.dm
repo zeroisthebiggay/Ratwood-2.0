@@ -414,9 +414,7 @@
 
 /// Applies or accumulates a creampie drip status effect, correctly ORing new orifice flags onto an existing drip rather than silently dropping the second application.
 /proc/apply_creampie_drip(mob/living/carbon/human/target, orifice, use_long = FALSE)
-	var/long_drip = target.has_status_effect(/datum/status_effect/creampie_leak/long)
-	var/short_drip = target.has_status_effect(/datum/status_effect/creampie_leak)
-	var/datum/status_effect/creampie_leak/existing = long_drip || short_drip
+	var/datum/status_effect/creampie_leak/existing = target.has_status_effect(/datum/status_effect/creampie_leak/long) || target.has_status_effect(/datum/status_effect/creampie_leak)
 	if(existing)
 		if(!(existing.orifice & orifice)) // only message if a genuinely new orifice is involved
 			existing.orifice |= orifice

@@ -1292,7 +1292,7 @@
 		grassy_knoll = locate() in user.loc
 
 /datum/sex_controller/proc/find_ringing_collar()
-	var/obj/item/clothing/neck/roguetown/collar/collar
+	var/obj/item/clothing/neck/roguetown/collar
 	collar = user.get_item_by_slot(SLOT_NECK)
 	if(collar && istype(collar) && collar.bellsound)
 		collar_bell_user = TRUE

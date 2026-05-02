@@ -276,6 +276,7 @@
 	//   cat10 (Floral Conjuration) — Novice
 	//   cat2 (Fungal Vigil)        — Apprentice
 	//   cat5 (Living Light)        — Apprentice
+	//   cat12 (Timber's Tithe)     — Apprentice
 	//   cat4 (Treefather's Bulwark)— Journeyman
 	//   cat7 (Soulbind)            — Journeyman
 	//   cat9 (Harvest Bloomstone)  — Expert
@@ -284,7 +285,7 @@
 	//   cat11 (Winged Rebirth)   — Legendary
 	var/list/cat_opts = list()
 	var/list/cat_map = list()
-	for(var/cat in list("cat1", "cat8", "cat10", "cat2", "cat5", "cat4", "cat7", "cat9", "cat3", "cat6", "cat11"))
+	for(var/cat in list("cat1", "cat8", "cat10", "cat2", "cat5", "cat12", "cat4", "cat7", "cat9", "cat3", "cat6", "cat11"))
 		var/cat_name = get_ritual_display_name(cat)
 		if(is_once_per_tree(cat) && (cat in tree_data.rituals_completed))
 			cat_opts["[cat_name] (completed)"] = null
@@ -308,7 +309,7 @@
 			if("cat8", "cat10")
 				required_level = SKILL_LEVEL_NOVICE
 				required_name = "Novice"
-			if("cat2", "cat5")
+			if("cat2", "cat5", "cat12")
 				required_level = SKILL_LEVEL_APPRENTICE
 				required_name = "Apprentice"
 			if("cat4", "cat7")
@@ -359,6 +360,7 @@
 		if("cat1") return "Dendor's Harvest"
 		if("cat2") return "Fungal Vigil"
 		if("cat3") return "Fey Weaving"
+		if("cat12") return "Timber's Tithe"
 		if("cat4") return "Treefather's Bulwark"
 		if("cat5") return "Living Light"
 		if("cat6") return "Nature's Temper"
@@ -370,7 +372,7 @@
 	return "Unknown Ritual"
 
 /obj/structure/flora/roguetree/wise/sanctified/proc/is_once_per_tree(category)
-	return (category in list("cat4", "cat5", "cat6", "cat7", "cat9", "cat10", "cat11"))
+	return (category in list("cat4", "cat5", "cat6", "cat7", "cat9", "cat10", "cat11")) // cat12 is repeatable
 
 /// Returns associative list of offering key -> required count for the given category.
 /obj/structure/flora/roguetree/wise/sanctified/proc/get_required_offerings(category)
@@ -403,6 +405,7 @@
 			"manabloom_single" = 1
 		)
 		if("cat11") return list("feather" = 10, "bonedust" = 10, "essence_of_wilderness" = 1, "bloomstone" = 1)
+		if("cat12") return list("tree_sapling_any" = 5)
 	return list()
 
 /obj/structure/flora/roguetree/wise/sanctified/proc/get_offering_desc(key)
@@ -423,6 +426,7 @@
 		if("volf_head") return "Volf head"
 		if("spider_head") return "Spider head"
 		if("tree_seed") return "Tree seed"
+		if("tree_sapling_any") return "Any tree sapling"
 		if("blessed_seed_powder") return "Blessed seed powder"
 		if("holy_water_container") return "Stone mortar or bucket with 30+ drams of blessed water"
 		if("lux") return "Lux"
@@ -631,6 +635,8 @@
 			return istype(held, /obj/item/natural/head/honeyspider) || istype(held, /obj/item/natural/head/mirespider)
 		if("tree_seed")
 			return istype(held, /obj/item/seeds/treesap)
+		if("tree_sapling_any")
+			return istype(held, /obj/item/seeds/treesap) || istype(held, /obj/structure/tree_sapling)
 		if("blessed_seed_powder")
 			return istype(held, /obj/item/alch/blessedseedpowder)
 		if("holy_water_container")
@@ -683,6 +689,8 @@
 
 /obj/structure/flora/roguetree/wise/sanctified/proc/consume_offering(key, obj/item/held, mob/living/user)
 	switch(key)
+		if("tree_sapling_any")
+			qdel(held)
 		if("food_item", "manabloom_or_manacrystal", "runed_or_leyline", "enchanted_stone_or_boulder", "blessed_powder_alt")
 			qdel(held)
 		if("vital_item", "ash", "compost")
@@ -747,6 +755,7 @@
 		if("cat2") ritual_xp = 25
 		if("cat3") ritual_xp = 50
 		if("cat4") ritual_xp = 100
+		if("cat12") ritual_xp = 10
 		if("cat5") ritual_xp = 100
 		if("cat6") ritual_xp = 200
 		if("cat7") ritual_xp = 100
@@ -768,6 +777,7 @@
 		if("cat9") reward_cat9(user)
 		if("cat10") reward_cat10(user)
 		if("cat11") reward_cat11(user)
+		if("cat12") reward_cat12(user)
 
 /obj/structure/flora/roguetree/wise/sanctified/proc/cancel_ritual(mob/living/user)
 	if(!tree_data?.active_ritual)
@@ -972,6 +982,14 @@
 	if(!already_has_crow)
 		ws.possible_shapes += /mob/living/carbon/human/species/wildshape/crow
 	to_chat(H, span_green("The knowledge of bat and crow forms take root in my soul. I can now call shift into them through Beast Form."))
+
+/obj/structure/flora/roguetree/wise/sanctified/proc/reward_cat12(mob/living/user)
+	// Spawn 2 blessed logs at the player's feet as the Treefather's gift.
+	var/turf/T = get_turf(user)
+	for(var/i in 1 to 2)
+		var/obj/item/grown/log/tree/log = new(T)
+		log.bless_log()
+	to_chat(user, span_green("Through the Treefather's power, the tree's limbs shed and regrow, with blessed logs now at my feet."))
 
 //==============================================================================
 // Aura Procs

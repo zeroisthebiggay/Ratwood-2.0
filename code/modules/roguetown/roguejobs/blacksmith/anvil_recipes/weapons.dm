@@ -49,7 +49,7 @@
 
 /datum/anvil_recipe/weapons/psy
 	abstract_type = /datum/anvil_recipe/weapons/psy
-	req_bar = /obj/item/ingot/silverblessed
+	req_bar = /obj/item/ingot/silverblessed/bullion
 	craftdiff = SKILL_LEVEL_MASTER
 
 /datum/anvil_recipe/weapons/holysteel

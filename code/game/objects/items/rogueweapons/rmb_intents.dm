@@ -179,7 +179,7 @@
 				to_chat(H, span_info("Such a curt display of hubris amuses the Laughing God!"))
 		return
 	else
-	user.visible_message(span_danger("[user] feints an attack at [target]!"))
+		user.visible_message(span_danger("[user] feints an attack at [target]!"))
 	var/perc = 50
 	var/obj/item/I = user.get_active_held_item()
 	var/ourskill = 0

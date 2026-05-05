@@ -464,3 +464,27 @@
 	chargetime = 0.75
 	chargedrain = 1.5
 	charging_slowdown = 2.5
+
+
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow/eora
+	name = "eoran harp-bow"
+	desc = "Strings to pluck."
+	icon = 'icons/roguetown/weapons/special/boweoran64.dmi'
+	icon_state = "harpbow"
+	dropshrink = 0
+	// randomspread = 1
+	// spread = 1
+	force = 15
+	damfactor = 1.25
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/short/eora
+	name = "eoran harp-bow"
+	desc = "Strings to pluck."
+	icon = 'icons/roguetown/weapons/special/boweoran64.dmi'
+	icon_state = "harpbowb"
+	dropshrink = 0
+	randomspread = 1
+	spread = 1
+	force = 9
+	damfactor = 0.95

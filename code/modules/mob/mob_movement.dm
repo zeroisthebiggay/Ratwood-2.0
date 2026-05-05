@@ -583,7 +583,7 @@
 
 	if (stat == DEAD) // we're dead, so be visible if sneaking, and end it there. needed because DeadLife calls this constantly on every dead mob that exists
 		if (rogue_sneaking)
-			animate(src, alpha = initial(alpha), time = 25)
+			animate(src, alpha = initial(alpha), time = 25)	
 			spawn(25) regenerate_icons()
 			rogue_sneaking = FALSE
 		return
@@ -603,10 +603,9 @@
 
 	if(rogue_sneaking || reset) //If sneaking, check if they should be revealed
 		var/should_reveal = FALSE
-		// are we crit, sleeping, been recently discovered, have no turf, force-revealed or not in sneak intent? then we should be revealed, end of.
-		if((stat > SOFT_CRIT) || IsSleeping() || (world.time < mob_timers[MT_FOUNDSNEAK] + 30 SECONDS) || !T || reset || (m_intent != MOVE_INTENT_SNEAK))
+		// are we crit, sleeping, been recently discovered, have no turf, force-revealed or not in sneak intent? then we should be revealed. Also now adds a 1.5 second delay before re-entering sneak after being hit, or hitting someone. Stop it, rogue players!
+		if((stat > SOFT_CRIT) || IsSleeping() || (world.time < mob_timers[MT_FOUNDSNEAK] + 30 SECONDS) || !T || reset || (m_intent != MOVE_INTENT_SNEAK) || (world.time < mob_timers[MT_SNEAKATTACK] + 1.5 SECONDS))
 			should_reveal = TRUE
-
 		// are we in a area of light that should reveal us?
 		if (!should_reveal)
 			light_amount = T.get_lumcount() // this is moderately expensive, so only check it if we really need to
@@ -615,6 +614,7 @@
 
 		if (should_reveal)
 			used_time = round(clamp((50 - (used_time*1.75)), 5, 50),1)
+			invisibility = initial(invisibility) //Ensure to set this back to type default (Always 0 for mobs). Execute BEFORE the animate so you can see them fade in.
 			animate(src, alpha = initial(alpha), time =	used_time) //sneak skill makes you reveal slower but not as drastic as disappearing speed
 			spawn(used_time) regenerate_icons()
 			rogue_sneaking = FALSE
@@ -625,7 +625,9 @@
 			light_amount = T.get_lumcount()  // as above, this is moderately expensive, so only check it if we need to.
 			if(light_amount < light_threshold)
 				animate(src, alpha = 0, time = used_time)
-				spawn(used_time + 5) regenerate_icons()
+				spawn(used_time + 5) regenerate_icons() //We want this to execute up here so they have the full animated fade-out before becoming hidden to player clients
+				invisibility = (SEE_INVISIBLE_LIVING + (get_skill_level(/datum/skill/misc/sneaking) * 0.75))+1 //At 5 sneak, you get a total of ~24 invis - 3.75 bonus
+				alpha = 125 //Once your animation completes and invisibility takes over, makes you visible to yourself(assuming you have decent PER), high PER builds, and admins. Note: You are still partly-translucent, so even if they can see through your stealth, you can still hide in darkness.
 				rogue_sneaking = TRUE
 	return
 

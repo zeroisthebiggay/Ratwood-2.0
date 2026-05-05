@@ -209,6 +209,7 @@
 		return TRUE
 	if(isliving(M))
 		var/mob/living/L = M
+		L.mob_timers[MT_SNEAKATTACK] = world.time //Here we go again. Make people suddenly lose stealth if they're bumped. No more rogueshittery.
 		if(HAS_TRAIT(L, TRAIT_PUSHIMMUNE))
 			return TRUE
 

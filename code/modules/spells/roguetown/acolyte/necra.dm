@@ -355,7 +355,7 @@
 	soul.status_flags &= ~GODMODE
 	soul.density = initial(soul.density) */
 
-/proc/necra_dir_arrow(var/dir)
+/proc/necra_dir_arrow(dir)
 	switch(dir)
 		if(NORTH)      return "↑"
 		if(SOUTH)      return "↓"
@@ -367,7 +367,7 @@
 		if(SOUTHWEST)  return "↙"
 	return "•"
 
-/proc/necra_repeat_arrow(var/arrow, var/count)
+/proc/necra_repeat_arrow(arrow, count)
 	var/result = ""
 	for(var/i in 1 to count)
 		result += arrow
@@ -452,36 +452,34 @@
 		to_chat(user, span_warning("The Undermaiden's grasp lets slip."))
 		return .
 
-	var/list/directions = list()
-	var/arrow = "•"
+	var/vertical_text = null
+	var/vertical_arrow = null
+	var/horizontal_text = null
+	var/horizontal_arrow = null
 
-	// Vertical (Z-level) direction.
 	if(turf_user.z != turf_corpse.z)
 		var/z_difference = abs(turf_corpse.z - turf_user.z)
 
 		if(turf_corpse.z > turf_user.z)
-			directions += "upwards"
-			arrow = necra_repeat_arrow("⇧", z_difference)
+			vertical_text = "upwards"
+			vertical_arrow = necra_repeat_arrow("⇧", z_difference)
 		else
-			directions += "downwards"
-			arrow = necra_repeat_arrow("⇩", z_difference)
+			vertical_text = "downwards"
+			vertical_arrow = necra_repeat_arrow("⇩", z_difference)
 
-	// Horizontal direction.
 	if(turf_user.x != turf_corpse.x || turf_user.y != turf_corpse.y)
 		var/direction = get_dir(turf_user, turf_corpse)
-
-		if(turf_user.z == turf_corpse.z)
-			arrow = necra_dir_arrow(direction)
+		horizontal_arrow = necra_dir_arrow(direction)
 
 		switch(direction)
-			if(NORTH)      directions += "north"
-			if(SOUTH)      directions += "south"
-			if(EAST)       directions += "east"
-			if(WEST)       directions += "west"
-			if(NORTHEAST)  directions += "northeast"
-			if(NORTHWEST)  directions += "northwest"
-			if(SOUTHEAST)  directions += "southeast"
-			if(SOUTHWEST)  directions += "southwest"
+			if(NORTH)      horizontal_text = "north"
+			if(SOUTH)      horizontal_text = "south"
+			if(EAST)       horizontal_text = "east"
+			if(WEST)       horizontal_text = "west"
+			if(NORTHEAST)  horizontal_text = "northeast"
+			if(NORTHWEST)  horizontal_text = "northwest"
+			if(SOUTHEAST)  horizontal_text = "southeast"
+			if(SOUTHWEST)  horizontal_text = "southwest"
 
 	var/dist = get_dist(turf_user, turf_corpse)
 	var/distance_text
@@ -497,13 +495,18 @@
 	else
 		distance_text = "It is here."
 
-	var/direction_text
-	if(length(directions))
-		direction_text = english_list(directions, and_text = " and ")
-	else
-		direction_text = "nowhere discernible"
+	var/direction_text = ""
+
+	if(vertical_text)
+		direction_text += "<br>Vertical: <b>[vertical_arrow]</b> [vertical_text]"
+
+	if(horizontal_text)
+		direction_text += "<br>Horizontal: <b>[horizontal_arrow]</b> [horizontal_text]"
+
+	if(!length(direction_text))
+		direction_text = "<br><b>•</b> nowhere discernible"
 
 	var/area/corpse_area = get_area(turf_corpse)
 	var/area_text = corpse_area ? corpse_area.name : "an unknown place"
 
-	to_chat(user, span_notice("The Undermaiden pulls on your hand, guiding you <b>[arrow]</b> [direction_text]. [distance_text] Its resting place lies within <b>[area_text]</b>."))
+	to_chat(user, span_notice("The Undermaiden pulls on your hand.[direction_text]<br>[distance_text] Its resting place lies within <b>[area_text]</b>."))

@@ -16,10 +16,10 @@
 	range = 1
 	var/charges = 1
 
-/obj/effect/proc_holder/spell/invoked/martialprowess/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/invoked/martialprowess/cast(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
-	var/mob/living/L = targets[1]
-	if(user.charges < 1())
+	var/mob/living/L = target
+	if(charges < 1)
 		to_chat(user, span_warning("You cannot take on another protegé yet."))
 		revert_cast()
 		return

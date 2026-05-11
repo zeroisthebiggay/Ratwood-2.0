@@ -6,6 +6,8 @@
 	dream_cost_per_level = 1
 	color = "#ec994b"
 	max_skillbook_level = 3
+	max_untraited_level = SKILL_LEVEL_EXPERT
+	trait_uncap = list(TRAIT_MARTIAL_PROWESS = SKILL_LEVEL_LEGENDARY) //if the veteran trains you and then you find a vampire knight with legendary i guess
 
 /datum/skill/combat/knives
 	name = "Knife-fighting"

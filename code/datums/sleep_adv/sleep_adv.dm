@@ -417,10 +417,9 @@ GLOBAL_LIST_INIT(cross_training_map, list(
 	if(HAS_TRAIT(mind.current, TRAIT_STUDENT))
 		REMOVE_TRAIT(mind.current, TRAIT_STUDENT, null)
 		to_chat(mind.current, span_nicegreen("I feel that I can be educated in a skill once more."))
-	for(var/obj/effect/proc_holder/spell/invoked/martialprowess/martialspell in mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/self/martial_prowess/martialspell in mind.spell_list)
 		to_chat(mind.current, span_nicegreen("My old body feels rested and renewed. I can take on another protegé."))
-		martialspell.charges++ //really bizarre janky fuckass code but we taught this monkey spell code and it killed itself
-		martialspell.desc = "Take on an individual as your protegé, allowing them to level up their weapon skills past Expert. This ability gains a charge with the passing of each dae.\n\ <span class = 'notice'>You currently have the potential to take on [martialspell.charges] protégés.</span>"
+		martialspell.charges++
 	close_ui()
 
 /datum/sleep_adv/Topic(href, list/href_list)

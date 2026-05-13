@@ -1069,19 +1069,15 @@
 //cutting out the duplicate variables so it's more clear what these subtypes actually do
 /datum/anvil_recipe/weapons/psy/axe/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/grown/log/tree/stick)
 
 /datum/anvil_recipe/weapons/psy/poleaxe/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion, /obj/item/grown/log/tree/small)
 
 /datum/anvil_recipe/weapons/psy/mace/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/grown/log/tree/small)
 
 /datum/anvil_recipe/weapons/psy/spear/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/grown/log/tree/small)
 
 /datum/anvil_recipe/weapons/psy/dagger/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
@@ -1100,15 +1096,12 @@
 
 /datum/anvil_recipe/weapons/psy/halberd/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion, /obj/item/grown/log/tree/small)
 
 /datum/anvil_recipe/weapons/psy/gsword/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion)
 
 /datum/anvil_recipe/weapons/psy/sword/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion)
 
 /datum/anvil_recipe/weapons/psy/whip/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion

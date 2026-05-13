@@ -802,7 +802,6 @@
 	req_bar = /obj/item/ingot/silverblessed/bullion
 
 /datum/anvil_recipe/armor/blessedsilver/psycuirass/inq
-	name = "Psydonic Cuirass (+2 Cured Leather, +1 Blessed Silver Bullion)"
 	req_bar = /obj/item/ingot/silverblessed/bullion
 
 /datum/anvil_recipe/armor/blessedsilver/armetpsy/inq
@@ -815,10 +814,8 @@
 	req_bar = /obj/item/ingot/silverblessed/bullion
 
 /datum/anvil_recipe/armor/blessedsilver/helmetabso/inq
-	name = "Psydonian Conical Helm (+2 Blessed Silver Bullion)"
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion)
-
+	
 /datum/anvil_recipe/armor/blessedsilver/psyhalfplate/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
 
@@ -827,9 +824,6 @@
 
 /datum/anvil_recipe/armor/blessedsilver/psyfullplatealt/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	name = "Psydonic Full-Plate, Hauberked (+Psydonic Hauberk, +2 Blessed Silver Bullion, +2 Cured Leather)"
-	additional_items = list(/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/ornate, /obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion, /obj/item/natural/hide/cured, /obj/item/natural/hide/cured)
-	created_item = /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate
 
 // GOLD
 

@@ -1,8 +1,3 @@
-// A skill, currently meant to be for towner towner (excluding towner, the more freeform role atm)
-// Allows you to take on an apprentice, giving them one of the skill gating traits
-// And giving them Novice in corresponding skills. 
-// Meant to be used once per round per character. Cannot have more than one apprentice per character.
-// Encourage people to encourage w/ towners to get skills and give them a point of leverage.
 /obj/effect/proc_holder/spell/self/martial_prowess
 	name = "Appoint Protegé"
 	desc = "Take on an individual as your protegé, allowing them to level up their weapon skills past Expert. This ability gains a charge with the passing of each dae."

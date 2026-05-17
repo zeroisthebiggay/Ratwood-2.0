@@ -13388,7 +13388,7 @@
 "fhQ" = (
 /obj/item/clothing/suit/roguetown/armor/plate/ancient/decrepit,
 /obj/item/clothing/shoes/roguetown/boots/armor/ancient/decrepit,
-/obj/item/clothing/shoes/roguetown/boots/armor/ancient/decrepit,
+/obj/item/clothing/neck/roguetown/gorget/steel/ancinet/decrepit,
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/ancient/decrepit,
 /obj/structure/mannequin/male,
 /turf/open/floor/rogue/churchrough{

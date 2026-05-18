@@ -154,7 +154,7 @@
 		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT, 	// >camps and makes defenses in the wild >doesnt know how to track
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,		// Make your energy count, little silly individual
+		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,		// Make your ene- no. The adventurer has better athletics, you're a trained mercenary.
 		/datum/skill/labor/butchering = SKILL_LEVEL_APPRENTICE,		// meant to live off the land and set up camp.
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,		// learn 2 maintain your uniform.
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,		// Just so you don't suck at cooking

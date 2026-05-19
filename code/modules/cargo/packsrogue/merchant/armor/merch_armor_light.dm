@@ -71,8 +71,12 @@
 	name = "Padded Leather Hood" // The newer version of the hood that fits around the neck like a coif.
 	cost = 40
 	contains = list(
-					/obj/item/clothing/head/roguetown/helmet/leather/armorhood,
-				)
+					/obj/item/clothing/head/roguetown/helmet/leather/armorhood)
+
+/datum/supply_pack/rogue/light_armor/studded_leather_hood
+	name = "Studded Leather Hood"
+	cost = 50
+	contains = list(/obj/item/clothing/head/roguetown/helmet/leather/armorhood/advanced,)
 
 // Exotic import stuff goes here. Should probably be a little pricier than normal stuff. 2x average? Be sure to name the purchase option so it relates to the actual item, but also what slot it fills.
 

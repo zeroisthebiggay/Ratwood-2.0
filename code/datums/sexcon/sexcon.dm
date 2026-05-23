@@ -663,7 +663,15 @@
 
 /datum/sex_controller/proc/get_max_loads()
 	var/con = user.STACON
-	var/loads = 3 + floor(clamp((con - 10) * 2, 0, 99) / 2)
+	var/minimum_loads = 3
+	var/obj/item/organ/testicles/testes = user.getorganslot(ORGAN_SLOT_TESTICLES)
+	if(testes)
+		switch(testes.ball_size)
+			if(MIN_TESTICLES_SIZE)
+				minimum_loads = 2
+			if(MAX_TESTICLES_SIZE)
+				minimum_loads = 4
+	var/loads = minimum_loads + floor(clamp((con - 10) * 2, 0, 99) / 2)
 	if(HAS_TRAIT(user, TRAIT_GOODLOVER))
 		loads *= 1.5
 	if(HAS_TRAIT(user, TRAIT_BIGGUY))

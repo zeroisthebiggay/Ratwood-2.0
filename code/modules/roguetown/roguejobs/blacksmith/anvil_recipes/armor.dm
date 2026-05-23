@@ -608,7 +608,7 @@
 	additional_items = list(/obj/item/ingot/steel)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/beakhelm
 
-/datum/anvil_recipe/armor/helmetvolf
+/datum/anvil_recipe/armor/steel/helmetvolf
 	name = "Volf Face Helmet, Steel (+1 Steel)"
 	additional_items = list(/obj/item/ingot/steel)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/volfplate

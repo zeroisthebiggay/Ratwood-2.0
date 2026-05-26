@@ -1252,3 +1252,11 @@
 
 /obj/structure/mineral_door/wood/bath/courtesan
 	resident_advclass = list(/datum/advclass/nightmaiden/concubine, /datum/advclass/nightmaiden/courtesan, /datum/advclass/nightmaiden/dominatrix)
+
+/obj/structure/mineral_door/wood/wretched
+	locked = TRUE
+	keylock = TRUE
+	grant_resident_key = TRUE
+	resident_key_type = /obj/item/roguekey/townie
+	resident_role = list(/datum/job/roguetown/villager, /datum/job/roguetown/wretch)
+	lockid = null //Will be randomized
